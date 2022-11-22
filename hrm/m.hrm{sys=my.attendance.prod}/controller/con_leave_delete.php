@@ -1,0 +1,39 @@
+<?php
+if (isset($_POST['submit_cancel'])) {
+
+$modal_request_no       = $_POST['request_no'];
+
+
+$process = mysqli_query($connect, "UPDATE hrmrequestapproval      
+                                    SET 
+                                    request_status='8',
+                                    revised_remark='$modal_inp_remark'
+                                    WHERE request_no = '$modal_request_no' and request_status = '1'
+                              ");
+
+if($process)
+	{
+                  echo "<script type='text/javascript'>
+                              window.alert('Successfully update request to Revised'); 
+                              window.location.replace('../hrm{sys=time.attendance}');         
+                        </script>";
+	} else{
+            echo "<script type='text/javascript'>
+                        window.alert('Something went error');     
+                  </script>";
+      }
+}
+?>
+<?php
+//DEBUG
+// echo $modal_id . '<br>';
+// echo $modal_name . '<br>';
+// echo $modal_address . '<br>';
+// echo $modal_start . '<br>';
+// echo $modal_end . '<br>';
+// echo $modal_position . '<br>';
+// echo $modal_major . '<br>';
+// echo $modal_salary . '<br>';
+// echo $modal_benefits . '<br>';
+// echo $modal_reason . '<br>';
+// ?>

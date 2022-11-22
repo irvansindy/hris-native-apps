@@ -1,0 +1,44 @@
+<style type="text/css">
+body { margin:0; padding:0;	background:url("login-bg.png"); font:12px Verdana, Arial, Helvetica, sans-serif; color:#333}
+#login-bg {z-index:-1; background-position:center; background-repeat:no-repeat; position:absolute; width:100%; height:100%}
+#login-shadow { position:absolute; top:0; z-index:-1; width:100%; height:100%;opacity: 0.1;}
+#login-logo {background:url("sprite-login.png") no-repeat; background-position: -518px 0px; width:438px; height:296px; position:absolute; top:50%; margin-top:-190px; left:50%; margin-left: -440px;}
+#login-bg-top { background:url("login-bg-top.png") repeat-x; height:45%; width:100%; position:absolute; z-index:-2}
+#form-block {background:url("sprite-login.png") no-repeat; background-position: -96px -7px;width:423px; height:307px; position:absolute; top:50%; margin-top:-190px; left:50%}
+#title-form-block { font:bold 17px Verdana, Arial, Helvetica, sans-serif; color:#666; text-align:center; margin-top:17px; margin-bottom:17px}
+#form-block h4 { font:bold 15px Verdana, Arial, Helvetica, sans-serif; color:#666; text-align:left; margin:0; padding-left:32px; padding-bottom:5px; overflow:hidden; text-overflow:ellipsis}
+#form-login {width:370px; margin:0 auto; font:12px Verdana, Arial, Helvetica, sans-serif;}
+#form-login ul { margin:0; padding:0; list-style:none}
+#form-login ul li { padding:3px}
+#form-login ul li label { width:120px; padding:3px 5px}
+#form-login ul li input { width:200px; padding:3px 5px}
+#form-login ul li input#chkRemember {margin-left:-1px; width:15px; padding:3px 5px} 
+#form-login ul li input#btn-logon 
+{ background:url("sprite-login.png") no-repeat; background-position: -10px -63px; width:86px; padding:6px 0 7px; color:#fff; cursor:pointer; float:left; border:0; font-size:12px}
+#form-login ul li input#btn-logon:hover { background:url("sprite-login.png") no-repeat;background-position: -10px -33px; width:86px; padding:6px 0 7px}
+#tid_loginsaas { }
+#txtAccount { background:#d7eff8; border:1px solid #7f9db9}
+#tid_loginlink { float:left; line-height:27px; }
+#tid_loginlink a { text-decoration:none; color:#333}
+#tid_loginlink a:hover { text-decoration:underline}
+#forgot-pass a { text-decoration:none; color:#333; line-height:32px;}/* margin-left:7px*/
+#forgot-pass a:hover { text-decoration:underline}
+#switch-mode { position:absolute; top:50%; left:50%; margin-top:-212px; margin-left:-2px;z-index: 3;padding-left: 15px;padding-right: 15px;}
+#tid_selanguage { /*position:absolute; left:50%; top:50%; margin-top:-215px; z-index:1;*/ width:400px; height:50px}
+#ver { font-size:11px; color:#666; position:absolute; top:200px; right:15px}
+.copyright { text-align:center; font-size:12px; position:absolute; top:50%; margin-top:200px; left:50%; margin-left:-250px; width:500px; padding:10px 0; opacity:0.75; background:#fff; border-radius:5px}
+#copyright_logo { background:url("sprite-login.png") no-repeat; background-position: -10px -94px; width:84px; height:36px}
+#color-theme { position:absolute; left:50%; top:50%; margin-top:-215px; z-index:2; display:none}
+.ct-1 { background:url("sprite-login.png") no-repeat; background-position: -10px -10px; width:21px; height:21px; margin-right:5px;}
+.ct-2 { background:url("sprite-login.png") no-repeat; background-position: -31px -10px; width:21px; height:21px; margin-right:5px;}
+.ct-3 { background:url("sprite-login.png") no-repeat; background-position: -52px -10px; width:21px; height:21px; margin-right:5px;}
+
+#color-theme div { cursor:pointer}
+#color-theme span { font-weight:bold; float:left; padding:4px 5px}
+#app-mode { /*position:absolute; left:50%; top:50%; margin-top:-215px; z-index:2;*/ display:block; float:left}
+#app-mode div { cursor:pointer; float:left}
+#app-mode span { font-weight:bold; float:left; padding:4px 5px}
+#p_langlist{ float:right; position:relative}
+#p_langlist div{float: left;padding-bottom: 3px;padding-left: 10px;padding-right: 10px;padding-top: 3px;}
+#divLang { clear:both; background:#fff; border:1px solid #999; position:absolute!important; right:0!important; top:23px!important; left:auto!important; min-width:100px}
+</style>

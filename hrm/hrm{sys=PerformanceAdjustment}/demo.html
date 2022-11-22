@@ -1,0 +1,27 @@
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
+<link rel="stylesheet" href="others/css/demo.css">
+<link rel="stylesheet" href="others/src/topper.css">
+
+<button id="topper-top">topper-top</button>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
+    crossorigin="anonymous"></script>
+<script src="others/src/topper.js"></script>
+<script>
+    $(document).ready(function () {
+        $(document).on('click', '#topper-top', function () {
+
+            Topper({
+                title: 'My Alert',
+                text: 'This is my sample notification.',
+                style: 'danger',
+                type: 'top',
+                autoclose: true,
+                autocloseAfter: 2500
+            });
+
+        });
+    });
+</script>

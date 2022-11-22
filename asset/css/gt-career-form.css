@@ -1,0 +1,166 @@
+.buttonsubmit{ 
+				/*text-align: left; */
+			}
+
+.form-group.required .control-label:after {
+  	content:"*";
+  	color:red;
+}
+
+.page-header-custom{
+	margin-top:-30px;
+}
+
+.sample-icon-list .sample-icon a:hover{
+	/*background-color: #FFF;*/
+}
+
+.resume-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom:20px;
+}
+
+.resume-sub-title {
+    font-size: 17px;
+    color: #333;
+}
+
+.space-between-row {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.small-form-group {
+    margin-bottom: 0;
+    color: #333;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+}
+
+.custom-control-data-label {
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 0;
+}
+
+.form-horizontal .form-group {
+    margin-left: -33px; /* custom. default -5px */
+    margin-right: -5px;
+}
+
+.form-horizontal-custom .form-group {
+    margin-left: -15px; /* custom. default -5px */
+    margin-right: -5px;
+}
+
+.experience-text, .education-text {
+    color: #595959;
+    font-size: 13px;
+}
+
+.form-margin{ /* for separate content and form (development mode) */
+	margin-bottom:100px;
+}
+
+.fa{
+	color: #1c3f94;;
+}
+
+.fa-pencil-custom{
+	float: right;
+	margin-right:35px;
+}
+
+.fa-trash-o-custom{
+	float: right;
+	margin-right:10px;
+}
+
+.fa-plus-square-custom{
+	float:right;
+	margin-right:20px;
+	font-size:14px;
+}
+
+.fa-print-custom{
+    float:right;
+    margin-right:20px;
+    font-size:14px;
+}
+
+.fa-text-custom{
+	margin-left:10px;
+	color:#333;
+	font-family: "Open Sans", Arial, sans-serif;
+}
+
+.resume-subtitle-custom{
+	font-size: 13px;
+	margin-top:-30px;
+}
+
+.resume-section-content {
+    margin-top: 10px;
+}
+
+.language-form-group {
+	margin-bottom: 6px;
+	color: #333;
+}
+
+.resume-section-content .control-label {
+	line-height: 20px;
+}
+
+.my-profile{
+	margin-bottom:10px;
+	border-bottom: 1px solid #EDEDDE;
+	color:#666;
+}
+
+.my-profile:hover, .my-profile:focus{
+	background-color: #CCC;
+}
+
+.profile-name{
+	margin:-10px 0 0 20px;
+	font-size:16px;
+	line-height:10px;
+}
+
+.hr-space{
+	margin:50px 0 50px 0;
+}
+
+/* application status */
+.panel {
+    margin-bottom: 10px;
+    border: 0;
+}
+
+.panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+
+.panel-card .card-body .card-primary {
+    position: relative;
+}
+
+/* ga kepanggil ga tau knp */
+.panel-card .card-body .card-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #1c3f94;
+}
+
+.panel-card .card-body .sub-info {
+    font-size: 12px;
+    color: #999;
+    margin-top: 5px;
+}

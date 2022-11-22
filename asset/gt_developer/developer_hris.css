@@ -1,0 +1,338 @@
+
+/* res.displaycss//sflow:SFDEMO-FS15-1-DPX */
+/* res.displaycss//sflow:SFDEMO-FS15-1-DPX */
+@media only screen and (max-width:1365px) {
+ .sf_header_search {
+  float:none !important;
+  position:absolute !important;
+  right:-10px !important;
+  bottom:-24px !important
+ }
+ .sf_header_right {
+  margin-top:0 !important
+ }
+ .sf_header_language {
+  float:none !important;
+  margin-left:-6px !important
+ }
+ .sf_header_left {
+  margin-top:4px !important
+ }
+}
+#tableOTSetting .calcontainer {
+ display:-webkit-box
+}
+#inp_accesstree .right {
+ width:130px !important
+}
+.ui-tooltip,
+.qtip {
+ max-width:unset !important;
+ width:unset !important
+}
+#search-selected {
+ height:20px !important
+}
+#search-selected img {
+ top:78px !important
+}
+#divGridFilter {
+ width:400px !important
+}
+* {
+ scrollbar-width:thin
+}
+
+::-webkit-scrollbar {
+ width:7px
+}
+::-webkit-scrollbar-track {
+ background:#f0f0f0
+}
+::-webkit-scrollbar-thumb {
+ background:#cdcdcd
+}
+::-webkit-scrollbar-thumb:hover {
+ background:#a6a6a6
+}
+.tme div#hr,
+.tme div#mn,
+.tme div#sc,
+.tme div#ampm {
+ background:none !important;
+ box-shadow:none !important;
+ border:0 !important;
+ margin-right:15px !important
+}
+@font-face {
+ font-family:"Open Sans";
+ src:url(/sf6lib/skins/sflow/fonts/OPENSANS-REGULAR.TTF)
+}
+body {
+ font-family:"Open Sans",sans-serif !important;
+ font-size:12px;
+ margin:0
+}
+#pageBodyHRM {
+ min-width:1100px
+}
+body.fullsize {
+ font-family:"Open Sans",sans-serif !important;
+ font-size:12px;
+ margin-left:0;
+ margin-top:0;
+ margin-right:0;
+ margin-bottom:0
+}
+#touch {
+ height:96%
+}
+.micon {
+ background:red
+}
+
+#content-title-bc {
+ background:0;
+ height:29px;
+ line-height:27px;
+ padding-left:10px;
+ font-size:12px
+}
+.wndfooter {
+ background:#259cd4;
+ color:#fff;
+ height:28px;
+ vertical-align:top;
+ padding-top:6px
+}
+#toolbarlist {
+ float:right;
+ margin:2px 0
+}
+#toolbarlist div {
+ float:left
+}
+.toolbar {
+ margin-right:10px;
+ width:25px;
+ height:25px;
+ background-color:none
+}
+.toolbar-load {
+       margin-right:10px;
+       width:80px;
+       height:25px;
+       background-color:none
+      }
+.area {
+ background:#eee;
+ width:100%;
+ height:100%;
+ border:0;
+ overflow:hidden
+}
+.darea {
+ background-color:#eee;
+ width:100%;
+ height:100%;
+ border-right:0;
+ position:relative
+}
+.sprite-toolbar-pdf {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:0 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-excel {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-25px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-print {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-50px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-search {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-75px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-add {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-100px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-filter {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-125px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-filter-load {
+
+       background-position:-12px 0;
+       background-repeat:no-repeat;
+       cursor:pointer
+      }
+.sprite-toolbar-back {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-150px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-tree {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-175px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-css {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-200px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-openoffice {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-225px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-org {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-250px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-reload {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-275px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-help {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-300px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-upload {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-325px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-reorder {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-350px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-edit {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-375px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-close {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-400px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-remove {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-425px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-save {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-450px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-leavebalance {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-475px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-ticketing {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-500px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-massmove {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-525px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-careerpath {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-550px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-lock {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-575px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-preview {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-600px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-tour {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-625px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-settingwn {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-650px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-salaryRange {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-675px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-mandatoryTraining {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-700px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-waitinglist {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-725px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-duplicate {
+ background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+ background-position:-750px 0;
+ background-repeat:no-repeat;
+ cursor:pointer
+}
+.sprite-toolbar-cus {
+      background-image:url('../../asset/dist/img/icons/icon-sprite-toolbar.png');
+      background-position:-775px 0;
+      background-repeat:no-repeat;
+      cursor:pointer
+}

@@ -1,0 +1,360 @@
+
+			<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
+			<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+			
+			
+				<style>
+					
+					.style0{
+						mso-number-format:General;
+						text-align:general;
+						vertical-align:bottom;
+						white-space:nowrap;
+						mso-rotate:0;
+						mso-background-source:auto;
+						mso-pattern:auto;
+						color:windowtext;
+						font-size:10.0pt;
+						font-weight:400;
+						font-style:normal;
+						text-decoration:none;
+						font-family:Arial;
+						mso-generic-font-family:auto;
+						mso-font-charset:0;
+						border:none;
+						mso-protection:locked visible;
+						mso-style-name:Normal;
+						mso-style-id:0;
+					}
+				
+					.title{
+						font-size: 16px;
+						text-align:center;
+						vertical-align:middle;
+						font-weight:bold;
+						white-space:nowrap;
+						height: 80px;
+						border:none;
+						padding-bottom: 4px;
+						padding-left: 4px;
+						padding-right: 4px;
+						padding-top: 4px;
+						mso-number-format:"\@";
+					}
+					.other{
+						font-size: 12px;
+						white-space:nowrap;
+						height: 25px;
+						padding-bottom: 4px;
+						padding-left: 4px;
+						padding-right: 4px;
+						padding-top: 4px;
+						mso-number-format:"\@";
+					}
+					table {
+						min-width: 1000px;
+					}--->
+				</style>
+			
+		
+		
+			<table x:str border="0" bordercolor="gray" cellspacing="1" cellpadding="0" width="100%">
+				
+				
+				<tr><td colspan="2" class="title"><img lang='sfdocimage' src='?sfid=sys.util.getfile&amp;code=companylogo&amp;thumb=true&amp;fname=company_logo_cid13576.jpg' align='left' border='0' height='80px' > 
+				</td><td colspan="5" class="title"><b>Master Minus Poin</b></td>
+				</tr>
+				
+				<tr style="height:10px"></tr>
+			</table>
+			<table x:str border="0" bordercolor="gray" cellspacing="1" cellpadding="0" width="100%">
+				<tr>
+					<td style="border:.5pt solid gray;" align="center"><b>No</b></td>
+					
+						<td style="border:.5pt solid gray;" align="center"><b>GT Status Code</b></td>
+					
+						<td style="border:.5pt solid gray;" align="center"><b>GT Attendance Status</b></td>
+					
+						<td style="border:.5pt solid gray;" align="center"><b>Condition</b></td>
+					
+						<td style="border:.5pt solid gray;" align="center"><b>Minus Poin</b></td>
+					
+						<td style="border:.5pt solid gray;" align="center"><b>Order No</b></td>
+					
+						<td style="border:.5pt solid gray;" align="center"><b>Last Modified</b></td>
+					
+				</tr>
+				
+					
+					<tr><td style="border:.5pt solid gray;" x:num>1</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > LTEO</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > </td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > -</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 0.5</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 10</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 2019-05-21&nbsp;14:05:33.0</td>
+						
+						
+					</tr>
+				
+					
+					<tr><td style="border:.5pt solid gray;" x:num>2</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > ABSN</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > ABSN</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > -</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 5.0</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 0</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 2017-10-30&nbsp;14:11:17.0</td>
+						
+						
+					</tr>
+				
+					
+					<tr><td style="border:.5pt solid gray;" x:num>3</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > EOUT</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > EOUT</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > </td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 0.5</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 0</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 2019-10-15&nbsp;14:48:56.0</td>
+						
+						
+					</tr>
+				
+					
+					<tr><td style="border:.5pt solid gray;" x:num>4</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > HDAB</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > HDAB</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > </td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 2.5</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 0</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 2019-10-15&nbsp;14:48:24.0</td>
+						
+						
+					</tr>
+				
+					
+					<tr><td style="border:.5pt solid gray;" x:num>5</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > HDPR</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > HDPR</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > -</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 1.0</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 0</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 2017-10-30&nbsp;14:22:14.0</td>
+						
+						
+					</tr>
+				
+					
+					<tr><td style="border:.5pt solid gray;" x:num>6</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > INCA</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > INCA</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > -</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 2.5</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 0</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 2017-12-08&nbsp;15:05:51.0</td>
+						
+						
+					</tr>
+				
+					
+					<tr><td style="border:.5pt solid gray;" x:num>7</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > LATE</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > LATE</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > -</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 0.5</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 0</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 2018-01-23&nbsp;17:37:43.0</td>
+						
+						
+					</tr>
+				
+					
+					<tr><td style="border:.5pt solid gray;" x:num>8</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > PERM</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > PERM</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > -</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 2.0</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 0</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 2018-01-23&nbsp;17:35:31.0</td>
+						
+						
+					</tr>
+				
+					
+					<tr><td style="border:.5pt solid gray;" x:num>9</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > S2</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > S2</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > -</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 0.5</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 10</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 2019-05-20&nbsp;14:01:50.0</td>
+						
+						
+					</tr>
+				
+					
+					<tr><td style="border:.5pt solid gray;" x:num>10</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > SICK</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > SICK</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > -</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 1.0</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 0</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 2018-01-23&nbsp;17:40:31.0</td>
+						
+						
+					</tr>
+				
+					
+					<tr><td style="border:.5pt solid gray;" x:num>11</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > SP1</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > SP1</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > -</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 10.0</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 10</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 2019-05-20&nbsp;13:59:49.0</td>
+						
+						
+					</tr>
+				
+					
+					<tr><td style="border:.5pt solid gray;" x:num>12</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > SP2</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > SP2</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > -</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 20.0</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 10</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 2019-05-20&nbsp;14:00:20.0</td>
+						
+						
+					</tr>
+				
+					
+					<tr><td style="border:.5pt solid gray;" x:num>13</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > SP3</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > SP3</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > -</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 30.0</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 10</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 2019-05-20&nbsp;14:01:01.0</td>
+						
+						
+					</tr>
+				
+					
+					<tr><td style="border:.5pt solid gray;" x:num>14</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > SUSP</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > SUSP</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > -</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 40.0</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 0</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 2018-01-23&nbsp;17:36:22.0</td>
+						
+						
+					</tr>
+				
+					
+					<tr><td style="border:.5pt solid gray;" x:num>15</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > SWMC</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > SWMC</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > -</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 5.0</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 10</td>
+						
+							<td style="border:.5pt solid gray;" class="other" align="left" > 2019-05-20&nbsp;13:59:18.0</td>
+						
+						
+					</tr>
+				
+			</table>
+			</html>
+			

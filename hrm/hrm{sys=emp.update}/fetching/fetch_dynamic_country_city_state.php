@@ -1,0 +1,48 @@
+<?php include "../../../application/config.php";?>
+<?php
+if(isset($_POST["action"]))
+{
+ $output = '';
+ if($_POST["action"] == "country")
+ {
+  $query = "SELECT state_id,state_name FROM hrmstate WHERE country_id = '".$_POST["query"]."' GROUP BY state_name";
+  $result = mysqli_query($connect, $query);
+  $output .= '<option value="">Pilih Provinsi</option>';
+  while($row = mysqli_fetch_array($result))
+  {
+   $output .= '<option value="'.$row["state_id"].'">'.$row["state_name"].'</option>';
+  }
+ }
+ if($_POST["action"] == "state")
+ {
+  $query = "SELECT city_id,city_name FROM hrmcity WHERE state_id = '".$_POST["query"]."'";
+  $result = mysqli_query($connect, $query);
+  $output .= '<option value="">Pilih Kota / Kabupaten</option>';
+  while($row = mysqli_fetch_array($result))
+  {
+   $output .= '<option value="'.$row["city_id"].'">'.$row["city_name"].'</option>';
+  }
+ }
+ if($_POST["action"] == "city")
+ {
+  $query = "SELECT district_id,district_name FROM hrmdistrict WHERE city_id = '".$_POST["query"]."'";
+  $result = mysqli_query($connect, $query);
+  $output .= '<option value="">Pilih Kecamatan</option>';
+  while($row = mysqli_fetch_array($result))
+  {
+   $output .= '<option value="'.$row["district_id"].'">'.$row["district_name"].'</option>';
+  }
+ }
+ if($_POST["action"] == "district")
+ {
+  $query = "SELECT subdistrict_id,subdistrict_name FROM hrmsubdistrict WHERE district_id = '".$_POST["query"]."'";
+  $result = mysqli_query($connect, $query);
+  $output .= '<option value="">Pilih Kelurahan</option>';
+  while($row = mysqli_fetch_array($result))
+  {
+   $output .= '<option value="'.$row["subdistrict_id"].'">'.$row["subdistrict_name"].'</option>';
+  }
+ }
+ echo $output;
+}
+?>

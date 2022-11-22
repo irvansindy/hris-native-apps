@@ -1,0 +1,1 @@
+"C:\xampp\php\php.exe" -f "C:\xampp\htdocs\PushNotificationSystem\sqlsserv\index.php"

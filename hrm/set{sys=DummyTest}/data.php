@@ -112,56 +112,33 @@ $(document).ready(function() {
 
 <div class="col-md-12">
 	<div class="card">
-			<div class="card-header d-flex align-items-center">
-					<h4 class="card-title mb-0">Overtime Reason Setting </h4>
-					<div class="card-actions ml-auto">
-						<table>
-								<td>
-										<form action="../rfid=repository/cli_Template_Download/st/StFunctionDownload.php" method="GET">
-												<input type="hidden" name="filedata" value="StDownloadGTTGROvertimeReasonData.php">
-												<input type="hidden" name="filename" value="OvertimeReason">
-												<input type="hidden" name="src_reason_code" value="<?php echo $src_reason_code; ?>">
-												<input type="hidden" name="src_reason_name_en" value="<?php echo $src_reason_name_en; ?>">
-												<button type="submit" class="toolbar sprite-toolbar-excel" id="EXCEL" style="border: 0;background-color: white;" name="submit_approve" value="submit"></button>
-										</form>
-
-								</td>
-								<td>
-
-										<a href='#' class='open_modal_search' class="btn btn-demo" data-toggle="modal" data-target="#myModal2">
-												<div class="toolbar sprite-toolbar-search" id="SEARCH" title="Search">
-												</div>
-										</a>
-
-
-
-								</td>
-								<!-- AgusPrass 02/03/2021 Menghapus # pada href-->
-								<td>
-										<div class="toolbar sprite-toolbar-reload" id="RELOAD" title="Reload"
-												onclick="RefreshPage();">
-										</div>
-
-										
-
-
-								</td>
-								<!-- AgusPrass 02/03/2021 -->
-
-								<td>
-										<div class="toolbar sprite-toolbar-add" title="Add" data-toggle="modal"
-												data-target="#CreateForm" id="CreateButton" data-keyboard="false"
-												data-backdrop="static">
-												<!-- <a title="add" href="" class="toolbar sprite-toolbar-add" data-toggle="modal" data-target="#CreateForm" id="CreateButton" data-keyboard="false" data-backdrop="static">tambah</a> -->
-										</div>
-								</td>
-
-						</table>
-
-						
-
-					</div>
+		<div class="card-header d-flex align-items-center">
+			<h4 class="card-title mb-0">Overtime Reason Setting </h4>
+			<div class="card-actions ml-auto">
+				<table>
+					<td>
+						<form action="../rfid=repository/cli_Template_Download/st/StFunctionDownload.php" method="GET">
+							<input type="hidden" name="filedata" value="StDownloadGTTGROvertimeReasonData.php">
+							<input type="hidden" name="filename" value="OvertimeReason">
+							<input type="hidden" name="src_reason_code" value="<?php echo $src_reason_code; ?>">
+							<input type="hidden" name="src_reason_name_en" value="<?php echo $src_reason_name_en; ?>">
+						</form>
+					</td>
+					<td>
+						<div class="toolbar sprite-toolbar-reload" id="RELOAD" title="Reload"
+							onclick="RefreshPage();">
+						</div>
+					</td>
+					<!-- AgusPrass 02/03/2021 -->
+					<td>
+						<div class="toolbar sprite-toolbar-add" title="Add" data-toggle="modal"
+							data-target="#CreateForm" id="CreateButton" data-keyboard="false"
+							data-backdrop="static">
+						</div>
+					</td>
+				</table>
 			</div>
+		</div>
 
 			<div class="card-body table-responsive p-0"
 					style="width: 100vw;height: 78vh; width: 99.8%; margin: 5px;overflow: scroll;">
@@ -489,7 +466,7 @@ function RefreshPage() {
 $(document).ready(function() {
 	$("#CreateButton").on('click', function() {
 
-		alert("Dummy Test");
+		// alert("Dummy Test");
 		// reset the form 
 		$("#FormDisplayCreate")[0].reset();
 		// empty the message div
@@ -629,9 +606,6 @@ function editMember(id = null) {
 					$(".text-danger").remove();
 
 					var form = $(this);
-
-					// var debug_by_col1         = $("#debug_by_col1").val();
-					// var sel_reason_name_id      = $("#sel_reason_name_id").val();
 					var edit_col1      = $("#edit_col1").val();
 					var edit_col2      = $("#edit_col2").val();
 					var edit_col3      = $("#edit_col3").val();

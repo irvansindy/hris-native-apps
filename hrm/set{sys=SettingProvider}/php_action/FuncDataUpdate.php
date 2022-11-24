@@ -1,76 +1,60 @@
 <?php 
 require_once '../../../application/config.php';
 
-$years		   	= date("Y");
-$flag		   	= date("his");
 //if form is submitted
 if($_POST) {	
 
 	$validator = array('success' => false, 'messages' => array());
 
-	$sel_employee		= strtoupper($_POST['sel_employee']);
-	
+	$provider_code 	= $_POST['edit_provider_code'];
+	$provider_name 	= strtoupper($_POST['edit_provider_name']);
+	$provider_type 	= strtoupper($_POST['edit_provider_type']);
+	$pic 	= strtoupper($_POST['edit_pic']);
+	$provider_country 	= strtoupper($_POST['edit_provider_country']);
+	$provider_state 	= strtoupper($_POST['edit_provider_state']);
+	$provider_city 	= strtoupper($_POST['edit_provider_city']);
+	$zipcode 	= strtoupper($_POST['edit_zipcode']);
+	$provider_email 	= strtoupper($_POST['edit_provider_email']);
+	$provider_phone 	= strtoupper($_POST['edit_provider_phone']);
+	$provider_fax 	= strtoupper($_POST['edit_provider_fax']);
+	$provider_website 	= strtoupper($_POST['edit_provider_website']);
+	$provider_speciality 	= strtoupper($_POST['edit_provider_speciality']);
+	$provider_address 	= strtoupper($_POST['edit_provider_address']);
+	$provider_remark 	= strtoupper($_POST['edit_provider_remark']);
 
-	$get_company			= mysqli_fetch_array(mysqli_query($connect, "SELECT company_id FROM view_employee WHERE emp_no = '$sel_employee'"));
+	$sql = "UPDATE trnprovider SET 
+			`provider_name` = '$provider_name',
+			`provider_type` = '$provider_type',
+			`pic` = '$pic',
+			`city_id` = '$provider_city',
+			`state_id` = '$provider_state',
+			`country_id` = '$provider_country',
+			`zipcode` = '$zipcode',
+			`phone` = '$provider_phone',
+			`fax` = '$provider_fax',
+			`email` = '$provider_email',
+			`web_address` = '$provider_website',
+			`speciality` = '$provider_speciality',
+			`address` = '$provider_address',
+			`remark` = '$provider_remark'
+				WHERE provider_code = '$provider_code'";
 
-	
-	
-	$sql_0 = "DELETE FROM `users_menu_access` WHERE `emp_no` = '$sel_employee'";
-	$query_0 = $connect->query($sql_0);	
+	// print_r($sql);
+	// die();
+	// condition start
+	$query = $connect->query($sql);
 
-	for($iemg=0;$iemg<count($_POST['sel_application_menu']);$iemg++){
-		$iemg_plus = $iemg+1;
-		$sel_application_menu	= $_POST['sel_application_menu'][$iemg];
-		
-		if($sel_application_menu!==''){
-	 
-			$sql_1 = "INSERT INTO `users_menu_access` 
-										(
-											`emp_no`, 
-											`formula`, 
-											`company_id`
-										) 
-											VALUES 
-												(
-													'$sel_employee',
-													'$sel_application_menu', 
-													'$get_company[company_id]'
-													
-												)
-			";
-
-			
-			$query_1 = $connect->query($sql_1);	
-
-			$alert_0          = mysqli_fetch_array(mysqli_query($connect, "SELECT alert FROM hrmalert WHERE id_alert = '6'"));
-			$alert_print_0    = $alert_0['alert'];
-			$alert_1          = mysqli_fetch_array(mysqli_query($connect, "SELECT alert FROM hrmalert WHERE id_alert = '7'"));
-			$alert_print_1    = $alert_1['alert'];
-
-				if($query_1 == TRUE) {						
-					$validator['success'] = true;
-					$validator['code'] = "success_message";
-					$validator['messages'] = $alert_print_0;			
-				} else {		
-					$validator['success'] = false;
-					$validator['code'] = "failed_message";
-					$validator['messages'] = $alert_print_1.  $sql_0;
-				}
-	 
-		} else {	
-			
-			$alert_0          = mysqli_fetch_array(mysqli_query($connect, "SELECT alert FROM hrmalert WHERE id_alert = '6'"));
-			$alert_print_0    = $alert_0['alert'];
-			$alert_1          = mysqli_fetch_array(mysqli_query($connect, "SELECT alert FROM hrmalert WHERE id_alert = '7'"));
-			$alert_print_1    = $alert_1['alert'];
-			
-			$validator['success'] = false;
-			$validator['code'] = "failed_message";
-			$validator['messages'] = $alert_print_1 . $sql_0;	
-		}
+	if($query == TRUE) {						
+		$validator['success'] = true;
+		$validator['code'] = "success_message";
+		$validator['messages'] = "Successfully Update data";			
+	} else {		
+		$validator['success'] = false;
+		$validator['code'] = "failed_message";
+		$validator['messages'] = "Failed Update data";	
 	}
+	// condition ends
 
-	
 	// close the database connection
 	$connect->close();
 	echo json_encode($validator);

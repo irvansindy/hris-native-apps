@@ -3,16 +3,17 @@ require_once '../../../application/config.php';
 
 $validator = array('success' => false, 'messages' => array());
 
-$debug_by_col1 = $_POST['debug_by_col1'];
+// $debug_by_col1 = $_POST['debug_by_col1'];
+$provider_code = $_POST['provider_code'];
 
-$sql = "DELETE FROM debug WHERE col1 = '$debug_by_col1'";
+$sql = "DELETE FROM trnprovider WHERE provider_code = '$provider_code'";
 
 $query = $connect->query($sql);
 
 if($query == TRUE) {	
 	$validator['success'] = true;
 	$validator['code'] = "success_message";
-	$validator['messages'] = "Successfully delete data";			
+	$validator['messages'] = "Successfully delete data";
 } else {		
 	$validator['success'] = false;
 	$validator['code'] = "failed_message";

@@ -8,7 +8,7 @@ if($_POST) {
 
 	$validator = array('success' => false, 'messages' => array());
 
-	$provider_name 	= strtoupper($_POST['provider_name']);
+	$provider_name 	= $_POST['provider_name'];
 	$provider_type 	= strtoupper($_POST['provider_type']);
 	$pic 	= strtoupper($_POST['pic']);
 	$provider_country 	= strtoupper($_POST['provider_country']);

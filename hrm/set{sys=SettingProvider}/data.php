@@ -196,7 +196,7 @@ $(document).ready(function() {
 									id="provider_name" name="provider_name"
 									type="Text" value="" size="30"
 									maxlength="50"
-									style="text-transform:uppercase;width: 80%;"
+									style="width: 80%;"
 									validate="NotNull:Invalid Form Entry"
 									onchange="formodified(this);" title="">
 							</div>
@@ -290,7 +290,7 @@ $(document).ready(function() {
 									id="provider_email" name="provider_email"
 									type="email" value="" size="30"
 									maxlength="50"
-									style="text-transform:uppercase;width: 80%;"
+									style="width: 80%;"
 									validate="NotNull:Invalid Form Entry"
 									onchange="formodified(this);" title="">
 							</div>
@@ -332,7 +332,7 @@ $(document).ready(function() {
 									id="provider_website" name="provider_website"
 									type="Text" value="" size="30"
 									maxlength="50"
-									style="text-transform:uppercase;width: 80%;"
+									style="width: 80%;"
 									validate="NotNull:Invalid Form Entry"
 									onchange="formodified(this);" title="">
 							</div>
@@ -670,7 +670,7 @@ $(document).ready(function() {
 						<label id="isi">Are you sure to delete data ?</label>
 					</td>
 				</table>		
-				<input type="hidden" class="form-control input-report" id="del_dummy_debug_by_col1" name="debug_by_col1" placeholder="">
+				<input type="hidden" class="form-control input-report" id="del_provider_code" name="provider_code" placeholder="">
 			</div>
 		</div>
 		<div class="modal-footer-delete FormDisplayDelete" style="text-align: center;padding-top: 20px;">
@@ -1023,13 +1023,15 @@ if(id) {
 
 	// fetch the member data
 	$.ajax({
-		url: 'php_action/getSelectedEmployee.php',
+		url: 'php_action/getSettingProviderById.php',
 		type: 'post',
-		data: {member_id : id},
+		data: {
+			provider_code: id
+		},
 		dataType: 'json',
 		success:function(response) {
 
-			$("#del_dummy_debug_by_col1").val(response.col1);
+			$("#del_provider_code").val(response.provider_code);
 
 			// mmeber id 
 			$(".FormDisplayDelete").append('<input type="hidden" name="member_id" id="member_id" value="'+response.id+'"/>');
@@ -1042,9 +1044,9 @@ if(id) {
 				var form = $(this);
 
 				// validation
-				var del_dummy_debug_by_col1 = $("#del_dummy_debug_by_col1").val();
+				var del_provider_code = $("#del_provider_code").val();
 
-				if(del_dummy_debug_by_col1 == "") {
+				if(del_provider_code == "") {
 					modals.style.display ="block";
 					document.getElementById("msg").innerHTML = "Shiftgroup schedule code cannot empty";
 				} else {
@@ -1052,7 +1054,7 @@ if(id) {
 					$('#submit_delete2').show();
 				}
 
-				if(del_dummy_debug_by_col1) {
+				if(del_provider_code) {
 					$.ajax({
 						url: form.attr('action'),
 						type: form.attr('method'),

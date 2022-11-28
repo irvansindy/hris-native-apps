@@ -36,7 +36,7 @@
 									<input class="input--style-6"
 										autocomplete="off" autofocus="on" id="src_reason_code"
 										name="src_reason_code" id="src_reason_code" type="Text" value="<?php echo $src_reason_code; ?>"
-									 size="30" maxlength="50" 
+										size="30" maxlength="50" 
 										validate="NotNull:Invalid Form Entry"
 										onchange="formodified(this);" title="">
 								</div>
@@ -50,7 +50,7 @@
 									<input class="input--style-6"
 										autocomplete="off" autofocus="on"
 										name="src_reason_name_en" id="src_reason_name_en" type="Text" value="<?php echo $src_reason_name_en; ?>"
-									 size="30" maxlength="50" 
+										size="30" maxlength="50" 
 										validate="NotNull:Invalid Form Entry"
 										onchange="formodified(this);" title="">
 								</div>

@@ -69,6 +69,9 @@
 	</div><!-- modal-dialog -->
 </div><!-- modal -->
 
+
+
+
 <!-- MAIN DATATABLE SERVERSIDE CSS -->
 <!-- MAIN DATATABLE SERVERSIDE CSS -->
 <script type="text/javascript" src="../../asset/sdk_datatables_core/gt_dist/jQuery-2.1.4.min.js"></script>
@@ -105,7 +108,6 @@
 			},
 			destroy: true,
 			"ajax": "php_action/FuncDataRead.php<?php echo $frameworks; ?>"
-			
 		});
 	});
 </script>
@@ -166,22 +168,18 @@
 					<tr>
 						<th class="fontCustom" style="z-index: 1;vertical-align: ce;vertical-align: middle;"
 							nowrap="nowrap">No.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-						<th class="fontCustom" style="z-index: 1;vertical-align: ce;vertical-align: middle;"
-							nowrap="nowrap">
-							Purpose Type Code</th>
-						<th class="fontCustom" style="z-index:1;vertical-align: ce;vertical-align: middle;">Purpose Type
-							Name
+						<th class="fontCustom" style="z-index: 1;vertical-align: ce;vertical-align: middle;" nowrap="nowrap">
+							Instructor Code
 						</th>
-						<th class="fontCustom" style="z-index:1;vertical-align: ce;vertical-align: middle;">Allowance
-							Item
+						<th class="fontCustom" style="z-index:1;vertical-align: ce;vertical-align: middle;">
+							Instructor Name
 						</th>
+						<!-- <th class="fontCustom" style="z-index:1;vertical-align: ce;vertical-align: middle;">
+							Code
+						</th> -->
 						<th class="fontCustom" style="z-index: 1;vertical-align: ce;vertical-align: middle;">
 							Action
 						</th>
-						<!-- <th class="fontCustom" style="z-index: 1;vertical-align: ce;vertical-align: middle;">Grade</th>
-                                    
-						<th class="fontCustom" style="z-index: 1;vertical-align: ce;vertical-align: middle;">Join Date</th>
-                                                                <th class="fontCustom" style="z-index: 1;vertical-align: ce;vertical-align: middle;">Employment Code</th> -->
 					</tr>
 				</thead>
 			</table>
@@ -190,19 +188,17 @@
 
 		<div class='card-footer' style='background-color: #eee;height: 37px;padding-top: 5px;'>
 
-
-
 		</div>
 
 	</div>
 </div>
 
-<!-- add modal -->
+<!-- add data instructor modal -->
 <div class="modal  fade fade-custom" tabindex="-1" role="dialog" id="CreateForm">
 	<div class="modal-dialog modal-belakang modal-bs" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Add Purpose Type</h4>
+				<h4 class="modal-title">Add Data Instructor</h4>
 				<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close"
 					style="margin-top: -15px;">
 					<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
@@ -212,7 +208,7 @@
 			<form class="form-horizontal" action="php_action/FuncDataCreate.php" method="POST" id="FormDisplayCreate">
 
 				<fieldset id="fset_1">
-					<legend>General</legend>
+					<legend>Form Data</legend>
 
 					<div class="messages_create"></div>
 
@@ -222,12 +218,12 @@
 					<!--FROM CONFIGURATION -->
 
 					<div class="form-row">
-						<div class="col-4 name">Code <span class="required">*</span></div>
+						<div class="col-4 name">Instructor Code <span class="required">*</span></div>
 						<div class="col-sm-8">
 							<div class="input-group">
 
-								<input class="input--style-6" autocomplete="off" autofocus="on" id="inp_purpose_code"
-									name="inp_purpose_code" type="Text" value="" onfocus="hlentry(this)" size="30"
+								<input class="input--style-6" autocomplete="off" autofocus="on" id="instructor_code"
+									name="instructor_code" type="Text" value="" onfocus="hlentry(this)" size="30"
 									maxlength="50" style="text-transform:uppercase;width: 60%;"
 									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="">
 							</div>
@@ -235,32 +231,19 @@
 					</div>
 
 					<div class="form-row">
-						<div class="col-4 name">Name <span class="required">*</span></div>
+						<div class="col-4 name">Instructor Name <span class="required">*</span></div>
 						<div class="col-sm-8">
 							<div class="input-group">
 
-								<input class="input--style-6" autocomplete="off" autofocus="on" id="inp_purpose_name_en"
-									name="inp_purpose_name_en" type="Text" value="" onfocus="hlentry(this)" size="30"
+								<input class="input--style-6" autocomplete="off" autofocus="on" id="instructor_name"
+									name="instructor_name" type="Text" value="" onfocus="hlentry(this)" size="30"
 									maxlength="50" style="text-transform:uppercase;width: 60%;"
 									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="">
-								<img src="../../asset/img/icons/flag_en.png">
 							</div>
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="col-4 name"></div>
-						<div class="col-sm-8">
-							<div class="input-group">
-								<input class="input--style-6" autocomplete="off" autofocus="on" id="inp_purpose_name_id"
-									name="inp_purpose_name_id" type="Text" value="" onfocus="hlentry(this)" size="30"
-									maxlength="50" style="text-transform:uppercase;width: 60%;"
-									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="">
-								<img src="../../asset/img/icons/flag_id.png">
-							</div>
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="col-4 name">Allowance </div>
+						<div class="col-4 name">Provider </div>
 					</div>
 					<div class="form-row">
 						<div class="col-sm-12">
@@ -271,44 +254,20 @@
 								<script src="../../asset/gt_developer/asset_use/jquery.tree-multiselect.js"></script>
 								<?php
 									$modal=mysqli_query($connect, "SELECT a.*
-									FROM hrmondutyallowitem a");
+									FROM trnprovider a");
 								?>
-								<select id="test-select-4" multiple="multiple" class="framework" id="inp_allowance_item"
-									name="inp_allowance_item[]">
+								<select id="test-select-4" multiple="multiple" class="framework" id="provider_item"
+									name="provider_item[]">
 									<?php if (mysqli_num_rows($modal) > 0) { ?>
 									<?php while ($row = mysqli_fetch_array($modal)) { ?>
-									<option value="<?php echo $row['item_code'] ?>" data-section="allowance item"
-										data-index="1"><?php echo $row['item_name_en'] ?></option>
+									<option value="<?php echo $row['provider_code'] ?>" data-section="provider item"
+										data-index="1"><?php echo $row['provider_name'] ?></option>
 									<?php } ?>
 									<?php } ?>
 								</select>
 							</div>
 						</div>
 					</div>
-
-					<div class="form-row">
-						<div class="col-4 name">Attendance status <span class="required">*</span></div>
-						<div class="col-sm-8">
-							<div class="input-group">
-								<select id="inp_attendcode" class="input--style-6" name="inp_attendcode"
-									onfocus="hlentry(this)" onchange="formodified(this);"
-									style="width:undefined;height: 33px;width: 80%;">
-									<option value="">--Select One--</option>
-									<?php 
-										$req = mysqli_query($connect, "SELECT * FROM `HRMTTAMATTSTATUS`");
-									?>
-									<?php if (mysqli_num_rows($req) > 0) { ?>
-									<?php while ($row = mysqli_fetch_array($req)) { ?>
-									<option value="<?php echo $row['attend_code'] ?>">
-										<?php echo $row['attend_name_en'] ?>
-										<?php } ?>
-										<?php } ?>
-								</select>
-							</div>
-						</div>
-					</div>
-
-
 				</fieldset>
 
 				<div class="modal-footer">
@@ -546,38 +505,29 @@
 
 				var form = $(this);
 
-				var inp_purpose_code = $("#inp_purpose_code").val();
-				var inp_purpose_name_en = $("#inp_purpose_name_en").val();
-				var inp_purpose_name_id = $("#inp_purpose_name_id").val();
-				var inp_attendcode = $("#inp_attendcode").val();
+				var instructor_code = $("#instructor_code").val();
+				var instructor_name = $("#instructor_name").val();
+				// var inp_purpose_name_id = $("#inp_purpose_name_id").val();
+				// var multiple_provider = $("#multiple_provider").val();
 
-				var inp_allowance_item = [];
+				var provider_item = [];
 
 				var regex = /^[a-zA-Z]+$/;
 
-				if (inp_purpose_code == "") {
+				if (instructor_code == "") {
 					modals.style.display = "block";
-					document.getElementById("msg").innerHTML = "Purpose code cannot empty";
+					document.getElementById("msg").innerHTML = "Instructor code cannot empty";
 
-				} else if (inp_purpose_name_en == "") {
+				} else if (instructor_name == "") {
 					modals.style.display = "block";
-					document.getElementById("msg").innerHTML = "Purpose desc en cannot empty";
-
-				} else if (inp_purpose_name_id == "") {
-					modals.style.display = "block";
-					document.getElementById("msg").innerHTML = "Purpose desc id cannot empty";
-
-				} else if (inp_attendcode == "") {
-					modals.style.display = "block";
-					document.getElementById("msg").innerHTML = "Attend date cannot empty";
+					document.getElementById("msg").innerHTML = "Instructor desc en cannot empty";
 
 				} else {
 					$('#submit_add').hide();
 					$('#submit_add2').show();
 				}
 
-				if (inp_purpose_code && inp_purpose_name_en && inp_purpose_name_id &&
-					inp_attendcode) {
+				if (instructor_code && instructor_name) {
 
 					//submi the form to server
 					$.ajax({
@@ -647,51 +597,6 @@
 			}); // /submit form for create member
 		}); // /add modal
 	});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	function editMember(id = null) {
 		if (id) {
@@ -825,54 +730,6 @@
 			alert("Error : Refresh the page again");
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	function editdelMember(id = null) {
 		if (id) {

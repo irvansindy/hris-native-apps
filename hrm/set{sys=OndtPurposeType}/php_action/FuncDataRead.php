@@ -5,7 +5,8 @@ include "../../../model/st/GMOndtPurposeType.php";
 
 $output = array('data' => array());
 
-$sql = $qListRender;
+// $sql = $qListRender;
+
 
 $query = mysqli_query($connect, $sql);
 

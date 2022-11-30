@@ -27,11 +27,12 @@ if($_POST) {
 				NUll
 			)";
 
-	$total_detail = count($instructor_detail);
+	// $result_provider = implode(',', $instructor_detail);
 
-	$result_provider = implode(',', $instructor_detail);
-
-	$query_detail = mysqli_query($connect, "INSERT INTO `trndinstructor`
+	// insert data detail instructor
+	for ($index=0; $index < count($instructor_detail); $index++) {
+		$data_provider = $instructor_detail[$index];
+		$sql_detail = "INSERT INTO `trndinstructor`
 		(
 			`instructor_code`,
 			`provider`,
@@ -42,15 +43,14 @@ if($_POST) {
 		)
 		VALUES (
 			'$instructor_code',
-			-- '$provider_item',
-			-- '$instructor_detail',
-			'$result_provider',
+			'$data_provider',
 			'$inp_emp_no',
 			'$SFdatetime',
 			'$inp_emp_no',
 			'$SFdatetime'
-		)");
-
+		)";
+		$query_detail = $connect->query($sql_detail);
+	}
 
 	$alert_0          = mysqli_fetch_array(mysqli_query($connect, "SELECT alert FROM hrmalert WHERE id_alert = '6'"));
 	$alert_print_0    = $alert_0['alert'];

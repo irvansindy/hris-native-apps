@@ -21,7 +21,7 @@ $footer = 'yes'; //set as `yes` if you want to use default footer & set as `no` 
                     <h3 class="text-themecolor mb-0">Setting</h3>
                     <ol class="breadcrumb mb-0 p-0 bg-transparent">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Setting&nbsp;&nbsp;</a></li>
-                        <li ><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;Overtime Reason</li>
+                        <li ><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;Instructor</li>
                     </ol>
                 </div>
             </div>
@@ -34,7 +34,6 @@ $footer = 'yes'; //set as `yes` if you want to use default footer & set as `no` 
                     <div class="col-lg-12 col-md-12">
 
                         <div class="row">
-                           
                             <!-- Column -->
                             <?php include "data.php"; ?>
                             <!-- Column -->
@@ -47,5 +46,4 @@ $footer = 'yes'; //set as `yes` if you want to use default footer & set as `no` 
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
             <!-- ============================================================== -->
-      
 <?php include "../template/sys.footer.php";?>

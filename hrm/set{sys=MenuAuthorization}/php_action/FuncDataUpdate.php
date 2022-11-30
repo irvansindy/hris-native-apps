@@ -25,18 +25,18 @@ if($_POST) {
 		if($sel_application_menu!==''){
 	 
 			$sql_1 = "INSERT INTO `users_menu_access` 
-										(
-											`emp_no`, 
-											`formula`, 
-											`company_id`
-										) 
-											VALUES 
-												(
-													'$sel_employee',
-													'$sel_application_menu', 
-													'$get_company[company_id]'
-													
-												)
+				(
+					`emp_no`, 
+					`formula`, 
+					`company_id`
+				) 
+					VALUES 
+						(
+							'$sel_employee',
+							'$sel_application_menu', 
+							'$get_company[company_id]'
+							
+						)
 			";
 
 			

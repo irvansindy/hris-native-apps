@@ -19,6 +19,6 @@
         'message' =>'Success',
         'data' => $result_array
     ];
-    // echo json_decode($result);
+    
     header('Content-Type: application/json');
     echo json_encode($response);

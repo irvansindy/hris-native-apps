@@ -115,7 +115,7 @@
 <div class="col-md-12">
 	<div class="card">
 		<div class="card-header d-flex align-items-center">
-			<h4 class="card-title mb-0">On Duty Purpose Type Setting </h4>
+			<h4 class="card-title mb-0">Instructor Setting </h4>
 
 
 			<div class="card-actions ml-auto">
@@ -290,13 +290,13 @@
 </div><!-- /.modal -->
 <!-- /edit modal -->
 
-<!-- edit modal -->
+<!-- edit data instructor modal -->
 <div class="modal  fade fade-custom" tabindex="-1" role="dialog" id="UpdateForm">
 	<div class="modal-dialog modal-belakang modal-bs" role="document">
 
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Edit Scheduling Group Setting</h4>
+				<h4 class="modal-title">Edit Data Instructor</h4>
 				<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close"
 					style="margin-top: -15px;">
 					<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
@@ -305,93 +305,42 @@
 
 			<!-- <form class="form-horizontal" action="php_action/FuncDataUpdate.php" method="POST" id="updateMemberForm"> -->
 			<form class="form-horizontal" action="php_action/FuncDataUpdate.php" method="POST" id="FormDisplayUpdate">
-
 				<fieldset id="fset_1">
-					<legend>General</legend>
-
+					<legend>Form Data</legend>
 					<div class="messages_update"></div>
-
 					<input id="sel_emp_no" name="sel_emp_no" type="hidden" value="<?php echo $username; ?>">
 					<!--FROM SESSION -->
 					<input id="sel_token" name="sel_token" type="hidden" value="<?php echo $get_token; ?>">
 					<!--FROM CONFIGURATION -->
-
 					<div class="form-row">
-						<div class="col-4 name"> Code <span class="required">*</span></div>
+						<div class="col-4 name">Instructor Code <span class="required">*</span></div>
 						<div class="col-sm-8">
-							<div class="input-group" id="sel_identity">
+							<div class="input-group">
+								<input class="input--style-6" autocomplete="off" autofocus="on" id="edit_instructor_code"
+									name="edit_instructor_code" type="Text" value="" onfocus="hlentry(this)" size="30"
+									maxlength="50" style="text-transform:uppercase;width: 60%;"
+									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="" readonly>
 							</div>
 						</div>
 					</div>
-					<div class="form-row" style="display:none">
-						<div class="col-4 name">Code <span class="required">*</span></div>
+					<div class="form-row">
+						<div class="col-4 name">Instructor Name <span class="required">*</span></div>
 						<div class="col-sm-8">
 							<div class="input-group">
-
-								<input class="input--style-6" autocomplete="off" autofocus="on" id="sel_purpose_code"
-									name="sel_purpose_code" type="Text" value="" onfocus="hlentry(this)" size="30"
+								<input class="input--style-6" autocomplete="off" autofocus="on" id="edit_instructor_name"
+									name="edit_instructor_name" type="Text" value="" onfocus="hlentry(this)" size="30"
 									maxlength="50" style="text-transform:uppercase;width: 60%;"
 									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="">
 							</div>
 						</div>
 					</div>
-
 					<div class="form-row">
-						<div class="col-4 name">Name <span class="required">*</span></div>
-						<div class="col-sm-8">
-							<div class="input-group">
-
-								<input class="input--style-6" autocomplete="off" autofocus="on" id="sel_purpose_name_en"
-									name="sel_purpose_name_en" type="Text" value="" onfocus="hlentry(this)" size="30"
-									maxlength="50" style="text-transform:uppercase;width: 60%;"
-									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="">
-								<img src="../../asset/img/icons/flag_en.png">
-							</div>
-						</div>
+						<div class="col-4 name">Provider </div>
 					</div>
 					<div class="form-row">
-						<div class="col-4 name"></div>
-						<div class="col-sm-8">
-							<div class="input-group">
-								<input class="input--style-6" autocomplete="off" autofocus="on" id="sel_purpose_name_id"
-									name="sel_purpose_name_id" type="Text" value="" onfocus="hlentry(this)" size="30"
-									maxlength="50" style="text-transform:uppercase;width: 60%;"
-									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="">
-								<img src="../../asset/img/icons/flag_id.png">
-							</div>
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="col-4 name">Allowance </div>
-					</div>
-					<div class="form-row">
-						<!-- pages relation -->
-						<div class="col-sm-12" id="box"></div>
-						<!-- pages relation -->
-
-
-
-
-					</div>
-
-					<div class="form-row">
-						<div class="col-4 name">Attendance status <span class="required">*</span></div>
-						<div class="col-sm-8">
-							<div class="input-group">
-
-								<?php 
-										$req=mysqli_query($connect, "SELECT * FROM `HRMTTAMATTSTATUS`");
-										?>
-								<select name="sel_attend_code" id="sel_attend_code" class="input--style-6"
-									style="width:undefined;height: 33px;width: 80%;">
-									<option value="">--Select One--</option>
-									<?php if (mysqli_num_rows($req) > 0) { ?>
-									<?php while ($row = mysqli_fetch_array($req)) { ?>
-									<option><?php echo $row['attend_code'] ?>
-										<?php } ?>
-										<?php } ?>
-								</select>
-							</div>
+						<div class="col-sm-12">
+							<div class="multiple-select-by-id"></div>
+							
 						</div>
 					</div>
 				</fieldset>
@@ -411,11 +360,8 @@
 					</button>
 				</div>
 			</form>
-
-
 		</div>
-
-		</form>
+		<!-- </form> -->
 	</div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -441,8 +387,8 @@
 							<table width="100%">
 								<td align="center"><label id="isi">Are you sure to delete data ?</label></td>
 							</table>
-							<input type="hidden" class="form-control input-report" id="sel_purpose_codeS"
-								name="sel_purpose_codeS" placeholder="">
+							<input type="hidden" class="form-control input-report" id="delete_instructor_code"
+								name="delete_instructor_code" placeholder="">
 						</div>
 					</div>
 
@@ -611,28 +557,25 @@
 
 			// fetch the member data
 			$.ajax({
-				url: 'php_action/getSelectedEmployee.php',
+				url: 'php_action/getInstructorById.php',
 				type: 'post',
 				data: {
-					member_id: id
+					instructor_code: id
 				},
 				dataType: 'json',
 
-
 				success: function (response) {
-					document.getElementById("sel_identity").innerHTML = response.purpose_code;
 
-					$("#sel_purpose_code").val(response.purpose_code);
-					$("#sel_purpose_name_en").val(response.purpose_name_en);
-					$("#sel_purpose_name_id").val(response.purpose_name_id);
-					$("#sel_attend_code").val(response.attend_code);
+					$("#edit_instructor_code").val(response.instructor_code);
+					$("#edit_instructor_name").val(response.instructor_name);
 
-					var sel_purpose_code = response.purpose_code;
+					var edit_instructor_code = response.instructor_code;
+					var edit_instructor_name = response.instructor_name;
 
-					$("#box").load("pages_relation/_pages_setting?rfid=" + sel_purpose_code,
+					$(".multiple-select-by-id").load("pages_relation/_pages_setting?instructor_code=" + edit_instructor_code,
 						function (responseTxt, statusTxt, jqXHR) {
 							if (statusTxt == "success") {
-								$("#box").show();
+								$("#multiple-select-by-id").show();
 							}
 							if (statusTxt == "error") {
 								alert("Error: " + jqXHR.status + " " + jqXHR.statusText);
@@ -648,32 +591,20 @@
 
 						var form = $(this);
 
-						var sel_purpose_code = $("#sel_purpose_code").val();
-						var sel_purpose_name_en = $("#sel_purpose_name_en").val();
-						var sel_purpose_name_id = $("#sel_purpose_name_id").val();
-						var sel_attend_code = $("#sel_attend_code").val();
+						var edit_instructor_code = $("#edit_instructor_code").val();
+						var edit_instructor_name = $("#edit_instructor_name").val();
 
-						var sel_allowance_item = [];
+						var edit_instructor_code_detail = [];
 
 						var regex = /^[a-zA-Z]+$/;
 
-						if (sel_purpose_code == "") {
+						if (edit_instructor_code == "") {
 							modals.style.display = "block";
-							document.getElementById("msg").innerHTML = "Purpose code cannot empty";
+							document.getElementById("msg").innerHTML = "Instructor Code cannot empty";
 
-						} else if (sel_purpose_name_en == "") {
+						} else if (edit_instructor_name == "") {
 							modals.style.display = "block";
-							document.getElementById("msg").innerHTML =
-								"Purpose name en desc en cannot empty";
-
-						} else if (sel_purpose_name_id == "") {
-							modals.style.display = "block";
-							document.getElementById("msg").innerHTML =
-								"Purpose name id desc en cannot empty";
-
-						} else if (sel_attend_code == "") {
-							modals.style.display = "block";
-							document.getElementById("msg").innerHTML = "Attend code cannot empty";
+							document.getElementById("msg").innerHTML = "Instructor Name en desc en cannot empty";
 
 						} else {
 							$('#submit_update').hide();
@@ -681,8 +612,7 @@
 						}
 
 
-						if (sel_purpose_code && sel_purpose_name_en && sel_purpose_name_id &&
-							sel_attend_code) {
+						if (edit_instructor_code && edit_instructor_name) {
 
 							$.ajax({
 
@@ -745,15 +675,15 @@
 
 			// fetch the member data
 			$.ajax({
-				url: 'php_action/getSelectedEmployee.php',
+				url: 'php_action/getInstructorById.php',
 				type: 'post',
 				data: {
-					member_id: id
+					instructor_code: id
 				},
 				dataType: 'json',
 				success: function (response) {
 
-					$("#sel_purpose_codeS").val(response.purpose_code);
+					$("#delete_instructor_code").val(response.instructor_code);
 
 					// mmeber id 
 					$(".FormDisplayDelete").append(
@@ -769,9 +699,9 @@
 
 						// validation
 
-						var sel_purpose_codeS = $("#sel_purpose_codeS").val();
+						var delete_instructor_code = $("#delete_instructor_code").val();
 
-						if (sel_purpose_codeS == "") {
+						if (delete_instructor_code == "") {
 							modals.style.display = "block";
 							document.getElementById("msg").innerHTML = "purpose code cannot empty";
 						} else {
@@ -780,7 +710,7 @@
 						}
 
 
-						if (sel_purpose_codeS) {
+						if (delete_instructor_code) {
 							$.ajax({
 								url: form.attr('action'),
 								type: form.attr('method'),
@@ -868,6 +798,13 @@
 
 <script type="text/javascript">
 	var tree4 = $("#test-select-4").treeMultiselect({
+		allowBatchSelection: true,
+		enableSelectAll: true,
+		searchable: true,
+		sortable: true,
+		startCollapsed: false,
+	});
+	var tree4 = $(".multiple_edit_provider").treeMultiselect({
 		allowBatchSelection: true,
 		enableSelectAll: true,
 		searchable: true,

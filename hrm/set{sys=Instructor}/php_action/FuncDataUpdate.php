@@ -6,48 +6,40 @@ if($_POST) {
 
 	$validator = array('success' => false, 'messages' => array());
 
-	$sel_emp_no			= strtoupper($_POST['sel_emp_no']);
-	$sel_purpose_code		= strtoupper($_POST['sel_purpose_code']);
-	$sel_purpose_name_en 		= strtoupper(addslashes($_POST['sel_purpose_name_en']));
-	$sel_purpose_name_id 		= strtoupper(addslashes($_POST['sel_purpose_name_id']));
-	$sel_attend_code		= strtoupper(addslashes($_POST['sel_attend_code']));
+	$sel_emp_no	= strtoupper($_POST['sel_emp_no']);
+	$instructor_code = $_POST['edit_instructor_code'];
+	$instructor_name = strtoupper($_POST['edit_instructor_name']);
+	$instructor_detail = $_POST['edit_instructor_code_detail'];
 
+	$query_update_instructor_master = "UPDATE trninstructor SET 
+			`instructor_name`	= '$instructor_name'
+			WHERE instructor_code 		= '$instructor_code'";
 
-	$sql = "UPDATE hrmondutypurposetype SET 
-					`purpose_name_en`	= '$sel_purpose_name_en',
-					`purpose_name_id` 	= '$sel_purpose_name_id',
-					`attend_code`		= '$sel_attend_code'
-				WHERE purpose_code 		= '$sel_purpose_code'";
+	$query_delete_instructor_detail = "DELETE FROM `trndinstructor` WHERE `instructor_code` = '$instructor_code'";
 
-	$delete = mysqli_query($connect, "DELETE FROM `hrrondutypurposecomp` WHERE `purpose_code` = '$sel_purpose_code'");
-	for($iemg=0;$iemg<count($_POST['sel_allowance_item']);$iemg++){
-		$iemg_plus = $iemg+1;
-		$sel_allowance_item	= $_POST['sel_allowance_item'][$iemg];
-		
-		if($sel_allowance_item!==''){
-	
-		$sql_1 = mysqli_query($connect, "INSERT INTO `hrrondutypurposecomp` 
-									(
-										`purpose_code`, 
-										`item_code`, 
-										`company_id`, 
-										`created_by`, 
-										`created_date`, 
-										`modified_by`, 
-										`modified_date`
-									) 
-										VALUES 
-											(
-												'$sel_purpose_code', 
-												'$sel_allowance_item', 
-												'$get_company[company_id]', 
-												'$sel_emp_no', 
-												'$SFdatetime', 
-												'$sel_emp_no', 
-												'$SFdatetime'
-											)
-		");
-	
+	$execute_delete = $connect->query($query_delete_instructor_detail);
+
+	if ($execute_delete = TRUE) {
+		for ($index=0; $index < count($instructor_detail); $index++) {
+			$data_provider = $instructor_detail[$index];
+			$sql_detail = "INSERT INTO `trndinstructor`
+			(
+				`instructor_code`,
+				`provider`,
+				`created_by`, 
+				`created_date`, 
+				`modified_by`, 
+				`modified_date`
+			)
+			VALUES (
+				'$instructor_code',
+				'$data_provider',
+				'$sel_emp_no',
+				'$SFdatetime',
+				'$sel_emp_no',
+				'$SFdatetime'
+			)";
+			$query_detail = $connect->query($sql_detail);
 		}
 	}
 
@@ -57,7 +49,7 @@ if($_POST) {
 	$alert_print_1    = $alert_1['alert'];
 
 	// condition start
-	$query = $connect->query($sql);
+	$query = $connect->query($query_update_instructor_master);
 
 	if($query == TRUE) {
 		$validator['success'] = true;

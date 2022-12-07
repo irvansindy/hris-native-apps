@@ -494,8 +494,7 @@
 
 							if (response.code == 'success_message') {
 								modals.style.display = "block";
-								document.getElementById("msg").innerHTML = response
-									.messages;
+								document.getElementById("msg").innerHTML = response.messages;
 
 								$('#submit_add').show();
 								$('#submit_add2').hide();
@@ -512,8 +511,7 @@
 								// this function is built in function of datatables;
 							} else {
 								modals.style.display = "block";
-								document.getElementById("msg").innerHTML = response
-									.messages;
+								document.getElementById("msg").innerHTML = response.messages;
 
 								$('#submit_add').show();
 								$('#submit_add2').hide();

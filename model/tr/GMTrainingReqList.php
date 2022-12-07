@@ -40,7 +40,6 @@ $qListRenderMyTrining = "SELECT
                             FROM hrmrequestapproval sub1 
                             GROUP BY sub1.request_no
                         ) h on a.request_no=h.request_no
-                 
                 WHERE b.emp_id = (SELECT emp_id FROM view_employee WHERE emp_no = '$username')
                 AND h.request_status IN ('3')
                 GROUP BY a.request_no

@@ -21,7 +21,7 @@ $footer = 'yes'; //set as `yes` if you want to use default footer & set as `no` 
                     <h3 class="text-themecolor mb-0">Setting</h3>
                     <ol class="breadcrumb mb-0 p-0 bg-transparent">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Setting&nbsp;&nbsp;</a></li>
-                        <li ><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;Setting Provider</li>
+                        <li ><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;Setting Venue</li>
                     </ol>
                 </div>
             </div>

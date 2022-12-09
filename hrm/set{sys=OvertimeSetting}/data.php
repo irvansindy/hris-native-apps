@@ -1,19 +1,19 @@
 <?php  
-       $src_overtimecode           = '';
-       $src_minimumtime            = '';
-       if (!empty($_POST['src_overtimecode']) && !empty($_POST['src_minimumtime'])) {
-              $src_overtimecode    = $_POST['src_overtimecode'];
-              $src_minimumtime     = $_POST['src_minimumtime'];
-              $frameworks          = "?src_overtimecode="."".$src_overtimecode." &&src_minimumtime="."".$src_minimumtime."";
-       } else if (empty($_POST['src_overtimecode']) && !empty($_POST['src_minimumtime'])) {
-              $src_overtimecode    = $_POST['src_overtimecode'];
-              $src_minimumtime     = $_POST['src_minimumtime'];
-              $frameworks          = "?src_minimumtime="."".$src_minimumtime."";
-       } else if (!empty($_POST['src_overtimecode']) && empty($_POST['src_minimumtime'])) {
-              $src_overtimecode    = $_POST['src_overtimecode'];
-              $src_minimumtime     = $_POST['src_minimumtime'];
-              $frameworks          = "?src_overtimecode="."".$src_overtimecode."";
-       }
+	$src_overtimecode           = '';
+	$src_minimumtime            = '';
+	if (!empty($_POST['src_overtimecode']) && !empty($_POST['src_minimumtime'])) {
+		$src_overtimecode    = $_POST['src_overtimecode'];
+		$src_minimumtime     = $_POST['src_minimumtime'];
+		$frameworks          = "?src_overtimecode="."".$src_overtimecode." &&src_minimumtime="."".$src_minimumtime."";
+	} else if (empty($_POST['src_overtimecode']) && !empty($_POST['src_minimumtime'])) {
+		$src_overtimecode    = $_POST['src_overtimecode'];
+		$src_minimumtime     = $_POST['src_minimumtime'];
+		$frameworks          = "?src_minimumtime="."".$src_minimumtime."";
+	} else if (!empty($_POST['src_overtimecode']) && empty($_POST['src_minimumtime'])) {
+		$src_overtimecode    = $_POST['src_overtimecode'];
+		$src_minimumtime     = $_POST['src_minimumtime'];
+		$frameworks          = "?src_overtimecode="."".$src_overtimecode."";
+	}
 ?>
 <!-- Modal -->
 <div class="modal right fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"

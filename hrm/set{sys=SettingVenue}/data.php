@@ -166,7 +166,7 @@ $(document).ready(function() {
 	</div>
 </div>
 
-<!-- data modal add setting provider -->
+<!-- data modal add setting venue -->
 <div class="modal fade fade-custom" tabindex="-1" role="dialog" id="CreateForm">
 	<div class="modal-dialog modal-belakang modal-bg" role="document">
 		<div class="modal-content">
@@ -232,11 +232,11 @@ $(document).ready(function() {
 						<div class="col-lg-8">
 							<div class="form-group">
 								<div class="col-lg-3">
-									<input class="input--style-6 input_venue_room_code" onfocus="this.value=''"
+									<input class="input--style-6"
 										autocomplete="off" id="input_venue_room_code" name="input_venue_room_code[]" type="Text" value="" title="" placeholder="Room Code">
 								</div>
 								<div class="col-lg-3">
-									<input class="input--style-6 input_venue_room_name" onfocus="this.value=''"
+									<input class="input--style-6"
 										autocomplete="off" id="input_venue_room_name" name="input_venue_room_name[]" type="Text" value="" title="" placeholder="Room Name">
 								</div>
 								<div class="col-lg-3">
@@ -383,12 +383,216 @@ $(document).ready(function() {
 </div><!-- /.modal -->
 <!-- /edit modal -->
 
-<!-- edit modal -->
+<!-- data modal edit setting venue -->
 <div class="modal fade fade-custom" tabindex="-1" role="dialog" id="UpdateForm">
 	<div class="modal-dialog modal-belakang modal-bg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Edit Setting Provider</h4>
+				<h4 class="modal-title">Edit Data Setting Venue</h4>
+				<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close" style="margin-top: -15px;">
+					<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
+				</a>
+			</div>
+
+			<form class="form-horizontal" action="php_action/FuncDataCreate.php" method="POST" id="FormDisplayCreate">
+				<fieldset id="fset_1">
+					<legend>Form Data</legend>
+
+					<div class="messages_create"></div>
+
+					<!--FROM SESSION -->
+					<input id="edit_emp_no" name="edit_emp_no" type="hidden" value="<?php echo $username; ?>">
+					<!--FROM CONFIGURATION -->
+					<input id="inp_token" name="inp_token" type="hidden" value="<?php echo $get_token; ?>">
+					<div class="form-row">
+						<div class="col-4 name">Venue Code <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group" id="init_venue_code"></div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">Venue Code <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+
+								<input class="input--style-6" autocomplete="off" autofocus="on" id="edit_venue_code"
+									name="edit_venue_code" type="Text" value="" onfocus="hlentry(this)" size="30"
+									maxlength="50" style="text-transform:uppercase;width: 60%;"
+									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="">
+							</div>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="col-4 name">Venue Name <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<input class="input--style-6" autocomplete="off" autofocus="on" id="edit_venue_name"
+									name="edit_venue_name" type="Text" value="" onfocus="hlentry(this)" size="30"
+									maxlength="50" style="text-transform:uppercase;width: 60%;"
+									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="">
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">Venue Type <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="checkbox" id="edit_venue_type" name="edit_venue_type" value="INTERNAL">
+									<label class="form-check-label">Internal</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="checkbox" id="edit_venue_type" name="edit_venue_type" value="EXTERNAL">
+									<label class="form-check-label">External</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="edit_venue_room"></div>
+					<div class="dynamic_edit_venue_room"></div>
+					<div class="form-row">
+						<div class="col-4 name">Venue Address <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<textarea class="input--style-6" autocomplete="off" autofocus="on"
+									id="edit_venue_address" name="edit_venue_address"
+									type="Text" value=""
+									style="text-transform:uppercase;width: 60%;"
+									validate="NotNull:Invalid Form Entry"
+									onchange="formodified(this);" title=""></textarea>
+							</div>
+						</div>
+					</div>
+
+					
+					<div class="form-row">
+						<div class="col-4 name">Country <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<select class="input--style-6 edit_venue_country" name="edit_venue_country" style="width: 50%;height: 30px;" id="edit_venue_country">
+									<option value="">--Select One--</option>
+									<?php
+										$queryCountry = mysqli_query($connect, "SELECT * FROM hrmcountry ORDER BY country_name ASC");
+										while ($country = mysqli_fetch_array($queryCountry)) {
+											echo '<option value="' . $country['country_id'] . '">' . $country['country_name'] . '</option>';
+										}
+									?>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">province <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<select class="input--style-6 edit_venue_state" name="edit_venue_state" style="width: 50%;height: 30px;" id="edit_venue_state">
+									<option value="">--Select One--</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">City <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<select class="input--style-6 edit_venue_city" name="edit_venue_city" style="width: 50%;height: 30px;" id="edit_venue_city">
+									<option value="">--Select One--</option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="col-4 name">Postal Code <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<input class="input--style-6" autocomplete="off" autofocus="on"
+									id="edit_venue_postal_code" name="edit_venue_postal_code"
+									type="number" value="" size="30"
+									maxlength="50"
+									style="text-transform:uppercase;width: 80%;"
+									validate="NotNull:Invalid Form Entry"
+									onchange="formodified(this);" title=""
+									pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==5) return false;">
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="col-4 name">Phone <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<input class="input--style-6" autocomplete="off" autofocus="on"
+									id="edit_venue_phone" name="edit_venue_phone"
+									type="number" value="" size="30"
+									maxlength="50"
+									style="text-transform:uppercase;width: 80%;"
+									validate="NotNull:Invalid Form Entry"
+									onchange="formodified(this);" title=""
+									pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;">
+							</div>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="col-4 name">Fax <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<input class="input--style-6" autocomplete="off" autofocus="on"
+									id="edit_venue_fax" name="edit_venue_fax"
+									type="number" value="" size="30"
+									maxlength="50"
+									style="text-transform:uppercase;width: 80%;"
+									validate="NotNull:Invalid Form Entry"
+									onchange="formodified(this);" title=""
+									pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;">
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="col-4 name">Remark <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<textarea class="input--style-6" autocomplete="off" autofocus="on"
+								id="edit_venue_remark" name="edit_venue_remark"
+								type="Text" value=""
+								style="text-transform:uppercase;width: 80%;"
+								validate="NotNull:Invalid Form Entry"
+								onchange="formodified(this);" title=""></textarea>
+							</div>
+						</div>
+					</div>
+
+				</fieldset>
+
+				<div class="modal-footer">
+					<button type="reset" class="btn btn-primary1" data-dismiss="modal" aria-hidden="true" id="close_edit_form_venue">
+						&nbsp;Cancel&nbsp;
+					</button>
+					<button class="btn btn-warning" type="submit" name="submit_update" id="submit_update">
+						Confirm
+					</button>
+					<button class="btn btn-warning" type="button" name="submit_update2"
+						id="submit_update2" style='display:none;' disabled>
+						<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+						&nbsp;&nbsp;Processing..
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- /edit modal -->
+
+<!-- data modal edit setting venue -->
+<div class="modal fade fade-custom" tabindex="-1" role="dialog" id="UpdateForm2">
+	<div class="modal-dialog modal-belakang modal-bg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Edit Setting Venue</h4>
 				<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close" style="margin-top: -15px;">
 					<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
 				</a>
@@ -711,10 +915,6 @@ $(document).ready(function() {
 		$("#FormDisplayCreate").unbind('submit').bind('submit', function() {
 
 			$(".text-danger").remove();
-			// dynamic_venue_room
-			var dynamic_array_room =  document.getElementsByClassName('dynamic_array_room')
-			var array_venue_room_code =  document.getElementsByClassName('input_venue_room_code')
-			var array_venue_room_name =  document.getElementsByClassName('input_venue_room_name')
 
 			var form = $(this);
 
@@ -723,8 +923,6 @@ $(document).ready(function() {
 			var input_venue_code = $("#input_venue_code").val();
 			var input_venue_name = $("#input_venue_name").val();
 			var input_venue_type = $("#input_venue_type").val();
-			// var input_venue_room_code = $("#input_venue_room_code").val();
-			// var input_venue_room_name = $("#input_venue_room_name").val();
 			var input_venue_room_code = [];
 			var input_venue_room_name = [];
 			var input_venue_address = $("#input_venue_address").val();
@@ -736,72 +934,58 @@ $(document).ready(function() {
 			var input_venue_fax = $("#input_venue_fax").val();
 			var input_venue_remark = $("#input_venue_remark").val();
 
-			var array_room = [];
-			let array_venue_room = [];
-			for (let index = 0; index < array_venue_room_code.length; index++) {
-				let arr_room_code = array_venue_room_code[index].value;
-				let arr_room_name = array_venue_room_name[index].value;
-				if (arr_room_code != '' && arr_room_name != '') {
-					array_venue_room = [
-						arr_room_code,
-						arr_room_name
-					];
-				}
-				array_room.push(array_venue_room);
-			}
-			if (array_venue_room == NULL || array_room == NULL) {
-				modals.style.display ="block";
-				document.getElementById("msg").innerHTML = "Other Venue Room  cannot empty";
-				return false;
-			}
-			
 			var regex=/^[a-zA-Z]+$/;
 
 			if (input_venue_code == "") {
 				modals.style.display ="block";
 				document.getElementById("msg").innerHTML = "Venue Code cannot empty";
+				return false;
 			} else if (input_venue_name == "") {
 				modals.style.display ="block";
 				document.getElementById("msg").innerHTML = "Venue Name cannot empty";
+				return false;
 			} else if (input_venue_type == "") {
 				modals.style.display ="block";
 				document.getElementById("msg").innerHTML = "Venue Type cannot empty";
-			// } else if (input_venue_room_code == "") {
-			// 	modals.style.display ="block";
-			// 	document.getElementById("msg").innerHTML = "Venue Room Code cannot empty";
-			// } else if (input_venue_room_name == "") {
-			// 	modals.style.display ="block";
-			// 	document.getElementById("msg").innerHTML = "Venue Room Name cannot empty";
+				return false;
 			} else if (input_venue_address == "") {
 				modals.style.display ="block";
 				document.getElementById("msg").innerHTML = "Venue Address cannot empty";
-			} else if (input_venue_county == "") {
+				return false;
+			} else if (input_venue_country == "") {
 				modals.style.display ="block";
 				document.getElementById("msg").innerHTML = "Venue Country cannot empty";
+				return false;
 			} else if (input_venue_state == "") {
 				modals.style.display ="block";
 				document.getElementById("msg").innerHTML = "Venue State / Province cannot empty";
+				return false;
 			} else if (input_venue_city == "") {
 				modals.style.display ="block";
 				document.getElementById("msg").innerHTML = "Venue City cannot empty";
+				return false;
 			} else if (input_venue_postal_code == "") {
 				modals.style.display ="block";
 				document.getElementById("msg").innerHTML = "Venue Postal Code cannot empty";
+				return false;
 			} else if (input_venue_phone == "") {
 				modals.style.display ="block";
 				document.getElementById("msg").innerHTML = "Venue Phone cannot empty";
+				return false;
 			} else if (input_venue_fax == "") {
 				modals.style.display ="block";
 				document.getElementById("msg").innerHTML = "Venue Fax cannot empty";
+				return false;
 			} else if (input_venue_remark == "") {
 				modals.style.display ="block";
 				document.getElementById("msg").innerHTML = "Venue Remark cannot empty";
+				return false;
 			} else {
 				$('#submit_add').hide();
 				$('#submit_add2').show();
 			}
 
-			if (input_venue_code && input_venue_name && input_venue_type && input_venue_room_code && input_venue_room_name && input_venue_county && input_venue_state && input_venue_city && input_venue_phone && input_venue_fax && input_venue_remark) {
+			if (input_venue_code && input_venue_name && input_venue_type && input_venue_address && input_venue_country && input_venue_state && input_venue_city && input_venue_city && input_venue_postal_code && input_venue_phone && input_venue_fax && input_venue_remark) {
 
 				//submit the form to server
 				$.ajax({
@@ -819,47 +1003,48 @@ $(document).ready(function() {
 						$(".form-group").removeClass('has-error').removeClass('has-success');
 
 						if (response.code == 'success_message') {
-								modals.style.display = "block";
-								document.getElementById("msg").innerHTML = response.messages;
+							// mymodalss.style.display = "none";
+							modals.style.display = "block";
+							document.getElementById("msg").innerHTML = response.messages;
 
-								$('#submit_add').show();
-								$('#submit_add2').hide();
+							$('#submit_add').show();
+							$('#submit_add2').hide();
 
-								$('#FormDisplayCreate').modal('hide');
-								$("[data-dismiss=modal]").trigger({
-									type: "click"
-								});
+							$('#FormDisplayCreate').modal('hide');
+							$("[data-dismiss=modal]").trigger({
+								type: "click"
+							});
 
-								// reset the form
-								$("#FormDisplayCreate")[0].reset();
-								// reload the datatables
-								datatable.ajax.reload(null, false);
-								// this function is built in function of datatables;
-							} else {
-								modals.style.display = "block";
-								document.getElementById("msg").innerHTML = response.messages;
+							// reset the form
+							$("#FormDisplayCreate")[0].reset();
+							// reload the datatables
+							datatable.ajax.reload(null, false);
+							// this function is built in function of datatables;
+						} else {
+							modals.style.display = "block";
+							document.getElementById("msg").innerHTML = response.messages;
 
-								$('#submit_add').show();
-								$('#submit_add2').hide();
+							$('#submit_add').show();
+							$('#submit_add2').hide();
 
-								window.setTimeout(
-									function () {
-										$(".alert")
-											.fadeTo(
-												500,
-												0
-											)
-											.slideUp(
-												500,
-												function () {
-													$(this)
-														.remove();
-												}
-											);
-									},
-									4000
-								);
-							} // /else
+							window.setTimeout(
+								function () {
+									$(".alert")
+										.fadeTo(
+											500,
+											0
+										)
+										.slideUp(
+											500,
+											function () {
+												$(this)
+													.remove();
+											}
+										);
+								},
+								4000
+							);
+						} // /else
 					} // success  
 				}); // ajax subit 				
 			} /// if
@@ -868,7 +1053,7 @@ $(document).ready(function() {
 	}); // /add modal
 });
 
-function editMember(id = null) {
+function updateVenue(id = null) {
 	if (id) {
 		// remove the error 
 		$(".form-group").removeClass('has-error').removeClass('has-success');
@@ -876,36 +1061,93 @@ function editMember(id = null) {
 		// empty the message div
 		$(".messages_update").html("");
 
-		// remove the id
-		// $("#member_id").remove();
-
 		// fetch the member data
 		$.ajax({
-			url: 'php_action/getSettingProviderById.php',
+			url: 'php_action/getDataSettingVenueById.php',
 			type: 'post',
 			data: {
-				provider_code: id
+				venue_code: id
 			},
 			dataType: 'json',
 
 			success: function(response) {
-				document.getElementById("init_provider_code").innerHTML = response.provider_code;
+				document.getElementById("init_venue_code").innerHTML = response.master.venue_code;
 
-				$('#edit_provider_code').val(response.provider_code);
-				$('#edit_provider_name').val(response.provider_name);
-				$('#edit_provider_type').val(response.provider_type);
-				$('#edit_pic').val(response.pic);
-				$('#edit_provider_country').val(response.provider_country);
-				$('#edit_provider_state').val(response.provider_state);
-				$('#edit_provider_city').val(response.provider_city);
-				$('#edit_zipcode').val(response.zipcode);
-				$('#edit_provider_email').val(response.email);
-				$('#edit_provider_phone').val(response.phone);
-				$('#edit_provider_fax').val(response.fax);
-				$('#edit_provider_website').val(response.web_address);
-				$('#edit_provider_speciality').val(response.speciality);
-				$('#edit_provider_address').val(response.address);
-				$('#edit_provider_remark').val(response.remark);
+				$('#edit_venue_code').val(response.master.venue_code);
+				$('#edit_venue_name').val(response.master.venue_name);
+				$('#edit_venue_type').val(response.master.venue_type);
+				$('#edit_venue_type').val(response.master.venue_type);
+				$('#edit_venue_address').val(response.master.venue_address);
+				$('#edit_venue_postal_code').val(response.master.venue_zipcode);
+				$('#edit_venue_phone').val(response.master.venue_phone);
+				$('#edit_venue_fax').val(response.master.venue_fax);
+				$('#edit_venue_remark').val(response.master.remark);
+				
+				// looping venue room by data
+				$('.edit_venue_room').empty();
+				$.each(response.detail, (i, data) => {
+					// dynamic form edit venue room and venue
+					$('.edit_venue_room').append(
+						`<div class="form-row array_edit_venue_room">
+						<div class="col-4 name">
+							${i == 0 ? `Venue Room <span class="required">*</span>` : ``}
+						</div>
+						<div class="col-lg-8">
+							<div class="form-group">
+								<div class="col-lg-3">
+									<input class="input--style-6"
+										autocomplete="off" id="edit_venue_room_code" name="edit_venue_room_code[]" type="Text" value="`+data.room_code+`" title="" placeholder="Room Code">
+								</div>
+								<div class="col-lg-3">
+									<input class="input--style-6"
+										autocomplete="off" id="edit_venue_room_name" name="edit_venue_room_name[]" type="Text" value="`+data.room_name+`" title="" placeholder="Room Name">
+								</div>
+								<div class="col-lg-3">
+								${i == 0 ? 
+									`<button class="btn btn-primary btn-sm" id="add_edit_room" type="button">
+									<i class="fa-solid fa-plus"></i>
+								</button>` : `<button class="btn btn-danger btn-sm" id="btn_pop_edit_room" type="button">
+									<i class="fa-solid fa-minus"></i>
+								</button>`}
+								</div>
+							</div>
+						</div>
+					</div>`
+					);
+				});
+
+				// add dynamic form venue room
+				$('#add_edit_room').on('click', () => {
+					$('.dynamic_edit_venue_room').append(
+						`<div class="form-row array_edit_venue_room">
+						<div class="col-4 name">
+							
+						</div>
+						<div class="col-lg-8">
+							<div class="form-group">
+								<div class="col-lg-3">
+									<input class="input--style-6"
+										autocomplete="off" id="edit_venue_room_code" name="edit_venue_room_code[]" type="Text" value="" title="" placeholder="Room Code">
+								</div>
+								<div class="col-lg-3">
+									<input class="input--style-6"
+										autocomplete="off" id="edit_venue_room_name" name="edit_venue_room_name[]" type="Text" value="" title="" placeholder="Room Name">
+								</div>
+								<div class="col-lg-3">
+									<button class="btn btn-danger btn-sm" id="btn_pop_edit_room" type="button">
+										<i class="fa-solid fa-minus"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>`
+					);
+				});
+
+				// delete dynamic form venue room
+				$(document).on('click', '#btn_pop_edit_room', function () {
+					$(this).closest('.array_edit_venue_room').remove();
+				});
 
 				// here update the member data
 				$("#FormDisplayUpdate").unbind('submit').bind('submit', function() {
@@ -1170,11 +1412,11 @@ function isi_otomatis() {
                 <div class="col-lg-8">
                     <div class="form-group">
                         <div class="col-lg-3">
-                            <input class="input--style-6 input_venue_room_code" onfocus="this.value=''"
+                            <input class="input--style-6"
                                 autocomplete="off" id="input_venue_room_code" name="input_venue_room_code[]" type="Text" value="" title="" placeholder="Room Code">
                         </div>
                         <div class="col-lg-3">
-                            <input class="input--style-6 input_venue_room_name" onfocus="this.value=''"
+                            <input class="input--style-6"
                                 autocomplete="off" id="input_venue_room_name" name="input_venue_room_name[]" type="Text" value="" title="" placeholder="Room Name">
                         </div>
                         <div class="col-lg-3">
@@ -1329,5 +1571,14 @@ function isi_otomatis() {
 			}
 		})
 	}
+
+	$('#close_edit_form_venue').on('click', (e) => {
+		$(this).find('#UpdateForm')[0].clear();
+
+	})
+
+	// $('#UpdateForm').on('hidden.bs.modal', function(e) {
+	// 	$(this).find('#edit_form_venue')[0].reset();
+	// });
 
 </script>

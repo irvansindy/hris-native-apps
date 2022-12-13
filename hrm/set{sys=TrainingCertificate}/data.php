@@ -394,7 +394,7 @@ $(document).ready(function() {
 				</a>
 			</div>
 
-			<form class="form-horizontal" action="php_action/FuncDataUpdate.php" method="POST" id="FormDisplayCreate">
+			<form class="form-horizontal" action="php_action/FuncDataCreate.php" method="POST" id="FormDisplayCreate">
 				<fieldset id="fset_1">
 					<legend>Form Data</legend>
 
@@ -583,6 +583,257 @@ $(document).ready(function() {
 			</form>
 		</div>
 	</div>
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- /edit modal -->
+
+<!-- data modal edit setting venue -->
+<div class="modal fade fade-custom" tabindex="-1" role="dialog" id="UpdateForm2">
+	<div class="modal-dialog modal-belakang modal-bg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Edit Setting Venue</h4>
+				<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close" style="margin-top: -15px;">
+					<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
+				</a>
+			</div>
+			<form class="form-horizontal" action="php_action/FuncDataUpdate.php" method="POST" id="FormDisplayUpdate">
+				<fieldset id="fset_1">
+					<legend>Form Data</legend>
+
+					<div class="messages_update"></div>
+					<div class="form-row">
+						<div class="col-4 name">Provider Code <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group" id="init_provider_code"></div>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="col-4 name">Provider Code <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<input class="input--style-6" autocomplete="off" autofocus="on"
+									id="edit_provider_code" name="edit_provider_code"
+									type="Text" value="" size="30"
+									maxlength="50"
+									style="text-transform:uppercase;width: 80%;"
+									validate="NotNull:Invalid Form Entry"
+									onchange="formodified(this);" title="" readonly>
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">Provider Name <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<input class="input--style-6" autocomplete="off" autofocus="on"
+									id="edit_provider_name" name="edit_provider_name"
+									type="Text" value="" size="30"
+									maxlength="50"
+									style="text-transform:uppercase;width: 80%;"
+									validate="NotNull:Invalid Form Entry"
+									onchange="formodified(this);" title="">
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">Provider Type <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<input class="input--style-6" autocomplete="off" autofocus="on"
+									id="edit_provider_type" name="edit_provider_type"
+									type="Text" value="" size="30"
+									maxlength="50"
+									style="text-transform:uppercase;width: 80%;"
+									validate="NotNull:Invalid Form Entry"
+									onchange="formodified(this);" title="">
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">PIC <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<input class="input--style-6" autocomplete="off" autofocus="on"
+									id="edit_pic" name="edit_pic"
+									type="Text" value="" size="30"
+									maxlength="50"
+									style="text-transform:uppercase;width: 80%;"
+									validate="NotNull:Invalid Form Entry"
+									onchange="formodified(this);" title="">
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">Country <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<select class="input--style-6 edit_provider_country" name="edit_provider_country" style="width: 50%;height: 30px;" id="edit_provider_country">
+									<option value="">--Select One--</option>
+									<?php
+										$queryCountry = mysqli_query($connect, "SELECT * FROM hrmcountry ORDER BY country_name ASC");
+										while ($country = mysqli_fetch_array($queryCountry)) {
+											echo '<option value="' . $country['country_id'] . '">' . $country['country_name'] . '</option>';
+										}
+									?>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">province <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<select class="input--style-6 edit_provider_state" name="edit_provider_state" style="width: 50%;height: 30px;" id="edit_provider_state">
+									<option value="">--Select One--</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">City <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<select class="input--style-6 edit_provider_city" name="edit_provider_city" style="width: 50%;height: 30px;" id="edit_provider_city">
+									<option value="">--Select One--</option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="col-4 name">Zip Code <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<input class="input--style-6" autocomplete="off" autofocus="on"
+									id="edit_zipcode" name="edit_zipcode"
+									type="number" value="" size="30"
+									maxlength="50"
+									style="text-transform:uppercase;width: 80%;"
+									validate="NotNull:Invalid Form Entry"
+									onchange="formodified(this);" title="">
+							</div>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="col-4 name">Email <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<input class="input--style-6" autocomplete="off" autofocus="on"
+									id="edit_provider_email" name="edit_provider_email"
+									type="email" value="" size="30"
+									maxlength="50"
+									style="text-transform:uppercase;width: 80%;"
+									validate="NotNull:Invalid Form Entry"
+									onchange="formodified(this);" title="">
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">Phone <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<input class="input--style-6" autocomplete="off" autofocus="on"
+									id="edit_provider_phone" name="edit_provider_phone"
+									type="number" value="" size="30"
+									maxlength="50"
+									style="text-transform:uppercase;width: 80%;"
+									validate="NotNull:Invalid Form Entry"
+									onchange="formodified(this);" title="">
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">Fax <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<input class="input--style-6" autocomplete="off" autofocus="on"
+									id="edit_provider_fax" name="edit_provider_fax"
+									type="Text" value="" size="30"
+									maxlength="50"
+									style="text-transform:uppercase;width: 80%;"
+									validate="NotNull:Invalid Form Entry"
+									onchange="formodified(this);" title="">
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">Website <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<input class="input--style-6" autocomplete="off" autofocus="on"
+									id="edit_provider_website" name="edit_provider_website"
+									type="Text" value="" size="30"
+									maxlength="50"
+									style="text-transform:uppercase;width: 80%;"
+									validate="NotNull:Invalid Form Entry"
+									onchange="formodified(this);" title="">
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">Speciality <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<textarea class="input--style-6" autocomplete="off" autofocus="on"
+									id="edit_provider_speciality" name="edit_provider_speciality"
+									type="Text" value=""
+									style="text-transform:uppercase;width: 80%;"
+									validate="NotNull:Invalid Form Entry"
+									onchange="formodified(this);" title=""></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">Address <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<textarea class="input--style-6" autocomplete="off" autofocus="on"
+									id="edit_provider_address" name="edit_provider_address"
+									type="Text" value=""
+									style="text-transform:uppercase;width: 80%;"
+									validate="NotNull:Invalid Form Entry"
+									onchange="formodified(this);" title=""></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">Remark <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<textarea class="input--style-6" autocomplete="off" autofocus="on"
+									id="edit_provider_remark" name="edit_provider_remark"
+									type="Text" value=""
+									style="text-transform:uppercase;width: 80%;"
+									validate="NotNull:Invalid Form Entry"
+									onchange="formodified(this);" title=""></textarea>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+
+				<div class="modal-footer">
+					<button type="reset" class="btn btn-primary1" data-dismiss="modal"
+							aria-hidden="true">
+							&nbsp;Cancel&nbsp;
+					</button>
+					
+					<button class="btn btn-warning" type="submit" name="submit_update" id="submit_update">
+							Confirm
+					</button>
+					<button class="btn btn-warning" type="button" name="submit_update2"
+						id="submit_update2" style='display:none;' disabled>
+						<span class="spinner-grow spinner-grow-sm" role="status"
+								aria-hidden="true"></span>
+						&nbsp;&nbsp;Processing..
+					</button>
+				</div>
+			</form>				
+		</div>
+		</form>
+	</div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <!-- /edit modal -->
@@ -825,7 +1076,7 @@ function updateVenue(id = null) {
 				$('#edit_venue_code').val(response.master.venue_code);
 				$('#edit_venue_name').val(response.master.venue_name);
 				$('#edit_venue_type').val(response.master.venue_type);
-				// $('#edit_venue_type').val(response.master.venue_type);
+				$('#edit_venue_type').val(response.master.venue_type);
 				$('#edit_venue_address').val(response.master.venue_address);
 				$('#edit_venue_postal_code').val(response.master.venue_zipcode);
 				$('#edit_venue_phone').val(response.master.venue_phone);
@@ -906,58 +1157,74 @@ function updateVenue(id = null) {
 					var form = $(this);
 
 					// initial variable
-					var edit_emp_no = $('#edit_emp_no').val();
-					var edit_venue_code = $('#edit_venue_code').val();
-					var edit_venue_name = $('#edit_venue_name').val();
-					var edit_venue_type = $('#edit_venue_type').val();
-					var edit_venue_room_code = [];
-					var edit_venue_room_name = [];
-					var edit_venue_address = $('#edit_venue_address').val();
-					var edit_venue_country = $('#edit_venue_country').val();
-					var edit_venue_state = $('#edit_venue_state').val();
-					var edit_venue_city = $('#edit_venue_city').val();
-					var edit_venue_postal_code = $('#edit_venue_postal_code').val();
-					var edit_venue_phone = $('#edit_venue_phone').val();
-					var edit_venue_fax = $('#edit_venue_fax').val();
-					var edit_venue_remark = $('#edit_venue_remark').val();
+					var edit_provider_code = $('#edit_provider_code').val();
+					var edit_provider_name = $('#edit_provider_name').val();
+					var edit_provider_type = $('#edit_provider_type').val();
+					var edit_pic = $('#edit_pic').val();
+					var edit_provider_country = $('#edit_provider_country').val();
+					var edit_provider_state = $('#edit_provider_state').val();
+					var edit_provider_city = $('#edit_provider_city').val();
+					var edit_zipcode = $('#edit_zipcode').val();
+					var edit_provider_email = $('#edit_provider_email').val();
+					var edit_provider_phone = $('#edit_provider_phone').val();
+					var edit_provider_fax = $('#edit_provider_fax').val();
+					var edit_provider_website = $('#edit_provider_website').val();
+					var edit_provider_speciality = $('#edit_provider_speciality').val();
+					var edit_provider_address = $('#edit_provider_address').val();
+					var edit_provider_remark = $('#edit_provider_remark').val();
 
 					var regex=/^[a-zA-Z]+$/;
 
-					if (edit_venue_name == "") {
+					if (edit_provider_code == "") {
 						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue name cannot empty";
-					} else if (edit_venue_type == "") {
+						document.getElementById("msg").innerHTML = "Provider name cannot empty";
+					} else if (edit_provider_name == "") {
 						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue type cannot empty";
-					} else if (edit_venue_address == "") {
+						document.getElementById("msg").innerHTML = "Provider name cannot empty";
+					} else if (edit_provider_type == "") {
 						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue address cannot empty";
-					} else if (edit_venue_country == "") {
+						document.getElementById("msg").innerHTML = "Provider type cannot empty";
+					} else if (edit_pic == "") {
 						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue country cannot empty";
-					} else if (edit_venue_state == "") {
+						document.getElementById("msg").innerHTML = "PIC cannot empty";
+					} else if (edit_provider_country == "") {
 						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue state cannot empty";
-					} else if (edit_venue_city == "") {
+						document.getElementById("msg").innerHTML = "Provider country cannot empty";
+					} else if (edit_provider_state == "") {
 						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue city cannot empty";
-					} else if (edit_venue_postal_code == "") {
+						document.getElementById("msg").innerHTML = "Provider state cannot empty";
+					} else if (edit_provider_city == "") {
 						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue Postal Code cannot empty";
-					} else if (edit_venue_phone == "") {
+						document.getElementById("msg").innerHTML = "Provider city cannot empty";
+					} else if (edit_zipcode == "") {
 						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue Phone cannot empty";
-					} else if (edit_venue_fax == "") {
+						document.getElementById("msg").innerHTML = "Provider zipcode cannot empty";
+					} else if (edit_provider_email == "") {
 						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue Fax cannot empty";
-					} else if (edit_venue_remark == "") {
+						document.getElementById("msg").innerHTML = "Provider email cannot empty";
+					} else if (edit_provider_phone == "") {
 						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue remark cannot empty";
+						document.getElementById("msg").innerHTML = "Provider phone cannot empty";
+					} else if (edit_provider_fax == "") {
+						modals.style.display ="block";
+						document.getElementById("msg").innerHTML = "Provider fax cannot empty";
+					} else if (edit_provider_website == "") {
+						modals.style.display ="block";
+						document.getElementById("msg").innerHTML = "Provider website cannot empty";
+					} else if (edit_provider_speciality == "") {
+						modals.style.display ="block";
+						document.getElementById("msg").innerHTML = "Provider speciality cannot empty";
+					} else if (edit_provider_address == "") {
+						modals.style.display ="block";
+						document.getElementById("msg").innerHTML = "Provider address cannot empty";
+					} else if (edit_provider_remark == "") {
+						modals.style.display ="block";
+						document.getElementById("msg").innerHTML = "Provider remark cannot empty";
 					} else {
 							$('#submit_update').hide();
 							$('#submit_update2').show();
 					}
-					if (edit_venue_name && edit_venue_type && edit_venue_address && edit_venue_country && edit_venue_state && edit_venue_city && edit_venue_postal_code && edit_venue_phone && edit_venue_fax && edit_venue_remark) {
+					if (edit_provider_code && edit_provider_name && edit_provider_type && edit_pic && edit_provider_country && edit_provider_state && edit_provider_city && edit_zipcode && edit_provider_email && edit_provider_phone && edit_provider_fax && edit_provider_website && edit_provider_speciality && edit_provider_address && edit_provider_remark) {
 						$.ajax({
 							url: form.attr('action'),
 							type: form.attr('method'),
@@ -1237,30 +1504,30 @@ function isi_otomatis() {
 	}
 
 	// for select 2 edit
-	$('.edit_venue_country').select2({
+	$('.edit_provider_country').select2({
 		dropdownParent: $('#UpdateForm')
 	});
-	$('.edit_venue_state').select2({
+	$('.edit_provider_state').select2({
 		dropdownParent: $('#UpdateForm')
 	});
-	$('.edit_venue_city').select2({
+	$('.edit_provider_city').select2({
 		dropdownParent: $('#UpdateForm')
 	});
 	
-	// for edit
-	$('#edit_venue_state').prop('disabled', true)
-	$('#edit_venue_city').prop('disabled', true)
+	// for create
+	$('#edit_provider_state').prop('disabled', true)
+	$('#edit_provider_city').prop('disabled', true)
 
 	// for form edit
-	$('#edit_venue_country').on('change', () => {
-		$('#edit_venue_state').prop('disabled', false)
-		$('#edit_venue_city').prop('disabled', true)
-		$('#edit_venue_city').empty()
-		$('#edit_venue_city').append('<option value="">select a province first</option>')
+	$('#edit_provider_country').on('change', () => {
+		$('#edit_provider_state').prop('disabled', false)
+		$('#edit_provider_city').prop('disabled', true)
+		$('#edit_provider_city').empty()
+		$('#edit_provider_city').append('<option value="">select a province first</option>')
 		edit_state()
 	})
-	$('#edit_venue_state').on('change', () => {
-		$('#edit_venue_city').prop('disabled', false)
+	$('#edit_provider_state').on('change', () => {
+		$('#edit_provider_city').prop('disabled', false)
 		edit_city()
 	})	
 
@@ -1272,14 +1539,14 @@ function isi_otomatis() {
             dataType: 'json',
             async: true,
 			data: {
-				'venue_country': $('#edit_venue_country').val()
+				'provider_country': $('#edit_provider_country').val()
 			},
 			success: function(response) {
-				$('#edit_venue_state').empty();
-				$('#edit_venue_state').append('<option value="">select a state first</option>');
+				$('#edit_provider_state').empty();
+				$('#edit_provider_state').append('<option value="">select a state first</option>');
 				
 				$.each(response.data, function(i, data) {
-					$('#edit_venue_state').append('<option value="'+data.state_id+'">' + data.state_name +'</option>')
+					$('#edit_provider_state').append('<option value="'+data.state_id+'">' + data.state_name +'</option>')
 				})
 			}
 		})
@@ -1292,14 +1559,14 @@ function isi_otomatis() {
 			dataType: 'json',
 			async: true,
 			data: {
-				'venue_state': $('#edit_venue_state').val()
+				'provider_state': $('#edit_provider_state').val()
 			},
 			success: function(response) {
-				$('#edit_venue_city').empty(),
-				$('#edit_venue_city').append('<option value="">select a city</option>');
+				$('#edit_provider_city').empty(),
+				$('#edit_provider_city').append('<option value="">select a city</option>');
 				
 				$.each(response.data, function(i, data) {
-					$('#edit_venue_city').append('<option value="'+data.city_id+'">' + data.city_name +'</option>')
+					$('#edit_provider_city').append('<option value="'+data.city_id+'">' + data.city_name +'</option>')
 				})
 			}
 		})

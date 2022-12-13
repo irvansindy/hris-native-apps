@@ -825,7 +825,6 @@ function updateVenue(id = null) {
 				$('#edit_venue_code').val(response.master.venue_code);
 				$('#edit_venue_name').val(response.master.venue_name);
 				$('#edit_venue_type').val(response.master.venue_type);
-				// $('#edit_venue_type').val(response.master.venue_type);
 				$('#edit_venue_address').val(response.master.venue_address);
 				$('#edit_venue_postal_code').val(response.master.venue_zipcode);
 				$('#edit_venue_phone').val(response.master.venue_phone);
@@ -897,7 +896,18 @@ function updateVenue(id = null) {
 				$(document).on('click', '#btn_pop_edit_room', function () {
 					$(this).closest('.array_edit_venue_room').remove();
 				});
-
+				// validate checkbox venue type
+				$('input[type=checkbox]').on('change', function(evt) {
+					if($('input[id=edit_venue_type]:checked').length > 1) {
+						this.checked = false;
+						// alert('can only choose one type');
+						mymodalss.style.display = "none";
+						modals.style.display = "block";
+						document.getElementById("msg").innerHTML =
+						"Can only choose one type";
+						return false;
+					}
+				});
 				// here update the member data
 				$("#FormDisplayUpdate").unbind('submit').bind('submit', function() {
 					// remove error messages

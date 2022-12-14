@@ -418,7 +418,7 @@ $(document).ready(function() {
 								<input class="input--style-6" autocomplete="off" autofocus="on" id="edit_venue_code"
 									name="edit_venue_code" type="Text" value="" onfocus="hlentry(this)" size="30"
 									maxlength="50" style="text-transform:uppercase;width: 60%;"
-									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="">
+									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="" readonly>
 							</div>
 						</div>
 					</div>
@@ -430,7 +430,7 @@ $(document).ready(function() {
 								<input class="input--style-6" autocomplete="off" autofocus="on" id="edit_venue_name"
 									name="edit_venue_name" type="Text" value="" onfocus="hlentry(this)" size="30"
 									maxlength="50" style="text-transform:uppercase;width: 60%;"
-									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="">
+									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="" required>
 							</div>
 						</div>
 					</div>
@@ -460,7 +460,7 @@ $(document).ready(function() {
 									type="Text" value=""
 									style="text-transform:uppercase;width: 60%;"
 									validate="NotNull:Invalid Form Entry"
-									onchange="formodified(this);" title=""></textarea>
+									onchange="formodified(this);" title="" required></textarea>
 							</div>
 						</div>
 					</div>
@@ -474,7 +474,7 @@ $(document).ready(function() {
 									<?php
 										$queryCountry = mysqli_query($connect, "SELECT * FROM hrmcountry ORDER BY country_name ASC");
 										while ($country = mysqli_fetch_array($queryCountry)) {
-											echo '<option value="' . $country['country_id'] . '">' . $country['country_name'] . '</option>';
+											echo '<option required value="' . $country['country_id'] . '">' . $country['country_name'] . '</option>';
 										}
 									?>
 								</select>
@@ -486,7 +486,7 @@ $(document).ready(function() {
 						<div class="col-sm-8">
 							<div class="input-group">
 								<select class="input--style-6 edit_venue_state" name="edit_venue_state" style="width: 50%;height: 30px;" id="edit_venue_state">
-									<option value="">--Select One--</option>
+									<option value="" required>--Select One--</option>
 								</select>
 							</div>
 						</div>
@@ -496,7 +496,7 @@ $(document).ready(function() {
 						<div class="col-sm-8">
 							<div class="input-group">
 								<select class="input--style-6 edit_venue_city" name="edit_venue_city" style="width: 50%;height: 30px;" id="edit_venue_city">
-									<option value="">--Select One--</option>
+									<option value="" required>--Select One--</option>
 								</select>
 							</div>
 						</div>
@@ -513,7 +513,7 @@ $(document).ready(function() {
 									style="text-transform:uppercase;width: 80%;"
 									validate="NotNull:Invalid Form Entry"
 									onchange="formodified(this);" title=""
-									pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==5) return false;">
+									pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==5) return false;" required>
 							</div>
 						</div>
 					</div>
@@ -529,7 +529,7 @@ $(document).ready(function() {
 									style="text-transform:uppercase;width: 80%;"
 									validate="NotNull:Invalid Form Entry"
 									onchange="formodified(this);" title=""
-									pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;">
+									pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" required>
 							</div>
 						</div>
 					</div>
@@ -545,7 +545,7 @@ $(document).ready(function() {
 									style="text-transform:uppercase;width: 80%;"
 									validate="NotNull:Invalid Form Entry"
 									onchange="formodified(this);" title=""
-									pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;">
+									pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" required>
 							</div>
 						</div>
 					</div>
@@ -559,7 +559,7 @@ $(document).ready(function() {
 								type="Text" value=""
 								style="text-transform:uppercase;width: 80%;"
 								validate="NotNull:Invalid Form Entry"
-								onchange="formodified(this);" title=""></textarea>
+								onchange="formodified(this);" title="" required></textarea>
 							</div>
 						</div>
 					</div>
@@ -935,38 +935,59 @@ function updateVenue(id = null) {
 					if (edit_venue_name == "") {
 						modals.style.display ="block";
 						document.getElementById("msg").innerHTML = "Venue name cannot empty";
+						alert('kosong name');
+						return false;
 					} else if (edit_venue_type == "") {
 						modals.style.display ="block";
 						document.getElementById("msg").innerHTML = "Venue type cannot empty";
+						alert('kosong type');
+						return false;
 					} else if (edit_venue_address == "") {
 						modals.style.display ="block";
 						document.getElementById("msg").innerHTML = "Venue address cannot empty";
+						alert('kosong addressX');
+						return false;
 					} else if (edit_venue_country == "") {
 						modals.style.display ="block";
 						document.getElementById("msg").innerHTML = "Venue country cannot empty";
+						alert('kosong country');
+						return false;
 					} else if (edit_venue_state == "") {
 						modals.style.display ="block";
 						document.getElementById("msg").innerHTML = "Venue state cannot empty";
+						alert('kosong state');
+						return false;
 					} else if (edit_venue_city == "") {
 						modals.style.display ="block";
 						document.getElementById("msg").innerHTML = "Venue city cannot empty";
+						alert('kosong city');
+						return false;
 					} else if (edit_venue_postal_code == "") {
 						modals.style.display ="block";
 						document.getElementById("msg").innerHTML = "Venue Postal Code cannot empty";
+						alert('kosong postal code');
+						return false;
 					} else if (edit_venue_phone == "") {
 						modals.style.display ="block";
 						document.getElementById("msg").innerHTML = "Venue Phone cannot empty";
+						alert('kosong phone');
+						return false;
 					} else if (edit_venue_fax == "") {
 						modals.style.display ="block";
 						document.getElementById("msg").innerHTML = "Venue Fax cannot empty";
+						alert('kosong fax');
+						return false;
 					} else if (edit_venue_remark == "") {
 						modals.style.display ="block";
 						document.getElementById("msg").innerHTML = "Venue remark cannot empty";
+						alert('kosong remark');
+						return false;
 					} else {
 							$('#submit_update').hide();
 							$('#submit_update2').show();
 					}
 					if (edit_venue_name && edit_venue_type && edit_venue_address && edit_venue_country && edit_venue_state && edit_venue_city && edit_venue_postal_code && edit_venue_phone && edit_venue_fax && edit_venue_remark) {
+						alert('wakwakwak');
 						$.ajax({
 							url: form.attr('action'),
 							type: form.attr('method'),
@@ -985,9 +1006,8 @@ function updateVenue(id = null) {
 									$('#submit_update').show();
 									$('#submit_update2').hide();
 
-									$('#FormDisplayUpdate').modal('hide');  
-									$("[data-dismiss=modal]").trigger({type: "click"});      
-							
+									$('#FormDisplayUpdate').modal('hide'); 
+									$("[data-dismiss=modal]").trigger({type: "click"});
 									// reload the datatables
 									datatable.ajax.reload(null,false);
 									// reload the datatables

@@ -464,7 +464,6 @@ $(document).ready(function() {
 							</div>
 						</div>
 					</div>
-
 					
 					<div class="form-row">
 						<div class="col-4 name">Country <span class="required">*</span></div>
@@ -734,7 +733,7 @@ $(document).ready(function() {
 				$('#submit_add2').show();
 			}
 
-			if (input_venue_code && input_venue_name && input_venue_type && input_venue_address && input_venue_country && input_venue_state && input_venue_city && input_venue_city && input_venue_postal_code && input_venue_phone && input_venue_fax && input_venue_remark) {
+			if (input_venue_code && input_venue_name && input_venue_type && input_venue_address && input_venue_country && input_venue_state && input_venue_city && input_venue_postal_code && input_venue_phone && input_venue_fax && input_venue_remark) {
 
 				//submit the form to server
 				$.ajax({
@@ -824,7 +823,7 @@ function updateVenue(id = null) {
 
 				$('#edit_venue_code').val(response.master.venue_code);
 				$('#edit_venue_name').val(response.master.venue_name);
-				$('#edit_venue_type').val(response.master.venue_type);
+				// $('#edit_venue_type').val(response.master.venue_type);
 				$('#edit_venue_address').val(response.master.venue_address);
 				$('#edit_venue_postal_code').val(response.master.venue_zipcode);
 				$('#edit_venue_phone').val(response.master.venue_phone);
@@ -896,11 +895,11 @@ function updateVenue(id = null) {
 				$(document).on('click', '#btn_pop_edit_room', function () {
 					$(this).closest('.array_edit_venue_room').remove();
 				});
+
 				// validate checkbox venue type
 				$('input[type=checkbox]').on('change', function(evt) {
 					if($('input[id=edit_venue_type]:checked').length > 1) {
 						this.checked = false;
-						// alert('can only choose one type');
 						mymodalss.style.display = "none";
 						modals.style.display = "block";
 						document.getElementById("msg").innerHTML =

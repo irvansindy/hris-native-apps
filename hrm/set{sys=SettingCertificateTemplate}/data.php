@@ -84,7 +84,8 @@
 <!-- CDN summernote -->
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js" defer></script>
+<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script> -->
 
 <!-- sweetalert2 -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -270,12 +271,12 @@ $(document).ready(function() {
 </div><!-- /.modal -->
 <!-- /edit modal -->
 
-<!-- data modal edit setting venue -->
+<!-- data modal edit Certificate Templates -->
 <div class="modal fade fade-custom" tabindex="-1" role="dialog" id="UpdateForm">
 	<div class="modal-dialog modal-belakang modal-bg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Edit Data Setting Venue</h4>
+				<h4 class="modal-title">Edit Data Certificate Templates</h4>
 				<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close" style="margin-top: -15px;">
 					<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
 				</a>
@@ -291,163 +292,69 @@ $(document).ready(function() {
 					<input id="edit_emp_no" name="edit_emp_no" type="hidden" value="<?php echo $username; ?>">
 					<!--FROM CONFIGURATION -->
 					<input id="inp_token" name="inp_token" type="hidden" value="<?php echo $get_token; ?>">
+
 					<div class="form-row">
-						<div class="col-4 name">Venue Code <span class="required">*</span></div>
-						<div class="col-sm-8">
-							<div class="input-group" id="init_venue_code"></div>
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="col-4 name">Venue Code <span class="required">*</span></div>
+						<div class="col-4 name">Certificate Code <span class="required">*</span></div>
 						<div class="col-sm-8">
 							<div class="input-group">
-
-								<input class="input--style-6" autocomplete="off" autofocus="on" id="edit_venue_code"
-									name="edit_venue_code" type="Text" value="" onfocus="hlentry(this)" size="30"
+								<input class="input--style-6" autocomplete="off" autofocus="on" id="edit_certificate_code"
+									name="edit_certificate_code" type="Text" value="" onfocus="hlentry(this)" size="30"
 									maxlength="50" style="text-transform:uppercase;width: 60%;"
-									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="" readonly>
+									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="">
 							</div>
 						</div>
 					</div>
 
+					<div class="form-row">
+						<div class="col-4 name">Certificate Title <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<input class="input--style-6" autocomplete="off" autofocus="on" id="edit_certificate_title_en"
+									name="edit_certificate_title_en" type="Text" value="" onfocus="hlentry(this)" size="30"
+									maxlength="50" style="text-transform:uppercase;width: 60%;"
+									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="" placeholder="Inggris">
+							</div>
+						</div>
+					</div>
 					<div class="form-row">
 						<div class="col-4 name"></div>
 						<div class="col-sm-8">
 							<div class="input-group">
-								<input class="input--style-6" autocomplete="off" autofocus="on" id="edit_venue_name"
-									name="edit_venue_name" type="Text" value="" onfocus="hlentry(this)" size="30"
+								<input class="input--style-6" autocomplete="off" autofocus="on" id="edit_certificate_title_id"
+									name="edit_certificate_title_id" type="Text" value="" onfocus="hlentry(this)" size="30"
 									maxlength="50" style="text-transform:uppercase;width: 60%;"
-									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="" required>
+									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="" placeholder="Indonesia">
 							</div>
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="col-4 name">Venue Type <span class="required">*</span></div>
+						<div class="col-4 name"></div>
 						<div class="col-sm-8">
 							<div class="input-group">
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="checkbox" id="edit_venue_type" name="edit_venue_type" value="INTERNAL">
-									<label class="form-check-label">Internal</label>
-								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="checkbox" id="edit_venue_type" name="edit_venue_type" value="EXTERNAL">
-									<label class="form-check-label">External</label>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="edit_venue_room"></div>
-					<div class="dynamic_edit_venue_room"></div>
-					<div class="form-row">
-						<div class="col-4 name">Venue Address <span class="required">*</span></div>
-						<div class="col-sm-8">
-							<div class="input-group">
-								<textarea class="input--style-6" autocomplete="off" autofocus="on"
-									id="edit_venue_address" name="edit_venue_address"
-									type="Text" value=""
-									style="text-transform:uppercase;width: 60%;"
-									validate="NotNull:Invalid Form Entry"
-									onchange="formodified(this);" title="" required></textarea>
-							</div>
-						</div>
-					</div>
-					
-					<div class="form-row">
-						<div class="col-4 name">Country <span class="required">*</span></div>
-						<div class="col-sm-8">
-							<div class="input-group">
-								<select class="input--style-6 edit_venue_country" name="edit_venue_country" style="width: 50%;height: 30px;" id="edit_venue_country">
-									<option value="">--Select One--</option>
-									<?php
-										$queryCountry = mysqli_query($connect, "SELECT * FROM hrmcountry ORDER BY country_name ASC");
-										while ($country = mysqli_fetch_array($queryCountry)) {
-											echo '<option required value="' . $country['country_id'] . '">' . $country['country_name'] . '</option>';
-										}
-									?>
-								</select>
-							</div>
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="col-4 name">province <span class="required">*</span></div>
-						<div class="col-sm-8">
-							<div class="input-group">
-								<select class="input--style-6 edit_venue_state" name="edit_venue_state" style="width: 50%;height: 30px;" id="edit_venue_state">
-									<option value="" required>--Select One--</option>
-								</select>
-							</div>
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="col-4 name">City <span class="required">*</span></div>
-						<div class="col-sm-8">
-							<div class="input-group">
-								<select class="input--style-6 edit_venue_city" name="edit_venue_city" style="width: 50%;height: 30px;" id="edit_venue_city">
-									<option value="" required>--Select One--</option>
-								</select>
+								<input class="input--style-6" autocomplete="off" autofocus="on" id="edit_certificate_title_th"
+									name="edit_certificate_title_th" type="Text" value="" onfocus="hlentry(this)" size="30"
+									maxlength="50" style="text-transform:uppercase;width: 60%;"
+									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="" placeholder="Thailand">
 							</div>
 						</div>
 					</div>
 
 					<div class="form-row">
-						<div class="col-4 name">Postal Code <span class="required">*</span></div>
-						<div class="col-sm-8">
-							<div class="input-group">
-								<input class="input--style-6" autocomplete="off" autofocus="on"
-									id="edit_venue_postal_code" name="edit_venue_postal_code"
-									type="number" value="" size="30"
-									maxlength="50"
-									style="text-transform:uppercase;width: 80%;"
-									validate="NotNull:Invalid Form Entry"
-									onchange="formodified(this);" title=""
-									pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==5) return false;" required>
-							</div>
+						<div class="col-4 name">Preview Certificate <span class="required">English</span></div>
+						<div class="col-8">
+							<textarea id="edit_certificate_editor_wysiwyg_en" name="edit_certificate_editor_wysiwyg_en"></textarea>
 						</div>
 					</div>
-					
 					<div class="form-row">
-						<div class="col-4 name">Phone <span class="required">*</span></div>
-						<div class="col-sm-8">
-							<div class="input-group">
-								<input class="input--style-6" autocomplete="off" autofocus="on"
-									id="edit_venue_phone" name="edit_venue_phone"
-									type="number" value="" size="30"
-									maxlength="50"
-									style="text-transform:uppercase;width: 80%;"
-									validate="NotNull:Invalid Form Entry"
-									onchange="formodified(this);" title=""
-									pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" required>
-							</div>
+						<div class="col-4 name">Preview Certificate <span class="required">Indonesian</span></div>
+						<div class="col-8">
+							<textarea id="edit_certificate_editor_wysiwyg_id" name="edit_certificate_editor_wysiwyg_id"></textarea>
 						</div>
 					</div>
-
 					<div class="form-row">
-						<div class="col-4 name">Fax <span class="required">*</span></div>
-						<div class="col-sm-8">
-							<div class="input-group">
-								<input class="input--style-6" autocomplete="off" autofocus="on"
-									id="edit_venue_fax" name="edit_venue_fax"
-									type="number" value="" size="30"
-									maxlength="50"
-									style="text-transform:uppercase;width: 80%;"
-									validate="NotNull:Invalid Form Entry"
-									onchange="formodified(this);" title=""
-									pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" required>
-							</div>
-						</div>
-					</div>
-					
-					<div class="form-row">
-						<div class="col-4 name">Remark <span class="required">*</span></div>
-						<div class="col-sm-8">
-							<div class="input-group">
-								<textarea class="input--style-6" autocomplete="off" autofocus="on"
-								id="edit_venue_remark" name="edit_venue_remark"
-								type="Text" value=""
-								style="text-transform:uppercase;width: 80%;"
-								validate="NotNull:Invalid Form Entry"
-								onchange="formodified(this);" title="" required></textarea>
-							</div>
+						<div class="col-4 name">Preview Certificate <span class="required">Thailand</span></div>
+						<div class="col-8">
+							<textarea id="edit_certificate_editor_wysiwyg_th" name="edit_certificate_editor_wysiwyg_th"></textarea>
 						</div>
 					</div>
 
@@ -518,19 +425,76 @@ $(document).ready(function() {
 </div><!-- /.modal -->
 <!-- /edit modal -->
 
-<!-- summernote -->
+<!-- summernote create form -->
 <script>
 	$('#input_certificate_editor_wysiwyg_en').summernote({
 		tabsize: 2,
-		height: 100
+		height: 100,
+		disableDragAndDrop: true,
+		callback: {
+			onImageUpload: function(files, editor, welEditable) {
+				uploadFile(files[0], editor, welEditable);
+			}
+		}
 	});
 	$('#input_certificate_editor_wysiwyg_id').summernote({
 		tabsize: 2,
-		height: 100
+		height: 100,
+		disableDragAndDrop: true,
+		callback: {
+			onImageUpload: function(files, editor, welEditable) {
+				uploadFile(files[0], editor, welEditable);
+			}
+		}
 	});
 	$('#input_certificate_editor_wysiwyg_th').summernote({
 		tabsize: 2,
-		height: 100
+		height: 100,
+		disableDragAndDrop: true,
+		callback: {
+			onImageUpload: function(files, editor, welEditable) {
+				uploadFile(files[0], editor, welEditable);
+			}
+		}
+	});
+
+	// function upload file
+	function uploadFile(files, editor, welEditable) {
+		data = new FormData();
+		data.append('file', file);
+		$.ajax({
+			url: 'php_action/FuncUploadfileFromEditor.php',
+			cache: false,
+			contentType: false,
+			processData: false,
+			data: data,
+			type: 'POST',
+			success: function(url) {
+				editor.insertImage(welEditable, url);
+			}
+			error: function(data) {
+				console.log(data);
+			}
+		});
+	}
+</script>
+
+<!-- summernote edit form -->
+<script>
+	$('#edit_certificate_editor_wysiwyg_en').summernote({
+		tabsize: 2,
+		height: 100,
+		disableDragAndDrop: true
+	});
+	$('#edit_certificate_editor_wysiwyg_id').summernote({
+		tabsize: 2,
+		height: 100,
+		disableDragAndDrop: true
+	});
+	$('#edit_certificate_editor_wysiwyg_th').summernote({
+		tabsize: 2,
+		height: 100,
+		disableDragAndDrop: true
 	});
 </script>
 
@@ -553,363 +517,298 @@ function RefreshPage() {
 <!-- isi JSON -->
 <script type="text/javascript">
 // global the manage memeber table 
-$(document).ready(function() {
-	$("#CreateButton").on('click', function() {
-		// reset the form 
-		$("#FormDisplayCreate")[0].reset();
-		// empty the message div
+	$(document).ready(function() {
+		$("#CreateButton").on('click', function() {
+			// reset the form 
+			$("#FormDisplayCreate")[0].reset();
+			// empty the message div
 
-		$(".messages_create").html("");
+			$(".messages_create").html("");
 
-		// submit form
-		$("#FormDisplayCreate").unbind('submit').bind('submit', function() {
+			// submit form
+			$("#FormDisplayCreate").unbind('submit').bind('submit', function() {
 
-			$(".text-danger").remove();
+				$(".text-danger").remove();
 
-			var form = $(this);
+				var form = $(this);
 
-			// initial variable
-			var inp_emp_no = $("#inp_emp_no").val();
-			var input_certificate_code = $("#input_certificate_code").val();
-			var input_certificate_title_en = $("#input_certificate_title_en").val();
-			var input_certificate_title_id = $("#input_certificate_title_id").val();
-			var input_certificate_title_th = $("#input_certificate_title_th").val();
-			var input_certificate_editor_wysiwyg_en = $("#input_certificate_editor_wysiwyg_en").val();
-			var input_certificate_editor_wysiwyg_id = $("#input_certificate_editor_wysiwyg_id").val();
-			var input_certificate_editor_wysiwyg_th = $("#input_certificate_editor_wysiwyg_th").val();
-			
-			var regex=/^[a-zA-Z]+$/;
-
-			if (input_certificate_code == "") {
-				modals.style.display ="block";
-				document.getElementById("msg").innerHTML = "Certificate Code cannot empty";
-				return false;
-			} else if (input_certificate_title_en == "") {
-				modals.style.display ="block";
-				document.getElementById("msg").innerHTML = "Certificate Title English cannot empty";
-				return false;
-			} else if (input_certificate_title_id == "") {
-				modals.style.display ="block";
-				document.getElementById("msg").innerHTML = "Certificate Title Indonesian cannot empty";
-				return false;
-			} else if (input_certificate_title_th == "") {
-				modals.style.display ="block";
-				document.getElementById("msg").innerHTML = "Certificate Title Thailand cannot empty";
-				return false;
-			} else if (input_certificate_editor_wysiwyg_en == "") {
-				modals.style.display ="block";
-				document.getElementById("msg").innerHTML = "Certificate Design English cannot empty";
-				return false;
-			} else if (input_certificate_editor_wysiwyg_id == "") {
-				modals.style.display ="block";
-				document.getElementById("msg").innerHTML = "Certificate Design Indonesian cannot empty";
-				return false;
-			} else if (input_certificate_editor_wysiwyg_th == "") {
-				modals.style.display ="block";
-				document.getElementById("msg").innerHTML = "Certificate Design Thailand cannot empty";
-				return false;
-			} else {
-				$('#submit_add').hide();
-				$('#submit_add2').show();
-			}
-
-			if (input_certificate_code && input_certificate_title_en && input_certificate_title_id && input_certificate_title_th && input_certificate_editor_wysiwyg_en && input_certificate_editor_wysiwyg_id && input_certificate_editor_wysiwyg_th) {
-
-				//submit the form to server
-				$.ajax({
-					url: form.attr('action'),
-					type: form.attr('method'),
-					// data: form.serialize(),
-
-					data: new FormData(this),
-					processData: false,
-					contentType: false,
-
-					dataType: 'json',
-					success: function(response) {
-						// remove the error 
-						$(".form-group").removeClass('has-error').removeClass('has-success');
-
-						if (response.code == 'success_message') {
-							// mymodalss.style.display = "none";
-							modals.style.display = "block";
-							document.getElementById("msg").innerHTML = response.messages;
-
-							$('#submit_add').show();
-							$('#submit_add2').hide();
-
-							$('#FormDisplayCreate').modal('hide');
-							$("[data-dismiss=modal]").trigger({
-								type: "click"
-							});
-
-							// reset the form
-							$("#FormDisplayCreate")[0].reset();
-							// reload the datatables
-							datatable.ajax.reload(null, false);
-							// this function is built in function of datatables;
-						} else {
-							modals.style.display = "block";
-							document.getElementById("msg").innerHTML = response.messages;
-
-							$('#submit_add').show();
-							$('#submit_add2').hide();
-
-							window.setTimeout(
-								function () {
-									$(".alert")
-										.fadeTo(
-											500,
-											0
-										)
-										.slideUp(
-											500,
-											function () {
-												$(this)
-													.remove();
-											}
-										);
-								},
-								4000
-							);
-						} // /else
-					} // success  
-				}); // ajax subit 				
-			} /// if
-			return false;
-		}); // /submit form for create member
-	}); // /add modal
-});
-
-function updateVenue(id = null) {
-	if (id) {
-		// remove the error 
-		$(".form-group").removeClass('has-error').removeClass('has-success');
-		$(".text-danger").remove();
-		// empty the message div
-		$(".messages_update").html("");
-
-		// fetch the member data
-		$.ajax({
-			url: 'php_action/getDataSettingVenueById.php',
-			type: 'post',
-			data: {
-				venue_code: id
-			},
-			dataType: 'json',
-
-			success: function(response) {
-				document.getElementById("init_venue_code").innerHTML = response.master.venue_code;
-
-				$('#edit_venue_code').val(response.master.venue_code);
-				$('#edit_venue_name').val(response.master.venue_name);
-				// $('#edit_venue_type').val(response.master.venue_type);
-				$('#edit_venue_address').val(response.master.venue_address);
-				$('#edit_venue_postal_code').val(response.master.venue_zipcode);
-				$('#edit_venue_phone').val(response.master.venue_phone);
-				$('#edit_venue_fax').val(response.master.venue_fax);
-				$('#edit_venue_remark').val(response.master.remark);
+				// initial variable
+				var inp_emp_no = $("#inp_emp_no").val();
+				var input_certificate_code = $("#input_certificate_code").val();
+				var input_certificate_title_en = $("#input_certificate_title_en").val();
+				var input_certificate_title_id = $("#input_certificate_title_id").val();
+				var input_certificate_title_th = $("#input_certificate_title_th").val();
+				var input_certificate_editor_wysiwyg_en = $("#input_certificate_editor_wysiwyg_en").val();
+				var input_certificate_editor_wysiwyg_id = $("#input_certificate_editor_wysiwyg_id").val();
+				var input_certificate_editor_wysiwyg_th = $("#input_certificate_editor_wysiwyg_th").val();
 				
-				// looping venue room by data
-				$('.edit_venue_room').empty();
-				$.each(response.detail, (i, data) => {
-					// dynamic form edit venue room and venue
-					$('.edit_venue_room').append(
-						`<div class="form-row array_edit_venue_room">
-						<div class="col-4 name">
-							${i == 0 ? `Venue Room <span class="required">*</span>` : ``}
-						</div>
-						<div class="col-lg-8">
-							<div class="form-group">
-								<div class="col-lg-3">
-									<input class="input--style-6"
-										autocomplete="off" id="edit_venue_room_code" name="edit_venue_room_code[]" type="Text" value="`+data.room_code+`" title="" placeholder="Room Code">
-								</div>
-								<div class="col-lg-3">
-									<input class="input--style-6"
-										autocomplete="off" id="edit_venue_room_name" name="edit_venue_room_name[]" type="Text" value="`+data.room_name+`" title="" placeholder="Room Name">
-								</div>
-								<div class="col-lg-3">
-								${i == 0 ? 
-									`<button class="btn btn-primary btn-sm" id="add_edit_room" type="button">
-									<i class="fa-solid fa-plus"></i>
-								</button>` : `<button class="btn btn-danger btn-sm" id="btn_pop_edit_room" type="button">
-									<i class="fa-solid fa-minus"></i>
-								</button>`}
-								</div>
-							</div>
-						</div>
-					</div>`
-					);
-				});
+				var regex=/^[a-zA-Z]+$/;
 
-				// add dynamic form venue room
-				$('#add_edit_room').on('click', () => {
-					$('.dynamic_edit_venue_room').append(
-						`<div class="form-row array_edit_venue_room">
-						<div class="col-4 name">
-							
-						</div>
-						<div class="col-lg-8">
-							<div class="form-group">
-								<div class="col-lg-3">
-									<input class="input--style-6"
-										autocomplete="off" id="edit_venue_room_code" name="edit_venue_room_code[]" type="Text" value="" title="" placeholder="Room Code">
-								</div>
-								<div class="col-lg-3">
-									<input class="input--style-6"
-										autocomplete="off" id="edit_venue_room_name" name="edit_venue_room_name[]" type="Text" value="" title="" placeholder="Room Name">
-								</div>
-								<div class="col-lg-3">
-									<button class="btn btn-danger btn-sm" id="btn_pop_edit_room" type="button">
-										<i class="fa-solid fa-minus"></i>
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>`
-					);
-				});
-
-				// delete dynamic form venue room
-				$(document).on('click', '#btn_pop_edit_room', function () {
-					$(this).closest('.array_edit_venue_room').remove();
-				});
-
-				// validate checkbox venue type
-				$('input[type=checkbox]').on('change', function(evt) {
-					if($('input[id=edit_venue_type]:checked').length > 1) {
-						this.checked = false;
-						mymodalss.style.display = "none";
-						modals.style.display = "block";
-						document.getElementById("msg").innerHTML =
-						"Can only choose one type";
-						return false;
-					}
-				});
-				// here update the member data
-				$("#FormDisplayUpdate").unbind('submit').bind('submit', function() {
-					// remove error messages
-					$(".text-danger").remove();
-
-					var form = $(this);
-
-					// initial variable
-					var edit_emp_no = $('#edit_emp_no').val();
-					var edit_venue_code = $('#edit_venue_code').val();
-					var edit_venue_name = $('#edit_venue_name').val();
-					var edit_venue_type = $('#edit_venue_type').val();
-					var edit_venue_room_code = [];
-					var edit_venue_room_name = [];
-					var edit_venue_address = $('#edit_venue_address').val();
-					var edit_venue_country = $('#edit_venue_country').val();
-					var edit_venue_state = $('#edit_venue_state').val();
-					var edit_venue_city = $('#edit_venue_city').val();
-					var edit_venue_postal_code = $('#edit_venue_postal_code').val();
-					var edit_venue_phone = $('#edit_venue_phone').val();
-					var edit_venue_fax = $('#edit_venue_fax').val();
-					var edit_venue_remark = $('#edit_venue_remark').val();
-
-					var regex=/^[a-zA-Z]+$/;
-
-					if (edit_venue_name == "") {
-						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue name cannot empty";
-						alert('kosong name');
-						return false;
-					} else if (edit_venue_type == "") {
-						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue type cannot empty";
-						alert('kosong type');
-						return false;
-					} else if (edit_venue_address == "") {
-						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue address cannot empty";
-						alert('kosong addressX');
-						return false;
-					} else if (edit_venue_country == "") {
-						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue country cannot empty";
-						alert('kosong country');
-						return false;
-					} else if (edit_venue_state == "") {
-						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue state cannot empty";
-						alert('kosong state');
-						return false;
-					} else if (edit_venue_city == "") {
-						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue city cannot empty";
-						alert('kosong city');
-						return false;
-					} else if (edit_venue_postal_code == "") {
-						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue Postal Code cannot empty";
-						alert('kosong postal code');
-						return false;
-					} else if (edit_venue_phone == "") {
-						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue Phone cannot empty";
-						alert('kosong phone');
-						return false;
-					} else if (edit_venue_fax == "") {
-						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue Fax cannot empty";
-						alert('kosong fax');
-						return false;
-					} else if (edit_venue_remark == "") {
-						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue remark cannot empty";
-						alert('kosong remark');
-						return false;
-					} else {
-							$('#submit_update').hide();
-							$('#submit_update2').show();
-					}
-					if (edit_venue_name && edit_venue_type && edit_venue_address && edit_venue_country && edit_venue_state && edit_venue_city && edit_venue_postal_code && edit_venue_phone && edit_venue_fax && edit_venue_remark) {
-						alert('wakwakwak');
-						$.ajax({
-							url: form.attr('action'),
-							type: form.attr('method'),
-							// data: form.serialize(),
-
-							data: new FormData(this),
-							processData: false,
-							contentType: false,
-
-							dataType: 'json',
-							success: function(response) {
-								if (response.code =='success_message') {
-									modals.style.display = "block";
-									document.getElementById("msg").innerHTML =response.messages;
-
-									$('#submit_update').show();
-									$('#submit_update2').hide();
-
-									$('#FormDisplayUpdate').modal('hide'); 
-									$("[data-dismiss=modal]").trigger({type: "click"});
-									// reload the datatables
-									datatable.ajax.reload(null,false);
-									// reload the datatables
-								} else {
-									modals.style.display = "block";
-									document.getElementById("msg").innerHTML = response.messages;
-								}
-							} // /success
-						}); // /ajax
-					}
+				if (input_certificate_code == "") {
+					modals.style.display ="block";
+					document.getElementById("msg").innerHTML = "Certificate Code cannot empty";
 					return false;
-				});
-			} // /success
-		}); // /fetch selected member info
-	} else {
-		alert("Error : Refresh the page again");
+				} else if (input_certificate_title_en == "") {
+					modals.style.display ="block";
+					document.getElementById("msg").innerHTML = "Certificate Title English cannot empty";
+					return false;
+				} else if (input_certificate_title_id == "") {
+					modals.style.display ="block";
+					document.getElementById("msg").innerHTML = "Certificate Title Indonesian cannot empty";
+					return false;
+				} else if (input_certificate_title_th == "") {
+					modals.style.display ="block";
+					document.getElementById("msg").innerHTML = "Certificate Title Thailand cannot empty";
+					return false;
+				} else if (input_certificate_editor_wysiwyg_en == "") {
+					modals.style.display ="block";
+					document.getElementById("msg").innerHTML = "Certificate Design English cannot empty";
+					return false;
+				} else if (input_certificate_editor_wysiwyg_id == "") {
+					modals.style.display ="block";
+					document.getElementById("msg").innerHTML = "Certificate Design Indonesian cannot empty";
+					return false;
+				} else if (input_certificate_editor_wysiwyg_th == "") {
+					modals.style.display ="block";
+					document.getElementById("msg").innerHTML = "Certificate Design Thailand cannot empty";
+					return false;
+				} else {
+					$('#submit_add').hide();
+					$('#submit_add2').show();
+				}
+
+				if (input_certificate_code && input_certificate_title_en && input_certificate_title_id && input_certificate_title_th && input_certificate_editor_wysiwyg_en && input_certificate_editor_wysiwyg_id && input_certificate_editor_wysiwyg_th) {
+
+					//submit the form to server
+					$.ajax({
+						url: form.attr('action'),
+						type: form.attr('method'),
+						// data: form.serialize(),
+
+						data: new FormData(this),
+						processData: false,
+						contentType: false,
+
+						dataType: 'json',
+						success: function(response) {
+							// remove the error 
+							$(".form-group").removeClass('has-error').removeClass('has-success');
+
+							if (response.code == 'success_message') {
+								// mymodalss.style.display = "none";
+								modals.style.display = "block";
+								document.getElementById("msg").innerHTML = response.messages;
+
+								$('#submit_add').show();
+								$('#submit_add2').hide();
+
+								$('#FormDisplayCreate').modal('hide');
+								$("[data-dismiss=modal]").trigger({
+									type: "click"
+								});
+
+								// reset the form
+								$("#FormDisplayCreate")[0].reset();
+								// reload the datatables
+								datatable.ajax.reload(null, false);
+								// this function is built in function of datatables;
+							} else {
+								modals.style.display = "block";
+								document.getElementById("msg").innerHTML = response.messages;
+
+								$('#submit_add').show();
+								$('#submit_add2').hide();
+
+								window.setTimeout(
+									function () {
+										$(".alert")
+											.fadeTo(
+												500,
+												0
+											)
+											.slideUp(
+												500,
+												function () {
+													$(this)
+														.remove();
+												}
+											);
+									},
+									4000
+								);
+							} // /else
+						} // success  
+					}); // ajax subit 				
+				} /// if
+				return false;
+			}); // /submit form for create member
+		}); // /add modal
+	});
+
+	function updateCertificate(id = null) {
+		if (id) {
+			// remove the error 
+			$(".form-group").removeClass('has-error').removeClass('has-success');
+			$(".text-danger").remove();
+			// empty the message div
+			$(".messages_update").html("");
+
+			// fetch the member data
+			$.ajax({
+				url: 'php_action/getDataCertificateById.php',
+				type: 'post',
+				data: {
+					certificate_code: id
+				},
+				dataType: 'json',
+
+				success: function(response) {
+					// document.getElementById("edit_certificate_code").innerHTML = response.master.certificate_code;
+
+					$('#edit_certificate_code').val(response.master.certificate_code);
+					$('#edit_certificate_title_en').val(response.master.certificate_title_en);
+					$('#edit_certificate_title_id').val(response.master.certificate_title_id);
+					$('#edit_certificate_title_th').val(response.master.certificate_title_th);
+					
+					// $('#edit_certificate_editor_wysiwyg_en').summernote({
+					// 	tabsize: 2,
+					// 	height: 100,
+					// 	disableDragAndDrop: true
+					// });
+					// $('#edit_certificate_editor_wysiwyg_id').summernote({
+					// 	tabsize: 2,
+					// 	height: 100,
+					// 	disableDragAndDrop: true
+					// });
+					// $('#edit_certificate_editor_wysiwyg_th').summernote({
+					// 	tabsize: 2,
+					// 	height: 100,
+					// 	disableDragAndDrop: true
+					// });
+					$('#edit_certificate_editor_wysiwyg_en').summernote('code', response.master.certificate_template_en);
+					$('#edit_certificate_editor_wysiwyg_id').summernote('code', response.master.certificate_template_id);
+					$('#edit_certificate_editor_wysiwyg_th').summernote('code', response.master.certificate_template_th);
+					// $('#edit_certificate_editor_wysiwyg_en').val(response.master.certificate_template_en);
+					// $('#edit_certificate_editor_wysiwyg_id').val(response.master.certificate_template_id);
+					// $('#edit_certificate_editor_wysiwyg_th').val(response.master.certificate_template_th);
+					
+					// here update data
+					$("#FormDisplayUpdate").unbind('submit').bind('submit', function() {
+						// remove error messages
+						$(".text-danger").remove();
+
+						var form = $(this);
+
+						// initial variable
+						var edit_emp_no = $("#edit_emp_no").val();
+						var edit_certificate_code = $("#edit_certificate_code").val();
+						var edit_certificate_title_en = $("#edit_certificate_title_en").val();
+						var edit_certificate_title_id = $("#edit_certificate_title_id").val();
+						var edit_certificate_title_th = $("#edit_certificate_title_th").val();
+						var edit_certificate_editor_wysiwyg_en = $("#edit_certificate_editor_wysiwyg_en").val();
+						var edit_certificate_editor_wysiwyg_id = $("#edit_certificate_editor_wysiwyg_id").val();
+						var edit_certificate_editor_wysiwyg_th = $("#edit_certificate_editor_wysiwyg_th").val();
+
+						var regex=/^[a-zA-Z]+$/;
+
+						if (edit_venue_name == "") {
+							modals.style.display ="block";
+							document.getElementById("msg").innerHTML = "Venue name cannot empty";
+							alert('kosong name');
+							return false;
+						} else if (edit_venue_type == "") {
+							modals.style.display ="block";
+							document.getElementById("msg").innerHTML = "Venue type cannot empty";
+							alert('kosong type');
+							return false;
+						} else if (edit_venue_address == "") {
+							modals.style.display ="block";
+							document.getElementById("msg").innerHTML = "Venue address cannot empty";
+							alert('kosong addressX');
+							return false;
+						} else if (edit_venue_country == "") {
+							modals.style.display ="block";
+							document.getElementById("msg").innerHTML = "Venue country cannot empty";
+							alert('kosong country');
+							return false;
+						} else if (edit_venue_state == "") {
+							modals.style.display ="block";
+							document.getElementById("msg").innerHTML = "Venue state cannot empty";
+							alert('kosong state');
+							return false;
+						} else if (edit_venue_city == "") {
+							modals.style.display ="block";
+							document.getElementById("msg").innerHTML = "Venue city cannot empty";
+							alert('kosong city');
+							return false;
+						} else if (edit_venue_postal_code == "") {
+							modals.style.display ="block";
+							document.getElementById("msg").innerHTML = "Venue Postal Code cannot empty";
+							alert('kosong postal code');
+							return false;
+						} else if (edit_venue_phone == "") {
+							modals.style.display ="block";
+							document.getElementById("msg").innerHTML = "Venue Phone cannot empty";
+							alert('kosong phone');
+							return false;
+						} else if (edit_venue_fax == "") {
+							modals.style.display ="block";
+							document.getElementById("msg").innerHTML = "Venue Fax cannot empty";
+							alert('kosong fax');
+							return false;
+						} else if (edit_venue_remark == "") {
+							modals.style.display ="block";
+							document.getElementById("msg").innerHTML = "Venue remark cannot empty";
+							alert('kosong remark');
+							return false;
+						} else {
+								$('#submit_update').hide();
+								$('#submit_update2').show();
+						}
+						if (edit_venue_name && edit_venue_type && edit_venue_address && edit_venue_country && edit_venue_state && edit_venue_city && edit_venue_postal_code && edit_venue_phone && edit_venue_fax && edit_venue_remark) {
+							alert('wakwakwak');
+							$.ajax({
+								url: form.attr('action'),
+								type: form.attr('method'),
+								// data: form.serialize(),
+
+								data: new FormData(this),
+								processData: false,
+								contentType: false,
+
+								dataType: 'json',
+								success: function(response) {
+									if (response.code =='success_message') {
+										modals.style.display = "block";
+										document.getElementById("msg").innerHTML =response.messages;
+
+										$('#submit_update').show();
+										$('#submit_update2').hide();
+
+										$('#FormDisplayUpdate').modal('hide'); 
+										$("[data-dismiss=modal]").trigger({type: "click"});
+										// reload the datatables
+										datatable.ajax.reload(null,false);
+										// reload the datatables
+									} else {
+										modals.style.display = "block";
+										document.getElementById("msg").innerHTML = response.messages;
+									}
+								} // /success
+							}); // /ajax
+						}
+						return false;
+					});
+				} // /success
+			}); // /fetch selected member info
+		} else {
+			alert("Error : Refresh the page again");
+		}
 	}
-}
 
 // function delete data dummy
-function editdelMember(id = null) {
-if(id) {
+	function editdelMember(id = null) {
+	if(id) {
 
 	// remove the error 
 	$(".form-group").removeClass('has-error').removeClass('has-success');
@@ -991,7 +890,7 @@ if(id) {
 	} else {
 		alert("Error : Refresh the page again");
 	}
-}
+	}
 
 </script>
 <!-- isi JSONs -->

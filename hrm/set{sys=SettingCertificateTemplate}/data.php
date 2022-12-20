@@ -84,8 +84,8 @@
 <!-- CDN summernote -->
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<!-- add defer in cdn -->
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js" defer></script>
-<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script> -->
 
 <!-- sweetalert2 -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -230,7 +230,6 @@ $(document).ready(function() {
 							</div>
 						</div>
 					</div>
-
 					<div class="form-row">
 						<div class="col-4 name">Preview Certificate <span class="required">English</span></div>
 						<div class="col-8">
@@ -249,7 +248,6 @@ $(document).ready(function() {
 							<textarea id="input_certificate_editor_wysiwyg_th" name="input_certificate_editor_wysiwyg_th"></textarea>
 						</div>
 					</div>
-
 				</fieldset>
 
 				<div class="modal-footer">
@@ -425,62 +423,8 @@ $(document).ready(function() {
 </div><!-- /.modal -->
 <!-- /edit modal -->
 
-<!-- summernote create form -->
 <script>
-	$('#input_certificate_editor_wysiwyg_en').summernote({
-		tabsize: 2,
-		height: 100,
-		disableDragAndDrop: true,
-		callback: {
-			onImageUpload: function(files, editor, welEditable) {
-				uploadFile(files[0], editor, welEditable);
-			}
-		}
-	});
-	$('#input_certificate_editor_wysiwyg_id').summernote({
-		tabsize: 2,
-		height: 100,
-		disableDragAndDrop: true,
-		callback: {
-			onImageUpload: function(files, editor, welEditable) {
-				uploadFile(files[0], editor, welEditable);
-			}
-		}
-	});
-	$('#input_certificate_editor_wysiwyg_th').summernote({
-		tabsize: 2,
-		height: 100,
-		disableDragAndDrop: true,
-		callback: {
-			onImageUpload: function(files, editor, welEditable) {
-				uploadFile(files[0], editor, welEditable);
-			}
-		}
-	});
-
-	// function upload file
-	function uploadFile(files, editor, welEditable) {
-		data = new FormData();
-		data.append('file', file);
-		$.ajax({
-			url: 'php_action/FuncUploadfileFromEditor.php',
-			cache: false,
-			contentType: false,
-			processData: false,
-			data: data,
-			type: 'POST',
-			success: function(url) {
-				editor.insertImage(welEditable, url);
-			}
-			error: function(data) {
-				console.log(data);
-			}
-		});
-	}
-</script>
-
-<!-- summernote edit form -->
-<script>
+	// summernote edit form
 	$('#edit_certificate_editor_wysiwyg_en').summernote({
 		tabsize: 2,
 		height: 100,
@@ -523,6 +467,22 @@ function RefreshPage() {
 			$("#FormDisplayCreate")[0].reset();
 			// empty the message div
 
+			// summernote create form
+			$('#input_certificate_editor_wysiwyg_en').summernote({
+				tabsize: 2,
+				height: 100,
+				disableDragAndDrop: true
+			});
+			$('#input_certificate_editor_wysiwyg_id').summernote({
+				tabsize: 2,
+				height: 100,
+				disableDragAndDrop: true
+			});
+			$('#input_certificate_editor_wysiwyg_th').summernote({
+				tabsize: 2,
+				height: 100,
+				disableDragAndDrop: true
+			});
 			$(".messages_create").html("");
 
 			// submit form
@@ -661,6 +621,7 @@ function RefreshPage() {
 					certificate_code: id
 				},
 				dataType: 'json',
+				async: true,
 
 				success: function(response) {
 					// document.getElementById("edit_certificate_code").innerHTML = response.master.certificate_code;
@@ -669,29 +630,17 @@ function RefreshPage() {
 					$('#edit_certificate_title_en').val(response.master.certificate_title_en);
 					$('#edit_certificate_title_id').val(response.master.certificate_title_id);
 					$('#edit_certificate_title_th').val(response.master.certificate_title_th);
-					
-					// $('#edit_certificate_editor_wysiwyg_en').summernote({
-					// 	tabsize: 2,
-					// 	height: 100,
-					// 	disableDragAndDrop: true
-					// });
-					// $('#edit_certificate_editor_wysiwyg_id').summernote({
-					// 	tabsize: 2,
-					// 	height: 100,
-					// 	disableDragAndDrop: true
-					// });
-					// $('#edit_certificate_editor_wysiwyg_th').summernote({
-					// 	tabsize: 2,
-					// 	height: 100,
-					// 	disableDragAndDrop: true
-					// });
-					$('#edit_certificate_editor_wysiwyg_en').summernote('code', response.master.certificate_template_en);
-					$('#edit_certificate_editor_wysiwyg_id').summernote('code', response.master.certificate_template_id);
-					$('#edit_certificate_editor_wysiwyg_th').summernote('code', response.master.certificate_template_th);
+
 					// $('#edit_certificate_editor_wysiwyg_en').val(response.master.certificate_template_en);
 					// $('#edit_certificate_editor_wysiwyg_id').val(response.master.certificate_template_id);
 					// $('#edit_certificate_editor_wysiwyg_th').val(response.master.certificate_template_th);
 					
+					$.Deferred($('#edit_certificate_editor_wysiwyg_en').summernote('code', response.master.certificate_template_en));
+					$.Deferred($('#edit_certificate_editor_wysiwyg_id').summernote('code', response.master.certificate_template_id));
+					$.Deferred($('#edit_certificate_editor_wysiwyg_th').summernote('code', response.master.certificate_template_th));
+					// document.addEventListener("DOMContentLoaded", function() {
+					// });
+
 					// here update data
 					$("#FormDisplayUpdate").unbind('submit').bind('submit', function() {
 						// remove error messages
@@ -1117,9 +1066,25 @@ function isi_otomatis() {
 		$(this).find('#UpdateForm')[0].clear();
 
 	})
-
-	// $('#UpdateForm').on('hidden.bs.modal', function(e) {
-	// 	$(this).find('#edit_form_venue')[0].reset();
-	// });
-
+	
+	
+	// function upload file
+	function uploadFile(files, editor, welEditable) {
+		data = new FormData();
+		data.append('file', file);
+		$.ajax({
+			url: 'php_action/FuncUploadfileFromEditor.php',
+			cache: false,
+			contentType: false,
+			processData: false,
+			data: data,
+			type: 'POST',
+			success: function(url) {
+				editor.insertImage(welEditable, url);
+			}
+			error: function(data) {
+				console.log(data);
+			}
+		});
+	}
 </script>

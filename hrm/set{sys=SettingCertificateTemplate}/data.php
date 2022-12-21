@@ -298,7 +298,7 @@ $(document).ready(function() {
 								<input class="input--style-6" autocomplete="off" autofocus="on" id="edit_certificate_code"
 									name="edit_certificate_code" type="Text" value="" onfocus="hlentry(this)" size="30"
 									maxlength="50" style="text-transform:uppercase;width: 60%;"
-									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="">
+									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="" readonly>
 							</div>
 						</div>
 					</div>
@@ -398,7 +398,7 @@ $(document).ready(function() {
 						<label id="isi">Are you sure to delete data ?</label>
 					</td>
 				</table>		
-				<input type="hidden" class="form-control input-report" id="del_provider_code" name="provider_code" placeholder="">
+				<input type="hidden" class="form-control input-report" id="del_certificate_code" name="del_certificate_code" placeholder="">
 			</div>
 		</div>
 		<div class="modal-footer-delete FormDisplayDelete" style="text-align: center;padding-top: 20px;">
@@ -440,6 +440,27 @@ $(document).ready(function() {
 		height: 100,
 		disableDragAndDrop: true
 	});
+
+	
+	// function upload file
+	function uploadFile(files, editor, welEditable) {
+		data = new FormData();
+		data.append('file', file);
+		$.ajax({
+			url: 'php_action/FuncUploadfileFromEditor.php',
+			cache: false,
+			contentType: false,
+			processData: false,
+			data: data,
+			type: 'POST',
+			success: function(url) {
+				editor.insertImage(welEditable, url);
+			}
+			error: function(data) {
+				console.log(data);
+			}
+		});
+	}
 </script>
 
 <script>
@@ -460,7 +481,7 @@ function RefreshPage() {
 
 <!-- isi JSON -->
 <script type="text/javascript">
-// global the manage memeber table 
+	// setup form create and insert data
 	$(document).ready(function() {
 		$("#CreateButton").on('click', function() {
 			// reset the form 
@@ -471,17 +492,35 @@ function RefreshPage() {
 			$('#input_certificate_editor_wysiwyg_en').summernote({
 				tabsize: 2,
 				height: 100,
-				disableDragAndDrop: true
+				disableDragAndDrop: true,
+				callbacks: {
+					onImageUpload: function(files, editor, welEditable) {
+						uploadFile(files[0], editor, welEditable);
+					}
+				}
+
 			});
 			$('#input_certificate_editor_wysiwyg_id').summernote({
 				tabsize: 2,
 				height: 100,
-				disableDragAndDrop: true
+				disableDragAndDrop: true,
+				callbacks: {
+					onImageUpload: function(files, editor, welEditable) {
+						uploadFile(files[0], editor, welEditable);
+					}
+				}
+
 			});
 			$('#input_certificate_editor_wysiwyg_th').summernote({
 				tabsize: 2,
 				height: 100,
-				disableDragAndDrop: true
+				disableDragAndDrop: true,
+				callbacks: {
+					onImageUpload: function(files, editor, welEditable) {
+						uploadFile(files[0], editor, welEditable);
+					}
+				}
+
 			});
 			$(".messages_create").html("");
 
@@ -605,6 +644,7 @@ function RefreshPage() {
 		}); // /add modal
 	});
 
+	// function for update data
 	function updateCertificate(id = null) {
 		if (id) {
 			// remove the error 
@@ -630,16 +670,10 @@ function RefreshPage() {
 					$('#edit_certificate_title_en').val(response.master.certificate_title_en);
 					$('#edit_certificate_title_id').val(response.master.certificate_title_id);
 					$('#edit_certificate_title_th').val(response.master.certificate_title_th);
-
-					// $('#edit_certificate_editor_wysiwyg_en').val(response.master.certificate_template_en);
-					// $('#edit_certificate_editor_wysiwyg_id').val(response.master.certificate_template_id);
-					// $('#edit_certificate_editor_wysiwyg_th').val(response.master.certificate_template_th);
 					
-					$.Deferred($('#edit_certificate_editor_wysiwyg_en').summernote('code', response.master.certificate_template_en));
-					$.Deferred($('#edit_certificate_editor_wysiwyg_id').summernote('code', response.master.certificate_template_id));
-					$.Deferred($('#edit_certificate_editor_wysiwyg_th').summernote('code', response.master.certificate_template_th));
-					// document.addEventListener("DOMContentLoaded", function() {
-					// });
+					$('#edit_certificate_editor_wysiwyg_en').summernote('code', response.master.certificate_template_en);
+					$('#edit_certificate_editor_wysiwyg_id').summernote('code', response.master.certificate_template_id);
+					$('#edit_certificate_editor_wysiwyg_th').summernote('code', response.master.certificate_template_th); 
 
 					// here update data
 					$("#FormDisplayUpdate").unbind('submit').bind('submit', function() {
@@ -660,62 +694,40 @@ function RefreshPage() {
 
 						var regex=/^[a-zA-Z]+$/;
 
-						if (edit_venue_name == "") {
+						if (edit_certificate_code == "") {
 							modals.style.display ="block";
-							document.getElementById("msg").innerHTML = "Venue name cannot empty";
-							alert('kosong name');
-							return false;
-						} else if (edit_venue_type == "") {
+							document.getElementById("msg").innerHTML = "Certificate Code cannot empty";
+							// return false;
+						} else if (edit_certificate_title_en == "") {
 							modals.style.display ="block";
-							document.getElementById("msg").innerHTML = "Venue type cannot empty";
-							alert('kosong type');
-							return false;
-						} else if (edit_venue_address == "") {
+							document.getElementById("msg").innerHTML = "Certificate Title English cannot empty";
+							// return false;
+						} else if (edit_certificate_title_id == "") {
 							modals.style.display ="block";
-							document.getElementById("msg").innerHTML = "Venue address cannot empty";
-							alert('kosong addressX');
-							return false;
-						} else if (edit_venue_country == "") {
+							document.getElementById("msg").innerHTML = "Certificate Title Indonesian cannot empty";
+							// return false;
+						} else if (edit_certificate_title_th == "") {
 							modals.style.display ="block";
-							document.getElementById("msg").innerHTML = "Venue country cannot empty";
-							alert('kosong country');
-							return false;
-						} else if (edit_venue_state == "") {
+							document.getElementById("msg").innerHTML = "Certificate Title Thailand cannot empty";
+							// return false;
+						} else if (edit_certificate_editor_wysiwyg_en == "") {
 							modals.style.display ="block";
-							document.getElementById("msg").innerHTML = "Venue state cannot empty";
-							alert('kosong state');
-							return false;
-						} else if (edit_venue_city == "") {
+							document.getElementById("msg").innerHTML = "Certificate Design English cannot empty";
+							// return false;
+						} else if (edit_certificate_editor_wysiwyg_id == "") {
 							modals.style.display ="block";
-							document.getElementById("msg").innerHTML = "Venue city cannot empty";
-							alert('kosong city');
-							return false;
-						} else if (edit_venue_postal_code == "") {
+							document.getElementById("msg").innerHTML = "Certificate Design Indonesian cannot empty";
+							// return false;
+						} else if (edit_certificate_editor_wysiwyg_th == "") {
 							modals.style.display ="block";
-							document.getElementById("msg").innerHTML = "Venue Postal Code cannot empty";
-							alert('kosong postal code');
-							return false;
-						} else if (edit_venue_phone == "") {
-							modals.style.display ="block";
-							document.getElementById("msg").innerHTML = "Venue Phone cannot empty";
-							alert('kosong phone');
-							return false;
-						} else if (edit_venue_fax == "") {
-							modals.style.display ="block";
-							document.getElementById("msg").innerHTML = "Venue Fax cannot empty";
-							alert('kosong fax');
-							return false;
-						} else if (edit_venue_remark == "") {
-							modals.style.display ="block";
-							document.getElementById("msg").innerHTML = "Venue remark cannot empty";
-							alert('kosong remark');
-							return false;
+							document.getElementById("msg").innerHTML = "Certificate Design Thailand cannot empty";
+							// return false;
 						} else {
-								$('#submit_update').hide();
-								$('#submit_update2').show();
+							$('#submit_update').hide();
+							$('#submit_update2').show();
 						}
-						if (edit_venue_name && edit_venue_type && edit_venue_address && edit_venue_country && edit_venue_state && edit_venue_city && edit_venue_postal_code && edit_venue_phone && edit_venue_fax && edit_venue_remark) {
-							alert('wakwakwak');
+
+						if(edit_certificate_code && edit_certificate_title_en && edit_certificate_title_id && edit_certificate_title_th && edit_certificate_editor_wysiwyg_en && edit_certificate_editor_wysiwyg_id && edit_certificate_editor_wysiwyg_th) {
 							$.ajax({
 								url: form.attr('action'),
 								type: form.attr('method'),
@@ -756,7 +768,7 @@ function RefreshPage() {
 	}
 
 // function delete data dummy
-	function editdelMember(id = null) {
+	function deleteCertificate(id = null) {
 	if(id) {
 
 	// remove the error 
@@ -770,15 +782,15 @@ function RefreshPage() {
 
 	// fetch the member data
 	$.ajax({
-		url: 'php_action/getSettingProviderById.php',
+		url: 'php_action/getDataCertificateById.php',
 		type: 'post',
 		data: {
-			provider_code: id
+			certificate_code: id
 		},
 		dataType: 'json',
 		success:function(response) {
 
-			$("#del_provider_code").val(response.provider_code);
+			$("#del_certificate_code").val(response.master.certificate_code);
 
 			// mmeber id 
 			$(".FormDisplayDelete").append('<input type="hidden" name="member_id" id="member_id" value="'+response.id+'"/>');
@@ -791,9 +803,9 @@ function RefreshPage() {
 				var form = $(this);
 
 				// validation
-				var del_provider_code = $("#del_provider_code").val();
+				var del_certificate_code = $("#del_certificate_code").val();
 
-				if(del_provider_code == "") {
+				if(del_certificate_code == "") {
 					modals.style.display ="block";
 					document.getElementById("msg").innerHTML = "Shiftgroup schedule code cannot empty";
 				} else {
@@ -801,7 +813,7 @@ function RefreshPage() {
 					$('#submit_delete2').show();
 				}
 
-				if(del_provider_code) {
+				if(del_certificate_code) {
 					$.ajax({
 						url: form.attr('action'),
 						type: form.attr('method'),
@@ -1066,25 +1078,4 @@ function isi_otomatis() {
 		$(this).find('#UpdateForm')[0].clear();
 
 	})
-	
-	
-	// function upload file
-	function uploadFile(files, editor, welEditable) {
-		data = new FormData();
-		data.append('file', file);
-		$.ajax({
-			url: 'php_action/FuncUploadfileFromEditor.php',
-			cache: false,
-			contentType: false,
-			processData: false,
-			data: data,
-			type: 'POST',
-			success: function(url) {
-				editor.insertImage(welEditable, url);
-			}
-			error: function(data) {
-				console.log(data);
-			}
-		});
-	}
 </script>

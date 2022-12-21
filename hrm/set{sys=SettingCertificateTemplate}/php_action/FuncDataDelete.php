@@ -3,10 +3,9 @@ require_once '../../../application/config.php';
 
 $validator = array('success' => false, 'messages' => array());
 
-// $debug_by_col1 = $_POST['debug_by_col1'];
-$provider_code = $_POST['provider_code'];
+$certificate_code = $_POST['del_certificate_code'];
 
-$sql = "DELETE FROM trnprovider WHERE provider_code = '$provider_code'";
+$sql = "DELETE FROM ttamcertification_template WHERE certificate_code = '$certificate_code'";
 
 $query = $connect->query($sql);
 

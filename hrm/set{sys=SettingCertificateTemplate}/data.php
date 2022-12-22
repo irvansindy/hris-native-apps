@@ -440,27 +440,6 @@ $(document).ready(function() {
 		height: 100,
 		disableDragAndDrop: true
 	});
-
-	
-	// function upload file
-	function uploadFile(files, editor, welEditable) {
-		data = new FormData();
-		data.append('file', file);
-		$.ajax({
-			url: 'php_action/FuncUploadfileFromEditor.php',
-			cache: false,
-			contentType: false,
-			processData: false,
-			data: data,
-			type: 'POST',
-			success: function(url) {
-				editor.insertImage(welEditable, url);
-			}
-			error: function(data) {
-				console.log(data);
-			}
-		});
-	}
 </script>
 
 <script>
@@ -492,34 +471,64 @@ function RefreshPage() {
 			$('#input_certificate_editor_wysiwyg_en').summernote({
 				tabsize: 2,
 				height: 100,
-				disableDragAndDrop: true,
-				callbacks: {
-					onImageUpload: function(files, editor, welEditable) {
-						uploadFile(files[0], editor, welEditable);
-					}
-				}
+				spellCheck: true,
+				// toolbar: [
+				// 	['style', ['style']],
+				// 	['font', ['bold', 'underline', 'italic', 'superscript', 'subscript', 'clear']],
+				// 	['fontname', ['fontname','fontsize']],
+				// 	['color', ['color']],
+				// 	['para', ['ul', 'ol', 'paragraph']],
+				// 	['table', ['table']],
+				// 	['insert', ['link', 'picture', 'video']],
+				// 	['view', ['fullscreen', 'help', 'undo', 'redo']],
+				// ],
+				// callbacks: {
+				// 	onImageUpload: function(files, editor, welEditable) {
+				// 		uploadFile(files[0], editor, welEditable);
+				// 	}
+				// }
 
 			});
 			$('#input_certificate_editor_wysiwyg_id').summernote({
 				tabsize: 2,
 				height: 100,
-				disableDragAndDrop: true,
-				callbacks: {
-					onImageUpload: function(files, editor, welEditable) {
-						uploadFile(files[0], editor, welEditable);
-					}
-				}
+				spellCheck: true,
+				// toolbar: [
+				// 	['style', ['style']],
+				// 	['font', ['bold', 'underline', 'italic', 'superscript', 'subscript', 'clear']],
+				// 	['fontname', ['fontname','fontsize']],
+				// 	['color', ['color']],
+				// 	['para', ['ul', 'ol', 'paragraph']],
+				// 	['table', ['table']],
+				// 	['insert', ['link', 'picture', 'video']],
+				// 	['view', ['fullscreen', 'help', 'undo', 'redo']],
+				// ],
+				// callbacks: {
+				// 	onImageUpload: function(files, editor, welEditable) {
+				// 		uploadFile(files[0], editor, welEditable);
+				// 	}
+				// }
 
 			});
 			$('#input_certificate_editor_wysiwyg_th').summernote({
 				tabsize: 2,
 				height: 100,
-				disableDragAndDrop: true,
-				callbacks: {
-					onImageUpload: function(files, editor, welEditable) {
-						uploadFile(files[0], editor, welEditable);
-					}
-				}
+				spellCheck: true,
+				// toolbar: [
+				// 	['style', ['style']],
+				// 	['font', ['bold', 'underline', 'italic', 'superscript', 'subscript', 'clear']],
+				// 	['fontname', ['fontname','fontsize']],
+				// 	['color', ['color']],
+				// 	['para', ['ul', 'ol', 'paragraph']],
+				// 	['table', ['table']],
+				// 	['insert', ['link', 'picture', 'video']],
+				// 	['view', ['fullscreen', 'help', 'undo', 'redo']],
+				// ],
+				// callbacks: {
+				// 	onImageUpload: function(files, editor, welEditable) {
+				// 		uploadFile(files[0], editor, welEditable);
+				// 	}
+				// }
 
 			});
 			$(".messages_create").html("");
@@ -636,13 +645,15 @@ function RefreshPage() {
 									4000
 								);
 							} // /else
-						} // success  
-					}); // ajax subit 				
-				} /// if
+						},
+						// uploadFile()
+					});
+				}
 				return false;
 			}); // /submit form for create member
 		}); // /add modal
 	});
+
 
 	// function for update data
 	function updateCertificate(id = null) {
@@ -767,7 +778,7 @@ function RefreshPage() {
 		}
 	}
 
-// function delete data dummy
+	// function delete data dummy
 	function deleteCertificate(id = null) {
 	if(id) {
 
@@ -892,190 +903,25 @@ function isi_otomatis() {
 }
 </script>
 
-<!-- onchange data dropdown country -->
+<!-- function upload file from text editor wysiwyg -->
 <script>
-	// validate checkbox venue type
-    $('input[type=checkbox]').on('change', function(evt) {
-    if($('input[id=input_venue_type]:checked').length > 1) {
-        this.checked = false;
-        // alert('can only choose one type');
-        mymodalss.style.display = "none";
-        modals.style.display = "block";
-        document.getElementById("msg").innerHTML =
-        "Can only choose one type";
-        return false;
-    }
-    });
-
-    $('#add_room').on('click', function() {
-        $('.dynamic_venue_room').append(
-            `<div class="form-row array_venue_room" id="frm_employee_no">
-                <div class="col-lg-4 name"></div>
-                <div class="col-lg-8">
-                    <div class="form-group">
-                        <div class="col-lg-3">
-                            <input class="input--style-6"
-                                autocomplete="off" id="input_venue_room_code" name="input_venue_room_code[]" type="Text" value="" title="" placeholder="Room Code">
-                        </div>
-                        <div class="col-lg-3">
-                            <input class="input--style-6"
-                                autocomplete="off" id="input_venue_room_name" name="input_venue_room_name[]" type="Text" value="" title="" placeholder="Room Name">
-                        </div>
-                        <div class="col-lg-3">
-                        <button class="btn btn-danger btn-sm" id="btn_pop_room" type="button">
-                            <i class="fa-solid fa-minus"></i>
-                        </button>
-                        </div>
-                    </div>
-                </div>
-            </div>`
-        );
-    });
-
-    // delete dynamic form venue room
-    $(document).on('click', '#btn_pop_room', function () {
-        $(this).closest('.array_venue_room').remove();
-    });
-
-	// for select 2 create
-	$('.input_venue_country').select2({
-		dropdownParent: $('#CreateForm')
-	});
-	$('.input_venue_state').select2({
-		dropdownParent: $('#CreateForm')
-	});
-	$('.input_venue_city').select2({
-		dropdownParent: $('#CreateForm')
-	});
-
-	// for form create
-	$('#input_venue_state').prop('disabled', true)
-	$('#input_venue_city').prop('disabled', true)
-
-	$('#input_venue_country').on('change', () => {
-		$('#input_venue_state').prop('disabled', false)
-		$('#input_venue_city').prop('disabled', true)
-		$('#input_venue_city').empty()
-		$('#input_venue_city').append('<option value="">select a province first</option>')
-		get_state()
-	})
-	$('#input_venue_state').on('change', () => {
-		$('#input_venue_city').prop('disabled', false)
-		get_city()
-	})
-
-	// for form create
-	function get_state() {
+	// function upload file
+	function uploadFile(files, editor, welEditable) {
+		data = new FormData();
+		data.append('file', file);
 		$.ajax({
-			url: 'php_action/getDataState.php',
-			type: "get",
-            dataType: 'json',
-            async: true,
-			data: {
-				'venue_country': $('#input_venue_country').val()
-			},
-			success: function(response) {
-				$('#input_venue_state').empty();
-				$('#input_venue_state').append('<option value="">select a state first</option>');
-				
-				$.each(response.data, function(i, data) {
-					$('#input_venue_state').append('<option value="'+data.state_id+'">' + data.state_name +'</option>')
-				})
+			url: 'php_action/FuncUploadfileFromEditor.php',
+			cache: false,
+			contentType: false,
+			processData: false,
+			data: data,
+			type: 'POST',
+			success: function(url) {
+				editor.insertImage(welEditable, url);
 			}
-		})
-	}
-
-	function get_city() {
-		$.ajax({
-			url: 'php_action/getDataCity.php',
-			type: "get",
-			dataType: 'json',
-			async: true,
-			data: {
-				'venue_state': $('#input_venue_state').val()
-			},
-			success: function(response) {
-				$('#input_venue_city').empty(),
-				$('#input_venue_city').append('<option value="">select a city</option>');
-				
-				$.each(response.data, function(i, data) {
-					$('#input_venue_city').append('<option value="'+data.city_id+'">' + data.city_name +'</option>')
-				})
+			error: function(data) {
+				console.log(data);
 			}
-		})
+		});
 	}
-
-	// for select 2 edit
-	$('.edit_venue_country').select2({
-		dropdownParent: $('#UpdateForm')
-	});
-	$('.edit_venue_state').select2({
-		dropdownParent: $('#UpdateForm')
-	});
-	$('.edit_venue_city').select2({
-		dropdownParent: $('#UpdateForm')
-	});
-	
-	// for edit
-	$('#edit_venue_state').prop('disabled', true)
-	$('#edit_venue_city').prop('disabled', true)
-
-	// for form edit
-	$('#edit_venue_country').on('change', () => {
-		$('#edit_venue_state').prop('disabled', false)
-		$('#edit_venue_city').prop('disabled', true)
-		$('#edit_venue_city').empty()
-		$('#edit_venue_city').append('<option value="">select a province first</option>')
-		edit_state()
-	})
-	$('#edit_venue_state').on('change', () => {
-		$('#edit_venue_city').prop('disabled', false)
-		edit_city()
-	})	
-
-	// for form edit
-	function edit_state() {
-		$.ajax({
-			url: 'php_action/getDataState.php',
-			type: "get",
-            dataType: 'json',
-            async: true,
-			data: {
-				'venue_country': $('#edit_venue_country').val()
-			},
-			success: function(response) {
-				$('#edit_venue_state').empty();
-				$('#edit_venue_state').append('<option value="">select a state first</option>');
-				
-				$.each(response.data, function(i, data) {
-					$('#edit_venue_state').append('<option value="'+data.state_id+'">' + data.state_name +'</option>')
-				})
-			}
-		})
-	}
-
-	function edit_city() {
-		$.ajax({
-			url: 'php_action/getDataCity.php',
-			type: "get",
-			dataType: 'json',
-			async: true,
-			data: {
-				'venue_state': $('#edit_venue_state').val()
-			},
-			success: function(response) {
-				$('#edit_venue_city').empty(),
-				$('#edit_venue_city').append('<option value="">select a city</option>');
-				
-				$.each(response.data, function(i, data) {
-					$('#edit_venue_city').append('<option value="'+data.city_id+'">' + data.city_name +'</option>')
-				})
-			}
-		})
-	}
-
-	$('#close_edit_form_venue').on('click', (e) => {
-		$(this).find('#UpdateForm')[0].clear();
-
-	})
 </script>

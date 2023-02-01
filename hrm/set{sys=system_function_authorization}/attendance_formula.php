@@ -1,12 +1,11 @@
 <?php
+
+//get_attendance_attend_id
+
        $get_Formula = mysqli_query($connect, "SELECT * FROM hrmattformula 
                                                         WHERE active_status = '1' 
                                                         ORDER BY process_order ASC");
-?>
-<?php if (mysqli_num_rows($get_Formula) > 0) { ?>
-<?php while ($row = mysqli_fetch_array($get_Formula)) { ?>
-
-              <?php
+ while ($row = mysqli_fetch_array($get_Formula)) {
               $var1 = array(
                                    "{STARTTIME} EQ 0",
                                    "{ENDTIME} EQ 0", 
@@ -42,8 +41,7 @@
                                    "')"
                             );
               $conversion_formula = str_replace($var1, $var2, $row['attformula']); 
-              ?>
-       <?php  
+        
        $att_formula = "INSERT INTO hrdattstatusdetail
                                    SELECT
                                           a.attend_id,
@@ -76,5 +74,4 @@
        } else {
               $formula_process = mysqli_query($connect, $delete_process);
        }
-?>       
-<?php }} ?>
+}

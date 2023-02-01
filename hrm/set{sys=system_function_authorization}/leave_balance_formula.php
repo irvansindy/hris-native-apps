@@ -19,21 +19,21 @@ $sql = "SELECT
                                           e.remaining_all_old,
                                           f.remaining_all_new,
                                           CASE
-                                                 -- {OLD == jika total leave aktif lebih dari 1 dan leave aktif lama lebih dari total pemakaian
+                                   
                                                  WHEN b.total_active_leave > 1 AND c.remaining_old > 0 AND c.remaining_old >= '$key_2' THEN '$key_2'
-                                                 -- NEW == jika total leave aktif lebih dari 1 dan leave aktif lama lebih dari dan sama dengan total pemakaian maka total baru tidak dipotong
+                                                
                                                  WHEN b.total_active_leave > 1 AND c.remaining_old IS NULL AND e.remaining_all_old >= '$key_2' THEN '0'
-                                                 -- OLD == jika total leave aktif lama lebih dari 1 dan total cuti lama masih ada tapi kurang dari total pemakaian maka dihabiskan dulu 
+                               
                                                  WHEN b.total_active_leave > 1 AND c.remaining_old > 0 AND c.remaining_old < '$key_2' THEN REPLACE(c.remaining_old, '.0000', '')
-                                                 -- NEW == jika  total leave aktif lebih dari 1 dan sisa cuti lama tidak cukup maka minta dari cuti baru
+                                       
                                                  WHEN b.total_active_leave > 1 AND d.remaining_new > 0 AND e.remaining_all_old < '$key_2' AND e.remaining_all_old = 0 THEN '$key_2' - e.remaining_all_old
                                                  WHEN b.total_active_leave > 1 AND d.remaining_new > 0 AND e.remaining_all_old < '$key_2' AND e.remaining_all_old < 0 THEN '$key_2'
                                                  WHEN b.total_active_leave > 1 AND d.remaining_new > 0 AND e.remaining_all_old < '$key_2' THEN '$key_2' - e.remaining_all_old
-                                                 -- OLD == jika total leave aktif lebih dari 1 dan leave aktif lama tidak ada bahkan kosong
+                              
                                                  WHEN b.total_active_leave > 1 AND (c.remaining_old <= 0  OR c.remaining_old < 0) THEN '0'
-                                          -- NEW == jika total leave aktif lebih dari 1 dan leave aktif lama
+                                          
                                           WHEN b.total_active_leave > 1 AND d.remaining_new > 0 AND c.remaining_old < '$key_2' AND e.remaining_all_old < 0 THEN '$key_2'
-                                          WHEN b.total_active_leave = 1 AND c.remaining_old > 0 AND c.remaining_old > '$key_2' THEN '$key_2'
+                                          WHEN b.total_active_leave = 1 AND c.remaining_old > 0 AND c.remaining_old >= '$key_2' THEN '$key_2'
                                           WHEN b.total_active_leave = 1 AND c.remaining_old < '$key_2' THEN c.remaining_old-'$key_2'
                                           END AS 
                                           total_amount_yang_dipake

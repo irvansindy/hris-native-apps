@@ -439,10 +439,10 @@
                                                         
                             $insert_overtime = mysqli_query($connect , $query_ovt);
 
-                            // $update_attendance = mysqli_query($connect, "UPDATE hrdattendance SET
-                            //                                                         total_ot = '$accepted_minutes',
-                            //                                                         total_otindex = '$accepted_minutes_index'
-                            //                                                  WHERE attend_id = '$get_attendance_attend_id'");
+                            $update_attendance = mysqli_query($connect, "UPDATE hrdattendance SET
+                                                                                    total_ot = '$accepted_minutes',
+                                                                                    total_otindex = '$accepted_minutes_index'
+                                                                             WHERE attend_id = '$get_attendance_attend_id'");
                      }
 
               } else {

@@ -21,7 +21,7 @@ $query = mysqli_query($connect, $sql);
 $x = 1;
 while ($row = mysqli_fetch_assoc($query)) {
 
-       $prn = '<a type="button" href="" nowrap="nowrap" data-toggle="modal" data-target="#CreateForm" data-backdrop="static" onclick="update_training(`' . $row['request_no'] . '`)"> ' . $row['request_no'] . '</a>';
+       $code = '<a type="button" href="" nowrap="nowrap" data-toggle="modal" data-target="#CreateForm" data-backdrop="static" onclick="update_training(`' . $row['request_no'] . '`)"> ' . $row['request_no'] . '</a>';
 
        $activebadge = '';
        if ($row['name_en'] == "Draft") {
@@ -46,14 +46,13 @@ while ($row = mysqli_fetch_assoc($query)) {
 
        $output['data'][] = array(
               $x,
-              $prn,
-              $row['Full_Name'],
-              $row['purpose_name_en'],
-              $row['c_startdate'],
-              $row['c_enddate'],
-              $row['destination_no'],
-              $status,
-              $row['remark']
+              $code,
+              $row['requestdate'],
+              $row['requestedby'],
+              $row['requestfor'],
+              $row['purpose_code'],
+              $row['remark'],
+              $row['cancelsts'] == 0 ? 'Pending' : 'Approved',
        );
 
        $x++;

@@ -20,12 +20,6 @@
         $SFdatetime = date("Y-m-d H:i:s");
         $SFnumber = date("YmdHis");
 
-        echo json_encode([
-            $SFdatetime,
-        ]);
-
-        die();
-
         if (!empty($_FILES['fileupload'])) {
             // set file upload
             $file_name = $_FILES['fileupload']['name'];
@@ -41,8 +35,21 @@
             if (in_array($ext, $allowTypes)) {
                 $directoryFile = $directoryFile.strtolower($final_image);
 
+                $info_file = getimagesize($file_upload);
+
+                // if ($info_file['mime'] == 'image/jpeg') {
+                //     $image = imagecreatefromjpeg($file_upload);
+                // } elseif ($info_file['mime'] == 'image/jpg') {
+                //     $image = imagecreatefromjpg($file_upload);
+                // } elseif ($info_file['mime'] == 'image/png') {
+                //     $image = imagecreatefrompng($file_upload);
+                // }
+
+                // $uploadDataFile = imagejpeg($image, $directoryFile, 60);
+
                 // upload to directory
                 $uploadDataFile = move_uploaded_file($file_upload, $directoryFile);
+                // $uploadDataFile = move_uploaded_file($image, $directoryFile);
 
                 if ($uploadDataFile) {
                     // master
@@ -57,18 +64,22 @@
                     $inp_onduty_purpose = $_POST['inp_onduty_purpose']; //destination
                     $city = $_POST['city']; //destination
                     $input_destination_detail = $_POST['input_destination_detail']; //destination
-
+                    $formDestinationDetail = $_POST['formDestinationDetail']; //destination
+                    
+                    $date_onduty = $_POST['date_onduty'];
                     $inp_add_startdate = $_POST['inp_add_startdate'];
                     $inp_add_enddate = $_POST['inp_add_enddate'];
+
+                    $requestenddate = $inp_add_enddate.' '.$SFtime;
 
                     $inp_hours_starttime = $_POST['inp_hours_starttime'];
                     $inp_hours_endtime = $_POST['inp_hours_endtime'];
 
                     // send data to work formula
                     $SFnumbercon = $inp_request_no;
-                    $SFReqtype = $inp_purpose_type;
-                    $employee     = $modal_emp;
-                    $username = $inp_emp_no;
+                    $SFReqtype = 'Attendance.leave';
+                    $inp_requestfor     = $inp_emp_no;
+                    $inp_emp_no = $inp_emp_no;
                     
                     // for on duty master
                     $queryOnDutyMaster = "INSERT INTO `hrdondutyrequest`
@@ -78,6 +89,7 @@
                         `requestedby`,
                         `requestfor`,
                         `requestdate`,
+                        `requestenddate`,
                         `purpose_code`,
                         `total_destination`,
                         `remark`,
@@ -93,6 +105,7 @@
                         '$inp_emp_no',
                         '$modal_emp',
                         '$SFdatetime',
+                        '$requestenddate',
                         '$inp_purpose_type',
                         1,
                         '$inp_remark',
@@ -100,9 +113,9 @@
                         '$SFdatetime',
                         '$inp_emp_no',
                         '$SFdatetime',
-                        '0',
+                        '1',
                         '$directoryFile'
-                        -- '$uploadDataFile'
+                        -- '$image'
                     )";
                     $executeQueryMaster = $connect->query($queryOnDutyMaster);
 
@@ -110,16 +123,19 @@
                     require_once '../../set{sys=system_function_authorization}/workflow_formula.php';
 
                     // for on duty detail
-                    for ($index = 0; $index  < count($inp_hours_starttime) ; $index ++) { 
-                        $data_hour_start = $inp_hours_starttime[$index];
+                    for ($index = 0; $index  < count($inp_hours_starttime) ; $index ++) {
+                        $date_onduty_data = $date_onduty[$index];
+                        $data_hour_start = $inp_hours_starttime[$index]; 
                         $data_hour_end = $inp_hours_endtime[$index];
-            
+                        
+                        $result_starttime = $date_onduty_data.' '.$data_hour_start;
+                        $result_endtime = $date_onduty_data.' '.$data_hour_end;
+                        
                         $queryOnDutyDetail = "INSERT INTO `hrdondutyrequestdtl` 
                         (
                             `request_no`,
                             `company_id`,
                             `destination_no`,
-                            -- `destination_code`,
                             `destination_detail`,
                             `startdate`,
                             `enddate`
@@ -127,18 +143,15 @@
                             '$inp_request_no',
                             '13576',
                             '$inp_onduty_purpose',
-                            -- '$inp_onduty_purpose',
                             '$input_destination_detail',
-                            '$SFdatetime',
-                            '$SFdatetime'
-                            -- '$data_hour_start'
-                            -- '$data_hour_end'
+                            '$result_starttime',
+                            '$result_endtime'
                         )";
             
                         $executeQueryDetail = $connect->query($queryOnDutyDetail);
                     }
-                    $response['success'] = true;
-                    $response['code'] = "success_message";
+                    $response['success'] = false;
+                    $response['code'] = "failed_message";
                     $response['messages'] = 'On duty request successfully added';
                 } else {
                     $response['success'] = false;

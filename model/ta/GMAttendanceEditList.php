@@ -4,6 +4,7 @@ $qListRender_srvside = "SELECT
 	c.*,
 	DATE_FORMAT(a.start_date, '%d %b %Y') as join_date,
 	DATE_FORMAT(c.dateforcheck, '%a, %d %b %Y') as attend_date,
+	DATE_FORMAT(c.dateforcheck, '%Y-%m-%d') as attend_date_default,
 
 	CASE 
 		WHEN c.daytype LIKE '%PH%' THEN 'background-color: pink;'

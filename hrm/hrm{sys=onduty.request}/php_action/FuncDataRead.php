@@ -21,7 +21,7 @@ $query = mysqli_query($connect, $sql);
 $x = 1;
 while ($row = mysqli_fetch_assoc($query)) {
 
-       $code = '<a type="button" href="" nowrap="nowrap" data-toggle="modal" data-target="#CreateForm" data-backdrop="static" onclick="update_training(`' . $row['request_no'] . '`)"> ' . $row['request_no'] . '</a>';
+       $code = '<a type="button" href="" nowrap="nowrap" data-toggle="modal" data-target="#DetailForm" data-backdrop="static" onclick="detailUpdateOndutyRequest(`'.$row['request_no'].'`)">'.$row['request_no'].'</a>';
 
        $activebadge = '';
        if ($row['name_en'] == "Draft") {
@@ -52,7 +52,7 @@ while ($row = mysqli_fetch_assoc($query)) {
               $row['requestfor'],
               $row['purpose_code'],
               $row['remark'],
-              $row['cancelsts'] == 0 ? 'Pending' : 'Approved',
+              $row['cancelsts'] == 1 ? 'No' : 'Yes',
        );
 
        $x++;

@@ -18,7 +18,8 @@ $frameworks                     = '';
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- end cdn select2 -->
 
-
+<!-- icon bootstrap -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
 <link rel="stylesheet" href="../../asset/gt_developer/developer_hris_form.css" />
 <link rel="stylesheet" href="../../asset/gt_developer/gt_datepicker_20211002/materialDateTimePicker.css" />
@@ -74,6 +75,8 @@ $frameworks                     = '';
 			bLengthChange: false,
 			bFilter: false,
 			bInfo: true,
+			scrollX: true,
+			// scrollY: 200,
 			bAutoWidth: true,
 			language: {
 				"processing": "Please wait..",
@@ -278,7 +281,7 @@ if ($platform != 'mobile') {
 						</div>
 
 						<?php
-							$emp = mysqli_fetch_array(mysqli_query($connect, "SELECT full_name, pos_name_en FROM view_employee WHERE emp_no='$username'"));
+							$emp = mysqli_fetch_array(mysqli_query($connect, "SELECT full_name, pos_name_en, emp_id FROM view_employee WHERE emp_no='$username'"));
 						?>
 
 						<div class="form-row" id="frm_employee_no">
@@ -288,13 +291,13 @@ if ($platform != 'mobile') {
 								<div class="input-group">
 									<input type="text" class="input--style-6 search-input" id="modal_emp"
 										name="modal_emp"
-										value=" <?php echo $username; ?> [ <?php echo $emp['full_name']; ?> ] <?php echo $emp['pos_name_en']; ?>"
+										value="<?php echo $emp['emp_id']; ?>"
 										size="30" maxlength="50" validate="NotNull:Invalid Form Entry" readonly required>
 									<!-- <div id="employeeList"></div> -->
 								</div>
 							</div>
 						</div>
-
+<!-- value="<?php echo $username; ?> [ <?php echo $emp['full_name']; ?> ] <?php echo $emp['pos_name_en']; ?>" -->
 						<div class="form-row" id="frm_employee_no">
 							<div class="col-lg-3 name">remark <font color="red">*</font>
 							</div>
@@ -446,6 +449,270 @@ if ($platform != 'mobile') {
 </div><!-- /.modal -->
 <!-- /edit modal -->
 
+<!-- detail update modal -->
+<div class="modal  fade fade-custom" tabindex="-1" role="dialog" id="DetailForm">
+	<div class="modal-dialog modal-belakang modal-bg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="revised_title">Detail On Duty Request</h4>
+				<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close"
+					style="margin-top: -15px;">
+					<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
+				</a>
+			</div>
+			<form class="form-horizontal" method="" action="" id="FormDisplayDetail" onkeydown="return event.key != 'Enter';">
+				<style>
+					body {
+						font-family: Arial;
+					}
+
+					/* Style the tab */
+					.tab {
+						overflow: hidden;
+						border: 1px solid #ccc;
+						background-color: #fff;
+						border-bottom: 1px solid #ececec;
+					}
+
+					/* Style the buttons inside the tab */
+					.tab button {
+						background-color: inherit;
+						float: left;
+						border: none;
+						outline: none;
+						cursor: pointer;
+						padding: 14px 16px;
+						transition: 0.3s;
+						font-size: 12px;
+						border-bottom: 3px solid #fff;
+					}
+
+					/* Change background color of buttons on hover */
+					.tab button:hover {
+						background-color: #fff;
+						border-bottom: 3px solid #fff;
+					}
+
+					/* Create an active/current tablink class */
+					.tab button.active {
+						background-color: #fff;
+						border-bottom: 3px solid #259dd4;
+					}
+
+					/* Style the tab content */
+					.tabcontent {
+						display: none;
+						padding: 6px 12px;
+						border: 1px solid #ccc;
+						border-top: none;
+					}
+				</style>
+
+				<div class="card-body table-responsive p-0"
+					style="width: 100vw;height: 50vh; width: 98%; margin: 5px;overflow: scroll;overflow-x: hidden;">
+
+					<fieldset id="fset_1">
+						<legend>On Duty Detail Form</legend>
+
+						<div class="messages_create"></div>
+
+						<div class="form-row" id="frm_employee_no">
+							<div class="col-lg-3 name">On Duty Purpose Type <font color="red">*</font>
+							</div>
+							<div class="col-lg-4">
+								<div class="input-group">
+									<input type="hidden" name="detail_emp_no" id="detail_emp_no" value="<?php echo $username; ?>">
+									<select class="input--style-6 modal_leave" name="detail_purpose_type"
+										style="width: 80%;height: 30px;" id="detail_purpose_type" required disabled>
+										<option value="">--Select One--</option>
+										<!-- onchange="isi_otomatis_leave()" -->
+										<?php
+											$sql = mysqli_query($connect, "SELECT 
+											a.purpose_code,
+											a.purpose_name_en
+											FROM 
+											hrmondutypurposetype a
+											ORDER BY a.purpose_code ASC");
+											while ($row = mysqli_fetch_array($sql)) {
+													echo '<option value="' . $row['purpose_code'] . '">' . $row['purpose_name_en'] . '</option>';
+											}
+										?>
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-row" id="frm_employee_no">
+							<div class="col-sm-3 name">Request For <font color="red">*</font>
+							</div>
+							<div class="col-sm-5">
+								<div class="input-group">
+									<input type="text" class="input--style-6 search-input" id="detail_modal_emp"
+										name="detail_modal_emp"
+										size="30" maxlength="50" validate="NotNull:Invalid Form Entry" readonly required>
+									<!-- <div id="employeeList"></div> -->
+								</div>
+							</div>
+						</div>
+
+						<div class="form-row" id="frm_employee_no">
+							<div class="col-lg-3 name">remark <font color="red">*</font>
+							</div>
+							<div class="col-lg-8">
+								<div class="input-group">
+									<textarea class="input--style-6 search-input" onfocus="this.value=''"
+										autocomplete="off" id="detail_remark" name="detail_remark" type="Text" value=""
+										title="" required></textarea>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-row" id="frm_employee_no">
+							<div class="col-lg-3 name">File Attachment <font color="red">*</font>
+							</div>
+							<div class="col-lg-5">
+								<div class="input-group">
+									<a href="" id="detail_fileupload" target="_blank">
+										<div id="icon_file_upload"></div>
+									</a>
+									<br>
+									<!-- <span><font color="red">click for detail</font></span> -->
+								</div>
+							</div>
+						</div>
+					</fieldset>
+
+					<fieldset class="mb-5" id="fset_1">
+						<legend>Destination</legend>
+						<div class="form-row" id="frm_employee_no">
+							<div class="col-sm-3 name">Destination <span class="required">*</span></div>
+							<div class="col-sm-5 name">
+								<div class="input-group">
+									<select class="input--style-6 modal_leave" style="width: 80%;height: 30px;"
+										name="detail_onduty_purpose" id="detail_onduty_purpose" disabled>
+										<option value="hidden">--Select Option--</option>
+										hrmdestination
+										<?php
+											$sql = mysqli_query($connect, "SELECT 
+											a.id_destination,
+											a.city
+											FROM 
+											hrmdestination a
+											ORDER BY a.id_destination ASC");
+											while ($row = mysqli_fetch_array($sql)) {
+												echo '<option value="' . $row['id_destination'] . '">' . $row['city'] . '</option>';
+											}
+										?>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div id="detailOtherDestination"></div>
+						<div class="form-row">
+							<div class="col-sm-3 mr-2 name">
+								Date Between <font color="red">*</font>
+							</div>
+							<div class="row">
+								<div class="col-sm">
+									<input type="text" id="detail_add_startdate" name="detail_add_startdate"
+										class="input--style-6" placeholder="Start Date" style="background-image:url(../../asset/dist/img/icons/calendar_icon.gif);  
+										background-size: 17px;
+										background-position:right;   
+										background-repeat:no-repeat; 
+										padding-right:10px;" autocomplete="off" readonly/>
+								</div>
+								<div class="col-sm">
+									<input type="text" id="detail_add_enddate" name="detail_add_enddate"
+										class="input--style-6" placeholder="End Date" style="background-image:url(../../asset/dist/img/icons/calendar_icon.gif);  
+										background-size: 17px;
+										background-position:right;   
+										background-repeat:no-repeat;
+										padding-right:10px;" autocomplete="off" readonly/>
+								</div>
+								</div>
+							</div>
+							<div id="list_detail_onduty">
+								<!-- id="detailOnDutyTable" -->
+								<table class="table table-striped table-bordered display mt-4">
+									<thead class="thead-dark">
+										<tr>
+											<th style="text-align:center">Date</th>
+											<th style="text-align:center">Time In</th>
+											<th style="text-align:center">Time Out</th>
+										</tr>
+									</thead>
+									<tbody id="detailOnDutyTable">
+									</tbody>
+								</table>
+							</div>
+						</div>
+						
+					</fieldset>
+					<!-- //LOAD BUTTON APPROVER STATUS -->
+					<div class="modal-footer-sdk" id="modalcancelcondition_0" style="display:none">
+						<button type="reset" class="btn-sdk btn-primary-left" data-dismiss="modal" aria-hidden="true">
+							&nbsp;Cancel&nbsp;
+						</button>
+						<button class="btn-sdk btn-primary-right" type="submit" name="submit_update" id="submit_update">
+							Confirm
+						</button>
+					</div>
+					<div class="modal-footer-sdk" id="modalcancelcondition_1">
+						<div type="reset" class="shine btn-sdk btn-primary-center-only" data-dismiss="modal"
+							style="padding-top: 8px; color:black" aria-hidden="true">
+							&nbsp;Close&nbsp;
+						</div>
+					</div>
+					<div class="modal-footer-sdk" id="modalcancelcondition_2" style="display:none">
+						<button type="reset" class="btn-sdk btn-primary-center-only" data-dismiss="modal"
+							aria-hidden="true">
+							&nbsp;Close&nbsp;
+						</button>
+					</div>
+					<div class="modal-footer-sdk" id="modalcancelcondition_3" style="display:none">
+						<button type="reset" class="btn-sdk btn-primary-not-only-left" data-dismiss="modal"
+							aria-hidden="true">
+							&nbsp;Cancel&nbsp;
+						</button>
+						<button class="btn-sdk btn-primary-center-not-only" type="submit" name="submit_update"
+							id="submit_update">
+							Confirm
+						</button>
+						<a id="cancellation_id" style="padding-top: 8px;" class="btn-sdk btn-primary-not-only-right delete"
+							type="submit" name="submit_delete" id="submit_delete">
+							Cancel
+						</a>
+					</div>
+					<!-- //LOAD BUTTON APPROVER STATUS -->
+				</div>
+				
+
+				<!-- ==================================================================================================== -->
+				<!-- ==================================================================================================== -->
+				<input id="inp_emp_no" name="inp_emp_no" type="hidden" value="<?php echo $username; ?>">
+				<!--FROM SESSION -->
+				<input id="inp_token" name="inp_token" type="hidden" value="<?php echo $get_token; ?>">
+				<!--FROM CONFIGURATION -->
+				<input id="inp_requestfor" name="inp_requestfor" type="hidden">
+				<!--FROM CONFIGURATION -->
+				<input id="inp_leaverequestv" name="inp_leaverequestv" type="hidden">
+				<!--FROM CONFIGURATION -->
+				<input id="inp_daytype" name="inp_daytype" type="hidden">
+				<!--FROM CONFIGURATION -->
+				<input id="inp_summaryleavebalance" name="inp_summaryleavebalance" type="hidden">
+				<!--FROM CONFIGURATION -->
+				<input id="inp_deductedleave" name="inp_deductedleave" type="hidden">
+				<!--FROM CONFIGURATION -->
+				<!-- ==================================================================================================== -->
+				<!-- ==================================================================================================== -->
+
+			</form>
+		</div>
+	</div>
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- /edit modal -->
+
 <script>
 	function RefreshPage() {
 		datatable.ajax.reload(null, true);
@@ -479,7 +746,7 @@ if ($platform != 'mobile') {
 	$('#inp_onduty_purpose').on('change', function(){
 		if($(this).val() == 'DST005') {
 			$('#otherDestinationDetail').append(`
-				<div class="form-row" id="formDestinationDetail">
+				<div class="form-row" id="formDestinationDetail" name="formDestinationDetail">
 					<div class="col-lg-3 name">Destination Detail <font color="red">*</font>
 					</div>
 					<div class="col-lg-8">
@@ -561,7 +828,6 @@ if ($platform != 'mobile') {
 				var modal_emp = $("#modal_emp").val();
 				var inp_purpose_type = $('#inp_purpose_type').val();
 				var inp_remark = $('#inp_remark').val();
-				// var fileupload = $('#fileupload').val();
 				var fileupload = $('#fileupload').prop('files')[0];
 				var fileName = fileupload.name;
 				var fileSize = fileupload.size;
@@ -621,14 +887,16 @@ if ($platform != 'mobile') {
 								'has-success');
 
 							if (response.code == 'success_message') {
-								mymodalss.style.display = "none";
+								// mymodalss.style.display = "none";
 								modals.style.display = "block";
 								document.getElementById("msg").innerHTML = response
 									.messages;
 
-								$("[data-dismiss=modal]").trigger({
-									type: "click"
-								});
+								$('#submit_add').show();
+								$('#submit_add2').hide();
+
+								$('#FormDisplayCreate').modal('hide');  
+								$("[data-dismiss=modal]").trigger({type: "click"});
 
 								// reset the form
 								$("#FormDisplayCreate")[0].reset();
@@ -790,6 +1058,105 @@ if ($platform != 'mobile') {
 	}
 </script>
 <!-- isi JSONs -->
+
+<!-- detail function -->
+<script>
+	function detailUpdateOndutyRequest(request_no) {
+		$("#list_detail_attendance").hide();
+
+		$("#modalcancelcondition_0").show();
+		$("#modalcancelcondition_1").hide();
+		$("#modalcancelcondition_2").hide();
+		$("#modalcancelcondition_3").hide();
+
+		// remove the error // remove the error 
+		$(".form-group").removeClass('has-error').removeClass('has-success');
+		$(".text-danger").remove();
+		$(".messages_update").html("");
+		$('#icon_file_upload').empty();
+		$('#detailOnDutyTable').empty();
+		
+		$.ajax({
+			url: 'php_action/FuncGetDataById.php',
+			type: 'GET',
+			data: {
+				request_no: request_no
+			},
+			dataType: 'json',
+			async: true,
+			success: function(response) {
+				// $('#FormDisplayDetail')
+				$('#detail_emp_no').val(response[0].request_no)
+				$('#detail_purpose_type').val(response[0].purpose_code)
+				$('#detail_modal_emp').val(response[0].requestfor)
+
+				var data_fileupload = response[0].upload_filename
+
+				let fileExtension = data_fileupload.replace(/^.*\./, '');
+				// console.log (fileExtension);
+				if(fileExtension == 'pdf') {
+					$('#icon_file_upload').append(`<i class="bi bi-filetype-pdf fa-7x"></i>`)
+					// $('#data_detail_file').remove()
+				} else if (fileExtension == 'doc') {
+					$('#icon_file_upload').append(`<i class="bi bi-file-earmark-text fa-7x"></i>`)
+					// $('#data_detail_file').remove()
+				} else if (fileExtension == 'docx') {
+					$('#icon_file_upload').append(`<i class="bi bi-file-earmark-text fa-7x"></i>`)
+					// $('#data_detail_file').remove()
+				} else {
+					$('#icon_file_upload').append(`<img id="data_detail_file" class="img-fluid img-thumbnail" src="" alt="file attachment" width="100" height="140">`)
+					// $('#detail_fileupload').remove()
+					// $('#detail_fileupload').append(`<img id="data_detail_file" class="img-fluid img-thumbnail" src="" alt="file attachment" width="100" height="140">`)
+
+				}
+
+				$('#detail_fileupload').attr("href", 'hrstudio.presfst/'+data_fileupload)
+				$('#data_detail_file').attr("src", 'hrstudio.presfst/'+data_fileupload)
+				$('#detail_remark').val(response[0].remark)
+				$('#detail_onduty_purpose').val(response[1].destination_no)
+
+				var start_time = moment(response[1].startdate).format('YYYY-MM-DD')
+				var end_time = moment(response[1].enddate).format('YYYY-MM-DD')
+				$('#detail_add_startdate').val(start_time)
+				$('#detail_add_enddate').val(end_time)
+
+				var destination_detail = response[1].destination_detail
+				if(destination_detail != '') {
+					$('#detailOtherDestination').append(`
+						<div class="form-row" id="formDestinationDetail" name="formDestinationDetail">
+							<div class="col-lg-3 name">Destination Detail <font color="red">*</font>
+							</div>
+							<div class="col-lg-8">
+								<div class="input-group">
+									<textarea class="input--style-6 search-input" readonly
+										title="">${destination_detail}</textarea>
+								</div>
+							</div>
+						</div>
+					`)
+				}
+
+				for (var index = 0; index < response[2].length; index++) {
+					$('#detailOnDutyTable').append(
+						`
+							<tr>
+								<td style="width:20%;text-align:left;">
+									${response[2][index]['startdate'] == null ? '' : moment(response[2][index]['startdate']).format('LL')}
+								</td>
+								<td style="width:20%;text-align:left;">
+									${response[2][index]['startdate'] == null ? '' : moment(response[2][index]['startdate']).format('LTS')}
+								</td>
+								<td style="width:20%;text-align:left;">
+									${response[2][index]['enddate'] == null ? '' : moment(response[2][index]['enddate']).format('LTS')}
+								</td>
+							</tr>
+						`
+					)
+				}
+			}
+		})
+	}
+</script>
 </body>
 
 </html>

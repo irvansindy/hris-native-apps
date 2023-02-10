@@ -27,12 +27,12 @@ include "../../../model/ta/GMAttendanceEditList.php";
 				<td colspan="2" rowspan="1"
 					style="vertical-align: inherit;background: #74614a;font-weight: bold;color: white;border: 1px solid white;;text-align: center;">
 					Shift Daily</td>
-				<td colspan="2"
+				<td colspan="1"
 					style="vertical-align: inherit;background: #74614a;font-weight: bold;color: white;border: 1px solid white;;text-align: center;">
 					Actual Time</td>
-				<td rowspan="2"
+				<!-- <td rowspan="2"
 					style="vertical-align: inherit;background: #74614a;font-weight: bold;color: white;border: 1px solid white;;text-align: center;">
-					Update <input id="checkAll" name="checkAll" type="checkbox" /></td>
+					Update <input id="checkAll" name="checkAll" type="checkbox" /></td> -->
 			</tr>
 			<tr>
 				<td
@@ -44,9 +44,9 @@ include "../../../model/ta/GMAttendanceEditList.php";
 				<td
 					style="background: #74614a;font-weight: bold;color: white;border: 1px solid white;;text-align: center;">
 					Time</td>
-				<td
+				<!-- <td
 					style="background: #74614a;font-weight: bold;color: white;border: 1px solid white;;text-align: center;">
-					Time</td>
+					Time</td> -->
 			</tr>
 		</thead>
 
@@ -75,23 +75,11 @@ include "../../../model/ta/GMAttendanceEditList.php";
 				readonly="true" size="4" value="<?php echo $r['emp_id']; ?>" style="background:yellow">
 			
 			<!-- data list attendance -->
-			<td nowrap="nowrap" style="<?php echo $r['style']; ?>"> <?php echo $r['attend_date']; ?></td>
-			<!-- select option list data shift type -->
-			<td>
-				<select id="sel_shiftdaily_code_<?php echo $r['key_att']; ?>" class="input--style-6"
-					name="sel_shiftdaily_code_<?php echo $r['key_att']; ?>" onfocus="hlentry(this)"
-					onchange="myFunction_kodestart_<?php echo $r['key_att']; ?>()"
-					style="border: 1px solid #d9bfbf;font-size: 12px;padding: 4px;background: #d9d9d9;width: 78.9px;">
-					<option value="<?php echo $r['shiftdaily_code']; ?>" selected>
-						<?php echo $r['shiftdaily_code']; ?></option>
-					<?php
-						$sql = mysqli_query($connect, "SELECT shiftdailycode FROM hrmttamshiftdaily");
-						while ($row = mysqli_fetch_array($sql)) {
-							echo '<option value="' . $row['shiftdailycode'] . '">' . $row['shiftdailycode'] . '</option>';
-						}
-					?>
-				</select>
+			<td nowrap="nowrap" class="date_onduty" style="<?php echo $r['style']; ?>">
+				<?php echo $r['attend_date']; ?>
+				<input type="hidden" name="date_onduty[]" id="date_onduty[]" value="<?php echo $r['attend_date_default']; ?>" readonly>
 			</td>
+			
 			<!-- default start time attendance -->
 			<td style="padding-top: 13px;" align="center">
 				<p id="shiftstarttime_<?php echo $r['key_att']; ?>">
@@ -136,7 +124,7 @@ include "../../../model/ta/GMAttendanceEditList.php";
 							</label>
 						</td>
 						<td style="white-space: nowrap;border: 1px solid transparent;padding: 0;padding-left: 5px;">
-							<input type="text"
+							<input type="time"
 								onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
 								name="inp_hours_starttime[]"
 								id="inp_hours_starttime[]"
@@ -176,7 +164,7 @@ include "../../../model/ta/GMAttendanceEditList.php";
 							</label>
 						</td>
 						<td style="white-space: nowrap;border: 1px solid transparent;padding: 0;padding-left: 5px;">
-							<input type="text"
+							<input type="time"
 								onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
 								name="inp_hours_endtime[]"
 								id="inp_hours_endtime[]"
@@ -208,7 +196,7 @@ include "../../../model/ta/GMAttendanceEditList.php";
 				}
 			</style>
 
-			<td style="text-align:center;">
+			<!-- <td style="text-align:center;">
 				<input type='checkbox' id="cek<?php echo $r['key_att']; ?>" name='update[]'
 					value='<?php echo $r['key_att']; ?>'>
 				<script>
@@ -219,7 +207,7 @@ include "../../../model/ta/GMAttendanceEditList.php";
 						$('input[id="cek<?php echo $r['key_att ']; ?>"]').prop('checked', true);
 					});
 				</script>
-			</td>
+			</td> -->
 		</tr>
 		
 		<!-- die function -->

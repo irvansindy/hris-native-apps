@@ -572,7 +572,7 @@ if ($platform != 'mobile') {
 							</div>
 							<div class="col-lg-5">
 								<div class="input-group">
-									<a href="" id="detail_fileupload" target="_blank">
+									<a href="" id="detail_fileupload" target="_blank" download>
 										<div id="icon_file_upload"></div>
 									</a>
 									<br>
@@ -887,15 +887,12 @@ if ($platform != 'mobile') {
 								'has-success');
 
 							if (response.code == 'success_message') {
-								// mymodalss.style.display = "none";
-								modals.style.display = "block";
+								mymodalss.style.display = "none";
+								modals.style.display = "none";
 								document.getElementById("msg").innerHTML = response
 									.messages;
 
-								$('#submit_add').show();
-								$('#submit_add2').hide();
-
-								$('#FormDisplayCreate').modal('hide');  
+								$('#FormDisplayCreate').modal('hide');
 								$("[data-dismiss=modal]").trigger({type: "click"});
 
 								// reset the form
@@ -903,8 +900,9 @@ if ($platform != 'mobile') {
 								// reload the datatables
 								datatable.ajax.reload(null, false);
 								// this function is built in function of datatables;
+
+								window.location.reload()
 							} else {
-								mymodalss.style.display = "none";
 								modals.style.display = "block";
 								document.getElementById("msg").innerHTML = response
 									.messages;
@@ -1105,9 +1103,6 @@ if ($platform != 'mobile') {
 					// $('#data_detail_file').remove()
 				} else {
 					$('#icon_file_upload').append(`<img id="data_detail_file" class="img-fluid img-thumbnail" src="" alt="file attachment" width="100" height="140">`)
-					// $('#detail_fileupload').remove()
-					// $('#detail_fileupload').append(`<img id="data_detail_file" class="img-fluid img-thumbnail" src="" alt="file attachment" width="100" height="140">`)
-
 				}
 
 				$('#detail_fileupload').attr("href", 'hrstudio.presfst/'+data_fileupload)
@@ -1121,6 +1116,7 @@ if ($platform != 'mobile') {
 				$('#detail_add_enddate').val(end_time)
 
 				var destination_detail = response[1].destination_detail
+				$('#detailOtherDestination').empty()
 				if(destination_detail != '') {
 					$('#detailOtherDestination').append(`
 						<div class="form-row" id="formDestinationDetail" name="formDestinationDetail">

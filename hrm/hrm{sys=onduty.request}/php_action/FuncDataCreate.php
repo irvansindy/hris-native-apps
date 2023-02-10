@@ -37,16 +37,6 @@
 
                 $info_file = getimagesize($file_upload);
 
-                // if ($info_file['mime'] == 'image/jpeg') {
-                //     $image = imagecreatefromjpeg($file_upload);
-                // } elseif ($info_file['mime'] == 'image/jpg') {
-                //     $image = imagecreatefromjpg($file_upload);
-                // } elseif ($info_file['mime'] == 'image/png') {
-                //     $image = imagecreatefrompng($file_upload);
-                // }
-
-                // $uploadDataFile = imagejpeg($image, $directoryFile, 60);
-
                 // upload to directory
                 $uploadDataFile = move_uploaded_file($file_upload, $directoryFile);
                 // $uploadDataFile = move_uploaded_file($image, $directoryFile);
@@ -151,7 +141,7 @@
                         $executeQueryDetail = $connect->query($queryOnDutyDetail);
                     }
                     $response['success'] = false;
-                    $response['code'] = "failed_message";
+                    $response['code'] = "success_message";
                     $response['messages'] = 'On duty request successfully added';
                 } else {
                     $response['success'] = false;

@@ -1,24 +1,26 @@
 <?php
+    error_reporting(0);
     date_default_timezone_set('Asia/Jakarta');
     require_once '../../../application/config.php';
 
+    // directory file
+    $directoryFile = '../../../asset/request.file.attachment/';
+
+    // allowed file types
+    $allowTypes = array('pdf', 'doc', 'docx', 'jpg', 'png', 'jpeg', 'ods');
+
+    $response = [
+        'success' => false,
+        'message' => []
+    ];
+
+    // set time
+    $SFdate = date("Y-m-d");
+    $SFtime = date('h:i:s');
+    $SFdatetime = date("Y-m-d H:i:s");
+    $SFnumber = date("YmdHis");
+
     if ($_POST) {
-        // directory file
-        $directoryFile = '../../../asset/request.file.attachment/';
-
-        // allowed file types
-        $allowTypes = array('pdf', 'doc', 'docx', 'jpg', 'png', 'jpeg', 'ods');
-
-        $response = [
-            'success' => false,
-            'message' => []
-        ];
-
-        // set time
-        $SFdate = date("Y-m-d");
-        $SFtime = date('h:i:s');
-        $SFdatetime = date("Y-m-d H:i:s");
-        $SFnumber = date("YmdHis");
 
         if (!empty($_FILES['fileupload'])) {
             // set file upload
@@ -37,9 +39,8 @@
 
                 $info_file = getimagesize($file_upload);
 
-                // upload to directory
+                // destination upload file
                 $uploadDataFile = move_uploaded_file($file_upload, $directoryFile);
-                // $uploadDataFile = move_uploaded_file($image, $directoryFile);
 
                 if ($uploadDataFile) {
                     // master

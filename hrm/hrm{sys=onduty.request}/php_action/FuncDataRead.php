@@ -11,7 +11,8 @@ include "../../../model/ta/GMOndutyReqSearchGen.php";
 include "../../../model/ta/GMOndutyReqList.php";
 
 
-$output = array('data' => array());
+// $output = array('data' => array());
+$output = ['data' => []];
 
 
 $sql = $qListRender;
@@ -43,16 +44,20 @@ while ($row = mysqli_fetch_assoc($query)) {
        }
 
        $status = '<span class="badge ' . $activebadge . '">' . $row['name_en'] . '</span>';
+       $button_approval = '<a type="button" nowrap="nowrap" data-toggle="modal" data-target="#FormDisplayOnDutyApproval" data-backdrop="static" style="color: blue; border: 5px; cursor:pointer" onclick="detailApproval(`' . $row['request_no'] . '`)"> <input type="image" src="../../asset/dist/img/icons/icon-addinfo.png" title="See detail approval request for ' . $row['request_no'] . '" width="22px"/></a>';
+
 
        $output['data'][] = array(
               $x,
               $code,
               $row['requestdate'],
+              $row['requestenddate'],
               $row['requestedby'],
-              $row['requestfor'],
-              $row['purpose_code'],
+              $row['Full_Name'],
               $row['remark'],
-              $row['cancelsts'] == 1 ? 'No' : 'Yes',
+              $status,
+              // $row['cancelsts'] == 1 ? 'No' : 'Yes',
+              $button_approval
        );
 
        $x++;

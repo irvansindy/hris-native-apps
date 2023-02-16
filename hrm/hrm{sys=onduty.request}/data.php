@@ -151,12 +151,13 @@ if ($platform != 'mobile') {
 				<tr>
 					<th class="fontCustom" style="z-index: 1;" nowrap="nowrap">No</th>
 					<th class="fontCustom" style="z-index: 1;">Code</th>
-					<th class="fontCustom" style="z-index: 1;">Start Time</th>
+					<th class="fontCustom" style="z-index: 1;">Start Date</th>
+					<th class="fontCustom" style="z-index: 1;">End Date</th>
 					<th class="fontCustom" style="z-index: 1;">Request By</th>
 					<th class="fontCustom" style="z-index: 1;">Request For</th>
-					<th class="fontCustom" style="z-index: 1;">Purpose Code</th>
 					<th class="fontCustom" style="z-index: 1;">Remark</th>
-					<th class="fontCustom" style="z-index: 1;">Status</th>
+					<th class="fontCustom" style="z-index: 1;">Request Status</th>
+					<th class="fontCustom" style="z-index: 1;">Approval Status</th>
 				</tr>
 			</thead>
 		</table>
@@ -658,32 +659,11 @@ if ($platform != 'mobile') {
 						</button>
 					</div>
 					<div class="modal-footer-sdk" id="modalcancelcondition_1">
-						<div type="reset" class="shine btn-sdk btn-primary-center-only" data-dismiss="modal"
+						<div type="reset" class="btn shine btn-sdk btn-primary-center-only rounded-pill" data-dismiss="modal"
 							style="padding-top: 8px; color:black" aria-hidden="true">
 							&nbsp;Close&nbsp;
 						</div>
 					</div>
-					<div class="modal-footer-sdk" id="modalcancelcondition_2" style="display:none">
-						<button type="reset" class="btn-sdk btn-primary-center-only" data-dismiss="modal"
-							aria-hidden="true">
-							&nbsp;Close&nbsp;
-						</button>
-					</div>
-					<div class="modal-footer-sdk" id="modalcancelcondition_3" style="display:none">
-						<button type="reset" class="btn-sdk btn-primary-not-only-left" data-dismiss="modal"
-							aria-hidden="true">
-							&nbsp;Cancel&nbsp;
-						</button>
-						<button class="btn-sdk btn-primary-center-not-only" type="submit" name="submit_update"
-							id="submit_update">
-							Confirm
-						</button>
-						<a id="cancellation_id" style="padding-top: 8px;" class="btn-sdk btn-primary-not-only-right delete"
-							type="submit" name="submit_delete" id="submit_delete">
-							Cancel
-						</a>
-					</div>
-					<!-- //LOAD BUTTON APPROVER STATUS -->
 				</div>
 				
 
@@ -712,6 +692,134 @@ if ($platform != 'mobile') {
 </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <!-- /edit modal -->
+
+<!--approval onduty modal -->
+<div class="modal fade fade-custom" tabindex="-1" role="dialog" id="FormDisplayOnDutyApproval">
+	<div class="modal-dialog modal-belakang modal-bs modal-med" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Onduty Approval</h4>
+				<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close"
+					style="margin-top: -15px;">
+					<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
+				</a>
+			</div>
+
+			<div class="card-body table-responsive p-0"
+				style="width: 100vw;height: 50vh; width: 99%; margin: 5px;overflow: scroll;overflow-x: hidden;">
+
+				<form class="form-horizontal" action="php_action/FuncApprove.php<?php echo $getPackage; ?>"
+					method="POST" id="dataDetailOnDutyApproval">
+
+					<fieldset id="fset_1">
+						<legend>&nbsp;Detail Information&nbsp;</legend>
+
+						<div class="messages_create"></div>
+
+						<input id="sel_emp_no_approver" name="sel_emp_no_approver" type="hidden"
+							value="<?php echo $username; ?>">
+						<!--FROM SESSION -->
+
+						<div class="form-row">
+							<div class="col-sm-4 name"> Request No. <span class="required">*</span></div>
+							<div class="col-sm-8 name">
+								<div class="input-group" id="contoh"
+									style="display:none; font-weight: bold;color: #5b5b5b;">
+								</div>
+								<div class="input-group" id="detail_request_no"
+									style="font-weight: bold;color: #5b5b5b;">
+								</div>
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="col-sm-4 name"> Employee <span class="required">*</span></div>
+							<div class="col-sm-8 name">
+								<div class="input-group" id="detail_full_name"
+									style="font-weight: bold;color: #5b5b5b;">
+								</div>
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="col-sm-4 name"> Detail On Duty <span class="required">*</span></div>
+							<div class="col-sm-8 name">
+								<div class="input-group" id="detail_on_duty"
+									style="font-weight: bold;color: #5b5b5b;">
+								</div>
+							</div>
+						</div>
+				
+						<div class="form-row">
+							<div class="col-sm-4 name"> Date <span class="required">*</span></div>
+							<div class="col-sm-8 name">
+								<div class="input-group" id="detail_date_on_duty"
+									style="font-weight: bold;color: #5b5b5b;">
+								</div>
+							</div>
+						</div>
+
+						<div class="form-row" style="display:none">
+							<div class="col-4 name"> APP Detail <span class="required">*</span></div>
+							<div class="col-sm-8">
+								<div class="input-group">
+									<input class="input--style-6" autocomplete="off" autofocus="on"
+										id="sel_approval_request_no" name="sel_approval_request_no" type="Text">
+								</div>
+							</div>
+						</div>
+					</fieldset>
+
+					<fieldset id="fset_1">
+						<legend>Approval Detail</legend>
+						<div class="card-body table-responsive p-0" style="width: 99%; margin: 1px;overflow: scroll;">
+							<table class="table table-striped table-bordered display mt-4">
+								<thead class="thead-dark">
+									<tr>
+									<th>No.</th>
+									<th>Approver name </th>
+									<th>Type of approver</th>
+									<th>Approval status</th>
+									</tr>
+								</thead>
+								<tbody id="list_user_approval_detail">
+									
+								</tbody>
+							</table>
+							<div>
+							</div>
+
+					</fieldset>
+			</div>
+
+			<!-- //LOAD BUTTON APPROVER STATUS -->
+			<div class="modal-footer-sdk" id="modalcancelcondition_0">
+				<div type="reset" class="btn shine btn-sdk btn-primary-center-only rounded-pill" style="color: black;" data-dismiss="modal" aria-hidden="true">
+					&nbsp;Close&nbsp;
+				</div>
+			</div>
+			<div class="modal-footer-sdk" id="modalcancelcondition_1" style="display:none">
+				<button type="reset" class="btn shine btn-sdk btn-primary-center-only rounded-pill" data-dismiss="modal" aria-hidden="true">
+					&nbsp;Close&nbsp;
+				</button>
+			</div>
+			<div class="modal-footer-sdk" id="modalcancelcondition_2" style="display:none">
+				<button type="reset" class="btn shine btn-sdk btn-primary-center-only rounded-pill" data-dismiss="modal" aria-hidden="true">
+					&nbsp;Cancel&nbsp;
+				</button>
+				<a id="cancellation_id" style="padding-top: 8px;" class="btn-sdk btn-primary-right delete" type="submit"
+					name="submit_update" id="submit_update">
+					Cancel Request
+				</a>
+			</div>
+			<!-- //LOAD BUTTON APPROVER STATUS -->
+			</form>
+		</div>
+	</div>
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- /edit modal -->
+
 
 <script>
 	function RefreshPage() {
@@ -1073,7 +1181,6 @@ if ($platform != 'mobile') {
 		$(".messages_update").html("");
 		$('#icon_file_upload').empty();
 		$('#detailOnDutyTable').empty();
-		
 		$.ajax({
 			url: 'php_action/FuncGetDataById.php',
 			type: 'GET',
@@ -1151,6 +1258,59 @@ if ($platform != 'mobile') {
 				}
 			}
 		})
+	}
+</script>
+
+<!-- detail approval on duty request -->
+<script>
+	function detailApproval(request_no) {
+		// alert('anjay')
+		// mymodalss.style.display = "block";
+		// $('#dataDetailOnDutyApproval')[0].reset()
+		$('#list_user_approval_detail').empty()
+
+		$.ajax({
+			url:'php_action/FuncDetailApproval.php',
+			type: 'GET',
+			data: {
+				request_no: request_no
+			},
+			dataType: 'json',
+			// async: true,
+			success: function (response) {
+				document.getElementById("detail_request_no").innerHTML = response[0].request_no;
+				document.getElementById("detail_full_name").innerHTML = response[0].Full_Name  + " - " + "[" + response[0].emp_no + "]";
+				document.getElementById("detail_on_duty").innerHTML = response[0].remark;
+				document.getElementById("detail_date_on_duty").innerHTML = response[0].requestdate + " - " + response[0].requestenddate;
+
+				var no = 1;
+				// looping detail approval
+
+				for (let index = 0; index < response[1].length; index++) {
+
+					$('#list_user_approval_detail').append(
+						`
+						<tr>
+							<td style="width:20%;text-align:left;">
+								${no++}
+							</td>
+							<td style="width:20%;text-align:left;">
+								${response[1][index]['Full_Name'] == null ? '' : response[1][index]['Full_Name']} - ${response[1][index]['emp_no'] == null ? '' : response[1][index]['emp_no']}
+							</td>
+							<td style="width:20%;text-align:left;">
+								${response[1][index]['req'] == null ? '' : response[1][index]['req']}
+								</td>
+							<td style="width:20%;text-align:left;">
+								${response[1][index]['status_approve'] == null ? '' : response[1][index]['status_approve']}
+							</td>
+						</tr>
+						`
+					);
+				}
+
+			}
+
+		});
 	}
 </script>
 </body>

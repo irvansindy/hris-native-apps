@@ -3,7 +3,7 @@
 
     $request_no = $_GET['request_no'];
 
-    // $queryMaster = "SELECT * FROM hrdondutyrequest WHERE request_no = '$request_no'";
+    // get Data Master 
     $queryMaster = "SELECT
     a.request_no,
     a.requestfor,
@@ -14,6 +14,7 @@
     b.emp_no
     FROM hrdondutyrequest a LEFT JOIN view_employee b ON a.requestfor = b.emp_id WHERE a.request_no = '$request_no'";
 
+    // get data list approval
     $queryListApproval = "SELECT 
     a.position_id,
     a.req,
@@ -72,9 +73,15 @@
     $resultMaster = mysqli_fetch_assoc($exeMaster);
     $resultApproval = mysqli_fetch_all($exEApproval, MYSQLI_ASSOC);
 
+    // get data status approval
+    $queryRequestStatus = "SELECT MAX(request_status) AS status_request FROM hrmrequestapproval WHERE request_no = '$request_no'";
+    $exeRequestStatus = mysqli_query($connect, $queryRequestStatus);
+    $resultRequestStatus = mysqli_fetch_assoc($exeRequestStatus);
+
     $returnJson = [
         $resultMaster, //0
-        $resultApproval //1
+        $resultApproval, //1
+        $resultRequestStatus //2
     ];
 
     $connect->close();

@@ -793,21 +793,21 @@ if ($platform != 'mobile') {
 			</div>
 
 			<!-- //LOAD BUTTON APPROVER STATUS -->
-			<div class="modal-footer-sdk" id="modalcancelcondition_0">
+			<div class="modal-footer-sdk cancel_button" id="cancel_button_0">
 				<div type="reset" class="btn shine btn-sdk btn-primary-center-only rounded-pill" style="color: black;" data-dismiss="modal" aria-hidden="true">
 					&nbsp;Close&nbsp;
 				</div>
 			</div>
-			<div class="modal-footer-sdk" id="modalcancelcondition_1" style="display:none">
+			<div class="modal-footer-sdk cancel_button" id="cancel_button_1">
 				<button type="reset" class="btn shine btn-sdk btn-primary-center-only rounded-pill" data-dismiss="modal" aria-hidden="true">
 					&nbsp;Close&nbsp;
 				</button>
 			</div>
-			<div class="modal-footer-sdk" id="modalcancelcondition_2" style="display:none">
-				<button type="reset" class="btn shine btn-sdk btn-primary-center-only rounded-pill" data-dismiss="modal" aria-hidden="true">
+			<div class="modal-footer-sdk cancel_button" id="cancel_button_2">
+				<button type="reset" class="btn-sdk btn-primary-left" data-dismiss="modal" aria-hidden="true">
 					&nbsp;Cancel&nbsp;
 				</button>
-				<a id="cancellation_id" style="padding-top: 8px;" class="btn-sdk btn-primary-right delete" type="submit"
+				<a id="cancel_onduty" style="padding-top: 8px;" class="btn-sdk btn-primary-right delete" type="submit"
 					name="submit_update" id="submit_update">
 					Cancel Request
 				</a>
@@ -1264,10 +1264,8 @@ if ($platform != 'mobile') {
 <!-- detail approval on duty request -->
 <script>
 	function detailApproval(request_no) {
-		// alert('anjay')
-		// mymodalss.style.display = "block";
-		// $('#dataDetailOnDutyApproval')[0].reset()
 		$('#list_user_approval_detail').empty()
+		$('.cancel_button').removeAttr('style')
 
 		$.ajax({
 			url:'php_action/FuncDetailApproval.php',
@@ -1278,13 +1276,24 @@ if ($platform != 'mobile') {
 			dataType: 'json',
 			// async: true,
 			success: function (response) {
+
+				if (response[2].status_request == 1) {
+					$("#cancel_button_0").css("display", "none")
+					$("#cancel_button_1").css("display", "none")
+					$("#cancel_button_2").css("display", "true")
+					$('#cancel_onduty').attr('data-request_no', response[0].request_no)
+				} else {
+					$("#cancel_button_0").css("display", "true")
+					$("#cancel_button_1").css("display", "none")
+					$("#cancel_button_2").css("display", "none")
+				}
 				document.getElementById("detail_request_no").innerHTML = response[0].request_no;
 				document.getElementById("detail_full_name").innerHTML = response[0].Full_Name  + " - " + "[" + response[0].emp_no + "]";
 				document.getElementById("detail_on_duty").innerHTML = response[0].remark;
 				document.getElementById("detail_date_on_duty").innerHTML = response[0].requestdate + " - " + response[0].requestenddate;
-
-				var no = 1;
+				
 				// looping detail approval
+				var no = 1;
 
 				for (let index = 0; index < response[1].length; index++) {
 
@@ -1306,10 +1315,32 @@ if ($platform != 'mobile') {
 						</tr>
 						`
 					);
-				}
-
+				}	
 			}
-
+		});
+		
+		$('#cancel_onduty').click(function () {
+			var request_no = $(this).data('request_no')
+			var confirmation = confirm("Are you sure to cancel request " + request_no + " ?")
+			if (confirmation == true) {
+				$.ajax({
+					url: 'php_action/FuncCancelApprovalFromUser.php<?php echo $getPackage; ?>request_no=' + request_no,
+					type: 'GET',
+					processData: false,
+					contentType: false,
+					dataType: 'json',
+					success: function(response) {
+						if (response.code == 'success_message') {
+							mymodals_withhref.style.display = "block";
+							document.getElementById("msg_href").innerHTML = response.messages;
+						} else {
+							mymodals_withhref.style.display = "block";
+							document.getElementById("msg_href").innerHTML = response.messages;
+							return false;
+						}
+					},
+				})
+			}
 		});
 	}
 </script>

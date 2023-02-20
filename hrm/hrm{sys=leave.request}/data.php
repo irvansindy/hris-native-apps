@@ -1748,6 +1748,13 @@ if ($platform != 'mobile') {
 								document.getElementById("msg_href").innerHTML = response.messages;
 								return false;
 							}
+						},
+						error: function(xhr, status, error) {
+							var err = eval("(" + xhr.responseText + ")");
+							mymodals_withhref.style.display = "block";
+							document.getElementById("msg_href").innerHTML = err;
+							return false;
+							// alert(err.Message);
 						}
 
 					});

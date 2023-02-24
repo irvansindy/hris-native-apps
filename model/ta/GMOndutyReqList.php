@@ -21,6 +21,6 @@ $qListRender = "SELECT
                         MAX(sub1.destination_no) AS destination_no
                         FROM hrdondutyrequestdtl sub1
                     ) f ON a.request_no=f.request_no
-                -- $where
+                $where
                 GROUP BY a.request_no
                 ORDER BY a.created_date DESC";

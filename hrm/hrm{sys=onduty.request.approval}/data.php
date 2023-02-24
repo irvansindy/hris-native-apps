@@ -111,6 +111,7 @@ if (!empty($_POST['src_request_status'])) {
             ],
             pagingType: "simple",
             bPaginate: true,
+            scrollX:true,
             bLengthChange: false,
             bFilter: false,
             bInfo: true,
@@ -150,26 +151,17 @@ if ($platform != 'mobile') {
 <div class="col-md-12">
     <div class="card">
         <div class="card-header d-flex align-items-center">
-            <h4 class="card-title mb-0">Leave Request </h4>
+            <h4 class="card-title mb-0">On Duty Request </h4>
 
             <?php } else if ($platform == 'mobile') { ?>
 
             <div class="col-md-12">
                 <div class="card" style="border-radius: 20px 20px 20px 20px;margin-bottom: 25px;">
                     <div class="card-header d-flex align-items-center" style="border-bottom: 1px solid white;">
-                        <h4 class="card-title mb-0">Leave Approval </h4>
+                        <h4 class="card-title mb-0">On Duty Approval </h4>
                         <?php } ?>
                         <div class="card-actions ml-auto">
                             <table>
-                                <!-- <td>
-                                    <form action="../rfid=repository/cli_Template_Download/st/StFunctionDownload.php" method="GET">
-                                        <input type="hidden" name="filedata" value="StDownloadGTTGROndtAllowanceItemData.php">
-                                        <input type="hidden" name="filename" value="OndtAllowanceItem">
-                                        <input type="hidden" name="src_ip_period" value="<php echo $src_ip_period; ?>">
-                                        <input type="hidden" name="src_ipp_reqno" value="<php echo $src_ipp_reqno; ?>">
-                                        <button type="submit" class="toolbar sprite-toolbar-excel" id="EXCEL" style="border: 0;background-color: white;" name="submit_approve" value="submit"></button>
-                                    </form>
-                                </td> -->
                                 <td>
                                     <a href='#' class='open_modal_search' class="btn btn-demo" data-toggle="modal"
                                         data-target="#myModal2">
@@ -205,7 +197,7 @@ if ($platform != 'mobile') {
                                 <th class="fontCustom" style="z-index: 1; vertical-align: middle; width: 100px;">
                                     Request For&nbsp;&nbsp;&nbsp;</th>
                                 <th class="fontCustom" style="z-index:1;vertical-align: ce;vertical-align: middle;">
-                                    Type of Leave&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    Purpose&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </th>
                                 <th class="fontCustom" style="z-index:1;vertical-align: ce;vertical-align: middle;">
                                     Start Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -214,19 +206,10 @@ if ($platform != 'mobile') {
                                     End Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </th>
                                 <th class="fontCustom" style="z-index:1;vertical-align: ce;vertical-align: middle;">
-                                    Total Days&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </th>
-                                <th class="fontCustom" style="z-index:1;vertical-align: ce;vertical-align: middle;">
                                     Remark&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </th>
                                 <th class="fontCustom" style="z-index:1;vertical-align: ce;vertical-align: middle;">
-                                    Urgent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </th>
-                                <th class="fontCustom" style="z-index:1;vertical-align: ce;vertical-align: middle;">
                                     Request status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </th>
-                                <th class="fontCustom" style="z-index:1;vertical-align: ce;vertical-align: middle;">
-                                    Attachment&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </th>
                                 <th class="fontCustom" style="z-index:1;vertical-align: ce;vertical-align: middle;">
                                     Approval status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

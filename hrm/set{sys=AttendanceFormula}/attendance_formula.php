@@ -6,7 +6,7 @@
 <?php if (mysqli_num_rows($get_Formula) > 0) { ?>
 <?php while ($row = mysqli_fetch_array($get_Formula)) { ?>
 
-              <?php
+<?php
               $var1 = array(
                                    "{STARTTIME} EQ 0",
                                    "{ENDTIME} EQ 0", 
@@ -68,5 +68,5 @@
                                    `attend_code` IN ('$row[listattendcode]')";
               mysqli_query($connect, $delete_process);
        }
-?>       
+?>
 <?php }} ?>

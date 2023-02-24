@@ -7,37 +7,44 @@ if ($getdata == 0) {
 	include "../../../application/session/mobile.session.php";
 }
 
+// include "../../../model/ta/GMLeaveApprovalSearchGen2.php"; 
+// include "../../../model/ta/GMLeaveApprovalList.php";
 
-include "../../../model/ta/GMLeaveApprovalSearchGen2.php"; 
-include "../../../model/ta/GMLeaveApprovalList.php";      
+include "../../../model/ta/GMOnDutyApprovalSearch.php"; 
+include "../../../model/ta/GMOnDutyApprovalList.php";
 
-$output = array('data' => array());
+$output = ['data' => []];
 
-$sql = $qListRenderApproval;
+$sql = $queryOnDutyApprovalList;
 
-// echo $sql; die();
+// echo $sql;
 
 $query = mysqli_query($connect, $sql);
+
+// $results = mysqli_fetch_array($query);
+// $results = mysqli_fetch_assoc($query);
+
+// array_push($output['data'], $results);
 
 $x = 1;
 while ($row = mysqli_fetch_assoc($query)) {
 
-	if($row['urgent_request'] == 'Y') {
-		$urgent_request_Print = 'Yes';
-	} else {
-		$urgent_request_Print = 'No';
-	}
+	// if($row['urgent_request'] == 'Y') {
+	// 	$urgent_request_Print = 'Yes';
+	// } else {
+	// 	$urgent_request_Print = 'No';
+	// }
 
-	$attachment = '';
-		if($row['file_name'] == "") {
-			$attachment = "<td class='fontCustom'></td>";
-		} else {
-			$attachment = "<td class='fontCustom'>
-								<a href='#' data-toggle='modal' data-target='#FormDisplayAttachmentRequest' onclick='Attachment(`$row[request_no]`)'>
-									<div class='toolbar sprite-toolbar-cus' id='add' title='{$row['file_name']}'></div>
-								</a>
-							</td>";
-	}
+	// $attachment = '';
+	// 	if($row['file_name'] == "") {
+	// 		$attachment = "<td class='fontCustom'></td>";
+	// 	} else {
+	// 		$attachment = "<td class='fontCustom'>
+	// 							<a href='#' data-toggle='modal' data-target='#FormDisplayAttachmentRequest' onclick='Attachment(`$row[request_no]`)'>
+	// 								<div class='toolbar sprite-toolbar-cus' id='add' title='{$row['file_name']}'></div>
+	// 							</a>
+	// 						</td>";
+	// }
 
 	$activebadge = '';
 	if($row['name_en'] == "Draft") {
@@ -66,16 +73,13 @@ while ($row = mysqli_fetch_assoc($query)) {
 
 	$output['data'][] = array(
 		$x,
-		$rmintf,
+		$row['request_no'],
 		$row['Full_Name'],
-		$row['leave_code'],
-		$row['leave_startdates'],
-		$row['leave_enddates'],
-		$row['totaldays'],
+		$row['purpose_name_en'],
+		$row['requestdate'],
+		$row['requestenddate'],
 		$row['remark'],
-		$urgent_request_Print,
 		$status,
-		$attachment,
 		$prn
 	);
 

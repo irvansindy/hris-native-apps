@@ -22,33 +22,32 @@ if ($_POST) {
 	$get_data_print1			= mysqli_num_rows($get_data_1);
 
 	$sql_approval_status = "UPDATE `hrmrequestapproval` SET
-					`status` 		= '1',
-					`_approval_time`	= '$SFdatetime'
-				WHERE
-					`request_no` 		= '$sel_approval_request_no' AND
-					`position_id`		= '$get_data_print_0'";
+		`status` 		= '1',
+		`_approval_time`	= '$SFdatetime'
+		WHERE
+		`request_no` 		= '$sel_approval_request_no' AND
+		`position_id`		= '$get_data_print_0'";
 	$qsql_approval_status = $connect->query($sql_approval_status);
 
 	$get_any_request = mysqli_fetch_array(mysqli_query($connect, "SELECT
-												
-												COUNT(*) as total_approver,
-												(SELECT 
-													COUNT(*) AS total_approver_without_acknowledge
-													FROM hrmrequestapproval
-														WHERE
-														request_no = '$sel_approval_request_no' AND
-														req IN ('Sequence','Required')) AS total_approver_without_acknowledge,
-												(SELECT 
-													SUM(STATUS) AS total_approver_without_acknowledge
-													FROM hrmrequestapproval
-														WHERE
-														request_no = '$sel_approval_request_no' AND
-														req IN ('Sequence','Required')) AS total_without_acknowledge,
-												SUM(STATUS) AS total
-											FROM hrmrequestapproval
-												WHERE
-													request_no = '$sel_approval_request_no' AND
-													req IN ('Notification','Sequence','Required')"));
+		COUNT(*) as total_approver,
+		(SELECT 
+			COUNT(*) AS total_approver_without_acknowledge
+			FROM hrmrequestapproval
+				WHERE
+				request_no = '$sel_approval_request_no' AND
+				req IN ('Sequence','Required')) AS total_approver_without_acknowledge,
+		(SELECT 
+			SUM(STATUS) AS total_approver_without_acknowledge
+			FROM hrmrequestapproval
+				WHERE
+				request_no = '$sel_approval_request_no' AND
+				req IN ('Sequence','Required')) AS total_without_acknowledge,
+		SUM(STATUS) AS total
+		FROM hrmrequestapproval
+		WHERE
+			request_no = '$sel_approval_request_no' AND
+			req IN ('Notification','Sequence','Required')"));
 
 
 	// IF FULLY APPROVED
@@ -56,9 +55,9 @@ if ($_POST) {
 		$set_status = '3';
 
 		$sql_approval_request = "UPDATE `hrmrequestapproval` SET
-												`request_status` 	= '$set_status'
-											WHERE
-												`request_no` 		= '$sel_approval_request_no'";
+			`request_status` = '$set_status'
+			WHERE
+			`request_no` = '$sel_approval_request_no'";
 
 		$qsql_approval_request = $connect->query($sql_approval_request);
 
@@ -77,14 +76,14 @@ if ($_POST) {
 				//OBJECT ORIENTED STYLE
 
 				$att_formula = "UPDATE `hrmempleavebal` SET 
-														`remaining` = '$getempgetleave_r1'
-												WHERE `empgetleave_id` = '$empgetleave_id'";
+					`remaining` = '$getempgetleave_r1'
+					WHERE `empgetleave_id` = '$empgetleave_id'";
 
 				$upd_status = "UPDATE `sys_deducted_leave` SET 
-										`status_process` 		= '1',
-										`last_remaining` 		= '$getempgetleave_r2',
-										`current_remaining` 	= '$getempgetleave_r1'
-										WHERE `empgetleave_bal` = '$empgetleave_id' AND leave_request_no = '$sel_approval_request_no'";
+					`status_process` 		= '1',
+					`last_remaining` 		= '$getempgetleave_r2',
+					`current_remaining` 	= '$getempgetleave_r1'
+					WHERE `empgetleave_bal` = '$empgetleave_id' AND leave_request_no = '$sel_approval_request_no'";
 
 				$formula_process = $connect->query($att_formula);
 				$formula_process = $connect->query($upd_status);
@@ -108,30 +107,14 @@ if ($_POST) {
 		}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	// IF PARTIALLY APPROVED
 	} else {
 		$set_status = '2';
 
 		$sql_approval_request = "UPDATE `hrmrequestapproval` SET
-												`request_status` 	= '$set_status'
-											WHERE
-												`request_no` 		= '$sel_approval_request_no'";
+			`request_status` 	= '$set_status'
+			WHERE
+			`request_no` 		= '$sel_approval_request_no'";
 		$qsql_approval_request = $connect->query($sql_approval_request);
 
 		$validator['success'] = false;

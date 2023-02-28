@@ -20,8 +20,8 @@ $sql = "SELECT
 		a.*,
 		a.leave_code,
 		DATE_FORMAT(a.leave_startdate, '%d %b %Y') as leave_startdates,
-              DATE_FORMAT(a.leave_enddate, '%d %b %Y') as leave_enddates,
-              a.totaldays,
+		DATE_FORMAT(a.leave_enddate, '%d %b %Y') as leave_enddates,
+		a.totaldays,
 		b.Full_Name,
 		b.emp_no,
 		rests.revised_remark as remark

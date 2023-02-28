@@ -1315,7 +1315,7 @@ if ($platform != 'mobile') {
 						</tr>
 						`
 					);
-				}	
+				}
 			}
 		});
 		

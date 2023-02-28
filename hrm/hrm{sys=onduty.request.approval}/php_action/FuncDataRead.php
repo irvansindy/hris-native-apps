@@ -67,7 +67,7 @@ while ($row = mysqli_fetch_assoc($query)) {
 
 	$rmintf = '<a type="button" nowrap="nowrap" data-toggle="modal" data-target="#UpdateForm" data-backdrop="static" onclick="editMember(`'.$row['request_no'].'`)">'.$row['request_no'].'</a>';
 
-	$prn = '<a type="button" nowrap="nowrap" data-toggle="modal" data-target="#FormDisplayLeaveApproval" data-backdrop="static" style="color: blue; border: 5px; cursor:pointer" onclick="ApprovalSubmission(`'.$row['request_no'].'`)"> <input type="image" src="../../asset/dist/img/icons/icon-addinfo.png" title="delete" width="22px"/></a>';
+	$detail_approval = '<a type="button" nowrap="nowrap" data-toggle="modal" data-target="#FormDisplayOnDutyApproval" data-backdrop="static" style="color: blue; border: 5px; cursor:pointer" onclick="ApprovalSubmission(`'.$row['request_no'].'`)"> <input type="image" src="../../asset/dist/img/icons/icon-addinfo.png" title="detail" width="22px"/></a>';
 
 	$status = '<span class="badge '.$activebadge.'">'.$row['name_en'].'</span>';
 
@@ -80,7 +80,7 @@ while ($row = mysqli_fetch_assoc($query)) {
 		$row['requestenddate'],
 		$row['remark'],
 		$status,
-		$prn
+		$detail_approval
 	);
 
 	$x++;

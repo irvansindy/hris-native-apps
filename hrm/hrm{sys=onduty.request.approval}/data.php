@@ -238,12 +238,12 @@ if ($platform != 'mobile') {
             </div>
         </div>
 
-            <!-- add modal -->
-            <div class="modal fade fade-custom" tabindex="-1" role="dialog" id="FormDisplayLeaveApproval">
+            <!-- detail approval modal -->
+            <div class="modal fade fade-custom" tabindex="-1" role="dialog" id="FormDisplayOnDutyApproval">
                 <div class="modal-dialog modal-belakang modal-bs modal-med" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Leave Approval Form sinde</h4>
+                            <h4 class="modal-title">On Duty Request Approval</h4>
                             <a type="button" class="close" onclick='return stopload()' data-dismiss="modal"
                                 aria-label="Close" style="margin-top: -15px;">
                                 <span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
@@ -272,7 +272,7 @@ if ($platform != 'mobile') {
                                             <div class="input-group" id="contoh"
                                                 style="font-weight: bold;color: #5b5b5b;">
                                             </div>
-                                            <div class="input-group" id="sel_identity_request_no"
+                                            <div class="input-group" id="detail_approval_request_no"
                                                 style="font-weight: bold;color: #5b5b5b;">
                                             </div>
                                         </div>
@@ -281,16 +281,16 @@ if ($platform != 'mobile') {
                                     <div class="form-row">
                                         <div class="col-sm-4 name"> Employee <span class="required">*</span></div>
                                         <div class="col-sm-8 name">
-                                            <div class="input-group" id="sel_identity_requester"
+                                            <div class="input-group" id="detail_approval_employee_request"
                                                 style="font-weight: bold;color: #5b5b5b;">
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="form-row">
-                                        <div class="col-sm-4 name"> Detail Leave <span class="required">*</span></div>
+                                        <div class="col-sm-4 name"> Date <span class="required">*</span></div>
                                         <div class="col-sm-8 name">
-                                            <div class="input-group" id="sel_identity_leave_code"
+                                            <div class="input-group" id="detail_approval_request_date"
                                                 style="font-weight: bold;color: #5b5b5b;">
                                             </div>
                                         </div>
@@ -309,15 +309,23 @@ if ($platform != 'mobile') {
                                 </fieldset>
 
                                 <fieldset id="fset_1">
-                                    <legend>Approval Detail</legend>
-                                    <div class="card-body table-responsive p-0"
-                                        style="width: 99%; margin: 1px;overflow: scroll;">
-                                        <!-- pages relation -->
-                                        <div id="box"></div>
-                                        <!-- pages relation -->
+                                <legend>Approval Detail</legend>
+                                    <div class="card-body table-responsive p-0" style="width: 99%; margin: 1px;overflow: scroll;">
+                                        <table class="table table-striped table-bordered display mt-4">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                <th>No.</th>
+                                                <th>Approver name </th>
+                                                <th>Type of approver</th>
+                                                <th>Approval status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="list_user_approval_detail">
+                                                
+                                            </tbody>
+                                        </table>
                                         <div>
-                                        </div>
-
+                                    </div>
                                 </fieldset>
                         </div>
                         <!-- //LOAD BUTTON APPROVER STATUS -->
@@ -617,208 +625,248 @@ if ($platform != 'mobile') {
 
 <!-- isi JSON -->
 <script type="text/javascript">
-    function ApprovalSubmission(id = null) {
+    function ApprovalSubmission(request_no) {
 
-        mymodalss.style.display = "block";
+        // mymodalss.style.display = "block";
+        $('#list_user_approval_detail').empty()
+        $.ajax({
+            url: 'php_action/getSelectedRequest.php',
+            // type: 'post',
+            type: 'GET',
+            data: {
+                request_no: request_no
+            },
+            async: true,
+            dataType: 'json',
+            success: function (response) {
+                // alert(response.listApproval.length)
+                document.getElementById("detail_approval_request_no").innerHTML = response[0].request_no;
 
-        if (id) {
-            $.ajax({
-                url: 'php_action/getSelectedRequest.php<?php echo $getPackage; ?>',
-                type: 'post',
-                data: {
-                    member_id: id
-                },
-                dataType: 'json',
-                success: function (response) {
+                document.getElementById("detail_approval_employee_request").innerHTML =  response[0].Full_Name  + " - " + "[" + response[0].emp_no + "]";
 
-                    document.getElementById("sel_identity_request_no").innerHTML = response.request_no;
-                    document.getElementById("sel_identity_leave_code").innerHTML = response.leave_code +
-                        " ( Total Days : " + response.totaldays + ") " + " Leave Date " + response
-                        .leave_startdates + " - " + response.leave_enddates;
-                    document.getElementById("sel_identity_requester").innerHTML = response.Full_Name +
-                        " (" + response.emp_no + ") ";
+                document.getElementById("detail_approval_request_date").innerHTML = response[0].requestdate + " - " + response[0].requestenddate;
 
-                    // document.getElementsByTagName("harusdiselipin").setAttribute("class", "democlass"); 
-                    $("#submit_reject_spvdown").attr("onclick", "editreject_approval(`" + response
-                        .request_no + "`)");
-                    $("#submit_revision_spvdown").attr("onclick", "editrevision_approval(`" + response
-                        .request_no + "`)");
-                    // onclick="editrejectrequest(`PAREQ2022-130299`)"
+                // document.getElementsByTagName("harusdiselipin").setAttribute("class", "democlass"); 
+                $("#submit_reject_spvdown").attr("onclick", "editreject_approval(`" + response
+                    .request_no + "`)");
+                $("#submit_revision_spvdown").attr("onclick", "editrevision_approval(`" + response
+                    .request_no + "`)");
+                // onclick="editrejectrequest(`PAREQ2022-130299`)"
 
-                    $("#sel_approval_request_no").val(response.request_no);
-                    $("#sel_ipp_requester_spv_downS").val(response.requester);
-                    // $("#sel_remark_from_approver").val(response.remark);
+                $("#sel_approval_request_no").val(response[0].request_no);
+                $("#sel_ipp_requester_spv_downS").val(response.requester);
+                // $("#sel_remark_from_approver").val(response.remark);
+				
+                var no = 1;
+                for (let index = 0; index < response[1].length; index++) {
 
-                    $("#box").load("pages_relation/_pages_approval.php<?php echo $getPackage; ?>rfid=" +
-                        response.request_no,
-                        function (responseTxt, statusTxt, jqXHR) {
-                            if (statusTxt == "success") {
-                                $("#box").show();
-                            }
-                            if (statusTxt == "error") {
-                                alert("Error: " + jqXHR.status + " " + jqXHR.statusText);
-                            }
-                        }
+                    $('#list_user_approval_detail').append(
+                        `
+                        <tr>
+                            <td style="width:20%;text-align:left;">
+                                ${no++}
+                            </td>
+                            <td style="width:20%;text-align:left;">
+                                ${response[1][index]['Full_Name'] == null ? '' : response[1][index]['Full_Name']} - ${response[1][index]['emp_no'] == null ? '' : response[1][index]['emp_no']}
+                            </td>
+                            <td style="width:20%;text-align:left;">
+                                ${response[1][index]['req'] == null ? '' : response[1][index]['req']}
+                                </td>
+                            <td style="width:20%;text-align:left;">
+                                ${response[1][index]['status_approve'] == null ? '' : response[1][index]['status_approve']}
+                            </td>
+                        </tr>
+                        `
                     );
+                }
 
-                    $('#config-form2_0').show();
+                $('#config-form2_0').show();
+                $('#config-form2_1').hide();
+
+                let is_can_approve = response[2].is_can_approve;
+                let is_avail_request = response[2].is_avail_request;
+                let is_avail_attachment = response[2].is_avail_attachment;
+                let is_ready = response[2].is_ready;
+
+                if (is_avail_request = response[0].request_no && is_avail_attachment == '') {
+                    $('#config-form0').show();
+                    $('#attachment').show();
+                    $('#config-form1').hide();
+                    $('#config-form2_0').hide();
                     $('#config-form2_1').hide();
+                } else if (is_avail_request = response[0].request_no && is_avail_attachment != '') {
+                    if (is_can_approve == '0') {
+                        $('#config-form0').hide();
+                        $('#attachment').hide();
+                        $('#config-form1').hide();
+                        $('#config-form2_0').hide();
+                        $('#config-form2_1').show();
+                    } else if (is_ready == '0') {
+                        $('#config-form0').hide();
+                        $('#attachment').hide();
+                        $('#config-form1').hide();
+                        $('#config-form2_0').hide();
+                        $('#config-form2_1').show();
+                    } else {
+                        $('#config-form0').hide();
+                        $('#attachment').hide();
+                        $('#config-form1').show();
+                        $('#config-form2_0').hide();
+                        $('#config-form2_1').hide();
+                    }
+                }
+                // $.ajax({
+                //     url: 'php_action/getRequestStatus.php<?php echo $getPackage; ?>',
+                //     type: 'post',
+                //     data: {
+                //         request_no_spvdown: response[0].request_no
+                //     },
+                //     dataType: 'json',
+                //     success: function (response) {
 
-                    $.ajax({
-                        url: 'php_action/getRequestStatus.php<?php echo $getPackage; ?>',
-                        type: 'post',
-                        data: {
-                            request_no_spvdown: response.request_no
-                        },
-                        dataType: 'json',
-                        success: function (response) {
+                //         mymodalss.style.display = "none";
 
-                            mymodalss.style.display = "none";
+                //         var fill_is_approved_spvdown = response.is_approved_spvdown;
+                //         var fill_is_ready = response.ready;
+                //         var fill_is_urgent_request = response.urg;
+                //         var fill_is_file_name = response.file_name;
 
-                            var fill_is_approved_spvdown = response.is_approved_spvdown;
-                            var fill_is_ready = response.ready;
-                            var fill_is_urgent_request = response.urg;
-                            var fill_is_file_name = response.file_name;
+                //         // alert(fill_is_urgent_request);
 
-                            // alert(fill_is_urgent_request);
+                //         if (fill_is_urgent_request == 'Y' && fill_is_file_name == '0') {
+                //             $('#config-form0').show();
+                //             $('#attachment').show();
+                //             $('#config-form1').hide();
+                //             $('#config-form2_0').hide();
+                //             $('#config-form2_1').hide();
+                //         } else if (fill_is_urgent_request == 'Y' && fill_is_file_name ==
+                //             '1') {
 
-                            if (fill_is_urgent_request == 'Y' && fill_is_file_name == '0') {
-                                $('#config-form0').show();
-                                $('#attachment').show();
-                                $('#config-form1').hide();
-                                $('#config-form2_0').hide();
-                                $('#config-form2_1').hide();
-                            } else if (fill_is_urgent_request == 'Y' && fill_is_file_name ==
-                                '1') {
+                //             if (fill_is_approved_spvdown == '0') {
+                //                 $('#config-form0').hide();
+                //                 $('#attachment').hide();
+                //                 $('#config-form1').hide();
+                //                 $('#config-form2_0').hide();
+                //                 $('#config-form2_1').show();
+                //             } else if (fill_is_ready == '0') {
+                //                 $('#config-form0').hide();
+                //                 $('#attachment').hide();
+                //                 $('#config-form1').hide();
+                //                 $('#config-form2_0').hide();
+                //                 $('#config-form2_1').show();
+                //             } else {
+                //                 $('#config-form0').hide();
+                //                 $('#attachment').hide();
+                //                 $('#config-form1').show();
+                //                 $('#config-form2_0').hide();
+                //                 $('#config-form2_1').hide();
+                //             }
+                //         } else if (fill_is_urgent_request == 'N') {
 
-                                if (fill_is_approved_spvdown == '0') {
-                                    $('#config-form0').hide();
-                                    $('#attachment').hide();
-                                    $('#config-form1').hide();
-                                    $('#config-form2_0').hide();
-                                    $('#config-form2_1').show();
-                                } else if (fill_is_ready == '0') {
-                                    $('#config-form0').hide();
-                                    $('#attachment').hide();
-                                    $('#config-form1').hide();
-                                    $('#config-form2_0').hide();
-                                    $('#config-form2_1').show();
+                //             if (fill_is_approved_spvdown == '0') {
+                //                 $('#config-form0').hide();
+                //                 $('#attachment').hide();
+                //                 $('#config-form1').hide();
+                //                 $('#config-form2_0').hide();
+                //                 $('#config-form2_1').show();
+                //             } else if (fill_is_ready == '0') {
+                //                 $('#config-form0').hide();
+                //                 $('#attachment').hide();
+                //                 $('#config-form1').hide();
+                //                 $('#config-form2_0').hide();
+                //                 $('#config-form2_1').show();
+                //             } else {
+                //                 $('#config-form0').hide();
+                //                 $('#attachment').hide();
+                //                 $('#config-form1').show();
+                //                 $('#config-form2_0').hide();
+                //                 $('#config-form2_1').hide();
+                //             }
+                //         }
+
+
+                //     }
+                // });
+
+                // mmeber id 
+                $(".FormDisplayOnDutyApproval").append(
+                    '<input type="hidden" name="member_id" id="member_id" value="' + response.id +
+                    '"/>');
+
+                // here update the member data
+                $("#updatedelMemberForm").unbind('submit').bind('submit', function () {
+
+                    // remove error messages
+                    $(".text-danger").remove();
+
+                    var form = $(this);
+
+                    // validation
+                    var sel_approval_request_no = $("#sel_approval_request_no").val();
+                    var sel_emp_no_approver = $("#sel_emp_no_approver").val();
+
+                    if (sel_approval_request_no == "") {
+                        modals.style.display = "block";
+                        document.getElementById("msg").innerHTML = "There is some error";
+                    } else if (sel_emp_no_approver == "") {
+                        modals.style.display = "block";
+                        document.getElementById("msg").innerHTML = "There is some error";
+                    } else {
+
+                        mymodalss.style.display = "block";
+                    }
+
+                    if (sel_approval_request_no && sel_emp_no_approver) {
+
+
+                        $.ajax({
+                            url: form.attr('action'),
+                            type: form.attr('method'),
+                            data: form.serialize(),
+                            dataType: 'json',
+                            success: function (response) {
+                                if (response.code == 'success_message') {
+
+
+
+                                    mymodalss.style.display = "none";
+
+                                    // reload the datatables
+                                    datatable.ajax.reload(null, false);
+                                    // reload the datatables
+
+                                    $('#FormDisplayOnDutyApproval').modal('hide');
+
+                                    $("[data-dismiss=modal]").trigger({
+                                        type: "click"
+                                    });
+
+                                    modals.style.display = "block";
+                                    document.getElementById("msg").innerHTML =
+                                        response.messages;
+
+
+
                                 } else {
-                                    $('#config-form0').hide();
-                                    $('#attachment').hide();
-                                    $('#config-form1').show();
-                                    $('#config-form2_0').hide();
-                                    $('#config-form2_1').hide();
+
+
+                                    mymodalss.style.display = "none";
+
+                                    modals.style.display = "block";
+                                    document.getElementById("msg").innerHTML =
+                                        response.messages;
+                                    // reload the datatables      
                                 }
-                            } else if (fill_is_urgent_request == 'N') {
+                            } // /success
+                        }); // /ajax
+                    } // /if
 
-                                if (fill_is_approved_spvdown == '0') {
-                                    $('#config-form0').hide();
-                                    $('#attachment').hide();
-                                    $('#config-form1').hide();
-                                    $('#config-form2_0').hide();
-                                    $('#config-form2_1').show();
-                                } else if (fill_is_ready == '0') {
-                                    $('#config-form0').hide();
-                                    $('#attachment').hide();
-                                    $('#config-form1').hide();
-                                    $('#config-form2_0').hide();
-                                    $('#config-form2_1').show();
-                                } else {
-                                    $('#config-form0').hide();
-                                    $('#attachment').hide();
-                                    $('#config-form1').show();
-                                    $('#config-form2_0').hide();
-                                    $('#config-form2_1').hide();
-                                }
-                            }
+                    return false;
+                });
 
+            } // /success
+        }); // /fetch selected member info
 
-                        }
-                    }); // /ajax
-
-                    // mmeber id 
-                    $(".FormDisplayLeaveApproval").append(
-                        '<input type="hidden" name="member_id" id="member_id" value="' + response.id +
-                        '"/>');
-
-                    // here update the member data
-                    $("#updatedelMemberForm").unbind('submit').bind('submit', function () {
-
-                        // remove error messages
-                        $(".text-danger").remove();
-
-                        var form = $(this);
-
-                        // validation
-                        var sel_approval_request_no = $("#sel_approval_request_no").val();
-                        var sel_emp_no_approver = $("#sel_emp_no_approver").val();
-
-                        if (sel_approval_request_no == "") {
-                            modals.style.display = "block";
-                            document.getElementById("msg").innerHTML = "There is some error";
-                        } else if (sel_emp_no_approver == "") {
-                            modals.style.display = "block";
-                            document.getElementById("msg").innerHTML = "There is some error";
-                        } else {
-
-                            mymodalss.style.display = "block";
-                        }
-
-                        if (sel_approval_request_no && sel_emp_no_approver) {
-
-
-                            $.ajax({
-                                url: form.attr('action'),
-                                type: form.attr('method'),
-                                data: form.serialize(),
-                                dataType: 'json',
-                                success: function (response) {
-                                    if (response.code == 'success_message') {
-
-
-
-                                        mymodalss.style.display = "none";
-
-                                        // reload the datatables
-                                        datatable.ajax.reload(null, false);
-                                        // reload the datatables
-
-                                        $('#FormDisplayLeaveApproval').modal('hide');
-
-                                        $("[data-dismiss=modal]").trigger({
-                                            type: "click"
-                                        });
-
-                                        modals.style.display = "block";
-                                        document.getElementById("msg").innerHTML =
-                                            response.messages;
-
-
-
-                                    } else {
-
-
-                                        mymodalss.style.display = "none";
-
-                                        modals.style.display = "block";
-                                        document.getElementById("msg").innerHTML =
-                                            response.messages;
-                                        // reload the datatables      
-                                    }
-                                } // /success
-                            }); // /ajax
-                        } // /if
-
-                        return false;
-                    });
-
-                } // /success
-            }); // /fetch selected member info
-
-        } else {
-            alert("Error : Refresh the page again");
-        }
     }
 
     // editreject_approval
@@ -886,7 +934,7 @@ if ($platform != 'mobile') {
                                         // reload the datatables
 
                                         $('#FormDisplayRejectRequest').hide();
-                                        $('#FormDisplayLeaveApproval').modal('hide');
+                                        $('#FormDisplayOnDutyApproval').modal('hide');
 
                                         $("[data-dismiss=modal]").trigger({
                                             type: "click"
@@ -990,7 +1038,7 @@ if ($platform != 'mobile') {
                                         // reload the datatables
 
                                         $('#FormDisplayrevisionspvup').hide();
-                                        $('#FormDisplayLeaveApproval').modal('hide');
+                                        $('#FormDisplayOnDutyApproval').modal('hide');
 
                                         $("[data-dismiss=modal]").trigger({
                                             type: "click"

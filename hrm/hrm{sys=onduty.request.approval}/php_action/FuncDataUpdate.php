@@ -11,12 +11,17 @@ if ($getdata == 0) {
 if ($_POST) {
 
 	$validator = array('success' => false, 'messages' => array());
-
+	$requestfor_request = $_POST['requestfor_request'];
+	$starttime_request = $_POST['starttime_request'];
+	$endtime_request = $_POST['endtime_request'];
+	$startdate_request = $_POST['startdate_request'];
+	$attend_id_request = $_POST['attend_id_request'];
 	$sel_emp_no_approver		= strtoupper($_POST['sel_emp_no_approver']);
 	$sel_approval_request_no	= strtoupper($_POST['sel_approval_request_no']);
 	$key_0						= strtoupper($_POST['sel_approval_request_no']);
-	$get_data_0          		= mysqli_fetch_array(mysqli_query($connect, "SELECT position_id FROM view_employee WHERE emp_no = '$sel_emp_no_approver'"));
+	$get_data_0          		= mysqli_fetch_array(mysqli_query($connect, "SELECT emp_id, position_id FROM view_employee WHERE emp_no = '$sel_emp_no_approver'"));
 	$get_data_print_0    		= $get_data_0['position_id'];
+	$dataEmpId    		= $get_data_0['emp_id'];
 
 	$get_data_1					= mysqli_query($connect, "SELECT * FROM hrdvalleave WHERE emp_id = '$flag_emp_no'");
 	$get_data_print1			= mysqli_num_rows($get_data_1);
@@ -60,6 +65,26 @@ if ($_POST) {
 			`request_no` = '$sel_approval_request_no'";
 
 		$qsql_approval_request = $connect->query($sql_approval_request);
+		
+
+
+		for ($i = 0; $i < count($starttime_request); $i++) { 
+			$queryUpdateAttendance = "UPDATE `hrdattendance` SET
+				`starttime` = '$starttime_request[$i]',
+				`endtime` = '$endtime_request[$i]'
+				WHERE `emp_id` = '$requestfor_request[$i]'
+				AND date_format(`attend_date`, '%Y-%m-%d') = '$startdate_request[$i]'
+			";
+
+			$exeQueryUpdateAttendance = $connect->query($queryUpdateAttendance);
+		}
+
+		// update data to hrdattstatusdetail
+		for ($i = 0; $i < count($attend_id_request); $i++) { 
+			$get_attendance_attend_id = $attend_id_request[$i];
+			// include "../../set{sys=AttendanceFormula}/php_action/attendance_formula.php";
+			include "../../set{sys=system_function_authorization}/attendance_formula.php";
+		}
 
 		$sql = "SELECT * FROM `sys_deducted_leave` WHERE `leave_request_no` = '$sel_approval_request_no'";
 		$get_Formula = mysqli_query($connect, $sql);
@@ -88,7 +113,7 @@ if ($_POST) {
 				$formula_process = $connect->query($att_formula);
 				$formula_process = $connect->query($upd_status);
 
-				if (1 == 1) {
+				if (1 == 1 && $exeQueryUpdateAttendance) {
 
 					$validator['success'] = false;
 					$validator['code'] = "success_message";
@@ -116,6 +141,7 @@ if ($_POST) {
 			WHERE
 			`request_no` 		= '$sel_approval_request_no'";
 		$qsql_approval_request = $connect->query($sql_approval_request);
+		// echo $dataEmpId;
 
 		$validator['success'] = false;
 		$validator['code'] = "success_message";

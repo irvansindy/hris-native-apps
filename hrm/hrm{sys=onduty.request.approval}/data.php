@@ -253,6 +253,7 @@ if ($platform != 'mobile') {
                         <div class="card-body table-responsive p-0"
                             style="width: 100vw;height: 50vh; width: 98%; margin: 5px;overflow: scroll;overflow-x: hidden;">
 
+                            <!-- action="php_action/FuncDataUpdate.php<?php echo $getPackage; ?>" method="POST" -->
                             <form class="form-horizontal"
                                 action="php_action/FuncDataUpdate.php<?php echo $getPackage; ?>" method="POST"
                                 id="updatedelMemberForm">
@@ -293,6 +294,20 @@ if ($platform != 'mobile') {
                                             <div class="input-group" id="detail_approval_request_date"
                                                 style="font-weight: bold;color: #5b5b5b;">
                                             </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row" style="display:none">
+                                        <div></div>
+                                        <div class="col-sm-8 name">
+                                            <div class="input-group" id="listResultDetailOnDuty"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-row" style="display:none">
+                                        <div></div>
+                                        <div class="col-sm-8 name">
+                                            <div class="input-group" id="listResultListAttendance"></div>
                                         </div>
                                     </div>
 
@@ -629,6 +644,8 @@ if ($platform != 'mobile') {
 
         // mymodalss.style.display = "block";
         $('#list_user_approval_detail').empty()
+        $('#listResultDetailOnDuty').empty()
+        $('#listResultListAttendance').empty()
         $.ajax({
             url: 'php_action/getSelectedRequest.php',
             // type: 'post',
@@ -655,6 +672,54 @@ if ($platform != 'mobile') {
 
                 $("#sel_approval_request_no").val(response[0].request_no);
                 $("#sel_ipp_requester_spv_downS").val(response.requester);
+
+                // data list on duty detail
+                for (let index = 0; index < response[3].length; index++) {
+                    $('#listResultDetailOnDuty').append(
+                        `
+                            <div class="form-row">
+                                <div>
+                                    <input class="input--style-6" autocomplete="off" autofocus="on"
+                                    id="requestfor_request" name="requestfor_request[]"
+                                    type="hidden" value="${response[0].requestfor}">
+                                    </div>
+                                <div>
+                                <div>
+                                    <input class="input--style-6" autocomplete="off" autofocus="on"
+                                    id="starttime_request" name="starttime_request[]"
+                                    type="hidden" value="${response[3][index]['starttime']}">
+                                    </div>
+                                <div>
+                                    <input class="input--style-6" autocomplete="off" autofocus="on"
+                                    id="endtime_request" name="endtime_request[]"
+                                    type="hidden" value="${response[3][index]['endtime']}">
+                                </div>
+                                <div>
+                                    <input class="input--style-6" autocomplete="off" autofocus="on"
+                                    id="startdate_request" name="startdate_request[]"
+                                    type="hidden" value="${response[3][index]['startdate']}">
+                                </div>
+                            </div>
+                        `
+                    )
+                    
+                }
+
+                // data list attendance
+                for (let index = 0; index < response[3].length; index++) {
+                    $('#listResultListAttendance').append(
+                        `
+                            <div class="form-row">
+                                <div>
+                                    <input class="input--style-6" autocomplete="off" autofocus="on"
+                                    id="attend_id_request" name="attend_id_request[]"
+                                    type="text" value="${response[4][index]['attend_id']}">
+                                </div>
+                            </div>
+                        `
+                    )
+                }
+
                 // $("#sel_remark_from_approver").val(response.remark);
 				
                 var no = 1;

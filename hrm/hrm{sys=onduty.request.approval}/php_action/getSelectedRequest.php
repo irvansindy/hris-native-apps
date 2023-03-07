@@ -21,6 +21,8 @@
 	a.requestfor,
 	DATE_FORMAT(a.requestdate, '%d %b %Y') as requestdate,
 	DATE_FORMAT(a.requestenddate, '%d %b %Y') as requestenddate,
+	DATE_FORMAT(a.requestdate, '%Y-%m-%d') as startDateAttendance,
+	DATE_FORMAT(a.requestenddate, '%Y-%m-%d') as endDateAttendance,
 	b.Full_Name,
 	b.emp_no,
 	rests.revised_remark as remark
@@ -170,10 +172,22 @@
 	$exeStatusApproval = mysqli_query($connect, $queryStatusApproval);
 	$resultStatusApproval = mysqli_fetch_assoc($exeStatusApproval);
 
+	// get data on duty list detail
+	$getDetailOnDuty = "SELECT request_no, startdate AS starttime, enddate AS endtime, date_format(startdate, '%Y-%m-%d') AS startdate, date_format(enddate, '%Y-%m-%d') AS enddate FROM hrdondutyrequestdtl WHERE request_no = '$request_no'";
+	$exeDetailOnDuty = mysqli_query($connect, $getDetailOnDuty);
+	$resultDetailOnDuty = mysqli_fetch_all($exeDetailOnDuty, MYSQLI_ASSOC);
+
+	// get data list attendance
+	$getListAttendance = "SELECT `attend_id` FROM `hrdattendance` WHERE emp_id = '$resultMasterApproval[requestfor]' AND DATE_FORMAT(`attend_date`, '%Y-%m-%d') BETWEEN '$resultMasterApproval[startDateAttendance]' AND '$resultMasterApproval[endDateAttendance]'";
+	$exeListAttendance = mysqli_query($connect, $getListAttendance);
+	$resultListAttendance = mysqli_fetch_all($exeListAttendance, MYSQLI_ASSOC);
+
     $returnJson = [
         $resultMasterApproval, //0
         $resultApproval, //1
-		$resultStatusApproval //2
+		$resultStatusApproval, //2
+		$resultDetailOnDuty, //3
+		$resultListAttendance, //4
     ];
 
     $connect->close();

@@ -996,7 +996,7 @@ if ($platform != 'mobile') {
 
 							if (response.code == 'success_message') {
 								mymodalss.style.display = "none";
-								modals.style.display = "none";
+								modals.style.display = "block";
 								document.getElementById("msg").innerHTML = response
 									.messages;
 
@@ -1011,6 +1011,8 @@ if ($platform != 'mobile') {
 
 								window.location.reload()
 							} else {
+								mymodalss.style.display = "none";
+								// $('#mymodalss').attr("style", "display: none !important;")
 								modals.style.display = "block";
 								document.getElementById("msg").innerHTML = response
 									.messages;
@@ -1169,7 +1171,6 @@ if ($platform != 'mobile') {
 <script>
 	function detailUpdateOndutyRequest(request_no) {
 		$("#list_detail_attendance").hide();
-
 		$("#modalcancelcondition_0").show();
 		$("#modalcancelcondition_1").hide();
 		$("#modalcancelcondition_2").hide();

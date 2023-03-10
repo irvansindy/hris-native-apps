@@ -138,7 +138,7 @@
                         require_once '../../set{sys=system_function_authorization}/workflow_formula.php';
     
                         // for on duty detail
-                        for ($index = 0; $index  < count($inp_hours_starttime) ; $index ++) {
+                        for ($index = 0; $index  < count($inp_hours_starttime); $index++) {
                             $date_onduty_data = $date_onduty[$index];
                             $data_hour_start = $inp_hours_starttime[$index]; 
                             $data_hour_end = $inp_hours_endtime[$index];

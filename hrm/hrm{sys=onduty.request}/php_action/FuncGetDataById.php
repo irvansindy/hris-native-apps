@@ -9,9 +9,6 @@
     $exeMaster = mysqli_query($connect, $queryMaster);
     $exeDetail = mysqli_query($connect, $queryDetail);
     $exeDetailFirst = mysqli_query($connect, $queryDetailFirst);
-
-    // var_dump($exeDetail->num_rows);
-    // die();
     
     $resultMaster = mysqli_fetch_assoc($exeMaster);
     $resultDetail = mysqli_fetch_all($exeDetail, MYSQLI_ASSOC);

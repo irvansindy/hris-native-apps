@@ -1010,7 +1010,7 @@ if ($platform != 'mobile') {
 								datatable.ajax.reload(null, false);
 								// this function is built in function of datatables;
 
-								// window.location.reload()
+								window.location.reload()
 							} else {
 								mymodalss.style.display = "none";
 								// $('#mymodalss').attr("style", "display: none !important;")

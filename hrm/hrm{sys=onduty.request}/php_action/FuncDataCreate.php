@@ -43,9 +43,6 @@
             $response['success'] = false;
             $response['code'] = "failed_message";
             $response['messages'] = 'On duty request already exists';
-            // $connect->close();
-            // header('Content-Type: application/json');
-            // echo json_encode($response);
         } else {
             if (isset($_POST['checkFileAttachment']) && $_POST['checkFileAttachment'] !== "" && !empty($_FILES['fileupload'])) {
                 $file_name = $_FILES['fileupload']['name'];
@@ -171,17 +168,11 @@
                 $response['success'] = true;
                 $response['code'] = "success_message";
                 $response['messages'] = 'On duty request successfully added';
-                // $connect->close();
-                // header('Content-Type: application/json');
-                // echo json_encode($response);
             } else {
                 http_response_code(400);
                 $response['success'] = false;
                 $response['code'] = "success_message";
                 $response['messages'] = 'On duty request failed to add';
-                // $connect->close();
-                // header('Content-Type: application/json');
-                // echo json_encode($response);
             }
         }
 

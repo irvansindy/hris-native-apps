@@ -311,17 +311,16 @@ if ($platform != 'mobile') {
 								</div>
 							</div>
 						</div>
-
-						<div class="form-row" id="frm_employee_no">
-							<div class="col-lg-3 name">File Attachment <font color="red">*</font>
-							</div>
-							<div class="col-lg-5">
-								<div class="input-group">
-									<input type="file" name="fileupload" id="fileupload" class="form-control">
-									<span><font color="red">pdf, doc/docx, jpg/jpeg, png, ods</font></span>
+						<div class="form-row">
+							<div class="col-lg-3 name"></div>
+							<div class="col-lg-8">
+								<div class="form-check form-check-inline">
+									<input type="checkbox" class="form-check-input" id="checkFileAttachment" name="checkFileAttachment">
+									<label class="form-check-label" for="checkFileAttachment">With Attachment</label>
 								</div>
 							</div>
 						</div>
+						<div id="dataFileAttechment"></div>
 					</fieldset>
 
 					<fieldset class="mb-5" id="fset_1">
@@ -851,6 +850,26 @@ if ($platform != 'mobile') {
 		$('#CreateForm')[0].reset()
 	})
 
+	// for file attachment
+	$('#checkFileAttachment').on('change', function() {
+		if(this.checked) {
+			$('#dataFileAttechment').append(`
+				<div class="form-row" id="formFileAttachment">
+					<div class="col-lg-3 name">File Attachment <font color="red">*</font>
+					</div>
+					<div class="col-lg-5">
+						<div class="input-group">
+							<input type="file" name="fileupload" id="fileupload" class="form-control">
+							<span><font color="red">pdf, doc/docx, jpg/jpeg, png</font></span>
+						</div>
+					</div>
+				</div>
+			`)
+		} else {
+			$('#formFileAttachment').remove()
+		}
+	})
+
 	// for append and remove textarea when change select option
 	$('#inp_onduty_purpose').on('change', function(){
 		if($(this).val() == 'DST005') {
@@ -927,7 +946,7 @@ if ($platform != 'mobile') {
 
 			$("#FormDisplayCreate").unbind('submit').bind('submit', function () {
 
-				mymodalss.style.display = "block";
+				// mymodalss.style.display = "block";
 
 				$(".text-danger").remove();
 
@@ -937,9 +956,9 @@ if ($platform != 'mobile') {
 				var modal_emp = $("#modal_emp").val();
 				var inp_purpose_type = $('#inp_purpose_type').val();
 				var inp_remark = $('#inp_remark').val();
-				var fileupload = $('#fileupload').prop('files')[0];
-				var fileName = fileupload.name;
-				var fileSize = fileupload.size;
+				// var fileupload = $('#fileupload').prop('files')[0];
+				// var fileName = fileupload.name;
+				// var fileSize = fileupload.size;
 				var inp_onduty_purpose = $('#inp_onduty_purpose').val();
 				var inp_add_startdate = $('#inp_add_startdate').val();
 				var inp_add_enddate = $('#inp_add_enddate').val();
@@ -976,8 +995,6 @@ if ($platform != 'mobile') {
 				
 				// call ajax
 				if (modal_emp && inp_purpose_type && inp_remark && inp_onduty_purpose) {
-					// let formData = new FormData();
-					// formData.append('fileupload', fileupload);
 					$.ajax({
 						url: "php_action/FuncDataCreate.php<?php echo $getPackage; ?>",
 						type: form.attr('method'),
@@ -987,38 +1004,34 @@ if ($platform != 'mobile') {
 						// data: formData,
 						processData: false,
 						contentType: false,
-
 						dataType: 'json',
-						success: function (response) {
-
+						success: function(response) {
 							// remove the error 
 							$(".form-group").removeClass('has-error').removeClass(
 								'has-success');
+							mymodalss.style.display = "none";
+							modals.style.display = "block";
+							document.getElementById("msg").innerHTML = response.messages;
 
-							if (response.code == 'success_message') {
-								mymodalss.style.display = "none";
-								modals.style.display = "block";
-								document.getElementById("msg").innerHTML = response
-									.messages;
+							$('#FormDisplayCreate').modal('hide');
+							$("[data-dismiss=modal]").trigger({type: "click"});
 
-								$('#FormDisplayCreate').modal('hide');
-								$("[data-dismiss=modal]").trigger({type: "click"});
-
-								// reset the form
-								$("#FormDisplayCreate")[0].reset();
-								// reload the datatables
-								datatable.ajax.reload(null, false);
+							// reset the form
+							$("#FormDisplayCreate")[0].reset();
+							// reload the datatables
+							datatable.ajax.reload(null, false);
+							// window.location.reload()
+							// if (response.success == true) {
 								// this function is built in function of datatables;
-
-								// window.location.reload()
-							} else {
-								mymodalss.style.display = "none";
-								// $('#mymodalss').attr("style", "display: none !important;")
-								modals.style.display = "block";
-								document.getElementById("msg").innerHTML = response
-									.messages;
-							} // /else
-						} // success  
+							// }
+						},
+						error: function(xhr, status, error) {
+							mymodalss.style.display = "none";
+							modals.style.display = "block";
+							document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+							// var err = eval("(" + xhr.responseText + ")");
+							// alert(err.messages);
+						}
 					}); // ajax subit 				
 
 					return false;

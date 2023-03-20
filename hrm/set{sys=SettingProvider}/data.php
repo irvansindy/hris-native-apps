@@ -196,7 +196,7 @@ $(document).ready(function() {
 									id="provider_name" name="provider_name"
 									type="Text" value="" size="30"
 									maxlength="50"
-									style="width: 80%;"
+									style="text-transform:uppercase; width: 80%;"
 									validate="NotNull:Invalid Form Entry"
 									onchange="formodified(this);" title="">
 							</div>
@@ -206,13 +206,10 @@ $(document).ready(function() {
 						<div class="col-4 name">Provider Type <span class="required">*</span></div>
 						<div class="col-sm-8">
 							<div class="input-group">
-								<input class="input--style-6" autocomplete="off" autofocus="on"
-									id="provider_type" name="provider_type"
-									type="Text" value="" size="30"
-									maxlength="50"
-									style="text-transform:uppercase;width: 80%;"
-									validate="NotNull:Invalid Form Entry"
-									onchange="formodified(this);" title="">
+								<select class="input--style-6" id="provider_type" name="provider_type" style="width: 80%;height: 30px;">
+									<option value="Internal">Internal</option>
+									<option value="External">External</option>
+								</select>
 							</div>
 						</div>
 					</div>
@@ -274,7 +271,7 @@ $(document).ready(function() {
 								<input class="input--style-6" autocomplete="off" autofocus="on"
 									id="zipcode" name="zipcode"
 									type="number" value="" size="30"
-									maxlength="50"
+									maxlength="5"
 									style="text-transform:uppercase;width: 80%;"
 									validate="NotNull:Invalid Form Entry"
 									onchange="formodified(this);" title="">
@@ -289,7 +286,7 @@ $(document).ready(function() {
 								<input class="input--style-6" autocomplete="off" autofocus="on"
 									id="provider_email" name="provider_email"
 									type="email" value="" size="30"
-									maxlength="50"
+									maxlength="70"
 									style="width: 80%;"
 									validate="NotNull:Invalid Form Entry"
 									onchange="formodified(this);" title="">
@@ -302,10 +299,11 @@ $(document).ready(function() {
 							<div class="input-group">
 								<input class="input--style-6" autocomplete="off" autofocus="on"
 									id="provider_phone" name="provider_phone"
-									type="number" value="" size="30"
-									maxlength="50"
+									type="text" value="" size="30"
+									maxlength="13"
 									style="text-transform:uppercase;width: 80%;"
 									validate="NotNull:Invalid Form Entry"
+									onkeypress = "javascript:return isNum(event)"
 									onchange="formodified(this);" title="">
 							</div>
 						</div>
@@ -317,7 +315,8 @@ $(document).ready(function() {
 								<input class="input--style-6" autocomplete="off" autofocus="on"
 									id="provider_fax" name="provider_fax"
 									type="Text" value="" size="30"
-									maxlength="50"
+									maxlength="11"
+									onkeypress = "javascript:return isNum(event)"
 									style="text-transform:uppercase;width: 80%;"
 									validate="NotNull:Invalid Form Entry"
 									onchange="formodified(this);" title="">
@@ -812,40 +811,48 @@ $(document).ready(function() {
 						// remove the error 
 						$(".form-group").removeClass('has-error').removeClass('has-success');
 
-						if (response.code =='success_message') {
-							modals.style.display ="block";
-							document.getElementById("msg").innerHTML = response.messages;
+						modals.style.display ="block";
+						document.getElementById("msg").innerHTML = response.messages;
 
-							$('#submit_add').show();
-							$('#submit_add2').hide();
+						$('#submit_add').show();
+						$('#submit_add2').hide();
 
-							$('#FormDisplayCreate').modal('hide');  
-							$("[data-dismiss=modal]").trigger({type: "click"});   
+						$('#FormDisplayCreate').modal('hide');  
+						$("[data-dismiss=modal]").trigger({type: "click"});   
 
-							// reset the form
-							$("#FormDisplayCreate")[0].reset();
-							// reload the datatables
-							datatable.ajax.reload(null,false);
+						// reset the form
+						$("#FormDisplayCreate")[0].reset();
+						// reload the datatables
+						datatable.ajax.reload(null,false);
+						// if (response.code =='success_message') {
 							// this function is built in function of datatables;
-						} else {
-							modals.style.display ="block";
-							document.getElementById("msg").innerHTML = response.messages;
+						// }
+						//  else {
+						// 	modals.style.display ="block";
+						// 	document.getElementById("msg").innerHTML = response.messages;
 
-							$('#submit_add').show();
-							$('#submit_add2').hide();
+						// 	$('#submit_add').show();
+						// 	$('#submit_add2').hide();
 
-							window.setTimeout(
-								function() {
-									$(".alert")
-										.fadeTo(500,0).slideUp(500, function() {
-											$(this).remove();
-										}
-									);
-								},
-								4000
-							);
-						} // /else
-					} // success  
+						// } // /else
+					},
+					error: function(xhr, status, error) {
+						mymodalss.style.display = "none";
+						modals.style.display = "block";
+						document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+						window.setTimeout(
+							function() {
+								$(".alert")
+									.fadeTo(500,0).slideUp(500, function() {
+										$(this).remove();
+									}
+								);
+							},
+							4000
+						);
+						// var err = eval("(" + xhr.responseText + ")");
+						// alert(err.messages);
+					}
 				}); // ajax subit 				
 			} /// if
 			return false;
@@ -1005,6 +1012,17 @@ function editMember(id = null) {
 		}); // /fetch selected member info
 	} else {
 		alert("Error : Refresh the page again");
+	}
+}
+
+// validate number only
+function isNum(evt){
+	var charCode=(evt.which)?evt.which:event.keyCode
+	if(charCode>31 && (charCode<48 || charCode>57)){
+		return false;
+	}
+	else{
+		return true;
 	}
 }
 

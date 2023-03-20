@@ -3,39 +3,61 @@ require_once '../../../application/config.php';
 
 $code = $_POST['venue_code'];
 
-$getDataMaster = "SELECT * FROM trnmvenue WHERE venue_code = '$code'";
-$getDataDetail = "SELECT * FROM trndvenue WHERE venue_code = '$code'";
-
+// get data master setting venue
+$getDataMaster = "SELECT 
+a.venue_code,
+a.venue_name,
+a.venue_type,
+a.venue_address,
+a.country_id,
+b.country_name,
+a.state_id,
+c.state_name,
+a.city_id,
+d.city_name,
+a.venue_zipcode,
+a.venue_phone,
+a.venue_fax,
+a.remark
+FROM trnmvenue a
+LEFT JOIN hrmcountry b
+    ON a.country_id =  b.country_id
+LEFT JOIN hrmstate c
+    ON a.state_id = c.state_id
+LEFT JOIN hrmcity d
+    ON a.city_id = d.city_id
+WHERE a.venue_code = '$code'";
 $queryMaster = mysqli_query($connect, $getDataMaster);
 $resultMaster = mysqli_fetch_assoc($queryMaster);
 
-$queryDetail = mysqli_query($connect, $getDataDetail);
-$resultDetail = [];
-while ($index = mysqli_fetch_array($queryDetail)) {
-    $listDetail = [
-        'venue_code' => $index['venue_code'],
-        'room_code' => $index['room_code'],
-        'room_name' => $index['room_name'],
-        'created_by' => $index['created_by'],
-        'created_date' => $index['created_date'],
-        'modified_by' => $index['modified_by'],
-        'modified_date' => $index['modified_date']
+// get data detail setting venue
+$queryDataDetail = "SELECT * FROM trndvenue WHERE venue_code = '$code'";
+$exeQueryDataDetail = mysqli_query($connect, $queryDataDetail);
+$resultDataDetail = mysqli_fetch_all($exeQueryDataDetail, MYSQLI_ASSOC);
+
+// get data all country
+$queryCountry = "SELECT country_id, country_name FROM hrmcountry ORDER BY country_name ASC";
+$exeQueryCountry = mysqli_query($connect, $queryCountry);
+$resultCountry = mysqli_fetch_all($exeQueryCountry, MYSQLI_ASSOC);
+// $resultCountry = mysqli_fetch_assoc($exeQueryCountry);
+
+if ($resultMaster == true && $resultDataDetail == true) {
+    http_response_code(200);
+    $dataResults = [
+        'messages' => 'Success to load data',
+        'master' => $resultMaster,
+        'detail' => $resultDataDetail,
+        'country' => $resultCountry
     ];
-
-    array_push($resultDetail, $listDetail);
+} else {
+    http_response_code(400);
+    $dataResults = [
+        'messages' => 'Failed to load data',
+        NULL
+    ];
 }
-// $resultDetail = mysqli_fetch_array($queryDetail);
 
-$dataResults = [
-    'master' => $resultMaster,
-    'detail' => $resultDetail
-    // 'detail' => $queryDetail
-];
 
 $connect->close();
-
-// var_dump($dataResults);
-
-// echo json_encode($result);
-// echo json_encode($dataResults['master']['city_id']);
+header('Content-Type: application/json');
 echo json_encode($dataResults);

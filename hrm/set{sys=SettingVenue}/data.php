@@ -438,14 +438,7 @@ $(document).ready(function() {
 						<div class="col-4 name">Venue Type <span class="required">*</span></div>
 						<div class="col-sm-8">
 							<div class="input-group">
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="checkbox" id="edit_venue_type" name="edit_venue_type" value="INTERNAL">
-									<label class="form-check-label">Internal</label>
-								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="checkbox" id="edit_venue_type" name="edit_venue_type" value="EXTERNAL">
-									<label class="form-check-label">External</label>
-								</div>
+								<div id="list_edit_venue_type"></div>
 							</div>
 						</div>
 					</div>
@@ -469,15 +462,8 @@ $(document).ready(function() {
 						<div class="col-4 name">Country <span class="required">*</span></div>
 						<div class="col-sm-8">
 							<div class="input-group">
-								<select class="input--style-6 edit_venue_country" name="edit_venue_country" style="width: 50%;height: 30px;" id="edit_venue_country">
-									<option value="">--Select One--</option>
-									<?php
-										$queryCountry = mysqli_query($connect, "SELECT * FROM hrmcountry ORDER BY country_name ASC");
-										while ($country = mysqli_fetch_array($queryCountry)) {
-											echo '<option required value="' . $country['country_id'] . '">' . $country['country_name'] . '</option>';
-										}
-									?>
-								</select>
+								<select class="input--style-6 edit_venue_country" name="edit_venue_country" style="width: 50%;height: 30px;" id="edit_venue_country"></select>
+								<input type="hidden" class="form-control" id="valueEditCountryId">
 							</div>
 						</div>
 					</div>
@@ -486,8 +472,9 @@ $(document).ready(function() {
 						<div class="col-sm-8">
 							<div class="input-group">
 								<select class="input--style-6 edit_venue_state" name="edit_venue_state" style="width: 50%;height: 30px;" id="edit_venue_state">
-									<option value="" required>--Select One--</option>
+									<!-- <option value="" required>--Select One--</option> -->
 								</select>
+								<input type="hidden" class="form-control" id="valueEditStateId">
 							</div>
 						</div>
 					</div>
@@ -496,8 +483,9 @@ $(document).ready(function() {
 						<div class="col-sm-8">
 							<div class="input-group">
 								<select class="input--style-6 edit_venue_city" name="edit_venue_city" style="width: 50%;height: 30px;" id="edit_venue_city">
-									<option value="" required>--Select One--</option>
+									<!-- <option value="" required>--Select One--</option> -->
 								</select>
+								<input type="hidden" class="form-control" id="valueEditCityId">
 							</div>
 						</div>
 					</div>
@@ -802,229 +790,268 @@ $(document).ready(function() {
 });
 
 function updateVenue(id = null) {
-	if (id) {
-		// remove the error 
-		$(".form-group").removeClass('has-error').removeClass('has-success');
-		$(".text-danger").remove();
-		// empty the message div
-		$(".messages_update").html("");
+	// remove the error 
+	$(".form-group").removeClass('has-error').removeClass('has-success');
+	$(".text-danger").remove();
+	// empty the message div
+	$(".messages_update").html("");
+	// alert('anjay')
+	// fetch the member data
+	$.ajax({
+		url: 'php_action/getDataSettingVenueById.php',
+		type: 'post',
+		data: {
+			venue_code: id
+		},
+		dataType: 'json',
 
-		// fetch the member data
-		$.ajax({
-			url: 'php_action/getDataSettingVenueById.php',
-			type: 'post',
-			data: {
-				venue_code: id
-			},
-			dataType: 'json',
+		success: function(response) {
+			document.getElementById("init_venue_code").innerHTML = response.master.venue_code;
 
-			success: function(response) {
-				document.getElementById("init_venue_code").innerHTML = response.master.venue_code;
+			$('#edit_venue_code').val(response.master.venue_code);
+			$('#edit_venue_name').val(response.master.venue_name);
+			$('#edit_venue_address').val(response.master.venue_address);
+			$('#edit_venue_postal_code').val(response.master.venue_zipcode);
+			$('#edit_venue_phone').val(response.master.venue_phone);
+			$('#edit_venue_fax').val(response.master.venue_fax);
+			$('#edit_venue_remark').val(response.master.remark);
 
-				$('#edit_venue_code').val(response.master.venue_code);
-				$('#edit_venue_name').val(response.master.venue_name);
-				// $('#edit_venue_type').val(response.master.venue_type);
-				$('#edit_venue_address').val(response.master.venue_address);
-				$('#edit_venue_postal_code').val(response.master.venue_zipcode);
-				$('#edit_venue_phone').val(response.master.venue_phone);
-				$('#edit_venue_fax').val(response.master.venue_fax);
-				$('#edit_venue_remark').val(response.master.remark);
-				
-				// looping venue room by data
-				$('.edit_venue_room').empty();
-				$.each(response.detail, (i, data) => {
-					// dynamic form edit venue room and venue
-					$('.edit_venue_room').append(
-						`<div class="form-row array_edit_venue_room">
-						<div class="col-4 name">
-							${i == 0 ? `Venue Room <span class="required">*</span>` : ``}
+			// get venue type
+			$('#list_edit_venue_type').empty();
+			$('#list_edit_venue_type').append(
+				`
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" id="edit_venue_type" name="edit_venue_type"
+					${response.master.venue_type  == 'Internal' ? 'checked' : ''} value="Internal">
+					<label class="form-check-label">Internal</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" id="edit_venue_type" name="edit_venue_type"
+					${response.master.venue_type  == 'External' ? 'checked' : ''} value="External">
+					<label class="form-check-label">External</label>
+				</div>
+			`);
+
+			// get list country
+			// edit_venue_country
+			// edit_venue_state
+			// edit_venue_city
+			$('#valueEditCountryId').val(response.master.country_id)
+			$('#edit_venue_country').empty()
+			$('#edit_venue_country').append('<option value="'+response.master.country_id+'">'+response.master.country_name+'</option>')
+			$.each(response.country, function(i, data) {
+				$('#edit_venue_country').append('<option value="'+data.country_id+'">'+data.country_name+'</option>')
+			})
+			
+			// get data venue state
+			$('#valueEditStateId').val(response.master.country_id)
+			$('#edit_venue_state').empty()
+			$('#edit_venue_state').append('<option value="'+response.master.state_id+'">'+response.master.state_name+'</option>')
+			
+			// get data venue city
+			$('#valueEditCityId').val(response.master.country_id)
+			$('#edit_venue_city').append('<option value="'+response.master.city_id+'">'+response.master.city_name+'</option>')
+			
+			
+			// looping venue room by data
+			$('.edit_venue_room').empty();
+			$.each(response.detail, (i, data) => {
+				// dynamic form edit venue room and venue
+				$('.edit_venue_room').append(
+					`<div class="form-row array_edit_venue_room">
+					<div class="col-4 name">
+						${i == 0 ? `Venue Room <span class="required">*</span>` : ``}
+					</div>
+					<div class="col-lg-8">
+						<div class="form-group">
+							<div class="col-lg-3">
+								<input class="input--style-6"
+									autocomplete="off" id="edit_venue_room_code" name="edit_venue_room_code[]" type="Text" value="`+data.room_code+`" title="" placeholder="Room Code">
+							</div>
+							<div class="col-lg-3">
+								<input class="input--style-6"
+									autocomplete="off" id="edit_venue_room_name" name="edit_venue_room_name[]" type="Text" value="`+data.room_name+`" title="" placeholder="Room Name">
+							</div>
+							<div class="col-lg-3">
+							${i == 0 ? 
+								`<button class="btn btn-primary btn-sm" id="add_edit_room" type="button">
+								<i class="fa-solid fa-plus"></i>
+							</button>` : `<button class="btn btn-danger btn-sm" id="btn_pop_edit_room" type="button">
+								<i class="fa-solid fa-minus"></i>
+							</button>`}
+							</div>
 						</div>
-						<div class="col-lg-8">
-							<div class="form-group">
-								<div class="col-lg-3">
-									<input class="input--style-6"
-										autocomplete="off" id="edit_venue_room_code" name="edit_venue_room_code[]" type="Text" value="`+data.room_code+`" title="" placeholder="Room Code">
-								</div>
-								<div class="col-lg-3">
-									<input class="input--style-6"
-										autocomplete="off" id="edit_venue_room_name" name="edit_venue_room_name[]" type="Text" value="`+data.room_name+`" title="" placeholder="Room Name">
-								</div>
-								<div class="col-lg-3">
-								${i == 0 ? 
-									`<button class="btn btn-primary btn-sm" id="add_edit_room" type="button">
-									<i class="fa-solid fa-plus"></i>
-								</button>` : `<button class="btn btn-danger btn-sm" id="btn_pop_edit_room" type="button">
+					</div>
+				</div>`
+				);
+			});
+
+			// add dynamic form venue room
+			$('#add_edit_room').on('click', () => {
+				$('.dynamic_edit_venue_room').append(
+					`<div class="form-row array_edit_venue_room">
+					<div class="col-4 name">
+						
+					</div>
+					<div class="col-lg-8">
+						<div class="form-group">
+							<div class="col-lg-3">
+								<input class="input--style-6"
+									autocomplete="off" id="edit_venue_room_code" name="edit_venue_room_code[]" type="Text" value="" title="" placeholder="Room Code">
+							</div>
+							<div class="col-lg-3">
+								<input class="input--style-6"
+									autocomplete="off" id="edit_venue_room_name" name="edit_venue_room_name[]" type="Text" value="" title="" placeholder="Room Name">
+							</div>
+							<div class="col-lg-3">
+								<button class="btn btn-danger btn-sm" id="btn_pop_edit_room" type="button">
 									<i class="fa-solid fa-minus"></i>
-								</button>`}
-								</div>
+								</button>
 							</div>
 						</div>
-					</div>`
-					);
-				});
+					</div>
+				</div>`
+				);
+			});
 
-				// add dynamic form venue room
-				$('#add_edit_room').on('click', () => {
-					$('.dynamic_edit_venue_room').append(
-						`<div class="form-row array_edit_venue_room">
-						<div class="col-4 name">
-							
-						</div>
-						<div class="col-lg-8">
-							<div class="form-group">
-								<div class="col-lg-3">
-									<input class="input--style-6"
-										autocomplete="off" id="edit_venue_room_code" name="edit_venue_room_code[]" type="Text" value="" title="" placeholder="Room Code">
-								</div>
-								<div class="col-lg-3">
-									<input class="input--style-6"
-										autocomplete="off" id="edit_venue_room_name" name="edit_venue_room_name[]" type="Text" value="" title="" placeholder="Room Name">
-								</div>
-								<div class="col-lg-3">
-									<button class="btn btn-danger btn-sm" id="btn_pop_edit_room" type="button">
-										<i class="fa-solid fa-minus"></i>
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>`
-					);
-				});
+			// delete dynamic form venue room
+			$(document).on('click', '#btn_pop_edit_room', function () {
+				$(this).closest('.array_edit_venue_room').remove();
+			});
 
-				// delete dynamic form venue room
-				$(document).on('click', '#btn_pop_edit_room', function () {
-					$(this).closest('.array_edit_venue_room').remove();
-				});
-
-				// validate checkbox venue type
-				$('input[type=checkbox]').on('change', function(evt) {
-					if($('input[id=edit_venue_type]:checked').length > 1) {
-						this.checked = false;
-						mymodalss.style.display = "none";
-						modals.style.display = "block";
-						document.getElementById("msg").innerHTML =
-						"Can only choose one type";
-						return false;
-					}
-				});
-				// here update the member data
-				$("#FormDisplayUpdate").unbind('submit').bind('submit', function() {
-					// remove error messages
-					$(".text-danger").remove();
-
-					var form = $(this);
-
-					// initial variable
-					var edit_emp_no = $('#edit_emp_no').val();
-					var edit_venue_code = $('#edit_venue_code').val();
-					var edit_venue_name = $('#edit_venue_name').val();
-					var edit_venue_type = $('#edit_venue_type').val();
-					var edit_venue_room_code = [];
-					var edit_venue_room_name = [];
-					var edit_venue_address = $('#edit_venue_address').val();
-					var edit_venue_country = $('#edit_venue_country').val();
-					var edit_venue_state = $('#edit_venue_state').val();
-					var edit_venue_city = $('#edit_venue_city').val();
-					var edit_venue_postal_code = $('#edit_venue_postal_code').val();
-					var edit_venue_phone = $('#edit_venue_phone').val();
-					var edit_venue_fax = $('#edit_venue_fax').val();
-					var edit_venue_remark = $('#edit_venue_remark').val();
-
-					var regex=/^[a-zA-Z]+$/;
-
-					if (edit_venue_name == "") {
-						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue name cannot empty";
-						alert('kosong name');
-						return false;
-					} else if (edit_venue_type == "") {
-						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue type cannot empty";
-						alert('kosong type');
-						return false;
-					} else if (edit_venue_address == "") {
-						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue address cannot empty";
-						alert('kosong addressX');
-						return false;
-					} else if (edit_venue_country == "") {
-						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue country cannot empty";
-						alert('kosong country');
-						return false;
-					} else if (edit_venue_state == "") {
-						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue state cannot empty";
-						alert('kosong state');
-						return false;
-					} else if (edit_venue_city == "") {
-						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue city cannot empty";
-						alert('kosong city');
-						return false;
-					} else if (edit_venue_postal_code == "") {
-						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue Postal Code cannot empty";
-						alert('kosong postal code');
-						return false;
-					} else if (edit_venue_phone == "") {
-						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue Phone cannot empty";
-						alert('kosong phone');
-						return false;
-					} else if (edit_venue_fax == "") {
-						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue Fax cannot empty";
-						alert('kosong fax');
-						return false;
-					} else if (edit_venue_remark == "") {
-						modals.style.display ="block";
-						document.getElementById("msg").innerHTML = "Venue remark cannot empty";
-						alert('kosong remark');
-						return false;
-					} else {
-							$('#submit_update').hide();
-							$('#submit_update2').show();
-					}
-					if (edit_venue_name && edit_venue_type && edit_venue_address && edit_venue_country && edit_venue_state && edit_venue_city && edit_venue_postal_code && edit_venue_phone && edit_venue_fax && edit_venue_remark) {
-						alert('wakwakwak');
-						$.ajax({
-							url: form.attr('action'),
-							type: form.attr('method'),
-							// data: form.serialize(),
-
-							data: new FormData(this),
-							processData: false,
-							contentType: false,
-
-							dataType: 'json',
-							success: function(response) {
-								if (response.code =='success_message') {
-									modals.style.display = "block";
-									document.getElementById("msg").innerHTML =response.messages;
-
-									$('#submit_update').show();
-									$('#submit_update2').hide();
-
-									$('#FormDisplayUpdate').modal('hide'); 
-									$("[data-dismiss=modal]").trigger({type: "click"});
-									// reload the datatables
-									datatable.ajax.reload(null,false);
-									// reload the datatables
-								} else {
-									modals.style.display = "block";
-									document.getElementById("msg").innerHTML = response.messages;
-								}
-							} // /success
-						}); // /ajax
-					}
+			// validate checkbox venue type
+			$('input[type=checkbox]').on('change', function(evt) {
+				if($('input[id=edit_venue_type]:checked').length > 1) {
+					this.checked = false;
+					mymodalss.style.display = "none";
+					modals.style.display = "block";
+					document.getElementById("msg").innerHTML =
+					"Can only choose one type";
 					return false;
-				});
-			} // /success
-		}); // /fetch selected member info
-	} else {
-		alert("Error : Refresh the page again");
-	}
+				}
+			});
+			// here update the member data
+			$("#FormDisplayUpdate").unbind('submit').bind('submit', function() {
+				// remove error messages
+				$(".text-danger").remove();
+
+				var form = $(this);
+
+				// initial variable
+				var edit_emp_no = $('#edit_emp_no').val();
+				var edit_venue_code = $('#edit_venue_code').val();
+				var edit_venue_name = $('#edit_venue_name').val();
+				var edit_venue_type = $('#edit_venue_type').val();
+				var edit_venue_room_code = [];
+				var edit_venue_room_name = [];
+				var edit_venue_address = $('#edit_venue_address').val();
+				var edit_venue_country = $('#edit_venue_country').val();
+				var edit_venue_state = $('#edit_venue_state').val();
+				var edit_venue_city = $('#edit_venue_city').val();
+				var edit_venue_postal_code = $('#edit_venue_postal_code').val();
+				var edit_venue_phone = $('#edit_venue_phone').val();
+				var edit_venue_fax = $('#edit_venue_fax').val();
+				var edit_venue_remark = $('#edit_venue_remark').val();
+
+				var regex=/^[a-zA-Z]+$/;
+
+				if (edit_venue_name == "") {
+					modals.style.display ="block";
+					document.getElementById("msg").innerHTML = "Venue name cannot empty";
+					alert('kosong name');
+					return false;
+				} else if (edit_venue_type == "") {
+					modals.style.display ="block";
+					document.getElementById("msg").innerHTML = "Venue type cannot empty";
+					alert('kosong type');
+					return false;
+				} else if (edit_venue_address == "") {
+					modals.style.display ="block";
+					document.getElementById("msg").innerHTML = "Venue address cannot empty";
+					alert('kosong addressX');
+					return false;
+				} else if (edit_venue_country == "") {
+					modals.style.display ="block";
+					document.getElementById("msg").innerHTML = "Venue country cannot empty";
+					alert('kosong country');
+					return false;
+				} else if (edit_venue_state == "") {
+					modals.style.display ="block";
+					document.getElementById("msg").innerHTML = "Venue state cannot empty";
+					alert('kosong state');
+					return false;
+				} else if (edit_venue_city == "") {
+					modals.style.display ="block";
+					document.getElementById("msg").innerHTML = "Venue city cannot empty";
+					alert('kosong city');
+					return false;
+				} else if (edit_venue_postal_code == "") {
+					modals.style.display ="block";
+					document.getElementById("msg").innerHTML = "Venue Postal Code cannot empty";
+					alert('kosong postal code');
+					return false;
+				} else if (edit_venue_phone == "") {
+					modals.style.display ="block";
+					document.getElementById("msg").innerHTML = "Venue Phone cannot empty";
+					alert('kosong phone');
+					return false;
+				} else if (edit_venue_fax == "") {
+					modals.style.display ="block";
+					document.getElementById("msg").innerHTML = "Venue Fax cannot empty";
+					alert('kosong fax');
+					return false;
+				} else if (edit_venue_remark == "") {
+					modals.style.display ="block";
+					document.getElementById("msg").innerHTML = "Venue remark cannot empty";
+					alert('kosong remark');
+					return false;
+				} else {
+						$('#submit_update').hide();
+						$('#submit_update2').show();
+				}
+				if (edit_venue_name && edit_venue_type && edit_venue_address && edit_venue_country && edit_venue_state && edit_venue_city && edit_venue_postal_code && edit_venue_phone && edit_venue_fax && edit_venue_remark) {
+					// alert('wakwakwak');
+					$.ajax({
+						url: form.attr('action'),
+						type: form.attr('method'),
+						// data: form.serialize(),
+
+						data: new FormData(this),
+						processData: false,
+						contentType: false,
+
+						dataType: 'json',
+						success: function(response) {
+							if (response.code =='success_message') {
+								modals.style.display = "block";
+								document.getElementById("msg").innerHTML =response.messages;
+
+								$('#submit_update').show();
+								$('#submit_update2').hide();
+
+								$('#FormDisplayUpdate').modal('hide'); 
+								$("[data-dismiss=modal]").trigger({type: "click"});
+								// reload the datatables
+								datatable.ajax.reload(null,false);
+								// reload the datatables
+							} else {
+								modals.style.display = "block";
+								document.getElementById("msg").innerHTML = response.messages;
+							}
+						} // /success
+					}); // /ajax
+				}
+				return false;
+			});
+		},
+		error: function(xhr, status, error) {
+			mymodalss.style.display = "none";
+			modals.style.display = "block";
+			document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+			// var err = eval("(" + xhr.responseText + ")");
+			// alert(err.messages);
+		}
+	});
 }
 
 // function delete data dummy

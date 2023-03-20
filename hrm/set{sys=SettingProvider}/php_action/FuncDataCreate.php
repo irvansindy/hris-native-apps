@@ -9,6 +9,7 @@ if($_POST) {
 	$validator = array('success' => false, 'messages' => array());
 
 	$provider_name 	= $_POST['provider_name'];
+	$formula_code = ucwords(strtolower($provider_name));
 	$provider_type 	= strtoupper($_POST['provider_type']);
 	$pic 	= strtoupper($_POST['pic']);
 	$provider_country 	= strtoupper($_POST['provider_country']);
@@ -22,7 +23,7 @@ if($_POST) {
 	$provider_speciality 	= strtoupper($_POST['provider_speciality']);
 	$provider_address 	= strtoupper($_POST['provider_address']);
 	$provider_remark 	= strtoupper($_POST['provider_remark']);
-	$provider_code = preg_filter('/[^A-Z]/', '', $provider_name);
+	$provider_code = preg_filter('/[^A-Z]/', '', $formula_code);
 
 	$query = "INSERT INTO `trnprovider` 
 		(
@@ -64,11 +65,13 @@ if($_POST) {
 	// condition start
 	$executeQuery = $connect->query($query);
 
-	if($executeQuery == TRUE) {						
+	if($executeQuery == TRUE) {
+		http_response_code(200);
 		$validator['success'] = true;
 		$validator['code'] = "success_message";
 		$validator['messages'] = "Successfully saved data";			
-	} else {		
+	} else {
+		http_response_code(400);
 		$validator['success'] = false;
 		$validator['code'] = "failed_message";
 		$validator['messages'] = "Failed saved data";	
@@ -78,5 +81,6 @@ if($_POST) {
 	// die();
 	// close the database connection
 	$connect->close();
+	header('Content-Type: application/json');
 	echo json_encode($validator);
 }

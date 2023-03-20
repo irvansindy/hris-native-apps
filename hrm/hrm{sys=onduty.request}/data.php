@@ -1211,20 +1211,26 @@ if ($platform != 'mobile') {
 				$('#detail_modal_emp').val(response[0].requestfor)
 
 				var data_fileupload = response[0].upload_filename
-
-				let fileExtension = data_fileupload.replace(/^.*\./, '');
-				// console.log (fileExtension);
-				if(fileExtension == 'pdf') {
-					$('#icon_file_upload').append(`<i class="bi bi-filetype-pdf fa-7x"></i>`)
-					// $('#data_detail_file').remove()
-				} else if (fileExtension == 'doc') {
-					$('#icon_file_upload').append(`<i class="bi bi-file-earmark-text fa-7x"></i>`)
-					// $('#data_detail_file').remove()
-				} else if (fileExtension == 'docx') {
-					$('#icon_file_upload').append(`<i class="bi bi-file-earmark-text fa-7x"></i>`)
-					// $('#data_detail_file').remove()
+				// alert(data_fileupload)
+				if (data_fileupload == "") {
+					// $('#detail_fileupload').removeAttr('download')
+					$('#icon_file_upload').append(`<i class="bi bi-file-x-fill fa-5x"></i>`)
 				} else {
-					$('#icon_file_upload').append(`<img id="data_detail_file" class="img-fluid img-thumbnail" src="" alt="file attachment" width="100" height="140">`)
+					// $('#detail_fileupload').attr('download')
+					let fileExtension = data_fileupload.replace(/^.*\./, '');
+					// console.log (fileExtension);
+					if (fileExtension == 'pdf') {
+						$('#icon_file_upload').append(`<i class="bi bi-filetype-pdf fa-5x"></i>`)
+						// $('#data_detail_file').remove()
+					} else if (fileExtension == 'doc') {
+						$('#icon_file_upload').append(`<i class="bi bi-file-earmark-text fa-5x"></i>`)
+						// $('#data_detail_file').remove()
+					} else if (fileExtension == 'docx') {
+						$('#icon_file_upload').append(`<i class="bi bi-file-earmark-text fa-5x"></i>`)
+						// $('#data_detail_file').remove()
+					} else {
+						$('#icon_file_upload').append(`<img id="data_detail_file" class="img-fluid img-thumbnail" src="" alt="file attachment" width="100" height="140">`)
+					}
 				}
 
 				$('#detail_fileupload').attr("href", 'hrstudio.presfst/'+data_fileupload)

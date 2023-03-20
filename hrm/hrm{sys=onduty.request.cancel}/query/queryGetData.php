@@ -1,5 +1,0 @@
-<?php
-    $queryGetDataOnDutyCancel = "SELECT
-    a.*,
-    
-    ";

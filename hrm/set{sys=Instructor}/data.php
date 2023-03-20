@@ -120,25 +120,6 @@
 
 			<div class="card-actions ml-auto">
 				<table>
-
-					<td>
-						<form action="../rfid=repository/cli_Template_Download/st/StFunctionDownload.php" method="GET">
-							<input type="hidden" name="filedata" value="StDownloadGTTGROndtPurposeTypeData.php">
-							<input type="hidden" name="filename" value="OndtPurposeType">
-							<input type="hidden" name="src_purpose_code" value="<?php echo $src_purpose_code; ?>">
-							<input type="hidden" name="src_purpose_name_en" value="<?php echo $src_purpose_name_en; ?>">
-							<button type="submit" class="toolbar sprite-toolbar-excel" id="EXCEL"
-								style="border: 0;background-color: white;" name="submit_approve"
-								value="submit"></button>
-						</form>
-					</td>
-					<td>
-						<a href='#' class='open_modal_search' class="btn btn-demo" data-toggle="modal"
-							data-target="#myModal2">
-							<div class="toolbar sprite-toolbar-search" id="SEARCH" title="Search">
-							</div>
-						</a>
-					</td>
 					<!-- AgusPrass 02/03/2021 Menghapus # pada href-->
 					<td>
 						<div class="toolbar sprite-toolbar-reload" id="RELOAD" title="Reload" onclick="RefreshPage();">

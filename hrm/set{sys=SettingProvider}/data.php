@@ -274,7 +274,7 @@ $(document).ready(function() {
 									maxlength="5"
 									style="text-transform:uppercase;width: 80%;"
 									validate="NotNull:Invalid Form Entry"
-									onchange="formodified(this);" title="">
+									onchange="formodified(this);" title="" onKeyPress="if(this.value.length==5) return false;">
 							</div>
 						</div>
 					</div>
@@ -304,7 +304,7 @@ $(document).ready(function() {
 									style="text-transform:uppercase;width: 80%;"
 									validate="NotNull:Invalid Form Entry"
 									onkeypress = "javascript:return isNum(event)"
-									onchange="formodified(this);" title="">
+									onchange="formodified(this);" title="" onKeyPress="if(this.value.length==13) return false;">
 							</div>
 						</div>
 					</div>
@@ -319,7 +319,7 @@ $(document).ready(function() {
 									onkeypress = "javascript:return isNum(event)"
 									style="text-transform:uppercase;width: 80%;"
 									validate="NotNull:Invalid Form Entry"
-									onchange="formodified(this);" title="">
+									onchange="formodified(this);" title="" onKeyPress="if(this.value.length==13) return false;">
 							</div>
 						</div>
 					</div>
@@ -480,15 +480,8 @@ $(document).ready(function() {
 						<div class="col-4 name">Country <span class="required">*</span></div>
 						<div class="col-sm-8">
 							<div class="input-group">
-								<select class="input--style-6 edit_provider_country" name="edit_provider_country" style="width: 50%;height: 30px;" id="edit_provider_country">
-									<option value="">--Select One--</option>
-									<?php
-										$queryCountry = mysqli_query($connect, "SELECT * FROM hrmcountry ORDER BY country_name ASC");
-										while ($country = mysqli_fetch_array($queryCountry)) {
-											echo '<option value="' . $country['country_id'] . '">' . $country['country_name'] . '</option>';
-										}
-									?>
-								</select>
+								<select class="input--style-6 edit_provider_country" name="edit_provider_country" style="width: 50%;height: 30px;" id="edit_provider_country"></select>
+								<input type="hidden" class="form-control" id="valueEditCountryId">
 							</div>
 						</div>
 					</div>
@@ -496,9 +489,8 @@ $(document).ready(function() {
 						<div class="col-4 name">province <span class="required">*</span></div>
 						<div class="col-sm-8">
 							<div class="input-group">
-								<select class="input--style-6 edit_provider_state" name="edit_provider_state" style="width: 50%;height: 30px;" id="edit_provider_state">
-									<option value="">--Select One--</option>
-								</select>
+								<select class="input--style-6 edit_provider_state" name="edit_provider_state" style="width: 50%;height: 30px;" id="edit_provider_state"></select>
+								<input type="hidden" class="form-control" id="valueEditStateId">
 							</div>
 						</div>
 					</div>
@@ -506,9 +498,8 @@ $(document).ready(function() {
 						<div class="col-4 name">City <span class="required">*</span></div>
 						<div class="col-sm-8">
 							<div class="input-group">
-								<select class="input--style-6 edit_provider_city" name="edit_provider_city" style="width: 50%;height: 30px;" id="edit_provider_city">
-									<option value="">--Select One--</option>
-								</select>
+								<select class="input--style-6 edit_provider_city" name="edit_provider_city" style="width: 50%;height: 30px;" id="edit_provider_city"></select>
+								<input type="hidden" class="form-control" id="valueEditCityId">
 							</div>
 						</div>
 					</div>
@@ -523,7 +514,7 @@ $(document).ready(function() {
 									maxlength="50"
 									style="text-transform:uppercase;width: 80%;"
 									validate="NotNull:Invalid Form Entry"
-									onchange="formodified(this);" title="">
+									onchange="formodified(this);" title="" onKeyPress="if(this.value.length==5) return false;">
 							</div>
 						</div>
 					</div>
@@ -552,7 +543,7 @@ $(document).ready(function() {
 									maxlength="50"
 									style="text-transform:uppercase;width: 80%;"
 									validate="NotNull:Invalid Form Entry"
-									onchange="formodified(this);" title="">
+									onchange="formodified(this);" title="" onKeyPress="if(this.value.length==13) return false;">
 							</div>
 						</div>
 					</div>
@@ -566,7 +557,7 @@ $(document).ready(function() {
 									maxlength="50"
 									style="text-transform:uppercase;width: 80%;"
 									validate="NotNull:Invalid Form Entry"
-									onchange="formodified(this);" title="">
+									onchange="formodified(this);" title="" onKeyPress="if(this.value.length==13) return false;">
 							</div>
 						</div>
 					</div>
@@ -881,23 +872,35 @@ function editMember(id = null) {
 			dataType: 'json',
 
 			success: function(response) {
-				document.getElementById("init_provider_code").innerHTML = response.provider_code;
+				document.getElementById("init_provider_code").innerHTML = response.data[0].provider_code;
 
-				$('#edit_provider_code').val(response.provider_code);
-				$('#edit_provider_name').val(response.provider_name);
-				$('#edit_provider_type').val(response.provider_type);
-				$('#edit_pic').val(response.pic);
-				$('#edit_provider_country').val(response.provider_country);
-				$('#edit_provider_state').val(response.provider_state);
-				$('#edit_provider_city').val(response.provider_city);
-				$('#edit_zipcode').val(response.zipcode);
-				$('#edit_provider_email').val(response.email);
-				$('#edit_provider_phone').val(response.phone);
-				$('#edit_provider_fax').val(response.fax);
-				$('#edit_provider_website').val(response.web_address);
-				$('#edit_provider_speciality').val(response.speciality);
-				$('#edit_provider_address').val(response.address);
-				$('#edit_provider_remark').val(response.remark);
+				$('#edit_provider_code').val(response.data[0].provider_code);
+				$('#edit_provider_name').val(response.data[0].provider_name);
+				$('#edit_provider_type').val(response.data[0].provider_type);
+				$('#edit_pic').val(response.data[0].pic);
+				// get and append country data
+				$('#valueEditCountryId').val(response.data[0].provider_country);
+				$('#edit_provider_country').empty();
+				$('#edit_provider_country').append('<option value="'+response.data[0].country_id+'">'+response.data[0].country_name+'</option>')
+				$.each(response.data[1], function(i, data) {
+					$('#edit_provider_country').append('<option value="'+data.country_id+'">'+data.country_name+'</option>')
+				});
+				// get state data
+				$('#valueEditStateId').val(response.data[0].provider_state);
+				$('#edit_provider_state').empty()
+				$('#edit_provider_state').append('<option value="'+response.data[0].state_id+'">'+response.data[0].state_name+'</option>');
+				// get city data
+				$('#valueEditCityId').val(response.data[0].provider_city);
+				$('#edit_provider_city').empty()
+				$('#edit_provider_city').append('<option value="'+response.data[0].city_id+'">'+response.data[0].city_name+'</option>');
+				$('#edit_zipcode').val(response.data[0].zipcode);
+				$('#edit_provider_email').val(response.data[0].email);
+				$('#edit_provider_phone').val(response.data[0].phone);
+				$('#edit_provider_fax').val(response.data[0].fax);
+				$('#edit_provider_website').val(response.data[0].web_address);
+				$('#edit_provider_speciality').val(response.data[0].speciality);
+				$('#edit_provider_address').val(response.data[0].address);
+				$('#edit_provider_remark').val(response.data[0].remark);
 
 				// here update the member data
 				$("#FormDisplayUpdate").unbind('submit').bind('submit', function() {

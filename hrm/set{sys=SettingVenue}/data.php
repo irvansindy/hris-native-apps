@@ -791,8 +791,6 @@ $(document).ready(function() {
 	}); // /add modal
 });
 
-
-
 function submitStoreVenue(urlEndPoint, data) {
 	$.ajax({
 		url: urlEndPoint,

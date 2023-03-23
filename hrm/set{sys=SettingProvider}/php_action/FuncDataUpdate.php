@@ -44,11 +44,13 @@ if($_POST) {
 	// condition start
 	$query = $connect->query($sql);
 
-	if($query == TRUE) {						
+	if($query == TRUE) {
+		http_response_code(200);
 		$validator['success'] = true;
 		$validator['code'] = "success_message";
 		$validator['messages'] = "Successfully Update data";			
 	} else {		
+		http_response_code(400);
 		$validator['success'] = false;
 		$validator['code'] = "failed_message";
 		$validator['messages'] = "Failed Update data";	
@@ -57,5 +59,6 @@ if($_POST) {
 
 	// close the database connection
 	$connect->close();
+	header('Content-Type: application/json');
 	echo json_encode($validator);
 }

@@ -1,10 +1,12 @@
 <?php 
+error_reporting(0);
+date_default_timezone_set('Asia/Jakarta');
 require_once '../../../application/config.php';
 
 //if form is submitted
 if($_POST) {	
 
-	$validator = array('success' => false, 'messages' => array());
+	$response = array('success' => false, 'messages' => array());
 
 	$edit_emp_no = $_POST['edit_emp_no'];
 	$edit_venue_code = $_POST['edit_venue_code'];
@@ -43,8 +45,6 @@ if($_POST) {
 
 	$exe_query_master = $connect->query($query_update_master_venue);
 
-	// var_dump([$edit_venue_type, $edit_venue_phone]);
-
 	$query_delete_detail_old_venue = "DELETE FROM `trndvenue` WHERE `venue_code` = '$edit_venue_code'";
 
 	$exe_query_delete_detail = $connect->query($query_delete_detail_old_venue);
@@ -75,20 +75,19 @@ if($_POST) {
 		}
 	}
 
-	if($exe_query_master == TRUE && $exe_query_detail == TRUE) {
-	// if($exe_query_detail == TRUE) {
-	// if($exe_query_master == TRUE) {
-		$validator['success'] = true;
-		$validator['code'] = "success_message";
-		$validator['messages'] = "Successfully Update data";			
+	if($exe_query_master == true && $exe_query_detail == true) {
+		http_response_code(200);
+		$response['success'] = true;
+		$response['code'] = "success_message";
+		$response['messages'] = "Successfully Update data";			
 	} else {		
-		$validator['success'] = false;
-		$validator['code'] = "failed_message";
-		$validator['messages'] = "Failed Update data";	
+		http_response_code(400);
+		$response['success'] = false;
+		$response['code'] = "failed_message";
+		$response['messages'] = "Failed Update data";	
 	}
-	// condition ends
 
-	// close the database connection
 	$connect->close();
-	echo json_encode($validator);
+	header('Content-Type: application/json');
+	echo json_encode($response);
 }

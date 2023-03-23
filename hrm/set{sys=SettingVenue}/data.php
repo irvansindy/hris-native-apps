@@ -394,7 +394,7 @@ $(document).ready(function() {
 				</a>
 			</div>
 
-			<form class="form-horizontal" action="php_action/FuncDataUpdate.php" method="POST" id="FormDisplayCreate">
+			<form class="form-horizontal" id="FormDisplayUpdate">
 				<fieldset id="fset_1">
 					<legend>Form Data</legend>
 
@@ -430,7 +430,7 @@ $(document).ready(function() {
 								<input class="input--style-6" autocomplete="off" autofocus="on" id="edit_venue_name"
 									name="edit_venue_name" type="Text" value="" onfocus="hlentry(this)" size="30"
 									maxlength="50" style="text-transform:uppercase;width: 60%;"
-									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="" required>
+									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="">
 							</div>
 						</div>
 					</div>
@@ -453,7 +453,7 @@ $(document).ready(function() {
 									type="Text" value=""
 									style="text-transform:uppercase;width: 60%;"
 									validate="NotNull:Invalid Form Entry"
-									onchange="formodified(this);" title="" required></textarea>
+									onchange="formodified(this);" title=""></textarea>
 							</div>
 						</div>
 					</div>
@@ -472,7 +472,7 @@ $(document).ready(function() {
 						<div class="col-sm-8">
 							<div class="input-group">
 								<select class="input--style-6 edit_venue_state" name="edit_venue_state" style="width: 50%;height: 30px;" id="edit_venue_state">
-									<!-- <option value="" required>--Select One--</option> -->
+									<!-- <option value="">--Select One--</option> -->
 								</select>
 								<input type="hidden" class="form-control" id="valueEditStateId">
 							</div>
@@ -483,7 +483,7 @@ $(document).ready(function() {
 						<div class="col-sm-8">
 							<div class="input-group">
 								<select class="input--style-6 edit_venue_city" name="edit_venue_city" style="width: 50%;height: 30px;" id="edit_venue_city">
-									<!-- <option value="" required>--Select One--</option> -->
+									<!-- <option value="">--Select One--</option> -->
 								</select>
 								<input type="hidden" class="form-control" id="valueEditCityId">
 							</div>
@@ -501,7 +501,7 @@ $(document).ready(function() {
 									style="text-transform:uppercase;width: 80%;"
 									validate="NotNull:Invalid Form Entry"
 									onchange="formodified(this);" title=""
-									pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==5) return false;" required>
+									pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==5) return false;">
 							</div>
 						</div>
 					</div>
@@ -517,7 +517,7 @@ $(document).ready(function() {
 									style="text-transform:uppercase;width: 80%;"
 									validate="NotNull:Invalid Form Entry"
 									onchange="formodified(this);" title=""
-									pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" required>
+									pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;">
 							</div>
 						</div>
 					</div>
@@ -533,7 +533,7 @@ $(document).ready(function() {
 									style="text-transform:uppercase;width: 80%;"
 									validate="NotNull:Invalid Form Entry"
 									onchange="formodified(this);" title=""
-									pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" required>
+									pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;">
 							</div>
 						</div>
 					</div>
@@ -547,7 +547,7 @@ $(document).ready(function() {
 								type="Text" value=""
 								style="text-transform:uppercase;width: 80%;"
 								validate="NotNull:Invalid Form Entry"
-								onchange="formodified(this);" title="" required></textarea>
+								onchange="formodified(this);" title=""></textarea>
 							</div>
 						</div>
 					</div>
@@ -558,7 +558,7 @@ $(document).ready(function() {
 					<button type="reset" class="btn btn-primary1" data-dismiss="modal" aria-hidden="true" id="close_edit_form_venue">
 						&nbsp;Cancel&nbsp;
 					</button>
-					<button class="btn btn-warning" type="submit" name="submit_update" id="submit_update">
+					<button class="btn btn-warning" type="button" name="submit_update" id="submit_update">
 						Confirm
 					</button>
 					<button class="btn btn-warning" type="button" name="submit_update2"
@@ -638,7 +638,7 @@ function RefreshPage() {
 
 <!-- isi JSON -->
 <script type="text/javascript">
-// global the manage memeber table 
+// global the manage member table 
 $(document).ready(function() {
 	$("#CreateButton").on('click', function() {
 		// reset the form 
@@ -727,35 +727,32 @@ $(document).ready(function() {
 				$.ajax({
 					url: form.attr('action'),
 					type: form.attr('method'),
-					// data: form.serialize(),
-
 					data: new FormData(this),
 					processData: false,
 					contentType: false,
-
 					dataType: 'json',
 					success: function(response) {
-						// remove the error 
-						$(".form-group").removeClass('has-error').removeClass('has-success');
-
+						
 						if (response.code == 'success_message') {
+							// remove the error 
+							$(".form-group").removeClass('has-error').removeClass('has-success');
 							// mymodalss.style.display = "none";
 							modals.style.display = "block";
 							document.getElementById("msg").innerHTML = response.messages;
-
+	
 							$('#submit_add').show();
 							$('#submit_add2').hide();
-
+	
 							$('#FormDisplayCreate').modal('hide');
 							$("[data-dismiss=modal]").trigger({
 								type: "click"
 							});
-
+	
 							// reset the form
 							$("#FormDisplayCreate")[0].reset();
 							// reload the datatables
 							datatable.ajax.reload(null, false);
-							// this function is built in function of datatables;
+							
 						} else {
 							modals.style.display = "block";
 							document.getElementById("msg").innerHTML = response.messages;
@@ -780,22 +777,64 @@ $(document).ready(function() {
 								},
 								4000
 							);
-						} // /else
-					} // success  
-				}); // ajax subit 				
-			} /// if
+						}
+					}
+					// error: function(xhr, status, error) {
+					// 	mymodalss.style.display = "none";
+					// 	modals.style.display = "block";
+					// 	document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+					// } 
+				}); 				
+			} /// i
 			return false;
 		}); // /submit form for create member
 	}); // /add modal
 });
 
-function updateVenue(id = null) {
+
+
+function submitStoreVenue(urlEndPoint, data) {
+	$.ajax({
+		url: urlEndPoint,
+		type: 'POST',
+		data: data,
+		processData: false,
+		contentType: false,
+		dataType: 'json',
+		success: function(response) {
+			$(".form-group").removeClass('has-error').removeClass('has-success');
+			modals.style.display = "block";
+			document.getElementById("msg").innerHTML = response.messages;
+
+			$('#submit_add').show();
+			$('#submit_add2').hide();
+
+			$('#FormDisplayCreate').modal('hide');
+			$("[data-dismiss=modal]").trigger({
+				type: "click"
+			});
+
+			// reset the form
+			$("#FormDisplayCreate")[0].reset();
+			// reload the datatables
+			datatable.ajax.reload(null, false);
+		},
+		error: function(xhr, status, error) {
+			mymodalss.style.display = "none";
+			modals.style.display = "block";
+			document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+			// var err = eval("(" + xhr.responseText + ")");
+			// alert(err.messages);
+		}
+	})
+}
+
+function getDetailVenue(id) {
 	// remove the error 
 	$(".form-group").removeClass('has-error').removeClass('has-success');
 	$(".text-danger").remove();
 	// empty the message div
 	$(".messages_update").html("");
-	// alert('anjay')
 	// fetch the member data
 	$.ajax({
 		url: 'php_action/getDataSettingVenueById.php',
@@ -833,9 +872,6 @@ function updateVenue(id = null) {
 			`);
 
 			// get list country
-			// edit_venue_country
-			// edit_venue_state
-			// edit_venue_city
 			$('#valueEditCountryId').val(response.master.country_id)
 			$('#edit_venue_country').empty()
 			$('#edit_venue_country').append('<option value="'+response.master.country_id+'">'+response.master.country_name+'</option>')
@@ -851,7 +887,6 @@ function updateVenue(id = null) {
 			// get data venue city
 			$('#valueEditCityId').val(response.master.country_id)
 			$('#edit_venue_city').append('<option value="'+response.master.city_id+'">'+response.master.city_name+'</option>')
-			
 			
 			// looping venue room by data
 			$('.edit_venue_room').empty();
@@ -931,118 +966,6 @@ function updateVenue(id = null) {
 				}
 			});
 			// here update the member data
-			$("#FormDisplayUpdate").unbind('submit').bind('submit', function() {
-				// remove error messages
-				$(".text-danger").remove();
-
-				var form = $(this);
-
-				// initial variable
-				var edit_emp_no = $('#edit_emp_no').val();
-				var edit_venue_code = $('#edit_venue_code').val();
-				var edit_venue_name = $('#edit_venue_name').val();
-				var edit_venue_type = $('#edit_venue_type').val();
-				var edit_venue_room_code = [];
-				var edit_venue_room_name = [];
-				var edit_venue_address = $('#edit_venue_address').val();
-				var edit_venue_country = $('#edit_venue_country').val();
-				var edit_venue_state = $('#edit_venue_state').val();
-				var edit_venue_city = $('#edit_venue_city').val();
-				var edit_venue_postal_code = $('#edit_venue_postal_code').val();
-				var edit_venue_phone = $('#edit_venue_phone').val();
-				var edit_venue_fax = $('#edit_venue_fax').val();
-				var edit_venue_remark = $('#edit_venue_remark').val();
-
-				var regex=/^[a-zA-Z]+$/;
-
-				if (edit_venue_name == "") {
-					modals.style.display ="block";
-					document.getElementById("msg").innerHTML = "Venue name cannot empty";
-					alert('kosong name');
-					return false;
-				} else if (edit_venue_type == "") {
-					modals.style.display ="block";
-					document.getElementById("msg").innerHTML = "Venue type cannot empty";
-					alert('kosong type');
-					return false;
-				} else if (edit_venue_address == "") {
-					modals.style.display ="block";
-					document.getElementById("msg").innerHTML = "Venue address cannot empty";
-					alert('kosong addressX');
-					return false;
-				} else if (edit_venue_country == "") {
-					modals.style.display ="block";
-					document.getElementById("msg").innerHTML = "Venue country cannot empty";
-					alert('kosong country');
-					return false;
-				} else if (edit_venue_state == "") {
-					modals.style.display ="block";
-					document.getElementById("msg").innerHTML = "Venue state cannot empty";
-					alert('kosong state');
-					return false;
-				} else if (edit_venue_city == "") {
-					modals.style.display ="block";
-					document.getElementById("msg").innerHTML = "Venue city cannot empty";
-					alert('kosong city');
-					return false;
-				} else if (edit_venue_postal_code == "") {
-					modals.style.display ="block";
-					document.getElementById("msg").innerHTML = "Venue Postal Code cannot empty";
-					alert('kosong postal code');
-					return false;
-				} else if (edit_venue_phone == "") {
-					modals.style.display ="block";
-					document.getElementById("msg").innerHTML = "Venue Phone cannot empty";
-					alert('kosong phone');
-					return false;
-				} else if (edit_venue_fax == "") {
-					modals.style.display ="block";
-					document.getElementById("msg").innerHTML = "Venue Fax cannot empty";
-					alert('kosong fax');
-					return false;
-				} else if (edit_venue_remark == "") {
-					modals.style.display ="block";
-					document.getElementById("msg").innerHTML = "Venue remark cannot empty";
-					alert('kosong remark');
-					return false;
-				} else {
-						$('#submit_update').hide();
-						$('#submit_update2').show();
-				}
-				if (edit_venue_name && edit_venue_type && edit_venue_address && edit_venue_country && edit_venue_state && edit_venue_city && edit_venue_postal_code && edit_venue_phone && edit_venue_fax && edit_venue_remark) {
-					// alert('wakwakwak');
-					$.ajax({
-						url: form.attr('action'),
-						type: form.attr('method'),
-						// data: form.serialize(),
-
-						data: new FormData(this),
-						processData: false,
-						contentType: false,
-
-						dataType: 'json',
-						success: function(response) {
-							if (response.code =='success_message') {
-								modals.style.display = "block";
-								document.getElementById("msg").innerHTML =response.messages;
-
-								$('#submit_update').show();
-								$('#submit_update2').hide();
-
-								$('#FormDisplayUpdate').modal('hide'); 
-								$("[data-dismiss=modal]").trigger({type: "click"});
-								// reload the datatables
-								datatable.ajax.reload(null,false);
-								// reload the datatables
-							} else {
-								modals.style.display = "block";
-								document.getElementById("msg").innerHTML = response.messages;
-							}
-						} // /success
-					}); // /ajax
-				}
-				return false;
-			});
 		},
 		error: function(xhr, status, error) {
 			mymodalss.style.display = "none";
@@ -1052,6 +975,103 @@ function updateVenue(id = null) {
 			// alert(err.messages);
 		}
 	});
+}
+
+// new update data setting venue
+$('#submit_update').click(function() {
+	var edit_emp_no = $('#edit_emp_no').val();
+	var edit_venue_code = $('#edit_venue_code').val();
+	var edit_venue_name = $('#edit_venue_name').val();
+	var edit_venue_type = $('#edit_venue_type').val();
+	var edit_venue_room_code = [];
+	var edit_venue_room_name = [];
+	var edit_venue_address = $('#edit_venue_address').val();
+	var edit_venue_country = $('#edit_venue_country').val();
+	var edit_venue_state = $('#edit_venue_state').val();
+	var edit_venue_city = $('#edit_venue_city').val();
+	var edit_venue_postal_code = $('#edit_venue_postal_code').val();
+	var edit_venue_phone = $('#edit_venue_phone').val();
+	var edit_venue_fax = $('#edit_venue_fax').val();
+	var edit_venue_remark = $('#edit_venue_remark').val();
+
+	if (edit_venue_name == "") {
+		modals.style.display ="block";
+		document.getElementById("msg").innerHTML = "Venue name cannot empty";
+		return false;
+	} else if (edit_venue_type == "") {
+		modals.style.display ="block";
+		document.getElementById("msg").innerHTML = "Venue type cannot empty";
+		return false;
+	} else if (edit_venue_address == "") {
+		modals.style.display ="block";
+		document.getElementById("msg").innerHTML = "Venue address cannot empty";
+		return false;
+	} else if (edit_venue_country == "") {
+		modals.style.display ="block";
+		document.getElementById("msg").innerHTML = "Venue country cannot empty";
+		return false;
+	} else if (edit_venue_state == "") {
+		modals.style.display ="block";
+		document.getElementById("msg").innerHTML = "Venue state cannot empty";
+		return false;
+	} else if (edit_venue_city == "") {
+		modals.style.display ="block";
+		document.getElementById("msg").innerHTML = "Venue city cannot empty";
+		return false;
+	} else if (edit_venue_postal_code == "") {
+		modals.style.display ="block";
+		document.getElementById("msg").innerHTML = "Venue Postal Code cannot empty";
+		return false;
+	} else if (edit_venue_phone == "") {
+		modals.style.display ="block";
+		document.getElementById("msg").innerHTML = "Venue Phone cannot empty";
+		return false;
+	} else if (edit_venue_fax == "") {
+		modals.style.display ="block";
+		document.getElementById("msg").innerHTML = "Venue Fax cannot empty";
+		return false;
+	} else if (edit_venue_remark == "") {
+		modals.style.display ="block";
+		document.getElementById("msg").innerHTML = "Venue remark cannot empty";
+		return false;
+	} else {
+		let data = new FormData(document.getElementById("FormDisplayUpdate"))
+		submitUpdateVenue('php_action/FuncDataUpdate.php', data)
+	}
+
+
+})
+
+function submitUpdateVenue(urlEndPoint, data) {
+	$.ajax({
+		url: urlEndPoint,
+		type: 'POST',
+		// data: new FormData(this),
+		data: data,
+		processData: false,
+		contentType: false,
+		dataType: 'json',
+		success: function(response) {
+			modals.style.display = "block";
+			document.getElementById("msg").innerHTML =response.messages;
+			$('#submit_update').show();
+			$('#submit_update2').hide();
+			$('#FormDisplayUpdate').modal('hide'); 
+
+			$("[data-dismiss=modal]").trigger({
+				type: "click"
+			});
+			// reset the form
+			$("#FormDisplayUpdate")[0].reset();
+			// reload the datatables
+			datatable.ajax.reload(null, false);
+		},
+		error: function(xhr, status, error) {
+			mymodalss.style.display = "none";
+			modals.style.display = "block";
+			document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+		}
+	})
 }
 
 // function delete data dummy

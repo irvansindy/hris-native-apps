@@ -6,7 +6,7 @@ $flag		   	= date("his");
 //if form is submitted
 if($_POST) {	
 
-	$validator = array('success' => false, 'messages' => array());
+	$response = array('success' => false, 'messages' => array());
 
 	$input_emp_no 	= $_POST['input_emp_no'];
 	$input_venue_code 	= $_POST['input_venue_code'];
@@ -88,24 +88,27 @@ if($_POST) {
 				)";
 				$exe_query_detail = $connect->query($query_detail_venue);
 			} else {
-				$validator['messages'] = "Data Room Code or Room Name can't be null";
+				$response['messages'] = "Data Room Code or Room Name can't be null";
 			}
 		}
 	}
 
-	// if($exe_query_master == TRUE && $exe_query_detail == TRUE) {						
-	if($exe_query_detail == TRUE) {						
-		$validator['success'] = true;
-		$validator['code'] = "success_message";
-		$validator['messages'] = "Successfully saved data";			
-	} else {		
-		$validator['success'] = false;
-		$validator['code'] = "failed_message";
-		$validator['messages'] = "Failed saved data";
+	if($exe_query_master == true && $exe_query_detail == true) {						
+	// if($exe_query_detail == TRUE) {
+		http_response_code(200);
+		$response['success'] = true;
+		$response['code'] = "success_message";
+		$response['messages'] = "Successfully saved data";			
+	} else {
+		http_response_code(400);
+		$response['success'] = false;
+		$response['code'] = "failed_message";
+		$response['messages'] = "Failed saved data";
 	}
 
 	// close the database connection
 	$connect->close();
-	echo json_encode($validator);
+	header('Content-Type: application/json');
+	echo json_encode($response);
 	// echo json_encode($data_room);
 }

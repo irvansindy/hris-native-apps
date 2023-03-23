@@ -11,7 +11,7 @@
     $number = 1;
     while ($row = mysqli_fetch_assoc($query)) {
 
-        $prn = '<a type="button" href="" nowrap="nowrap" data-toggle="modal" data-target="#UpdateForm" data-backdrop="static" onclick="updateVenue(`' . $row['venue_code'] . '`)"> ' . $row['venue_code'] . '</a>';
+        $prn = '<a type="button" href="" nowrap="nowrap" data-toggle="modal" data-target="#UpdateForm" data-backdrop="static" onclick="getDetailVenue(`' . $row['venue_code'] . '`)"> ' . $row['venue_code'] . '</a>';
 
         $output['data'][] = array(
             $number,

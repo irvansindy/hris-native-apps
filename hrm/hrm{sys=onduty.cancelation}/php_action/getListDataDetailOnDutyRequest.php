@@ -9,16 +9,19 @@
     $queryGetDataDetailOnDuty = "SELECT * FROM hrdondutyrequestdtl WHERE request_no = '$request_no'";
     $resultDataDetailOnDuty = mysqli_fetch_all(mysqli_query($connect, $queryGetDataDetailOnDuty), MYSQLI_ASSOC);
 
-    if ($resultDataDetailOnDuty) {
+    if ($resultDataDetailOnDuty == true) {
         http_response_code(200);
-        $data = [
+        $resultJson = [
             'messages' => 'Success to get all data',
             'data' => $resultDataDetailOnDuty
         ];
     } else {
         http_response_code(400);
-        $data = [
+        $resultJson = [
             'messages' => 'Failed to get all data',
             'data' => NULL
         ];
     }
+    $connect->close();
+    header('Content-Type: application/json');
+	echo json_encode($resultJson);

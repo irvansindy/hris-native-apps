@@ -576,157 +576,186 @@ function RefreshPage() {
 <script type="text/javascript">
 // global the manage memeber table 
 $(document).ready(function () {
-	$("#CreateButton").on('click', function () {
-		var empno = $(this).data("empno")
-		// reset the form 
-		$("#FormDisplayCreate")[0].reset();
-		// empty the message div
-
-		$(".messages_create").html("");
-		$('#table_on_duty_request').empty()
-
-		$.ajax({
-			url: 'php_action/getListDataOnDutyRequest',
-			type: 'GET',
-			data: {
-				empno: empno
-			},
-			dataType: 'json',
-			async: true,
-			success: function(response) {
-				// alert(response.messages)
-				$('#table_on_duty_request').append(`
-					<fieldset id="fset_1">
-						<legend>List On Duty Request</legend>
-						<div>
-							<table class="table table-striped table-bordered display mt-4">
-								<thead class="thead-dark">
-									<tr>
-										<th style="text-align:center">Request Number</th>
-										<th style="text-align:center">Time In</th>
-										<th style="text-align:center">Time Out</th>
-									</tr>
-								</thead>
-								<tbody id="list_data_on_duty_request">
-								</tbody>
-							</table>
-						</div>
-					</fieldset>
-				`);
-
-				$('#list_data_on_duty_request').empty()
-				for (let index = 0; index < response.data.length; index++) {
-					$('#list_data_on_duty_request').append(`
-						<tr>
-							<td style="width:20%;text-align:left;">
-								${response.data[index]['request_no'] == null ? '' : response.data[index]['request_no']}
-							</td>
-							<td style="width:20%;text-align:left;">
-								${response.data[index]['requestdate'] == null ? '' : moment(response.data[index]['requestdate']).format('LL')}
-							</td>
-							<td style="width:20%;text-align:left;">
-								${response.data[index]['requestenddate'] == null ? '' : moment(response.data[index]['requestenddate']).format('LL')}
-							</td>
-						</tr>
-					`)
-				}
-			},
-			error: function(xhr, status, error) {
-				mymodalss.style.display = "none";
-				modals.style.display = "block";
-				document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
-			}
-		})
-
-		// submit form
-		$("#FormDisplayCreate").unbind('submit').bind('submit', function () {
-
-			$(".text-danger").remove();
-
-			var form = $(this);
-
-			var inp_remark = $("#inp_remark").val();
-
-
-			var regex = /^[a-zA-Z]+$/;
-
-			if (inp_remark == "") {
-				modals.style.display = "block";
-				document.getElementById("msg").innerHTML = "Remark cannot empty";
-
-			}
-
-			if (inp_remark) {
-
-				//submi the form to server
-				$.ajax({
-					url: form.attr('action'),
-					type: form.attr('method'),
-					// data: form.serialize(),
-
-					data: new FormData(this),
-					processData: false,
-					contentType: false,
-
-					dataType: 'json',
-					success: function (response) {
-
-						// remove the error 
-						$(".form-group").removeClass('has-error').removeClass(
-							'has-success');
-
-
-
-						if (response.code == 'success_message') {
-
-							$('#FormDisplayCreate').modal('hide');
-							$("[data-dismiss=modal]").trigger({
-								type: "click"
-							});
-
-							// reset the form
-							$("#FormDisplayCreate")[0].reset();
-							// reload the datatables
-							datatable.ajax.reload(null, false);
-							// this function is built in function of datatables;
-
-							modals.style.display = "block";
-							document.getElementById("msg").innerHTML = response
-								.messages;
-						} else {
-							modals.style.display = "block";
-							document.getElementById("msg").innerHTML = response
-								.messages;
-
-							window.setTimeout(
-								function () {
-									$(".alert")
-										.fadeTo(
-											500,
-											0
-										)
-										.slideUp(
-											500,
-											function () {
-												$(this)
-													.remove();
-											}
-										);
-								},
-								4000
-							);
-						} // /else
-					} // success  
-				}); // ajax subit 				
-			} /// if
-			return false;
-		});
-	});
 });
 
-function getListDetailOnDuty(request_no) {
-	
-}
+$("#CreateButton").on('click', function () {
+	var empno = $(this).data("empno")
+	// reset the form 
+	$("#FormDisplayCreate")[0].reset();
+	// empty the message div
+
+	$(".messages_create").html("");
+	$('#table_on_duty_request').empty()
+
+	$.ajax({
+		url: 'php_action/getListDataOnDutyRequest.php',
+		type: 'GET',
+		data: {
+			empno: empno
+		},
+		dataType: 'json',
+		async: true,
+		success: function(response) {
+			// alert(response.messages)
+			$('#table_on_duty_request').append(`
+				<fieldset id="fset_1">
+					<legend>List On Duty Request</legend>
+					<div>
+						<table class="table table-striped table-bordered display mt-4" id="tableOnDuty">
+							<thead class="thead-dark">
+								<tr>
+									<th style="text-align:center">Request Number</th>
+									<th style="text-align:center">Time In</th>
+									<th style="text-align:center">Time Out</th>
+								</tr>
+							</thead>
+							<tbody id="list_data_on_duty_request">
+							</tbody>
+						</table>
+					</div>
+				</fieldset>
+			`);
+
+			$('#list_data_on_duty_request').empty()
+			for (let index = 0; index < response.data.length; index++) {
+				$('#list_data_on_duty_request').append(`
+					<tr>
+						<td style="width:20%;text-align:left;">
+							<a href="#" class="buttonOnDutyRequest" data-id="${response.data[index]['request_no']}">
+								${response.data[index]['request_no'] == null ? '' : response.data[index]['request_no']}
+							</a>
+						</td>
+						<td style="width:20%;text-align:left;">
+							${response.data[index]['requestdate'] == null ? '' : moment(response.data[index]['requestdate']).format('LL')}
+						</td>
+						<td style="width:20%;text-align:left;">
+							${response.data[index]['requestenddate'] == null ? '' : moment(response.data[index]['requestenddate']).format('LL')}
+						</td>
+					</tr>
+				`)
+			}
+		},
+		error: function(xhr, status, error) {
+			mymodalss.style.display = "none";
+			modals.style.display = "block";
+			document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+		}
+	})
+
+	// submit form
+	$("#FormDisplayCreate").unbind('submit').bind('submit', function () {
+
+		$(".text-danger").remove();
+
+		var form = $(this);
+
+		var inp_remark = $("#inp_remark").val();
+
+
+		var regex = /^[a-zA-Z]+$/;
+
+		if (inp_remark == "") {
+			modals.style.display = "block";
+			document.getElementById("msg").innerHTML = "Remark cannot empty";
+
+		}
+
+		if (inp_remark) {
+
+			//submi the form to server
+			$.ajax({
+				url: form.attr('action'),
+				type: form.attr('method'),
+				// data: form.serialize(),
+
+				data: new FormData(this),
+				processData: false,
+				contentType: false,
+
+				dataType: 'json',
+				success: function (response) {
+
+					// remove the error 
+					$(".form-group").removeClass('has-error').removeClass(
+						'has-success');
+
+
+
+					if (response.code == 'success_message') {
+
+						$('#FormDisplayCreate').modal('hide');
+						$("[data-dismiss=modal]").trigger({
+							type: "click"
+						});
+
+						// reset the form
+						$("#FormDisplayCreate")[0].reset();
+						// reload the datatables
+						datatable.ajax.reload(null, false);
+						// this function is built in function of datatables;
+
+						modals.style.display = "block";
+						document.getElementById("msg").innerHTML = response
+							.messages;
+					} else {
+						modals.style.display = "block";
+						document.getElementById("msg").innerHTML = response
+							.messages;
+
+						window.setTimeout(
+							function () {
+								$(".alert")
+									.fadeTo(
+										500,
+										0
+									)
+									.slideUp(
+										500,
+										function () {
+											$(this)
+												.remove();
+										}
+									);
+							},
+							4000
+						);
+					} // /else
+				} // success  
+			}); // ajax subit 				
+		} /// if
+		return false;
+	});
+
+});
+
+$('body').on('click tap', '.buttonOnDutyRequest', function(e) {
+	var target = $(e.target);
+	var request_no = target.data("id");
+	e.preventDefault()
+	// alert(request_no)
+	$.ajax({
+		url: 'php_action/getListDataDetailOnDutyRequest.php',
+		type: 'GET',
+		data: {
+			request_no: request_no
+		},
+		dataType: 'json',
+		async: true,
+		success: function(response) {
+			alert(response.messages)
+			console.log(response.data[0].destination_no)
+			$('#table_on_duty_request').hide()
+		},
+		error: function(xhr, status, error) {
+			mymodalss.style.display = "none";
+			modals.style.display = "block";
+			document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+		}
+	})
+})
+
+// function getListDetailOnDuty(e) {
+// }
 
 function ApprovalSubmission(id = null) {
 

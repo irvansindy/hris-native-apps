@@ -37,40 +37,40 @@ if($_POST) {
       	$total_leave_cancel_request   = count($var_date_leave);
 
 	for($ikpi=0;$ikpi<count($_POST['pilih']);$ikpi++){
-			$ikpi_plus 		= $ikpi+1;
-			$var_date_leave	= $_POST['pilih'][$ikpi]; // item
+		$ikpi_plus 		= $ikpi+1;
+		$var_date_leave	= $_POST['pilih'][$ikpi]; // item
 
-			$selectDate  = $var_date_leave;
-			$selectDateExplode = explode("~", $selectDate);
+		$selectDate  = $var_date_leave;
+		$selectDateExplode = explode("~", $selectDate);
 
-			$selectDateExplode0 = $selectDateExplode[0];
-			$selectDateExplode1 = $selectDateExplode[1];
+		$selectDateExplode0 = $selectDateExplode[0];
+		$selectDateExplode1 = $selectDateExplode[1];
 
-			$sql_1    = "INSERT INTO hrdleavecancelrequest 
-                                                                             (
-                                                                                    `request_no`, 
-                                                                                    `company_id`, 
-                                                                                    `leave_date`, 
-                                                                                    `leave_starttime`, 
-                                                                                    `leave_endtime`,
-																					`total_days`,
-                                                                                    `created_by`, 
-                                                                                    `created_date`, 
-                                                                                    `modified_by`, 
-                                                                                    `modified_date`
-                                                                             ) 
-                                                                                    VALUES 
-                                                                                           (
-                                                                                           '$SFnumbercon', 
-                                                                                           '13576',
-                                                                                           '$selectDateExplode1', 
-                                                                                           '$selectDateExplode1',  
-                                                                                           '$selectDateExplode1',  
-																						   '$selectDateExplode0', 
-                                                                                           '$username', 
-                                                                                           '$SFdatetime', 
-                                                                                           '$username', 
-                                                                                           '$SFdatetime')";
+		$sql_1    = "INSERT INTO hrdleavecancelrequest 
+		(
+			`request_no`, 
+			`company_id`, 
+			`leave_date`, 
+			`leave_starttime`, 
+			`leave_endtime`,
+			`total_days`,
+			`created_by`, 
+			`created_date`, 
+			`modified_by`, 
+			`modified_date`
+		) 
+			VALUES 
+			(
+			'$SFnumbercon', 
+			'13576',
+			'$selectDateExplode1', 
+			'$selectDateExplode1',  
+			'$selectDateExplode1',  
+			'$selectDateExplode0', 
+			'$username', 
+			'$SFdatetime', 
+			'$username', 
+			'$SFdatetime')";
 
 			$query_1 = $connect->query($sql_1);
 	}
@@ -81,44 +81,43 @@ if($_POST) {
 	if($query_1 == TRUE) {
 
 				$get_total_leave = mysqli_fetch_array(mysqli_query($connect , "SELECT 
-														SUM(total_days) AS total 
-														FROM hrdleavecancelrequest
-													WHERE `request_no` = '$SFnumbercon'"));
+						SUM(total_days) AS total 
+						FROM hrdleavecancelrequest
+					WHERE `request_no` = '$SFnumbercon'"));
 				
-				$sq1_0    = mysqli_query($connect, "INSERT INTO hrmleavecancelrequest 
-                                                                      (
-                                                                             `request_no`, 
-                                                                             `company_id`, 
-                                                                             `requestedby`, 
-                                                                             `requestfor`, 
-                                                                             `requestdate`, 
-                                                                             `leaverequest_no`, 
-                                                                             `leave_code`, 
-                                                                             `totaldays`, 
-                                                                             `remark`, 
-                                                                             `approval_status`, 
-                                                                             `created_by`, 
-                                                                             `created_date`, 
-                                                                             `modified_by`, 
-                                                                             `modified_date`, 
-                                                                             `request_type`) 
-                                                                                    VALUES 
-                                                                                           (
-                                                                                           '$SFnumbercon',
-                                                                                           '13576', 
-                                                                                           '$var_request_emp_id[emp_id]', 
-                                                                                           '$var_emp_id[emp_id]', 
-                                                                                           '$SFdatetime', 
-                                                                                           '$inp_reqleavenumber', 
-                                                                                           '$modal_leave', 
-                                                                                           '$get_total_leave[total]', 
-                                                                                           '$inp_remark',
-                                                                                           '0',  
-                                                                                           '$username', 
-                                                                                           '$SFdatetime', 
-                                                                                           '$username', 
-                                                                                           '$SFdatetime', 
-                                                                                           '1')");
+				$sq1_0    = mysqli_query($connect, "INSERT INTO hrmleavecancelrequest (
+					`request_no`, 
+					`company_id`, 
+					`requestedby`, 
+					`requestfor`, 
+					`requestdate`, 
+					`leaverequest_no`, 
+					`leave_code`, 
+					`totaldays`, 
+					`remark`, 
+					`approval_status`, 
+					`created_by`, 
+					`created_date`, 
+					`modified_by`, 
+					`modified_date`, 
+					`request_type`) 
+						VALUES 
+								(
+								'$SFnumbercon',
+								'13576', 
+								'$var_request_emp_id[emp_id]', 
+								'$var_emp_id[emp_id]', 
+								'$SFdatetime', 
+								'$inp_reqleavenumber', 
+								'$modal_leave', 
+								'$get_total_leave[total]', 
+								'$inp_remark',
+								'0',  
+								'$username', 
+								'$SFdatetime', 
+								'$username', 
+								'$SFdatetime', 
+								'1')");
 
 				require_once '../../set{sys=system_function_authorization}/workflow_formula.php';
 

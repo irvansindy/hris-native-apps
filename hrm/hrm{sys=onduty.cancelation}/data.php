@@ -192,151 +192,79 @@ $(document).ready(function () {
 		<form class="form-horizontal" action="php_action/FuncDataCreate.php<?php echo $getPackage; ?>" method="POST"
 			id="FormDisplayCreate">
 
-			<div class="card-body table-responsive p-0"
-				style="width: 100vw;height: 50vh; width: 100%; margin: 5px;overflow: scroll;overflow-x: hidden;">
-				<fieldset id="fset_1">
-					<legend>General</legend>
-					<div class="messages_create"></div>
-					<input id="inp_emp_no" name="inp_emp_no" type="hidden" value="<?php echo $username; ?>">
-					<!--FROM SESSION -->
-					<input id="inp_token" name="inp_token" type="hidden" value="<?php echo $get_token; ?>">
-					<!--FROM CONFIGURATION -->
-					<div class="form-row">
-						<div class="col-4 name">Employee no*</div>
-						<div class="col-sm-8">
-							<div class="input-group">
-								<input class="input--style-6" onkeyup="isi_otomatis(), isi_otomatis_leave()"
-									autocomplete="off" autofocus="on" id="modal_emp" name="modal_emp" type="Text"
-									value="<?php echo $username; ?>" onfocus="hlentry(this)" size="30"
-									maxlength="50" validate="NotNull:Invalid Form Entry"
-									onchange="formodified(this);" title="">
+			<div class="card-body table-responsive p-0" style="width: 100vw;height: 50vh; width: 100%; overflow: scroll;overflow-x: hidden;">
+				<div id="filter_onduty">
+					<fieldset id="fset_1">
+						<legend>General Filter</legend>
+						<div class="messages_create"></div>
+						<input id="inp_emp_no" name="inp_emp_no" type="hidden" value="<?php echo $username; ?>">
+						<!--FROM SESSION -->
+						<input id="inp_token" name="inp_token" type="hidden" value="<?php echo $get_token; ?>">
+						<!--FROM CONFIGURATION -->
+						<div class="form-row">
+							<div class="col-4 name">Employee no*</div>
+							<div class="col-sm-8">
+								<div class="input-group card-body table-responsive p-0">
+									<td>
+										<input class="input--style-6"
+											autocomplete="off" autofocus="on" id="emp_no_for" name="emp_no_for" type="Text"
+											onfocus="this.value=''" size="30" value=""
+											maxlength="50" validate="NotNull:Invalid Form Entry"
+											data-emp="<?php echo $username; ?>">
+										</div>
+										<div id="employeeList"></div>
+										<input type="hidden" name="emp_id_for" id="emp_id_for">
+									</td>
 							</div>
 						</div>
-					</div>
-					<?php 
-						$emp = mysqli_fetch_array(mysqli_query($connect, "SELECT full_name FROM view_employee WHERE emp_no='$username'"));
-					?>
-					<div class="form-row">
-						<div class="col-4 name">Name*</div>
-						<div class="col-sm-8">
-							<div class="input-group">
-								<input class="input--style-6" style="background-color: #fff3b4;" id="inp_nickname"
-									name="inp_nickname" type="Text" value="<?php echo $emp['full_name']; ?>"
-									onfocus="hlentry(this)" size="20" maxlength="50"
-									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title=""
-									readonly>
+						<div class="form-row">
+							<div class="col-4 name">On Duty Request No.</div>
+							<div class="col-sm-8">
+								<div class="input-group">
+									<input class="input--style-6" id="input_onduty_request" name="input_onduty_request" type="Text"
+										value="" onfocus="hlentry(this)" size="20" maxlength="50"
+										validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="">
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="form-row">
-						<div class="col-4 name">Leave Request No.</div>
-						<div class="col-sm-8">
-							<div class="input-group">
-								<input class="input--style-6" id="inp_leavereq" name="inp_leavereq" type="Text"
-									value="" onfocus="hlentry(this)" size="20" maxlength="50"
-									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="">
+						<div class="form-row">
+							<div class="col-4 name">Date</div>
+							<div class="col-sm-4">
+								<div class="input-group">
+									<input type="text" id="inp_startdate" name="inp_startdate" class="input--style-6"
+										style="
+										background-image:url(../../asset/dist/img/icons/calendar_icon.gif);  
+										background-size: 17px;
+										background-position:right;   
+										background-repeat:no-repeat; 
+										padding-right:10px;  
+										" />
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="input-group">
+									<input type="text" id="inp_enddate" name="inp_enddate" class="input--style-6" style="
+										background-image:url(../../asset/dist/img/icons/calendar_icon.gif);  
+										background-size: 17px;
+										background-position:right;   
+										background-repeat:no-repeat; 
+										padding-right:10px;  
+										" />
+								</div>
+							</div>
+							<div class="col-sm-4"></div>
+							<div class="col-sm-8 name">
+								<button id="show_preview_leave_request" class='btn btn-default' data-empno='<?php echo $username; ?>'>
+									Show
+								</button>
 							</div>
 						</div>
-					</div>
-					<div class="form-row">
-						<div class="col-4 name">Date</div>
-						<div class="col-sm-4">
-							<div class="input-group">
-								<input type="text" id="inp_startdate" name="inp_startdate" class="input--style-6"
-									style="
-									background-image:url(../../asset/dist/img/icons/calendar_icon.gif);  
-									background-size: 17px;
-									background-position:right;   
-									background-repeat:no-repeat; 
-									padding-right:10px;  
-									" />
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="input-group">
-								<input type="text" id="inp_enddate" name="inp_enddate" class="input--style-6" style="
-									background-image:url(../../asset/dist/img/icons/calendar_icon.gif);  
-									background-size: 17px;
-									background-position:right;   
-									background-repeat:no-repeat; 
-									padding-right:10px;  
-									" />
-							</div>
-						</div>
-						<div class="col-sm-4"></div>
-							<div class="col-sm-8 name"> <a href='#' id="show_preview_leave_request"
-								class='btn btn-default'>
-								Show
-							</a>
-
-						</div>
-					</div>
-
-					<div id="box"></div>
-					<div id="boxifblur"></div>
-					<div class="box_show_preview_leave_request"></div>
-					<div class="box_show_preview_leave_request_detail"></div>
-
-					<script>
-						$(document).ready(function () {
-							$("#show_preview_leave_request").click(function () {
-
-								// alert("pencet");
-
-								$("#boxifblur").hide();
-								var modal_emp = document.getElementById("modal_emp").value;
-								var inp_leavereq = document.getElementById("inp_leavereq").value;
-								var inp_startdate = document.getElementById("inp_startdate").value;
-								var inp_enddate = document.getElementById("inp_enddate").value;
-
-								$("#box").load(
-									"pages_relation/_pages_preview_request.php<?php echo $getPackage; ?>rfid=" +
-									modal_emp + "&xfid=" + inp_leavereq + "&sfid=" + inp_startdate + "&efid=" +
-									inp_enddate,
-									function (responseTxt, statusTxt, jqXHR) {
-										if (statusTxt == "success") {
-											// alert("New content loaded successfully!");
-											$("#box_show_preview_leave_request").show();
-										}
-										if (statusTxt == "error") {
-											alert("Error: " + jqXHR.status + " " + jqXHR.statusText);
-										}
-									});
-							});
-						});
-					</script>
-					<script>
-						$(document).ready(function () {
-							$("#show_preview_leave_request_detail").click(function () {
-								$("#boxifblur").hide();
-								var modal_emp = document.getElementById("modal_emp").value;
-								var inp_leavereq = document.getElementById("inp_leavereq").value;
-
-								var m = $(this).attr("id");
-								var m2 = $(this).attr("id2");
-
-								$("#box").load("modal_leave.php<?php echo $getPackage; ?>rfid=" + m + "&xfid=" + m2,
-									function (responseTxt, statusTxt, jqXHR) {
-										if (statusTxt == "success") {
-											// alert("New content loaded successfully!");
-											$("#box_show_preview_leave_request_detail").show();
-										}
-										if (statusTxt == "error") {
-											alert("Error: " + jqXHR.status + " " + jqXHR.statusText);
-										}
-									});
-							});
-						});
-					</script>
-				</fieldset>
-				<div id="table_on_duty_request">
-					
+					</fieldset>
 				</div>
+				<div id="table_on_duty_request"></div>
+				<div id="table_on_duty_detail_request"></div>
 			</div>
-
-			<div class="modal-footer">
-
-			</div>
+			<div id="button_submit_data"></div>
 		</form>
 	</div>
 </div>
@@ -571,12 +499,173 @@ function RefreshPage() {
 	return false;
 }
 </script>
+<script src="js/jquery.min.js"></script>
+<!-- get list employee -->
+<script>
+	$('#emp_no_for').focus(function(){
+		var value = $(this).val()
+		var emp = $(this).data("emp")
+		$('#emp_id_for').val("")
+
+		if (value != '') {
+			$.ajax({
+				url: 'php_action/getListUser.php',
+				type: 'POST',
+				data: {
+					value: value,
+					emp: emp
+				},
+				// dataType: 'json',
+				// async: true,
+				success: function(response) {
+					$('#employeeList').fadeIn();
+					$('#employeeList').html(response);
+				}
+			})
+		}
+	})
+	
+	$('#emp_no_for').keyup(function(){
+		var value = $(this).val()
+		var emp = $(this).data("emp")
+		if (value != '') {
+			$.ajax({
+				url: 'php_action/getListUser.php',
+				type: 'POST',
+				data: {
+					value: value,
+					emp: emp
+				},
+				// dataType: 'json',
+				// async: true,
+				success: function(response) {
+					$('#employeeList').fadeIn();
+					$('#employeeList').html(response);
+				}
+			})
+		}
+	})
+
+	$('#emp_no_for').mouseover(function () {
+		$('#employeeList').fadeOut();
+	});
+
+	$(document).on('click', 'li', function () {
+		$('#emp_no_for').val($(this).text());
+		$('#employeeList').fadeOut();
+
+		var emps = document.getElementById("emp_no_for").value;
+
+		var myarr = emps.split(" ");
+
+		var myvar = myarr[1];
+		var myvar2 = myarr[2];
+
+		$("#inp_careerhistory").val(myvar);
+		$("#inp_empperformance").val(myvar2);
+
+		//     alert(emps);
+		$.ajax({
+			url: 'php_action/getCareer.php',
+			type: 'post',
+			data: {
+				employee: emps
+			},
+			dataType: 'json',
+			success: function (response_career) {
+				var fill_is_approved_spvdown =
+					response_career.emp_no;
+				var career = response_career.history_no +
+					'-' + response_career.secon;
+				$('#emp_id_for').val(response_career.emp_id)
+				// alert(career);
+			}
+		}); // /ajax
+
+	});
+</script>
+
+<script>
+	$("#show_preview_leave_request").click(function () {
+		var empno = $(this).data('empno')
+		var input_onduty_request = $('#input_onduty_request').val()
+		var emp_no_for = $('#emp_no_for').val()
+		var emp_id_for = $('#emp_id_for').val()
+		var inp_startdate = $('#inp_startdate').val()
+		var inp_enddate = $('#inp_enddate').val()
+
+		// console.log(emp_id_for)
+		$('#table_on_duty_request').empty()
+		$.ajax({
+			url: 'php_action/getListDataOnDutyRequest.php',
+			type: 'GET',
+			data: {
+				empno: empno,
+				emp_id_for: emp_id_for,
+				inp_startdate: inp_startdate,
+				inp_enddate: inp_enddate,
+				input_onduty_request: input_onduty_request
+			},
+			dataType: 'json',
+			async: true,
+			success: function(response) {
+				// alert(response.messages)
+				$('#table_on_duty_request').append(`
+					<fieldset id="fset_1">
+						<legend>List On Duty Request</legend>
+						<div>
+							<table class="table table-striped table-bordered display mt-4" id="tableOnDuty">
+								<thead class="thead-light">
+									<tr>
+										<th style="text-align:center">Request Number</th>
+										<th style="text-align:center">Start Date</th>
+										<th style="text-align:center">End Date</th>
+									</tr>
+								</thead>
+								<tbody id="list_data_on_duty_request">
+								</tbody>
+							</table>
+						</div>
+					</fieldset>
+				`);
+
+				$('#list_data_on_duty_request').empty()
+				for (let index = 0; index < response.data.length; index++) {
+					$('#list_data_on_duty_request').append(`
+						<tr>
+							<td style="width:20%;text-align:left;">
+								<a href="#" class="buttonOnDutyRequest" data-id="${response.data[index]['request_no']}" data-empid ="${response.data[index]['emp_id']}" data-requestby="${response.requestby}">
+									${response.data[index]['request_no'] == null ? '' : response.data[index]['request_no']}
+								</a>
+							</td>
+							<td style="width:20%;text-align:left;">
+								${response.data[index]['requestdate'] == null ? '' : moment(response.data[index]['requestdate']).format('LL')}
+							</td>
+							<td style="width:20%;text-align:left;">
+								${response.data[index]['requestenddate'] == null ? '' : moment(response.data[index]['requestenddate']).format('LL')}
+							</td>
+						</tr>
+					`)
+				}
+
+				// $('#tableOnDuty').DataTable({
+				// 	scrollX: true,
+				// 	pageLength: 15,
+				// 	pagingType: "simple"
+				// });
+
+			},
+			error: function(xhr, status, error) {
+				mymodalss.style.display = "none";
+				modals.style.display = "block";
+				document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+			}
+		})
+	});
+</script>
 
 <!-- isi JSON -->
 <script type="text/javascript">
-// global the manage memeber table 
-$(document).ready(function () {
-});
 
 $("#CreateButton").on('click', function () {
 	var empno = $(this).data("empno")
@@ -586,61 +675,6 @@ $("#CreateButton").on('click', function () {
 
 	$(".messages_create").html("");
 	$('#table_on_duty_request').empty()
-
-	$.ajax({
-		url: 'php_action/getListDataOnDutyRequest.php',
-		type: 'GET',
-		data: {
-			empno: empno
-		},
-		dataType: 'json',
-		async: true,
-		success: function(response) {
-			// alert(response.messages)
-			$('#table_on_duty_request').append(`
-				<fieldset id="fset_1">
-					<legend>List On Duty Request</legend>
-					<div>
-						<table class="table table-striped table-bordered display mt-4" id="tableOnDuty">
-							<thead class="thead-dark">
-								<tr>
-									<th style="text-align:center">Request Number</th>
-									<th style="text-align:center">Time In</th>
-									<th style="text-align:center">Time Out</th>
-								</tr>
-							</thead>
-							<tbody id="list_data_on_duty_request">
-							</tbody>
-						</table>
-					</div>
-				</fieldset>
-			`);
-
-			$('#list_data_on_duty_request').empty()
-			for (let index = 0; index < response.data.length; index++) {
-				$('#list_data_on_duty_request').append(`
-					<tr>
-						<td style="width:20%;text-align:left;">
-							<a href="#" class="buttonOnDutyRequest" data-id="${response.data[index]['request_no']}">
-								${response.data[index]['request_no'] == null ? '' : response.data[index]['request_no']}
-							</a>
-						</td>
-						<td style="width:20%;text-align:left;">
-							${response.data[index]['requestdate'] == null ? '' : moment(response.data[index]['requestdate']).format('LL')}
-						</td>
-						<td style="width:20%;text-align:left;">
-							${response.data[index]['requestenddate'] == null ? '' : moment(response.data[index]['requestenddate']).format('LL')}
-						</td>
-					</tr>
-				`)
-			}
-		},
-		error: function(xhr, status, error) {
-			mymodalss.style.display = "none";
-			modals.style.display = "block";
-			document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
-		}
-	})
 
 	// submit form
 	$("#FormDisplayCreate").unbind('submit').bind('submit', function () {
@@ -731,20 +765,117 @@ $("#CreateButton").on('click', function () {
 $('body').on('click tap', '.buttonOnDutyRequest', function(e) {
 	var target = $(e.target);
 	var request_no = target.data("id");
+	var emp_id = target.data("empid");
+	var requestby = target.data("requestby");
 	e.preventDefault()
-	// alert(request_no)
+	// alert(emp_id)
+	$('#table_on_duty_detail_request').empty()
 	$.ajax({
 		url: 'php_action/getListDataDetailOnDutyRequest.php',
 		type: 'GET',
 		data: {
-			request_no: request_no
+			request_no: request_no,
+			requestby: requestby
 		},
 		dataType: 'json',
 		async: true,
 		success: function(response) {
-			alert(response.messages)
-			console.log(response.data[0].destination_no)
 			$('#table_on_duty_request').hide()
+			$('#filter_onduty').hide()
+			$('#table_on_duty_detail_request').append(`
+				<fieldset id="fset_1">
+					<legend>List On Duty Detail Request</legend>
+					<div class="form-row">
+						<div class="col-4 name">On Duty Request No : </div>
+						<div class="col-sm-8 name">
+							${response.data[0][0]['request_no']}
+							<input id="input_onduty_request_no" name="input_onduty_request_no" type="Hidden" value="${response.data[0][0]['request_no']}">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">Request For</div>
+						<div class="col-sm-8 name">
+							[${response.data[0][0]['emp_no']}] - ${response.data[0][0]['Full_Name']}
+							<input id="input_onduty_request_for" name="input_onduty_request_for" type="Hidden" value="${response.data[0][0]['requestfor']}">
+							<input id="input_onduty_request_by" name="input_onduty_request_by" type="Hidden" value="${response.requestby}">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">Purpose On Duty</div>
+						<div class="col-sm-8 name">
+							${response.data[0][0]['purpose_name_en']}
+							<input id="input_onduty_purpose_code" name="input_onduty_purpose_code" type="Hidden" value="${response.data[0][0]['purpose_code']}">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">Remark</div>
+						<div class="col-sm-8 name">
+							${response.data[0][0]['remark']}
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">Remark</div>
+						<div class="col-sm-8 name">
+							<textarea  class="input--style-6"  rows="3" cols="40" id="input_remark_cancelation" name="input_remark_cancelation"></textarea>
+						</div>
+					</div>
+					<div>
+						<table class="table table-striped table-bordered display mt-4" id="tableOnDuty">
+							<thead class="thead-light">
+								<tr>
+									<th style="text-align:center">
+										<input type="checkbox" onchange="checkAll(this)" name="checkAllRequest[]"> <span>Check All</span>
+									</th>
+									<th style="text-align:center">Number</th>
+									<th style="text-align:center">Start Date</th>
+									<th style="text-align:center">End Date</th>
+								</tr>
+							</thead>
+							<tbody id="list_data_on_duty_detail_request">
+							</tbody>
+						</table>
+					</div>
+					<div>
+						<button type="button" class="btn btn-danger btn-sm" id="backOnDutyRequest" style="float: right;">Back</button>
+					</div>
+				</fieldset>
+				`)
+				
+				$('#button_submit_data').append(`
+				<div class="modal-footer-sdk">
+					<button type="reset" class="btn-sdk btn-primary-left" data-dismiss="modal" aria-hidden="true">
+						&nbsp;Cancel&nbsp;
+					</button>
+					<button class="btn-sdk btn-primary-right" type="button" name="submit_request" id="submit_request">
+						Confirm
+					</button>
+				</div>
+			`)
+
+			let no = 1;
+			let checked = 1;
+			for (let index = 0; index < response.data[1].length; index++) {
+				$('#list_data_on_duty_detail_request').append(`
+					<tr>
+						<td style="width:20%;text-align:left;">
+							<input class="input--style-7" type="checkbox" class="tanggal" name="checked[]" value="${checked++}">
+						</td>
+						<td style="width:20%;text-align:left;">
+							${no++}
+						</td>
+						<td style="width:20%;text-align:left;">
+							${response.data[1][index]['startdate'] == null ? '' : moment(response.data[1][index]['startdate']).format('LL')}
+							<input type="hidden" id="startdate_detail" name="startdate_detail[]" value="${response.data[1][index]['startdate']}"></input>
+						</td>
+						<td style="width:20%;text-align:left;">
+							${response.data[1][index]['enddate'] == null ? '' : moment(response.data[1][index]['enddate']).format('LL')}
+							<input type="hidden" id="enddate_detail" name="enddate_detail[]" value="${response.data[1][index]['enddate']}"></input>
+						</td>
+					</tr>
+				`)
+			}
+
+
 		},
 		error: function(xhr, status, error) {
 			mymodalss.style.display = "none";
@@ -754,8 +885,64 @@ $('body').on('click tap', '.buttonOnDutyRequest', function(e) {
 	})
 })
 
-// function getListDetailOnDuty(e) {
-// }
+$('body').on('click tap', '#backOnDutyRequest', function() {
+	$('#filter_onduty').show()
+	$('#table_on_duty_request').show()
+	$('#table_on_duty_detail_request').empty()
+	$('#button_submit_data').empty()
+})
+
+function checkAll(e) {
+	var checkboxes = document.getElementsByTagName('input');
+	if(e.checked) {
+		for (let index = 0; index < checkboxes.length; index++) {
+			if(checkboxes[index].type == 'checkbox' && !(checkboxes[index].disabled)) {
+				checkboxes[index].checked = true;
+			}
+		}
+	} else {
+		for (var index = 0; index < checkboxes.length; index++) {
+			if (checkboxes[index].type == 'checkbox') {
+				checkboxes[index].checked = false;
+			}
+		}
+	}
+
+}
+
+$('body').on('click', '#submit_request', function() {
+	$.ajax({
+		url: 'php_action/funcDataCreate.php',
+		type: 'POST',
+		data: new FormData($('#FormDisplayCreate')[0]),
+		// data: data,
+		processData: false,
+		contentType: false,
+		dataType: 'json',
+		success: function (response) {
+			// alert('sukses')
+			$('#FormDisplayCreate').modal('hide');
+			$("[data-dismiss=modal]").trigger({
+				type: "click"
+			});
+
+			// reset the form
+			$("#FormDisplayCreate")[0].reset();
+			// reload the datatables
+			datatable.ajax.reload(null, false);
+			// this function is built in function of datatables;
+
+			modals.style.display = "block";
+			document.getElementById("msg").innerHTML = response.messages;
+		},
+		error: function(xhr, status, error) {
+			// alert('gagal')
+			mymodalss.style.display = "none";
+			modals.style.display = "block";
+			document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+		}
+	})
+})
 
 function ApprovalSubmission(id = null) {
 

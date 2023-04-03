@@ -660,7 +660,7 @@ $(document).ready(function() {
 						<label id="isi">Are you sure to delete data ?</label>
 					</td>
 				</table>		
-				<input type="hidden" class="form-control input-report" id="del_provider_code" name="provider_code" placeholder="">
+				<input type="hidden" class="form-control input-report" id="del_provider_code" name="del_provider_code" value="">
 			</div>
 		</div>
 		<div class="modal-footer-delete FormDisplayDelete" style="text-align: center;padding-top: 20px;">
@@ -1051,8 +1051,8 @@ if(id) {
 		},
 		dataType: 'json',
 		success:function(response) {
-
-			$("#del_provider_code").val(response.provider_code);
+			console.log(response.data[0].provider_code)
+			$("#del_provider_code").val(response.data[0].provider_code);
 
 			// mmeber id 
 			$(".FormDisplayDelete").append('<input type="hidden" name="member_id" id="member_id" value="'+response.id+'"/>');
@@ -1069,7 +1069,7 @@ if(id) {
 
 				if(del_provider_code == "") {
 					modals.style.display ="block";
-					document.getElementById("msg").innerHTML = "Shiftgroup schedule code cannot empty";
+					document.getElementById("msg").innerHTML = "Provider Code cannot empty";
 				} else {
 					$('#submit_delete').hide();
 					$('#submit_delete2').show();

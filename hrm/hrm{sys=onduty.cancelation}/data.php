@@ -124,13 +124,13 @@ $(document).ready(function () {
 			<h4 class="card-title mb-0">On Duty Cancellation Request</h4>
 			<div class="card-actions ml-auto">
 				<table>
-					<td>
+					<!-- <td>
 						<a href='#' class='open_modal_search' class="btn btn-demo" data-toggle="modal"
 							data-target="#myModal2">
 							<div class="toolbar sprite-toolbar-search" id="SEARCH" title="Search">
 							</div>
 						</a>
-					</td>
+					</td> -->
 					<!-- AgusPrass 02/03/2021 Menghapus # pada href-->
 					<td>
 						<div class="toolbar sprite-toolbar-reload" id="RELOAD" title="Reload" onclick="RefreshPage();">

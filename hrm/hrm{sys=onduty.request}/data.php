@@ -774,7 +774,7 @@ if ($platform != 'mobile') {
 						<legend>Approval Detail</legend>
 						<div class="card-body table-responsive p-0" style="width: 99%; margin: 1px;overflow: scroll;">
 							<table class="table table-striped table-bordered display mt-4">
-								<thead class="thead-dark">
+								<thead class="thead-light">
 									<tr>
 									<th>No.</th>
 									<th>Approver name </th>
@@ -782,12 +782,10 @@ if ($platform != 'mobile') {
 									<th>Approval status</th>
 									</tr>
 								</thead>
-								<tbody id="list_user_approval_detail">
-									
-								</tbody>
+								<tbody id="list_user_approval_detail"></tbody>
 							</table>
-							<div>
-							</div>
+							<!-- <div> -->
+						</div>
 
 					</fieldset>
 			</div>

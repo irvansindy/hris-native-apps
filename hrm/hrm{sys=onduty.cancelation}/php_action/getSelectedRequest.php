@@ -7,13 +7,13 @@ if ($getdata == 0) {
        include "../../../application/session/mobile.session.php";
 }
 
-$memberId = $_POST['member_id'];
-//$memberId = 'PAREQ2022-130299';
+$request_no = $_POST['request_no'];
+//$request_no = 'PAREQ2022-130299';
 
 $get_data_0          = mysqli_fetch_array(mysqli_query($connect, "SELECT position_id FROM view_employee WHERE emp_no = '$username'"));
 $get_data_print_0    = $get_data_0['position_id'];
 
-//$memberId = 'DO170048';
+//$request_no = 'DO170048';
 
 $sql = "SELECT 
 		a.*,
@@ -38,7 +38,7 @@ $sql = "SELECT
 				GROUP BY request_no
 			) rests ON rests.request_no = a.request_no
 			LEFT JOIN hrmstatus d ON d.code = rests.sts
-		WHERE a.request_no = '$memberId'
+		WHERE a.request_no = '$request_no'
 		GROUP BY a.request_no";
 		
 $query = mysqli_query($connect, $sql);

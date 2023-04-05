@@ -9,21 +9,22 @@ if ($getdata == 0) {
 
 
 include "../../../model/ta/GMLeaveCancellationReqSearchGen.php";
-include "../../../model/ta/GMLeaveCancellationReqList.php"; 
+include "../../../model/ta/GMOnDutyCancelationReqList.php"; 
 
 
 $output = array('data' => array());
 
-$sql = $qListRenderSrvSide;
+// $sql = $qListRenderSrvSide;
+$sql = $queryGetDataOnDutyCancelation;
 
 $query = mysqli_query($connect, $sql);
 
 $x = 1;
 while ($row = mysqli_fetch_assoc($query)) {
 
-$rmintf = '<a type="button" nowrap="nowrap" data-toggle="modal" data-target="#UpdateForm" data-backdrop="static" style="color: blue; border: 5px; cursor:pointer" onclick="editMember(`'.$row['request_no'].'`)"><u>'.$row['request_no'].'</u></a>   ';
+// $rmintf = '<a type="button" nowrap="nowrap" data-toggle="modal" data-target="#UpdateForm" data-backdrop="static" style="color: blue; border: 5px; cursor:pointer" onclick="editMember(`'.$row['request_no'].'`)"><u>'.$row['request_no'].'</u></a>   ';
 
-$prn = '<a type="button" nowrap="nowrap" data-toggle="modal" data-target="#FormDisplayLeaveApproval" data-backdrop="static" style="color: blue; border: 5px; cursor:pointer" onclick="ApprovalSubmission(`'.$row['request_no'].'`)"> <input type="image" src="../../asset/dist/img/icons/icon-addinfo.png" title="delete" width="22px"/></a>';
+$detailApproval = '<a type="button" nowrap="nowrap" data-toggle="modal" data-target="#FormDisplayDetailApproval" data-backdrop="static" style="color: blue; border: 5px; cursor:pointer" onclick="detailApproval(`'.$row['request_no'].'`)"> <input type="image" src="../../asset/dist/img/icons/icon-addinfo.png" title="delete" width="22px"/></a>';
 
 $active = '';
 	if($row['name_en'] == "Revised") {
@@ -68,14 +69,13 @@ $output['data'][] = array(
 	$x,
 	$revisi,
 	$row['Full_name'],
-	$row['leaverequest_no'],
-	$row['leave_code'],
+	$row['onduty_reqno'],
+	$row['purpose_name_en'],
 	$row['requestdate'],
-	$row['totaldays'],
 	$row['remark'],
 	$status,
 
-	$prn
+	$detailApproval
 );
 
 $x++;

@@ -23,7 +23,8 @@
         FROM hrmondutycancelrequest a 
         LEFT JOIN view_employee b ON a.requestfor = b.emp_id 
         LEFT JOIN hrmondutypurposetype c ON a.purpose_code = c.purpose_code
-        WHERE a.request_no = '$request_no'";
+        WHERE a.request_no = '$request_no'
+        GROUP BY request_no";
     
     $resultMaster = mysqli_fetch_assoc(mysqli_query($connect, $queryMaster));
 

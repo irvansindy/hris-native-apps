@@ -327,7 +327,7 @@ if ($platform != 'mobile') {
                                 <legend>Approval Detail</legend>
                                     <div class="card-body table-responsive p-0" style="width: 99%; margin: 1px;overflow: scroll;">
                                         <table class="table table-striped table-bordered display mt-4">
-                                            <thead class="thead-dark">
+                                            <thead class="thead-light">
                                                 <tr>
                                                 <th>No.</th>
                                                 <th>Approver name </th>
@@ -352,7 +352,7 @@ if ($platform != 'mobile') {
 
                         <div class="modal-footer-sdk" id="config-form1" style="display:none">
                             <a style="<?php echo $button_status_hide_or_no; ?>; color: white;padding-top: 8px;"
-                                class="btn-sdk btn-primary-not-only-left" name="submit_reject_spvdown"
+                                class="btn-sdk btn-primary-not-only-left" n ame="submit_reject_spvdown"
                                 id="submit_reject_spvdown" data-toggle="modal" data-target="#FormDisplayRejectRequest">
                                 &nbsp;&nbsp;Reject&nbsp;&nbsp;
                             </a>
@@ -753,105 +753,47 @@ if ($platform != 'mobile') {
                 let is_avail_attachment = response[2].is_avail_attachment;
                 let is_ready = response[2].is_ready;
 
-                if (is_avail_request = response[0].request_no && is_avail_attachment == '') {
-                    $('#config-form0').show();
-                    $('#attachment').show();
-                    $('#config-form1').hide();
-                    $('#config-form2_0').hide();
-                    $('#config-form2_1').hide();
-                } else if (is_avail_request = response[0].request_no && is_avail_attachment != '') {
-                    if (is_can_approve == '0') {
-                        $('#config-form0').hide();
-                        $('#attachment').hide();
-                        $('#config-form1').hide();
-                        $('#config-form2_0').hide();
-                        $('#config-form2_1').show();
-                    } else if (is_ready == '0') {
-                        $('#config-form0').hide();
-                        $('#attachment').hide();
-                        $('#config-form1').hide();
-                        $('#config-form2_0').hide();
-                        $('#config-form2_1').show();
-                    } else {
-                        $('#config-form0').hide();
-                        $('#attachment').hide();
-                        $('#config-form1').show();
-                        $('#config-form2_0').hide();
-                        $('#config-form2_1').hide();
-                    }
-                }
-                // $.ajax({
-                //     url: 'php_action/getRequestStatus.php<?php echo $getPackage; ?>',
-                //     type: 'post',
-                //     data: {
-                //         request_no_spvdown: response[0].request_no
-                //     },
-                //     dataType: 'json',
-                //     success: function (response) {
+                if (is_can_approve == '0' || is_ready == '0') {
+					$('#config-form0').hide();
+					$('#attachment').hide();
+					$('#config-form1').hide();
+					$('#config-form2_0').hide();
+					$('#config-form2_1').show();
+				}else {
+					$('#config-form0').hide();
+					$('#attachment').hide();
+					$('#config-form1').show();
+					$('#config-form2_0').hide();
+					$('#config-form2_1').hide();
+				}
 
-                //         mymodalss.style.display = "none";
-
-                //         var fill_is_approved_spvdown = response.is_approved_spvdown;
-                //         var fill_is_ready = response.ready;
-                //         var fill_is_urgent_request = response.urg;
-                //         var fill_is_file_name = response.file_name;
-
-                //         // alert(fill_is_urgent_request);
-
-                //         if (fill_is_urgent_request == 'Y' && fill_is_file_name == '0') {
-                //             $('#config-form0').show();
-                //             $('#attachment').show();
-                //             $('#config-form1').hide();
-                //             $('#config-form2_0').hide();
-                //             $('#config-form2_1').hide();
-                //         } else if (fill_is_urgent_request == 'Y' && fill_is_file_name ==
-                //             '1') {
-
-                //             if (fill_is_approved_spvdown == '0') {
-                //                 $('#config-form0').hide();
-                //                 $('#attachment').hide();
-                //                 $('#config-form1').hide();
-                //                 $('#config-form2_0').hide();
-                //                 $('#config-form2_1').show();
-                //             } else if (fill_is_ready == '0') {
-                //                 $('#config-form0').hide();
-                //                 $('#attachment').hide();
-                //                 $('#config-form1').hide();
-                //                 $('#config-form2_0').hide();
-                //                 $('#config-form2_1').show();
-                //             } else {
-                //                 $('#config-form0').hide();
-                //                 $('#attachment').hide();
-                //                 $('#config-form1').show();
-                //                 $('#config-form2_0').hide();
-                //                 $('#config-form2_1').hide();
-                //             }
-                //         } else if (fill_is_urgent_request == 'N') {
-
-                //             if (fill_is_approved_spvdown == '0') {
-                //                 $('#config-form0').hide();
-                //                 $('#attachment').hide();
-                //                 $('#config-form1').hide();
-                //                 $('#config-form2_0').hide();
-                //                 $('#config-form2_1').show();
-                //             } else if (fill_is_ready == '0') {
-                //                 $('#config-form0').hide();
-                //                 $('#attachment').hide();
-                //                 $('#config-form1').hide();
-                //                 $('#config-form2_0').hide();
-                //                 $('#config-form2_1').show();
-                //             } else {
-                //                 $('#config-form0').hide();
-                //                 $('#attachment').hide();
-                //                 $('#config-form1').show();
-                //                 $('#config-form2_0').hide();
-                //                 $('#config-form2_1').hide();
-                //             }
-                //         }
-
-
+                // if (is_avail_request = response[0].request_no && is_avail_attachment == '') {
+                //     $('#config-form0').show();
+                //     $('#attachment').show();
+                //     $('#config-form1').hide();
+                //     $('#config-form2_0').hide();
+                //     $('#config-form2_1').hide();
+                // } else if (is_avail_request = response[0].request_no && is_avail_attachment != '') {
+                //     if (is_can_approve == '0') {
+                //         $('#config-form0').hide();
+                //         $('#attachment').hide();
+                //         $('#config-form1').hide();
+                //         $('#config-form2_0').hide();
+                //         $('#config-form2_1').show();
+                //     } else if (is_ready == '0') {
+                //         $('#config-form0').hide();
+                //         $('#attachment').hide();
+                //         $('#config-form1').hide();
+                //         $('#config-form2_0').hide();
+                //         $('#config-form2_1').show();
+                //     } else {
+                //         $('#config-form0').hide();
+                //         $('#attachment').hide();
+                //         $('#config-form1').show();
+                //         $('#config-form2_0').hide();
+                //         $('#config-form2_1').hide();
                 //     }
-                // });
+                // }
 
                 // mmeber id 
                 $(".FormDisplayOnDutyApproval").append(

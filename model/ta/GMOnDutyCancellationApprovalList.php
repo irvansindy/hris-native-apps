@@ -77,9 +77,54 @@ $qListRenderApproval = "SELECT
 	LEFT JOIN view_employee e ON e.emp_no = '$username'
 	INNER JOIN hrmrequestapproval f ON f.request_no=a.request_no AND f.position_id = e.position_id
 	LEFT JOIN hrmattachment h ON a.request_no=h.request_no
-	$WHERE_APP 
+	$WHERE_APP       
 	GROUP BY a.request_no
 	ORDER BY xdec1.name_en DESC, a.request_no DESC
 	
 ";
+
+$queryGetDataOnDutyCancelation = "SELECT
+	a.request_no,
+	a.onduty_reqno,
+	a.requestedby,
+	a.requestfor,
+	c.emp_no,
+	c.Full_Name, 
+	DATE_FORMAT(a.requestdate, '%d %b %Y') AS requestdate,
+	a.remark,
+	a.created_by,
+	a.modified_date,
+	a.modified_by,
+	c.Full_Name,
+	c.pos_name_en,
+	c.cost_code,
+	xdec1.name_en,
+	xdec1.sts
+	FROM hrmondutycancelrequest a
+	INNER JOIN view_employee c ON a.requestfor=c.emp_id
+	LEFT JOIN 
+	(
+			SELECT 
+			dt1.sts,
+			dt1.request_no,
+			dty.req,
+			x2.name_en
+			FROM
+			(
+			SELECT MAX(x1.request_status) AS sts, x1.request_no
+			FROM hrmrequestapproval x1
+			GROUP BY x1.request_no
+	)dt1
+	INNER JOIN hrmrequestapproval dty ON dty.request_no = dt1.request_no AND dty.request_status = dt1.sts
+	LEFT JOIN hrmstatus x2 ON dt1.sts=x2.code
+
+
+	) xdec1 ON xdec1.request_no=a.request_no
+	LEFT JOIN view_employee e ON e.emp_no = '$username'
+	INNER JOIN hrmrequestapproval f ON f.request_no=a.request_no AND f.position_id = e.position_id
+	-- LEFT JOIN hrmattachment h ON a.request_no=h.request_no
+	$WHERE_APP
+	GROUP BY a.request_no
+	-- ORDER BY xdec1.name_en DESC, a.request_no DESCition_id
+	";
 ?>

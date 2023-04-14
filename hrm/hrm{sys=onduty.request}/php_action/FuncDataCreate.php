@@ -38,7 +38,7 @@
         ";
         $totalOnDutyRequest = mysqli_num_rows(mysqli_query($connect, $queryCheckOndutyRequest));
 
-        if ($totalOnDutyRequest > 0) {
+        if ($totalOnDutyRequest > 0 && $totalOnDutyRequest['name_en'] == 'Cancelled') {
             http_response_code(400);
             $response['success'] = false;
             $response['code'] = "failed_message";

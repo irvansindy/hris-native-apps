@@ -1045,36 +1045,3 @@
 		$("#account").mask("9999-9-99999-9");
 	});
 </script>
-<!-- 
-<script type="text/javascript">
-function isi_otomatis() {
-	var nip = $("#nip").val();
-	$.ajax({
-			url: 'ajax_cek.php',
-			data: "nip=" + nip,
-	}).success(function(data) {
-			var json = data,
-					obj = JSON.parse(json);
-			$('#nama').val(obj.nama);
-			$('#nik').val(obj.nik);
-			$('#org').val(obj.org);
-			$('#emp').val(obj.emp);
-			$('#join').val(obj.join);
-			$('#account').val(obj.account);
-			$('#norek').val(obj.norek);
-			$('#approve').val(obj.approve);
-			$('#grp').val(obj.grp);
-			$('#jobstatus').val(obj.jobstatus);
-	});
-}
-</script> 
-                        
-<script type="text/javascript">
-	var tree4 = $("#test-select-4").treeMultiselect({
-			allowBatchSelection: true,
-			enableSelectAll: true,
-			searchable: true,
-			sortable: true,
-			startCollapsed: false,
-	});
-</script> -->

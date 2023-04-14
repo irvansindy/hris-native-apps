@@ -311,7 +311,7 @@ if ($platform != 'mobile') {
 								</div>
 							</div>
 						</div>
-						<div class="form-row">
+						<!-- <div class="form-row">
 							<div class="col-lg-3 name"></div>
 							<div class="col-lg-8">
 								<div class="form-check form-check-inline">
@@ -319,8 +319,18 @@ if ($platform != 'mobile') {
 									<label class="form-check-label" for="checkFileAttachment">With Attachment</label>
 								</div>
 							</div>
+						</div> -->
+						<!-- <div id="dataFileAttechment"></div> -->
+						<div class="form-row" id="formFileAttachment">
+							<div class="col-lg-3 name">File Attachment <font color="red">*</font>
+							</div>
+							<div class="col-lg-5">
+								<div class="input-group">
+									<input type="file" name="fileupload" id="fileupload" class="form-control">
+									<span><font color="red">pdf, doc/docx, jpg/jpeg, png</font></span>
+								</div>
+							</div>
 						</div>
-						<div id="dataFileAttechment"></div>
 					</fieldset>
 
 					<fieldset class="mb-5" id="fset_1">
@@ -927,6 +937,7 @@ if ($platform != 'mobile') {
 		$("#CreateButton").on('click', function () {
 			$('#frm_inp_course').hide();
 			// reset form when click new create data
+			document.getElementById("FormDisplayCreate").reset();
 			$('#FormDisplayCreate')[0].reset();
 			$("#list_detail_attendance").hide();
 

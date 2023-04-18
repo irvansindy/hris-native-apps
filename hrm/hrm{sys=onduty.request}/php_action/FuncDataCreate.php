@@ -9,6 +9,9 @@
     // allowed file types
     $allowTypes = array('pdf', 'doc', 'docx', 'jpg', 'png', 'jpeg', 'ods');
 
+    // status
+    $deniedStatus = ['Unverified', 'Fully Approved', 'Partially Approved'];
+
     $response = [
         'success' => false,
         'code' => [],
@@ -20,8 +23,8 @@
     $SFtime = date('h:i:s');
     $SFdatetime = date("Y-m-d H:i:s");
     $SFnumber = date("YmdHis");
-
-    if($_POST) {
+    $modal_emp = $_POST['modal_emp'];
+    if ($_POST) {
         /* can't make request when status unverified(1) - partially approved(2) - fully approved(3) can make request when status cancel(8) - reject(5 ) */
         // check data on duty request
         $queryCheckOndutyRequest = "SELECT 
@@ -34,11 +37,15 @@
         LEFT JOIN hrmstatus c
             ON (SELECT request_status FROM hrmrequestapproval WHERE request_no = a.request_no ORDER BY `request_status` DESC limit 1) = c.code    
         WHERE 
-            date_format(b.startdate, '%Y-%m-%d') BETWEEN '$_POST[inp_add_startdate]' AND '$_POST[inp_add_enddate]'
+            DATE_FORMAT(b.startdate, '%Y-%m-%d') BETWEEN '$_POST[inp_add_startdate]' AND '$_POST[inp_add_enddate]'
+            AND a.requestfor = '$modal_emp'
+            ORDER BY a.created_date DESC LIMIT 1
         ";
         $totalOnDutyRequest = mysqli_num_rows(mysqli_query($connect, $queryCheckOndutyRequest));
 
-        if ($totalOnDutyRequest > 0 && $totalOnDutyRequest['name_en'] == 'Cancelled') {
+        $checkStatus = mysqli_fetch_assoc(mysqli_query($connect, $queryCheckOndutyRequest));
+
+        if($totalOnDutyRequest > 0 && in_array($checkStatus["name_en"], $deniedStatus)) {
             http_response_code(400);
             $response['success'] = false;
             $response['code'] = "failed_message";
@@ -133,7 +140,7 @@
             $executeQueryMaster = $connect->query($queryOnDutyMaster);
     
             // fetch file work formula 
-            require_once '../../set{sys=system_function_authorization}/workflow_formula.php';
+            $executeApproval = require_once '../../set{sys=system_function_authorization}/workflow_formula.php';
     
             // for on duty detail
             for ($index = 0; $index  < count($inp_hours_starttime); $index++) {
@@ -163,7 +170,7 @@
     
                 $executeQueryDetail = $connect->query($queryOnDutyDetail);
             }
-            if ($executeQueryMaster == true && $executeQueryDetail == true) {
+            if ($executeQueryMaster == true && $executeApproval == true && $executeQueryDetail == true) {
                 http_response_code(200);
                 $response['success'] = true;
                 $response['code'] = "success_message";
@@ -180,5 +187,3 @@
         header('Content-Type: application/json');
         echo json_encode($response);
     }
-
-

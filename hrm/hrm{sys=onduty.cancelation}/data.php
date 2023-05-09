@@ -157,7 +157,7 @@ $(document).ready(function () {
 							No.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
 						<th class="fontCustom" style="z-index: 1;">Request Number</th>
 						<th class="fontCustom" style="z-index: 1;">Request For</th>
-						<th class="fontCustom" style="z-index: 1;">Leave Request No.</th>
+						<th class="fontCustom" style="z-index: 1;">On Duty Request No</th>
 						<th class="fontCustom" style="z-index: 1;">Type of Leave</th>
 						<th class="fontCustom" style="z-index: 1;">Request Date</th>
 						<th class="fontCustom" style="z-index: 1;">Remark</th>

@@ -69,10 +69,6 @@ if (!empty($_POST['src_leave_request']) && !empty($_POST['src_leave_request_canc
 	</div><!-- modal-dialog -->
 </div><!-- modal -->
 
-
-
-
-
 <!-- MAIN DATATABLE SERVERSIDE CSS -->
 <!-- MAIN DATATABLE SERVERSIDE CSS -->
 <script type="text/javascript" src="../../asset/sdk_datatables_core/gt_dist/jQuery-2.1.4.min.js"></script>
@@ -81,7 +77,10 @@ if (!empty($_POST['src_leave_request']) && !empty($_POST['src_leave_request_canc
 <!-- MAIN DATATABLE SERVERSIDE CSS -->
 <!-- MAIN DATATABLE SERVERSIDE CSS -->
 
-
+<!-- cdn select2 -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<!-- end cdn select2 -->
 
 <link rel="stylesheet" href="../../asset/gt_developer/developer_hris_form.css" />
 <link rel="stylesheet" href="../../asset/gt_developer/gt_datepicker_20211002/materialDateTimePicker.css" />
@@ -174,18 +173,12 @@ if ($platform != 'mobile') {
 
 						<div class="card-actions ml-auto">
 							<table>
-
-
 								<td>
-
 									<a href='#' class='open_modal_search' class="btn btn-demo" data-toggle="modal"
 										data-target="#myModal2">
 										<div class="toolbar sprite-toolbar-search" id="SEARCH" title="Search">
 										</div>
 									</a>
-
-
-
 								</td>
 								<!-- AgusPrass 02/03/2021 Menghapus # pada href-->
 								<td>
@@ -307,9 +300,6 @@ if ($platform != 'mobile') {
 									<legend>Leave Entry Form</legend>
 
 									<div class="messages_create"></div>
-
-
-
 									<?php
 										$emp = mysqli_fetch_array(mysqli_query($connect, "SELECT full_name, pos_name_en FROM view_employee WHERE emp_no='$username'"));
                                           // echo "SELECT full_name, pos_name_en FROM view_employee WHERE emp_no='$username'";
@@ -513,33 +503,30 @@ if ($platform != 'mobile') {
 										</div>
 									</div>
 
+									<div class="form-row urgent_reason_additional" style='display:none;'>
+										<div class="col-sm-2 name">Urgent Reason*</div>
+										<div class="col-sm-8">
+											<div class="input-group">
 
-
-									<!-- <div class="form-row" id="tr_inp_urgent_reason" style='display:none;'>
-                                          <div class="col-sm-2 name">Urgent Reason</div>
-                                          <div class="col-sm-8">
-                                                 <div class="input-group">
-                                                        <select name="sel_inp_urgreason" class="input--style-6 urgent_reason"
-                                                               style="margin-bottom: 2px; width: 100%;height: 30px;">
-                                                               <option>--Select One--</option>
-                                                        </select>
-                                                 </div>
-                                          </div>
-                                   </div> -->
-
-									<!-- <div class="form-row">
-                                          <div class="col-sm-2 name">File Attachment </div>
-                                          <div class="col-sm-8">
-                                                 <div class="input-group js-input-file">
-                                                        <input class="input-file" id="inp_refdoc" name="inp_refdoc[]"
-                                                               type="File" value="" onfocus="hlentry(this)" size="30"
-                                                               maxlength="50" style="float: left; margin: -3px;"
-                                                               onchange="formodified(this);" title="">
-                                                 </div>
-                                                 <div class="label--desc">Upload your Effident or any other relevant file. Max
-                                                        file size 3 MB, doc,jpg,ods,png,txt,docx,pdf </div>
-                                          </div>
-                                   </div> -->
+												<select class="input--style-6 urgent_reason" name="urgent_reason"
+													style="width: 50%;height: 30px;" id="urgent_reason"
+													onchange="isi_otomatis_leave()">
+													<option value="">--Select One--</option>
+													<?php
+														$sql = mysqli_query($connect, "SELECT 
+														a.reason_code,
+														a.reason_name
+													FROM hrmleaveurgreason a
+													GROUP BY a.reason_name
+													ORDER BY a.reason_name ASC;");
+														while ($row = mysqli_fetch_array($sql)) {
+															echo '<option value="' . $row['reason_code'] . '">' . $row['reason_name'] . '</option>';
+														}
+														?>
+												</select>
+											</div>
+										</div>
+									</div>
 
 								</fieldset>
 
@@ -1218,6 +1205,48 @@ if ($platform != 'mobile') {
 		}); // /add modal
 	});
 
+	$('#modal_leave').select2({
+		dropdownParent: $('#CreateForm')
+	})
+
+	$('#urgent_reason').select2({
+		dropdownParent: $('#CreateForm')
+	})
+
+	$('#inp_urgent_on').on('change', function() {
+		// alert('start')
+		var isi = $('#inp_urgent_on').val()
+		alert(isi)
+		$('.urgent_reason_additional').show()
+	})
+	
+	$('#inp_urgent_off').on('change', function() {
+		var isi = $('#inp_urgent_on_back').val()
+		alert(isi)
+		// alert('end')
+		$('.urgent_reason_additional').hide()
+	})
+
+	// if($('#tr_inp_leaveisurgent').is(':hidden') && $('#modal_leave').val() == '') {
+	// 	$('#urgent_reason_additional').hide()
+	// }
+
+	$('#modal_leave').on('change', function() {
+		if($(this).val() == '') {
+			$('#tr_inp_leaveisurgent').hide()
+			$('.urgent_reason_additional').hide()
+			$("#tr_inp_urgent_on").show();
+			$("#tr_inp_urgent_off").hide();
+			$("#tr_inp_urgent_reason").hide();
+			$('#inp_urgent_off').prop('checked', true);
+			document.getElementById("inp_urgent_on_back").setAttribute("name", "inp_urgent_decl");
+			document.getElementById("inp_urgent_off").setAttribute("name", "hidden");
+		}
+
+	// 	// if(('#tr_inp_leaveisurgent').css('display') == 'none') {
+			
+	// 	// }
+	})
 
 	function RevisedForm(id = null) {
 		mymodalss.style.display = "block";
@@ -1821,8 +1850,6 @@ if ($platform != 'mobile') {
 				modal_emp: modal_emps,
 				modal_leave: modal_leave
 			},
-
-
 			dataType: 'json',
 			success: function (response) {
 
@@ -1845,8 +1872,16 @@ if ($platform != 'mobile') {
 				if (response.urgent == '1') {
 					$("#tr_inp_leaveisurgent").show();
 				} else {
-					$("#tr_inp_leaveisurgent").hide();
+					// $("#tr_inp_leaveisurgent").hide();
+					// $("#tr_inp_urgent_reason").hide();
+					$('#tr_inp_leaveisurgent').hide()
+					$('.urgent_reason_additional').hide()
+					$("#tr_inp_urgent_on").show();
+					$("#tr_inp_urgent_off").hide();
 					$("#tr_inp_urgent_reason").hide();
+					$('#inp_urgent_off').prop('checked', true);
+					document.getElementById("inp_urgent_on_back").setAttribute("name", "inp_urgent_decl");
+					document.getElementById("inp_urgent_off").setAttribute("name", "hidden");
 				}
 
 				//IF CONDITION #1 SHOWING DAYTYPE

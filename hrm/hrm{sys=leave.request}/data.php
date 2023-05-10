@@ -1214,16 +1214,12 @@ if ($platform != 'mobile') {
 	})
 
 	$('#inp_urgent_on').on('change', function() {
-		// alert('start')
 		var isi = $('#inp_urgent_on').val()
-		alert(isi)
 		$('.urgent_reason_additional').show()
 	})
 	
 	$('#inp_urgent_off').on('change', function() {
 		var isi = $('#inp_urgent_on_back').val()
-		alert(isi)
-		// alert('end')
 		$('.urgent_reason_additional').hide()
 	})
 

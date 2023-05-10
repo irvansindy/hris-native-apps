@@ -33,6 +33,7 @@ if ($_POST) {
 	$inp_daytype			= $_POST['inp_daytype'];
 	$inp_remark				= $_POST['inp_remark'];
 	$inp_urgent_decl        = $_POST['inp_urgent_decl'];
+	$urgent_reason        = $_POST['urgent_reason'];
 
 	$modal_leave_start 		= $_POST['modal_leave_start'];
 	$modal_leave_end 		= $_POST['modal_leave_end'];
@@ -42,6 +43,7 @@ if ($_POST) {
 	$inp_pdtype_endtime		= $_POST['inp_pdtype_endtime'];
 	$inp_deductedleave		= $_POST['inp_deductedleave'];
 
+	// check existing data leave request
 	$check_leave_request = "SELECT 
 		a.emp_id,
 		b.Full_Name,
@@ -49,34 +51,41 @@ if ($_POST) {
 		b.cost_code,
 		DATE_FORMAT(a.leave_startdate, '%Y-%m-%d') AS start_date
 	FROM hrmleaverequest a
-		JOIN view_employee b ON a.emp_id = b.emp_id
-		JOIN hrdattendance c ON b.emp_id = c.emp_id
-		WHERE DATE_FORMAT(a.leave_startdate, '%Y-%m-%d') = '$modal_leave_start'
-		GROUP BY a.emp_id";
+		LEFT JOIN view_employee b ON a.emp_id = b.emp_id
+		LEFT JOIN hrdattendance c ON b.emp_id = c.emp_id
+	WHERE DATE_FORMAT(a.leave_startdate, '%Y-%m-%d') = '$modal_leave_start'
+	GROUP BY a.emp_id";
 
 	$result_leave = mysqli_fetch_assoc(mysqli_query($connect, $check_leave_request));
 
+	// check user in same dept
 	$check_user = "SELECT 
 		a.emp_id,
+		a.emp_no,
 		a.cost_code,
 		b.shiftdailycode,
+		b.max_manpower,
 		b.cost_code as cost,
 		c.shiftdaily_code
 	FROM view_employee a
-		JOIN hrmvalleavegroup b ON a.cost_code = b.cost_code
+		LEFT JOIN hrmvalleavegroup b ON a.cost_code = b.cost_code
+		LEFT JOIN hrdattendance c ON a.emp_id = c.emp_id
 	WHERE a.emp_no = '$inp_emp_no'
 	-- WHERE a.emp_id = '3402202205000001'
-	AND DATE_FORMAT(c.attend_date, '%Y-%m-%d') = '$SFdate'
+	and DATE_FORMAT(c.attend_date, '%Y-%m-%d') = '$modal_leave_start'
 	GROUP BY a.emp_id";
 
 	$result_user = mysqli_fetch_assoc(mysqli_query($connect, $check_user));
 
+	// echo json_encode([
+	// 	'leave_cost_code' => $result_leave['cost_code'],
+	// 	'leave_shiftdaily_code' => $result_leave['shiftdaily_code'],
+	// 	'user_cost_code' => $result_user['cost_code'],
+	// 	'user_shiftdaily_code' => $result_user['shiftdaily_code'],
+	// 	'user_shiftdailycode' => $result_user['shiftdailycode'],
+	// ]);
+
 	if ($result_user['cost_code'] == $result_leave['cost_code'] && $result_user['shiftdaily_code'] == $result_leave['shiftdaily_code'] && $inp_urgent_decl == 0) {
-		// $response['messages'] = 'bisa gan';
-		// $response['data'] = [
-		// 	$result_user,
-		// 	$result_leave
-		// ];
 		$validator['success'] = false;
 		$validator['code'] = "failed_message";
 		$validator['messages'] = "Tidak bisa mengajukan perizinan, harap hubungi pihak HRD";
@@ -390,7 +399,7 @@ if ($_POST) {
 									'$inp_emp_no', 
 									'$SFdatetime', 
 									'0',
-									'$r_detail[urgent_request]',
+									'$urgent_reason',
 									'$r_detail[urgent_request]',
 									'$inp_token')
 							");
@@ -410,6 +419,8 @@ if ($_POST) {
 	}
 	// condition ends
 	// close the database connection
+
 	$connect->close();
+	header('Content-Type: application/json');
 	echo json_encode($validator);
 }

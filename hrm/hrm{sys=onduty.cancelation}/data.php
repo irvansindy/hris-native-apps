@@ -497,19 +497,19 @@ $(document).ready(function () {
 <!-- /edit modal -->
 
 <script>
-function RefreshPage() {
-	datatable.ajax.reload(null, true);
+	function RefreshPage() {
+		datatable.ajax.reload(null, true);
 
-	setTimeout(function () {
-		mymodalss.style.display = "none";
+		setTimeout(function () {
+			mymodalss.style.display = "none";
+			document.getElementById("msg").innerHTML = "Data refreshed";
+			return false;
+		}, 2000);
+
+		mymodalss.style.display = "block";
 		document.getElementById("msg").innerHTML = "Data refreshed";
 		return false;
-	}, 2000);
-
-	mymodalss.style.display = "block";
-	document.getElementById("msg").innerHTML = "Data refreshed";
-	return false;
-}
+	}
 </script>
 <script src="js/jquery.min.js"></script>
 <!-- get list employee -->
@@ -826,7 +826,7 @@ $('body').on('click tap', '.buttonOnDutyRequest', function(e) {
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="col-4 name">Remark</div>
+						<div class="col-4 name">Remark Cancelation</div>
 						<div class="col-sm-8 name">
 							<textarea  class="input--style-6"  rows="3" cols="40" id="input_remark_cancelation" name="input_remark_cancelation"></textarea>
 						</div>
@@ -836,7 +836,7 @@ $('body').on('click tap', '.buttonOnDutyRequest', function(e) {
 							<thead class="thead-light">
 								<tr>
 									<th style="text-align:center">
-										<input type="checkbox" onchange="checkAll(this)" name="checkAllRequest[]"> <span>Check All</span>
+										<input type="checkbox" onchange="checkAll(this)" class="inputCheckAll" name="checkAllRequest[]"> <span>Check All</span>
 									</th>
 									<th style="text-align:center">Number</th>
 									<th style="text-align:center">Start Date</th>
@@ -870,7 +870,7 @@ $('body').on('click tap', '.buttonOnDutyRequest', function(e) {
 				$('#list_data_on_duty_detail_request').append(`
 					<tr>
 						<td style="width:20%;text-align:left;">
-							<input class="input--style-7" type="checkbox" class="tanggal" name="checked[]" value="${checked++}">
+							<input class="input--style-7" type="checkbox" class="checkbox-tanggal" name="checked[]" onchange="uncheck(this)" value="${checked++}">
 						</td>
 						<td style="width:20%;text-align:left;">
 							${no++}
@@ -919,8 +919,22 @@ function checkAll(e) {
 			}
 		}
 	}
-
 }
+
+$('.checkbox-tanggal').on('change', function() {
+	
+})
+
+// function uncheck(e) {
+// 	let checkboxData = document.getElementsByClassName('checkbox-tanggal');
+// 	if (!e.checked) {
+// 		let inputCheckAll = document.getElementsByClassName('inputCheckAll');
+// 		if(inputCheckAll.type == 'checkbox' && inputCheckAll.checked = true) {
+// 			alert('ga jadi pilih semua');
+// 			inputCheckAll.checked = false;
+// 		}
+// 	}
+// }
 
 $('body').on('click', '#submit_request', function() {
 	$.ajax({

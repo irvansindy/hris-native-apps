@@ -51,7 +51,8 @@
             $response['code'] = "failed_message";
             $response['messages'] = 'On duty request already exists';
         } else {
-            if (isset($_POST['checkFileAttachment']) && $_POST['checkFileAttachment'] !== "" && !empty($_FILES['fileupload'])) {
+            // isset($_POST['checkFileAttachment']) && $_POST['checkFileAttachment'] !== "" && 
+            if (!empty($_FILES['fileupload'])) {
                 $file_name = $_FILES['fileupload']['name'];
                 $file_upload = $_FILES['fileupload']['tmp_name'];
                 

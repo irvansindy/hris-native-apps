@@ -27,12 +27,9 @@ include "../../../model/ta/GMAttendanceEditList.php";
 				<td colspan="2" rowspan="1"
 					style="vertical-align: inherit;background: #74614a;font-weight: bold;color: white;border: 1px solid white;;text-align: center;">
 					Shift Daily</td>
-				<td colspan="1"
+				<td colspan="3"
 					style="vertical-align: inherit;background: #74614a;font-weight: bold;color: white;border: 1px solid white;;text-align: center;">
 					Actual Time</td>
-				<!-- <td rowspan="2"
-					style="vertical-align: inherit;background: #74614a;font-weight: bold;color: white;border: 1px solid white;;text-align: center;">
-					Update <input id="checkAll" name="checkAll" type="checkbox" /></td> -->
 			</tr>
 			<tr>
 				<td
@@ -43,10 +40,10 @@ include "../../../model/ta/GMAttendanceEditList.php";
 					Out</td>
 				<td
 					style="background: #74614a;font-weight: bold;color: white;border: 1px solid white;;text-align: center;">
-					Time</td>
-				<!-- <td
+					Time In</td>
+				<td
 					style="background: #74614a;font-weight: bold;color: white;border: 1px solid white;;text-align: center;">
-					Time</td> -->
+					Time Out</td>
 			</tr>
 		</thead>
 
@@ -81,6 +78,12 @@ include "../../../model/ta/GMAttendanceEditList.php";
 			</td>
 			
 			<!-- default start time attendance -->
+			<td style="padding-top: 13px;" align="center">
+				<p id="shiftstarttime_<?php echo $r['key_att']; ?>">
+					<?php echo $r['shiftdaily_code']; ?></p>
+				<input id="inp_shiftstart_1" name="inp_shiftstart_1" type="hidden" readonly="true" size="4"
+					value="<?php echo $r['shiftdaily_code']; ?>" style="background:yellow">
+			</td>
 			<td style="padding-top: 13px;" align="center">
 				<p id="shiftstarttime_<?php echo $r['key_att']; ?>">
 					<?php echo $r['shiftstarttime']; ?></p>
@@ -127,7 +130,7 @@ include "../../../model/ta/GMAttendanceEditList.php";
 							<input type="time"
 								onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
 								name="inp_hours_starttime[]"
-								id="inp_hours_starttime[]"
+								id="inp_hours_starttime"
 								value=""
 								required
 								placeholder="start time"
@@ -167,7 +170,7 @@ include "../../../model/ta/GMAttendanceEditList.php";
 							<input type="time"
 								onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
 								name="inp_hours_endtime[]"
-								id="inp_hours_endtime[]"
+								id="inp_hours_endtime"
 								value=""
 								placeholder="end time"
 								required
@@ -235,6 +238,24 @@ include "../../../model/ta/GMAttendanceEditList.php";
 					} // /success
 				}); // /fetch selected member info
 			}
+		</script>
+
+		<script>
+				// var array_inp_endtime = document.getElementsByName('inp_hours_endtime[]');
+				$("input[name='inp_hours_endtime[]']").on('change', function() {
+					// alert(array_inp_endtime)
+					var start_time_values = $("input[name='inp_hours_starttime[]']").map(function(){return $(this).val();}).get();
+					var end_time_values = $("input[name='inp_hours_endtime[]']").map(function(){return $(this).val();}).get();
+					if (end_time_values < start_time_values) {
+						
+						mymodalss.style.display = "none";
+						modals.style.display = "block";
+						document.getElementById("msg").innerHTML =
+							"Entry Time: Enter Time in Proper Range";
+						return false;
+					}
+				})
+
 		</script>
 
 		<?php } ?>

@@ -352,7 +352,7 @@ if ($platform != 'mobile') {
 
                         <div class="modal-footer-sdk" id="config-form1" style="display:none">
                             <a style="<?php echo $button_status_hide_or_no; ?>; color: white;padding-top: 8px;"
-                                class="btn-sdk btn-primary-not-only-left" n ame="submit_reject_spvdown"
+                                class="btn-sdk btn-primary-not-only-left" name="submit_reject_spvdown"
                                 id="submit_reject_spvdown" data-toggle="modal" data-target="#FormDisplayRejectRequest">
                                 &nbsp;&nbsp;Reject&nbsp;&nbsp;
                             </a>

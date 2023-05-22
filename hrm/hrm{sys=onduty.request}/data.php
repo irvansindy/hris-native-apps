@@ -151,7 +151,7 @@ if ($platform != 'mobile') {
 			<thead>
 				<tr>
 					<th class="fontCustom" style="z-index: 1;" nowrap="nowrap">No</th>
-					<th class="fontCustom" style="z-index: 1;">Code</th>
+					<th class="fontCustom" style="z-index: 1;">Request No</th>
 					<th class="fontCustom" style="z-index: 1;">Start Date</th>
 					<th class="fontCustom" style="z-index: 1;">End Date</th>
 					<th class="fontCustom" style="z-index: 1;">Request By</th>
@@ -889,7 +889,7 @@ if ($platform != 'mobile') {
 						<div class="input-group">
 							<textarea class="input--style-6 search-input" onfocus="this.value=''"
 								autocomplete="off" id="input_destination_detail" name="input_destination_detail" type="Text" value=""
-								title=""></textarea>
+								title="" required></textarea>
 						</div>
 					</div>
 				</div>
@@ -914,6 +914,14 @@ if ($platform != 'mobile') {
 
 		var inp_add_startdate = $("#inp_add_startdate").val();
 		var inp_add_enddate = $("#inp_add_enddate").val();
+
+		if(inp_add_enddate < inp_add_startdate) {
+			mymodalss.style.display = "none";
+			modals.style.display = "block";
+			document.getElementById("msg").innerHTML =
+				"Entry Date: Enter Date in Proper Range";
+			return false;
+		}
 		$("#list_detail_attendance").show();
 		
 		$("#list_detail_attendance").load(
@@ -927,6 +935,10 @@ if ($platform != 'mobile') {
 					alert("Error: " + xhr.status + ": " + xhr.statusText);
 			}
 		);
+		// var inp_hours_endtime = document.getElementsByName('inp_hours_endtime[]');
+		// alert(inp_hours_endtime)
+
+
 	});
 </script>
 
@@ -971,6 +983,7 @@ if ($platform != 'mobile') {
 				var inp_onduty_purpose = $('#inp_onduty_purpose').val();
 				var inp_add_startdate = $('#inp_add_startdate').val();
 				var inp_add_enddate = $('#inp_add_enddate').val();
+				var input_destination_detail = $('#input_destination_detail').val();
 
 				var regex = /^[a-zA-Z]+$/;
 
@@ -1000,51 +1013,57 @@ if ($platform != 'mobile') {
 					document.getElementById("msg").innerHTML =
 						"On Duty Purpose cannot empty";
 					return false;
+				} else if (inp_onduty_purpose == 'DST005' && input_destination_detail == '') {
+					mymodalss.style.display = "none";
+					modals.style.display = "block";
+					document.getElementById("msg").innerHTML =
+						"Destination detail cannot empty";
+					return false;
 				} 
 				
 				// call ajax
-				if (modal_emp && inp_purpose_type && inp_remark && inp_onduty_purpose) {
-					$.ajax({
-						url: "php_action/FuncDataCreate.php<?php echo $getPackage; ?>",
-						type: form.attr('method'),
-						// data: form.serialize(),
+				// if (modal_emp && inp_purpose_type && inp_remark && inp_onduty_purpose) {
+				// 	$.ajax({
+				// 		url: "php_action/FuncDataCreate.php<?php echo $getPackage; ?>",
+				// 		type: form.attr('method'),
+				// 		// data: form.serialize(),
 
-						data: new FormData(this),
-						// data: formData,
-						processData: false,
-						contentType: false,
-						dataType: 'json',
-						success: function(response) {
-							// remove the error 
-							$(".form-group").removeClass('has-error').removeClass(
-								'has-success');
-							mymodalss.style.display = "none";
-							modals.style.display = "block";
-							document.getElementById("msg").innerHTML = response.messages;
+				// 		data: new FormData(this),
+				// 		// data: formData,
+				// 		processData: false,
+				// 		contentType: false,
+				// 		dataType: 'json',
+				// 		success: function(response) {
+				// 			// remove the error 
+				// 			$(".form-group").removeClass('has-error').removeClass(
+				// 				'has-success');
+				// 			mymodalss.style.display = "none";
+				// 			modals.style.display = "block";
+				// 			document.getElementById("msg").innerHTML = response.messages;
 
-							$('#FormDisplayCreate').modal('hide');
-							$("[data-dismiss=modal]").trigger({type: "click"});
+				// 			$('#FormDisplayCreate').modal('hide');
+				// 			$("[data-dismiss=modal]").trigger({type: "click"});
 
-							// reset the form
-							$("#FormDisplayCreate")[0].reset();
-							// reload the datatables
-							datatable.ajax.reload(null, false);
-							// window.location.reload()
-							// if (response.success == true) {
-								// this function is built in function of datatables;
-							// }
-						},
-						error: function(xhr, status, error) {
-							mymodalss.style.display = "none";
-							modals.style.display = "block";
-							document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
-							// var err = eval("(" + xhr.responseText + ")");
-							// alert(err.messages);
-						}
-					}); // ajax subit 				
+				// 			// reset the form
+				// 			$("#FormDisplayCreate")[0].reset();
+				// 			// reload the datatables
+				// 			datatable.ajax.reload(null, false);
+				// 			// window.location.reload()
+				// 			// if (response.success == true) {
+				// 				// this function is built in function of datatables;
+				// 			// }
+				// 		},
+				// 		error: function(xhr, status, error) {
+				// 			mymodalss.style.display = "none";
+				// 			modals.style.display = "block";
+				// 			document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+				// 			// var err = eval("(" + xhr.responseText + ")");
+				// 			// alert(err.messages);
+				// 		}
+				// 	}); // ajax subit 				
 
-					return false;
-				}
+				// 	return false;
+				// }
 
 			}); // /submit form for create member
 		}); // /add modal
@@ -1218,8 +1237,9 @@ if ($platform != 'mobile') {
 				$('#detail_emp_no').val(response[0].request_no)
 				$('#detail_purpose_type').val(response[0].purpose_code)
 				$('#detail_modal_emp').val(response[0].requestfor)
-
+				
 				var data_fileupload = response[0].upload_filename
+				// alert(response[0].upload_filename)
 				// alert(data_fileupload)
 				if (data_fileupload == "") {
 					// $('#detail_fileupload').removeAttr('download')

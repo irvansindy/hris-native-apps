@@ -19,48 +19,48 @@
     $where = '';
     // form emp_id, request_no, start and end date filled
     if (!empty($input_onduty_request) && !empty($emp_id_for) && !empty($inp_startdate) && !empty($inp_enddate)) {
-        $where = "WHERE a.request_no = '$input_onduty_request' AND b.emp_id = '$emp_id_for' AND DATE_FORMAT(a.requestdate, '%Y-%m-%d') BETWEEN '$inp_startdate' AND '$inp_enddate' AND (d.code IN ('3'))";
+        $where = "WHERE a.request_no = '$input_onduty_request' AND b.emp_id = '$emp_id_for' AND DATE_FORMAT(a.requestdate, '%Y-%m-%d') BETWEEN '$inp_startdate' AND '$inp_enddate' AND (d.code IN ('1'))";
     }
     // form emp_id and request no filled
     if (!empty($input_onduty_request) && !empty($emp_id_for)) {
-        $where = "WHERE a.request_no = '$input_onduty_request' AND b.emp_id = '$emp_id_for' AND (d.code IN ('3'))";
+        $where = "WHERE a.request_no = '$input_onduty_request' AND b.emp_id = '$emp_id_for' AND (d.code IN ('1'))";
     }
     // form emp_id, start and end date filled
     elseif (!empty($emp_id_for) && !empty($inp_startdate) && !empty($inp_enddate)) { 
-        $where = "WHERE b.emp_id = '$emp_id_for' AND DATE_FORMAT(a.requestdate, '%Y-%m-%d') BETWEEN '$inp_startdate' AND '$inp_enddate' AND (d.code IN ('3'))";
+        $where = "WHERE b.emp_id = '$emp_id_for' AND DATE_FORMAT(a.requestdate, '%Y-%m-%d') BETWEEN '$inp_startdate' AND '$inp_enddate' AND (d.code IN ('1'))";
     }
     // form emp_id and start date filled
     elseif (!empty($emp_id_for) && !empty($inp_startdate)) {
-    $where = "WHERE b.emp_id = '$emp_id_for' AND DATE_FORMAT(a.requestdate, '%Y-%m-%d') = '$inp_startdate' AND (d.code IN ('3'))";
+    $where = "WHERE b.emp_id = '$emp_id_for' AND DATE_FORMAT(a.requestdate, '%Y-%m-%d') = '$inp_startdate' AND (d.code IN ('1'))";
     }
     // form emp_id and end date filled
     elseif (!empty($emp_id_for) && !empty($inp_enddate)) { 
-        $where = "WHERE b.emp_id = '$emp_id_for' AND DATE_FORMAT(a.requestdate, '%Y-%m-%d') = '$inp_enddate' AND (d.code IN ('3'))";
+        $where = "WHERE b.emp_id = '$emp_id_for' AND DATE_FORMAT(a.requestdate, '%Y-%m-%d') = '$inp_enddate' AND (d.code IN ('1'))";
     }
     // form emp_id filled
     elseif (!empty($emp_id_for)) {
-        $where = "WHERE b.emp_id = '$emp_id_for' AND (d.code IN ('3'))";
+        $where = "WHERE b.emp_id = '$emp_id_for' AND (d.code IN ('1'))";
     }
     // form request no filled
     elseif (!empty($input_onduty_request)) {
-        $where = "WHERE a.request_no = '$input_onduty_request' AND (d.code IN ('3'))";
+        $where = "WHERE a.request_no = '$input_onduty_request' AND (d.code IN ('1'))";
     }
     // form start and end date filled
     elseif (!empty($inp_startdate) && !empty($inp_enddate)) {
-        $where = "WHERE b.emp_id = '$emp_id' AND DATE_FORMAT(a.requestdate, '%Y-%m-%d') BETWEEN '$inp_startdate' AND '$inp_enddate' AND (d.code IN ('3'))";
+        $where = "WHERE b.emp_id = '$emp_id' AND DATE_FORMAT(a.requestdate, '%Y-%m-%d') BETWEEN '$inp_startdate' AND '$inp_enddate' AND (d.code IN ('1'))";
     }
     // form start date filled
     elseif (!empty($inp_startdate)) {
-        $where = "WHERE b.emp_id = '$emp_id' AND DATE_FORMAT(a.requestdate, '%Y-%m-%d') = '$inp_startdate' AND (d.code IN ('3'))";
+        $where = "WHERE b.emp_id = '$emp_id' AND DATE_FORMAT(a.requestdate, '%Y-%m-%d') = '$inp_startdate' AND (d.code IN ('1'))";
     }
     // form end date filled
     elseif (!empty($inp_enddate)) {
-        $where = "WHERE b.emp_id = '$emp_id' AND DATE_FORMAT(a.requestdate, '%Y-%m-%d') = '$inp_enddate' AND (d.code IN ('3'))";
+        $where = "WHERE b.emp_id = '$emp_id' AND DATE_FORMAT(a.requestdate, '%Y-%m-%d') = '$inp_enddate' AND (d.code IN ('1'))";
     }
     // all form empty
     elseif (empty($input_onduty_request) && empty($emp_id_for) && empty($inp_startdate) && empty($inp_enddate)) {
         $where = "WHERE b.emp_id = '$emp_id'
-        AND (d.code IN ('3'))";
+        AND (d.code IN ('1'))";
     }
 
     // get data onduty request

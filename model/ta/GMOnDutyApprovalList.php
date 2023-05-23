@@ -132,6 +132,8 @@ $queryOnDutyApprovalList = "SELECT
 		LEFT JOIN hrmstatus e ON c.status = e.code
 	) xdec1 ON xdec1.no_approval=a.request_no
 	LEFT JOIN view_employee e ON e.emp_no =  '$username'
+	INNER JOIN hrmrequestapproval f ON f.request_no=a.request_no
+	AND f.position_id = e.position_id
 	INNER JOIN hrmondutypurposetype g ON g.purpose_code = a.purpose_code
 	$WHERE_APP
 	GROUP BY a.request_no

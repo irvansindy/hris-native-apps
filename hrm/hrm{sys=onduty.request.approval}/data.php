@@ -125,25 +125,6 @@ if (!empty($_POST['src_request_status'])) {
     });
 </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <?php
 if ($platform != 'mobile') {         
 ?>
@@ -415,8 +396,9 @@ if ($platform != 'mobile') {
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <table width="100%">
-                                    <td align="center"><label id="isi_sel_reject_request">Are you sure to reject datas
-                                            ?</label></td>
+                                    <td align="center">
+                                        <label id="isi_sel_reject_request">Are you sure to reject datas ?</label>
+                                    </td>
                                 </table>
                                 <input type="hidden" class="form-control input-report" id="sel_reject_request"
                                     name="sel_reject_request" placeholder="">
@@ -430,7 +412,7 @@ if ($platform != 'mobile') {
                             </button>
                             <button class="btn btn-warning" type="submit" name="submit_reject_spvdown1"
                                 id="submit_reject_spvdown1">
-                                Confirm
+                                Confirm ni
                             </button>
                             <button class="btn btn-warning" type="button" name="submit_reject_spvdown2"
                                 id="submit_reject_spvdown2" style='display:none;' disabled>
@@ -664,10 +646,8 @@ if ($platform != 'mobile') {
                 document.getElementById("detail_approval_request_date").innerHTML = response[0].requestdate + " - " + response[0].requestenddate;
 
                 // document.getElementsByTagName("harusdiselipin").setAttribute("class", "democlass"); 
-                $("#submit_reject_spvdown").attr("onclick", "editreject_approval(`" + response
-                    .request_no + "`)");
-                $("#submit_revision_spvdown").attr("onclick", "editrevision_approval(`" + response
-                    .request_no + "`)");
+                $("#submit_reject_spvdown").attr("onclick", "editreject_approval(`" + response[0].request_no + "`)");
+                $("#submit_revision_spvdown").attr("onclick", "editrevision_approval(`" + response[0].request_no + "`)");
                 // onclick="editrejectrequest(`PAREQ2022-130299`)"
 
                 $("#sel_approval_request_no").val(response[0].request_no);
@@ -885,9 +865,9 @@ if ($platform != 'mobile') {
             // fetch the member data
             $.ajax({
                 url: 'php_action/getSelectedRequest.php<?php echo $getPackage; ?>',
-                type: 'post',
+                type: 'GET',
                 data: {
-                    member_id: id
+                    request_no: id
                 },
                 dataType: 'json',
                 success: function (response) {
@@ -895,13 +875,16 @@ if ($platform != 'mobile') {
                     mymodalss.style.display = "none";
 
                     document.getElementById("isi_sel_reject_request").innerHTML =
-                        "Are you sure to reject request " + response.request_no + " ?";
+                        "Are you sure to reject request " + response[0].request_no + " ?";
 
-                    $("#sel_reject_request").val(response.request_no);
+                    $("#sel_reject_request").val(response[0].request_no);
 
                     // mmeber id 
+                    // $(".FormDisplayRejectRequest").append(
+                    //     '<input type="hidden" name="member_id" id="member_id" value="' + response.id +
+                    //     '"/>');
                     $(".FormDisplayRejectRequest").append(
-                        '<input type="hidden" name="member_id" id="member_id" value="' + response.id +
+                        '<input type="hidden" name="member_id" id="member_id" value="' + response[0].emp_no +
                         '"/>');
 
                     // here update the member data
@@ -985,17 +968,18 @@ if ($platform != 'mobile') {
 
             $.ajax({
                 url: 'php_action/getSelectedRequest.php<?php echo $getPackage; ?>',
-                type: 'post',
+                // type: 'post',
+                type: 'get',
                 data: {
-                    member_id: id
+                    request_no: id
                 },
                 dataType: 'json',
                 success: function (response) {
 
                     mymodalss.style.display = "none";
 
-                    $("#sel_revision_spvdown").val(response.request_no);
-                    document.getElementById("isi_sel_revision_spvdown").innerHTML = response.request_no;
+                    $("#sel_revision_spvdown").val(response[0].request_no);
+                    document.getElementById("isi_sel_revision_spvdown").innerHTML = response[0].request_no;
 
                     // mmeber id 
                     $(".FormDisplayrevisionPVDOWN").append(

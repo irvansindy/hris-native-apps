@@ -81,14 +81,14 @@ $qListRenderApproval = "SELECT
 						FROM hrmrequestapproval x1 
 						GROUP BY x1.request_no
 				)dt1
-		inner JOIN hrmrequestapproval dty ON dty.request_no = dt1.request_no AND dty.request_status = dt1.sts
+		inner JOIN hrmrequestapproval dty ON dty.request_no = dt1.request_no 
+		AND dty.request_status = dt1.sts
 		LEFT JOIN hrmstatus x2 ON dt1.sts=x2.code
-
-
 		) xdec1 ON xdec1.request_no=a.request_no
 				
 	LEFT JOIN view_employee e ON e.emp_no = '$username'
-INNER JOIN hrmrequestapproval f ON f.request_no=a.request_no AND f.position_id = e.position_id
+	INNER JOIN hrmrequestapproval f ON f.request_no=a.request_no
+	AND f.position_id = e.position_id
 	LEFT JOIN hrmattachment h on a.request_no=h.request_no
 
 $WHERE_APP                      

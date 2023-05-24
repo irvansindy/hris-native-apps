@@ -412,7 +412,7 @@ if ($platform != 'mobile') {
                             </button>
                             <button class="btn btn-warning" type="submit" name="submit_reject_spvdown1"
                                 id="submit_reject_spvdown1">
-                                Confirm ni
+                                Confirm
                             </button>
                             <button class="btn btn-warning" type="button" name="submit_reject_spvdown2"
                                 id="submit_reject_spvdown2" style='display:none;' disabled>
@@ -982,8 +982,11 @@ if ($platform != 'mobile') {
                     document.getElementById("isi_sel_revision_spvdown").innerHTML = response[0].request_no;
 
                     // mmeber id 
+                    // $(".FormDisplayrevisionPVDOWN").append(
+                    //     '<input type="hidden" name="member_id" id="member_id" value="' + response.id +
+                    //     '"/>');
                     $(".FormDisplayrevisionPVDOWN").append(
-                        '<input type="hidden" name="member_id" id="member_id" value="' + response.id +
+                        '<input type="hidden" name="member_id" id="member_id" value="' + response[0].emp_no +
                         '"/>');
 
                     // here update the member data
@@ -1008,9 +1011,7 @@ if ($platform != 'mobile') {
                             mymodalss.style.display = "block";
                         }
 
-
                         if (sel_approval_request_no && sel_revision_remark_spvdown) {
-
 
                             $.ajax({
                                 url: form.attr('action'),

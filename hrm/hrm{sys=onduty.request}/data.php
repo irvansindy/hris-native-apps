@@ -1022,48 +1022,48 @@ if ($platform != 'mobile') {
 				} 
 				
 				// call ajax
-				// if (modal_emp && inp_purpose_type && inp_remark && inp_onduty_purpose) {
-				// 	$.ajax({
-				// 		url: "php_action/FuncDataCreate.php<?php echo $getPackage; ?>",
-				// 		type: form.attr('method'),
-				// 		// data: form.serialize(),
+				if (modal_emp && inp_purpose_type && inp_remark && inp_onduty_purpose) {
+					$.ajax({
+						url: "php_action/FuncDataCreate.php<?php echo $getPackage; ?>",
+						type: form.attr('method'),
+						// data: form.serialize(),
 
-				// 		data: new FormData(this),
-				// 		// data: formData,
-				// 		processData: false,
-				// 		contentType: false,
-				// 		dataType: 'json',
-				// 		success: function(response) {
-				// 			// remove the error 
-				// 			$(".form-group").removeClass('has-error').removeClass(
-				// 				'has-success');
-				// 			mymodalss.style.display = "none";
-				// 			modals.style.display = "block";
-				// 			document.getElementById("msg").innerHTML = response.messages;
+						data: new FormData(this),
+						// data: formData,
+						processData: false,
+						contentType: false,
+						dataType: 'json',
+						success: function(response) {
+							// remove the error 
+							$(".form-group").removeClass('has-error').removeClass(
+								'has-success');
+							mymodalss.style.display = "none";
+							modals.style.display = "block";
+							document.getElementById("msg").innerHTML = response.messages;
 
-				// 			$('#FormDisplayCreate').modal('hide');
-				// 			$("[data-dismiss=modal]").trigger({type: "click"});
+							$('#FormDisplayCreate').modal('hide');
+							$("[data-dismiss=modal]").trigger({type: "click"});
 
-				// 			// reset the form
-				// 			$("#FormDisplayCreate")[0].reset();
-				// 			// reload the datatables
-				// 			datatable.ajax.reload(null, false);
-				// 			// window.location.reload()
-				// 			// if (response.success == true) {
-				// 				// this function is built in function of datatables;
-				// 			// }
-				// 		},
-				// 		error: function(xhr, status, error) {
-				// 			mymodalss.style.display = "none";
-				// 			modals.style.display = "block";
-				// 			document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
-				// 			// var err = eval("(" + xhr.responseText + ")");
-				// 			// alert(err.messages);
-				// 		}
-				// 	}); // ajax subit 				
+							// reset the form
+							$("#FormDisplayCreate")[0].reset();
+							// reload the datatables
+							datatable.ajax.reload(null, false);
+							// window.location.reload()
+							// if (response.success == true) {
+								// this function is built in function of datatables;
+							// }
+						},
+						error: function(xhr, status, error) {
+							mymodalss.style.display = "none";
+							modals.style.display = "block";
+							document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+							// var err = eval("(" + xhr.responseText + ")");
+							// alert(err.messages);
+						}
+					}); // ajax subit 				
 
-				// 	return false;
-				// }
+					return false;
+				}
 
 			}); // /submit form for create member
 		}); // /add modal

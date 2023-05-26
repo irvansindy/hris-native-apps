@@ -339,9 +339,8 @@ if ($platform != 'mobile') {
 							<div class="col-sm-3 name">Destination <span class="required">*</span></div>
 							<div class="col-sm-5 name">
 								<div class="input-group">
-									<select class="input--style-6 modal_leave" style="width: 80%;height: 30px;"
-										name="inp_onduty_purpose" id="inp_onduty_purpose" required>
-										<option value="hidden">--Select Option--</option>
+									<select class="input--style-6 modal_leave" style="width: 80%;height: 30px;" name="inp_onduty_purpose" id="inp_onduty_purpose" required>
+										<option value="">--Select Option--</option>
 										hrmdestination
 										<?php
 											$sql = mysqli_query($connect, "SELECT 
@@ -1033,45 +1032,44 @@ if ($platform != 'mobile') {
 				
 				// call ajax
 				if (modal_emp && inp_purpose_type && inp_remark && inp_onduty_purpose) {
-					// $.ajax({
-					// 	url: "php_action/FuncDataCreate.php<?php echo $getPackage; ?>",
-					// 	type: form.attr('method'),
-					// 	// data: form.serialize(),
+					$.ajax({
+						url: "php_action/FuncDataCreate.php<?php echo $getPackage; ?>",
+						type: form.attr('method'),
+						// data: form.serialize(),
 
-					// 	data: new FormData(this),
-					// 	// data: formData,
-					// 	processData: false,
-					// 	contentType: false,
-					// 	dataType: 'json',
-					// 	success: function(response) {
-					// 		// remove the error 
-					// 		$(".form-group").removeClass('has-error').removeClass(
-					// 			'has-success');
-					// 		mymodalss.style.display = "none";
-					// 		modals.style.display = "block";
-					// 		document.getElementById("msg").innerHTML = response.messages;
+						data: new FormData(this),
+						// data: formData,
+						processData: false,
+						contentType: false,
+						dataType: 'json',
+						success: function(response) {
+							// remove the error 
+							$(".form-group").removeClass('has-error').removeClass(
+								'has-success');
+							mymodalss.style.display = "none";
+							modals.style.display = "block";
+							document.getElementById("msg").innerHTML = response.messages;
 
-					// 		$('#FormDisplayCreate').modal('hide');
-					// 		$("[data-dismiss=modal]").trigger({type: "click"});
+							$('#FormDisplayCreate').modal('hide');
+							$("[data-dismiss=modal]").trigger({type: "click"});
 
-					// 		// reset the form
-					// 		$("#FormDisplayCreate")[0].reset();
-					// 		// reload the datatables
-					// 		datatable.ajax.reload(null, false);
-					// 		// window.location.reload()
-					// 		// if (response.success == true) {
-					// 			// this function is built in function of datatables;
-					// 		// }
-					// 	},
-					// 	error: function(xhr, status, error) {
-					// 		mymodalss.style.display = "none";
-					// 		modals.style.display = "block";
-					// 		document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
-					// 		// var err = eval("(" + xhr.responseText + ")");
-					// 		// alert(err.messages);
-					// 	}
-					// });
-					alert('wadaw')
+							// reset the form
+							$("#FormDisplayCreate")[0].reset();
+							// reload the datatables
+							datatable.ajax.reload(null, false);
+							// window.location.reload()
+							// if (response.success == true) {
+								// this function is built in function of datatables;
+							// }
+						},
+						error: function(xhr, status, error) {
+							mymodalss.style.display = "none";
+							modals.style.display = "block";
+							document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+							// var err = eval("(" + xhr.responseText + ")");
+							// alert(err.messages);
+						}
+					});
 					return false;
 				}
 

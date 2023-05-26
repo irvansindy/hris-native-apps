@@ -337,12 +337,12 @@ if ($platform != 'mobile') {
                                 id="submit_reject_spvdown" data-toggle="modal" data-target="#FormDisplayRejectRequest">
                                 &nbsp;&nbsp;Reject&nbsp;&nbsp;
                             </a>
-                            <a style="<?php echo $button_status_hide_or_no; ?>; color: white;padding-top: 8px;"
+                            <!-- <a style="<?php echo $button_status_hide_or_no; ?>; color: white;padding-top: 8px;"
                                 class="btn-sdk btn-primary-center-not-only" name="submit_revision_spvdown"
                                 id="submit_revision_spvdown" data-toggle="modal"
                                 data-target="#FormDisplayRevisionRequest">
                                 &nbsp;Revision&nbsp;
-                            </a>
+                            </a> -->
                             <button class="btn-sdk btn-primary-not-only-right" type="submit"
                                 name="submit_approval_spvdown" id="submit_approval_spvdown">
                                 Approved

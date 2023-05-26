@@ -80,7 +80,7 @@ include "../../../model/ta/GMAttendanceEditList.php";
 			<!-- default start time attendance -->
 			<td style="padding-top: 13px;" align="center">
 				<p id="shiftstarttime_<?php echo $r['key_att']; ?>">
-					<?php echo $r['shiftdaily_code']; ?></p>
+					<?php echo $r['shiftdaily_codeinp_onduty_purpose']; ?></p>
 				<input id="inp_shiftstart_1" name="inp_shiftstart_1" type="hidden" readonly="true" size="4"
 					value="<?php echo $r['shiftdaily_code']; ?>" style="background:yellow">
 			</td>

@@ -2,12 +2,12 @@
 <!-- Left Sidebar - style you can find in sidebar.scss  -->
 <!-- ============================================================== -->
 <?php
-$req_app             = mysqli_fetch_array(mysqli_query($connect, "SELECT emp_no, 
-                                                                                   REPLACE(GROUP_CONCAT(formula ORDER BY formula ASC SEPARATOR ','),',','`,`') AS formula 
-                                                                                    FROM users_menu_access
-                                                                                      WHERE 
-                                                                                    emp_no = '$username'
-                                                                                    GROUP BY emp_no"));
+$req_app = mysqli_fetch_array(mysqli_query($connect, "SELECT emp_no, 
+            REPLACE(GROUP_CONCAT(formula ORDER BY formula ASC SEPARATOR ','),',','`,`') AS formula 
+            FROM users_menu_access
+                WHERE 
+            emp_no = '$username'
+            GROUP BY emp_no"));
 $var1 = array("`");
 $var2 = array("'");
 if ($req_app) {

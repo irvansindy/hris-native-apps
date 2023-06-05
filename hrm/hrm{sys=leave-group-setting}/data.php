@@ -108,12 +108,9 @@
 			<thead>
 				<tr>
 					<th class="fontCustom" style="z-index: 1;" nowrap="nowrap">No</th>
-					<th class="fontCustom" style="z-index: 1;">Period ID</th>
-					<th class="fontCustom" style="z-index: 1;">Period Name </th>
-					<th class="fontCustom" style="z-index: 1;">Pay Date</th>
-					<th class="fontCustom" style="z-index: 1;">Start Date</th>
-					<th class="fontCustom" style="z-index: 1;">End Date</th>
-					<th class="fontCustom" style="z-index: 1;">Interval Period</th>
+					<th class="fontCustom" style="z-index: 1;">Shift Daily Code</th>
+					<th class="fontCustom" style="z-index: 1;">Cost Code </th>
+					<th class="fontCustom" style="z-index: 1;">Max Man Power</th>
 					<th class="fontCustom" style="z-index: 1;">Status</th>
 				</tr>
 			</thead>
@@ -142,7 +139,7 @@
 					<fieldset id="fset_1">
 						<legend>Form Leave Group Setting</legend>
 
-						<div class="form-row" id="leave_group_setting_id_form">
+						<!-- <div class="form-row" id="leave_group_setting_id_form">
 							<div class="col-3 name">ID <font color="red">*</font>
 							</div>
 							<div class="col-sm-8">
@@ -152,7 +149,7 @@
 										placeholder="leave group setting id" title="leave group setting id">
 								</div>
 							</div>
-						</div>
+						</div> -->
 
 						<div class="form-row">
 							<div class="col-3 name">Shift Daily Code <font color="red">*</font>
@@ -195,7 +192,7 @@
 						</div>
 
 						<div class="form-row">
-							<div class="col-3 name">Max PIC <font color="red">*</font>
+							<div class="col-3 name">Max Man Power/PIC <font color="red">*</font>
 							</div>
 							<div class="col-sm-8">
 								<div class="input-group">
@@ -283,6 +280,99 @@
 <!-- /edit modal -->
 <!-- delete transaction modal -->
 
+<!-- edit modal -->
+<div class="modal fade fade-custom" tabindex="-1" role="dialog" id="EditForm">
+	<div class="modal-dialog modal-belakang modal-med" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="modal-edit-title"></h4>
+				<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close"
+					style="margin-top: -15px;">
+					<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
+				</a>
+			</div>
+
+			<form class="form-horizontal" method="POST" id="FormDisplayEdit" onkeydown="return event.key != 'Enter';">
+
+				<div class="card-body table-responsive p-0"
+					style="width: 100vw; height: auto; width: 98%; margin: 5px;overflow: scroll;overflow-x: hidden;">
+					<input type="hidden" name="function" id="function" value="create" />
+					<input id="inp_emp_no" name="inp_emp_no" type="hidden" value="<?php echo $username; ?>">
+					<fieldset id="fset_1">
+						<legend>Form Leave Group Setting</legend>
+						<div class="form-row">
+							<div class="col-3 name">Shift Daily Code <font color="red">*</font>
+							</div>
+							<div class="col-sm-8">
+								<div class="input-group">
+									<select class="input--style-6" name="update_shift_daily_code" id="update_shift_daily_code"
+										style="width: 100%;height: 30px;">
+									</select>
+									<input type="hidden" class="form-control" id="value_update_shift_daily_code">
+								</div>
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="col-3 name">Cost Code <font color="red">*</font>
+							</div>
+							<div class="col-sm-8">
+								<div class="input-group">
+									<select class="input--style-6" name="update_cost_code" id="update_cost_code"
+										style="width: 100%;height: 30px;">
+									</select>
+									<input type="hidden" class="form-control" id="value_update_cost_code">
+								</div>
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="col-3 name">Max Man Power/PIC <font color="red">*</font>
+							</div>
+							<div class="col-sm-8">
+								<div class="input-group">
+									<input class="input--style-6" type="number" id="update_max_manpower"
+										name="update_max_manpower" value="" autocomplete="off" autofocus="on" size="30"
+										maxlength="50" placeholder="Max PIC" title="Max PIC"
+										min="1" max="9999" maxlength="4" oninput="this.value=this.value.slice(0,this.maxLength||1/1);this.value=(this.value   < 1) ? (1/1) : this.value;"
+										>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-row" id="Upload2">
+							<input type="hidden" name="update_active_status_code" id="update_active_status_code" value="">
+							<div class="col-sm-3 name">Active status? </div>
+							<div class="col-sm-8">
+								<div class="input-group" id="tr_update_active_status">
+									<div class="vc-toggle-container">
+										<label class="vc-switch">
+											<input type="checkbox" checked="checked" name="update_active_status" id="update_active_status"
+												class="vc-switch-input">
+											<span class="vc-switch-label" data-on="Yes" data-off="No"></span>
+											<span class="vc-handle"></span>
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+				</div>
+				<!-- //LOAD BUTTON APPROVER STATUS -->
+				<div class="modal-footer-sdk" id="modalcancelcondition_0">
+					<button type="reset" class="btn-sdk btn-primary-left" data-dismiss="modal" aria-hidden="true">
+						&nbsp;Cancel&nbsp;
+					</button>
+					<button class="btn-sdk btn-primary-right" type="submit" name="submit_update" id="submit_update">
+						Confirm
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</div>
+<!-- end edit modal -->
+
 <div class="modal fade" tabindex="-1" role="dialog" id="FormDisplayDelete">
 
 	<div class="modal-dialog modal-vsm" style="margin-top: 120px;">
@@ -346,12 +436,22 @@
 	}
 </script>
 
+<!-- select 2 -->
 <script>
+	// in create form
 	$('#inp_shift_daily_code').select2({
 		dropdownParent: $('#CreateForm')
 	});
 	$('#inp_cost_code').select2({
 		dropdownParent: $('#CreateForm')
+	});
+	
+	// in update form
+	$('#update_shift_daily_code').select2({
+		dropdownParent: $('#EditForm')
+	});
+	$('#update_cost_code').select2({
+		dropdownParent: $('#EditForm')
 	});
 </script>
 
@@ -416,71 +516,41 @@
 				// var inp_add_enddate = $("#inp_add_enddate").val();
 				// var from = new Date(inp_add_startdate).getTime();
 				// var to = new Date(inp_add_enddate).getTime();
-				var inp_leave_group_setting_id = $("#inp_leave_group_setting_id").val();
+				// var inp_leave_group_setting_id = $("#inp_leave_group_setting_id").val();
 				var inp_shift_daily_code = $("#inp_shift_daily_code").val();
 				var inp_cost_code = $("#inp_cost_code").val();
 				var inp_max_manpower = $("#inp_max_manpower").val();
 
-				var selected = [];
-				for (var option of document.getElementById('test-select-4s').options) {
-					if (option.selected) {
-						selected.push(option.value);
-					}
-				}
+				// var selected = [];
+				// for (var option of document.getElementById('test-select-4s').options) {
+				// 	if (option.selected) {
+				// 		selected.push(option.value);
+				// 	}
+				// }
 
 				var regex = /^[a-zA-Z]+$/;
 
 
-				if (inp_period_id == "") {
+				if (inp_shift_daily_code == "") {
 					modals.style.display = 'block';
-					document.getElementById('msg').innerHTML = 'Period ID cannot empty';
-					return false;
-
-				} else if (inp_period_name == "") {
-					modals.style.display = 'block';
-					document.getElementById('msg').innerHTML = 'Period Name cannot empty';
-					return false;
-
-				} else if (inp_add_paydate == "") {
-					mymodalss.style.display = "none";
-					modals.style.display = "block";
-					document.getElementById("msg").innerHTML = "Pay Date cannot empty";
-					return false;
-
-				} else if (from > to) {
-					mymodalss.style.display = "none";
-					modals.style.display = "block";
-					document.getElementById("msg").innerHTML =
-						"Entry Date: Enter Date in Proper Range";
-					return false;
-
-				} else if (inp_add_startdate == "") {
-					mymodalss.style.display = "none";
-					modals.style.display = "block";
-					document.getElementById("msg").innerHTML = "Start date cannot empty";
-					return false;
-
-				} else if (inp_add_enddate == "") {
-					mymodalss.style.display = "none";
-					modals.style.display = "block";
-					document.getElementById("msg").innerHTML = "End date cannot empty";
+					document.getElementById('msg').innerHTML = 'Shift daily code cannot empty';
 					return false;
 
 				} else if (inp_cost_code == "") {
 					modals.style.display = 'block';
-					document.getElementById('msg').innerHTML = 'Period Interval cannot empty';
+					document.getElementById('msg').innerHTML = 'Cost code cannot empty';
 					return false;
 
-				} else if (selected == '') {
+				} else if (inp_max_manpower == "") {
 					mymodalss.style.display = "none";
 					modals.style.display = "block";
-					document.getElementById("msg").innerHTML =
-						"Please select at least one employee";
+					document.getElementById("msg").innerHTML = "MAx man power/PIC cannot empty";
 					return false;
-				} else {
+				// }
+				}  else {
 
 					$.ajax({
-						url: "php_action/FunctionController.php?function=create",
+						url: "php_action/FuncDataCreate.php",
 						type: form.attr('method'),
 						// data: form.serialize(),
 
@@ -537,139 +607,81 @@
 
 		if (id) {
 			$.ajax({
-				url: 'php_action/getSelectedRows.php',
-				type: 'post',
+				url: 'php_action/getDataById.php',
+				type: 'GET',
 				data: {
-					member_id: id
+					id: id
 				},
 				dataType: 'json',
 				success: function (response) {
-
+					// alert(response[0].id)
 					mymodalss.style.display = "none";
 
+					document.getElementById("modal-edit-title").innerHTML = "Detail Leave Group Setting";
 
+					// $("#cancellation_id").attr("data-id", response.period_id);
+					// load data shift daily code
+					$('#value_update_shift_daily_code').val(response[0].shiftdailycode)
+					$('#update_shift_daily_code').empty()
+					$('#update_shift_daily_code').append('<option value="'+response[0].shiftdailycode+'">'+response[0].shiftdailycode+'</option>')
+					$.each(response[1], function(i, data) {
+						$('#update_shift_daily_code').append('<option value="'+data.shiftdailycode+'">'+data.shiftdailycode+'</option>')
+					})
+					
+					// load data cost code
+					$('#value_update_cost_code').val(response[0].cost_code)
+					$('#update_cost_code').empty()
+					$('#update_cost_code').append('<option value="'+response[0].cost_code+'">'+response[0].cost_code+'</option>')
+					$.each(response[2], function(i, data) {
+						$('#update_cost_code').append('<option value="'+data.costcenter_code+'">'+data.costcenter_name_en+'</option>')
+					})
 
+					// load data max manpower/pic
+					$('#update_max_manpower').val(response[0].max_manpower)
+					
+					// load active status 
+					$('#update_active_status_code').val(response[0].active_status)
 
-
-
-					$("#cancellation_id").attr("data-id", response.period_id);
-
-
-					$("#FormDisplayCreate").append(
-						'<input type="hidden" name="inp_keyofupdate" id="inp_keyofupdate" value="' +
-						response.period_id + '"/>');
-					$("#FormDisplayCreate").append(
-						'<input type="hidden" name="automaticovt_type" id="automaticovt_type" value="' +
-						response.automaticovt_type + '"/>');
-					$("#FormDisplayCreate").append(
-						'<input type="hidden" name="function" id="function" value="update"/>');
-
-					document.getElementById("modal--title").innerHTML = "Update Payroll Period Setting : " +
-						response.period_id;
-					$("#period_id_form").hide();
-
-
-
-					$("#inp_period_name").val(response.period_name);
-					$("#inp_add_paydate").val(response.paydate);
-					$("#inp_add_startdate").val(response.datestart);
-					$("#inp_add_enddate").val(response.dateend);
-					$("#inp_cost_code").val(response.interval_period);
-
-
-					$("#box_add_employee").load("pages_relation/_pages_add_employee.php?rfid=" + response
-						.period_id,
-						function (responseTxt, statusTxt, jqXHR) {
-							if (statusTxt == "success") {
-								$("#box_add_employee").show();
-								if ($("#box_add_employee").show()) {
-									mymodalss.style.display = "none";
-								}
-							}
-							if (statusTxt == "error") {
-								alert("Error: " + jqXHR.status + " " + jqXHR.statusText);
-							}
-						}
-					);
-
-
-
-					$("#Upload2").show();
-					if (response.status == 1) {
-						$('#inp_status').prop('checked', true);
+					// load active status
+					if(response[0].active_status == 1) {
+						$('#update_active_status').prop('checked', true);
 					} else {
-						$('#inp_status').prop('checked', false);
+						$('#update_active_status').prop('checked', false);
 					}
 
-
-
-
-
+					$("#FormDisplayEdit").append('<input type="hidden" name="upd_id" id="upd_id" value="' + response[0].id + '"/>');
+					
 					$("#modalcancelcondition_0").show();
 					$("#modalcancelcondition_1").hide();
 					$("#modalcancelcondition_2").hide();
 					$("#modalcancelcondition_3").hide();
 
-					$("#FormDisplayCreate").unbind('submit').bind('submit', function () {
-
-
-
+					$("#FormDisplayEdit").unbind('submit').bind('submit', function () {
 						var form = $(this);
+						var update_shift_daily_code = $('#update_shift_daily_code').val()
+						var update_cost_code = $('#update_cost_code').val()
+						var update_max_manpower = $('#update_max_manpower').val()
+						var update_active_status_code = $('#update_active_status_code').val()
 
-						var inp_period_name = $("#inp_period_name").val();
-						var inp_add_paydate = $("#inp_add_startdate").val();
-						var inp_add_startdate = $("#inp_add_startdate").val();
-						var inp_add_enddate = $("#inp_add_enddate").val();
-						var from = new Date(inp_add_startdate).getTime();
-						var to = new Date(inp_add_enddate).getTime();
-						var inp_cost_code = $("#inp_cost_code").val();
-
-
-						var selected = [];
-						for (var option of document.getElementById('test-select-4s').options) {
-							if (option.selected) {
-								selected.push(option.value);
-							}
-						}
-
-
-						if (inp_period_name == "") {
+						if (update_shift_daily_code == "") {
 							modals.style.display = 'block';
-							document.getElementById('msg').innerHTML = 'Period Name cannot empty';
+							document.getElementById('msg').innerHTML = 'Shift daily code cannot empty';
 							return false;
 
-						} else if (from > to) {
+						} else if (update_cost_code == "") {
 							modals.style.display = "block";
-							document.getElementById("msg").innerHTML =
-								"Entry Date: Enter Date in Proper Range";
+							document.getElementById("msg").innerHTML =  'Cost code cannot empty';
 							return false;
 
-						} else if (inp_add_startdate == "") {
+						} else if (update_max_manpower == "") {
 							modals.style.display = "block";
-							document.getElementById("msg").innerHTML = "Start date cannot empty";
-							return false;
-
-						} else if (inp_add_enddate == "") {
-							modals.style.display = "block";
-							document.getElementById("msg").innerHTML = "End date cannot empty";
-							return false;
-
-						} else if (inp_cost_code == "") {
-							modals.style.display = 'block';
-							document.getElementById('msg').innerHTML = 'Period Interval cannot empty';
-							return false;
-
-						} else if (selected == '') {
-							mymodalss.style.display = "none";
-							modals.style.display = "block";
-							document.getElementById("msg").innerHTML =
-								"Please select at least one employee";
+							document.getElementById("msg").innerHTML = "Man power/PIC cannot empty";
 							return false;
 						} else {
 							mymodalss.style.display = "block";
 
 							$.ajax({
-								url: "php_action/FunctionController.php?function=update",
+								url: "php_action/FuncDataUpdate.php",
 								type: form.attr('method'),
 								// data: form.serialize(),
 
@@ -1038,11 +1050,11 @@
 	});
 
 	$(document).ready(function () {
-		$("#inp_status").click(function () {
-			if ($('#inp_status').is(':checked')) {
-				$("#inp_status_code").val('1');
+		$("#update_active_status").click(function () {
+			if ($('#update_active_status').is(':checked')) {
+				$("#update_active_status_code").val('1');
 			} else {
-				$("#inp_status_code").val('0');
+				$("#update_active_status_code").val('0');
 			}
 		});
 	});

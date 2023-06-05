@@ -8,34 +8,32 @@ if ($getdata == 0) {
 }
 
 
-include "../../../model/st/GMPayrollPeriod.php";
+// include "../../../model/st/GMPayrollPeriod.php";
+include "../../../model/st/GMLeaveSettingQuotaList.php";
 
 
 $output = array('data' => array());
 
 
-$sql = $qListRender;
+$sql = $query_leave_group_setting;
 
 $query = mysqli_query($connect, $sql);
 
-$x = 1;
+$number = 1;
 while ($row = mysqli_fetch_assoc($query)) {
 
-       $prn = '<a type="button" href="" nowrap="nowrap" data-toggle="modal" data-target="#CreateForm" data-backdrop="static" onclick="update(`' . $row['period_id'] . '`)"> ' . $row['period_id'] . '</a>';
+       $shift_daily_code = '<a type="button" href="" nowrap="nowrap" data-toggle="modal" data-target="#EditForm" data-backdrop="static" onclick="update(`' . $row['id'] . '`)"> ' . $row['id'] . '</a>';
 
        $output['data'][] = array(
-              $x,
-              $prn,
-              $row['period_name'],
-              $row['pay_date'],
-              $row['date_start'],
-              $row['date_end'],
-              $row['intervalperiod'],
-              '<img src='.$row['periodstatus'].'>'
+              $number,
+              $shift_daily_code,
+              $row['cost_code'],
+              $row['max_manpower'],
+              $row['active_status'] == 1 ? 'Active' : 'Inactive'
 
        );
 
-       $x++;
+       $number++;
 }
 
 // database connection close

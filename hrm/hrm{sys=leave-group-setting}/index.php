@@ -49,7 +49,8 @@ $footer = 'no'; //set as `yes` if you want to use default footer & set as `no` i
                                 </a>
                             </td>
                             <td>
-                                <form id="form-excel" action="../rfid=repository/cli_Template_Download/st/StFunctionDownload.php?filedata=StDownloadGTTGRShiftDailyData.php&filename=Shift Daily" method="POST">
+                                <!-- <form id="form-excel" action="../rfid=repository/cli_Template_Download/st/StFunctionDownload.php?filedata=StDownloadGTTGRShiftDailyData.php&filename=Shift Daily" method="POST"> -->
+                                <form id="form-excel" action="../rfid=repository/cli_Template_Download/st/StFunctionDownload.php?filedata=StDownloadLeaveGroupQuota.php&filename=Shift Group Quota" method="POST">
                                     <input type="hidden" name="src_shiftcode" value="<?php echo $src_shiftcode; ?>">
                                     <input type="hidden" name="src_daytype" value="<?php echo $src_daytype; ?>">
 

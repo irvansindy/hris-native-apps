@@ -508,88 +508,83 @@
 				$(".text-danger").remove();
 
 				var form = $(this);
-
-				// var inp_period_id = $("#inp_period_id").val();
-				// var inp_period_name = $("#inp_period_name").val();
-				// var inp_add_paydate = $("#inp_add_paydate").val();
-				// var inp_add_startdate = $("#inp_add_startdate").val();
-				// var inp_add_enddate = $("#inp_add_enddate").val();
-				// var from = new Date(inp_add_startdate).getTime();
-				// var to = new Date(inp_add_enddate).getTime();
-				// var inp_leave_group_setting_id = $("#inp_leave_group_setting_id").val();
 				var inp_shift_daily_code = $("#inp_shift_daily_code").val();
 				var inp_cost_code = $("#inp_cost_code").val();
 				var inp_max_manpower = $("#inp_max_manpower").val();
-
-				// var selected = [];
-				// for (var option of document.getElementById('test-select-4s').options) {
-				// 	if (option.selected) {
-				// 		selected.push(option.value);
-				// 	}
-				// }
-
 				var regex = /^[a-zA-Z]+$/;
-
 
 				if (inp_shift_daily_code == "") {
 					modals.style.display = 'block';
 					document.getElementById('msg').innerHTML = 'Shift daily code cannot empty';
 					return false;
-
 				} else if (inp_cost_code == "") {
 					modals.style.display = 'block';
 					document.getElementById('msg').innerHTML = 'Cost code cannot empty';
 					return false;
-
 				} else if (inp_max_manpower == "") {
 					mymodalss.style.display = "none";
 					modals.style.display = "block";
 					document.getElementById("msg").innerHTML = "MAx man power/PIC cannot empty";
 					return false;
-				// }
 				}  else {
 
 					$.ajax({
 						url: "php_action/FuncDataCreate.php",
 						type: form.attr('method'),
-						// data: form.serialize(),
-
 						data: new FormData(this),
 						processData: false,
 						contentType: false,
 						dataType: 'json',
+						// success: function (response) {
+						// 	// remove the error 
+						// 	$(".form-group").removeClass('has-error').removeClass(
+						// 		'has-success');
 
-						success: function (response) {
+						// 	if (response.code == 'success_message') {
 
+						// 		mymodalss.style.display = "none";
+						// 		modals.style.display = "block";
+						// 		document.getElementById("msg").innerHTML = response
+						// 			.messages;
+						// 		datatable.ajax.reload(null, true);
+						// 		$("[data-dismiss=modal]").trigger({
+						// 			type: "click"
+						// 		});
+
+						// 		// reset the form
+						// 		// $("#FormDisplayCreate")[0].reset();
+						// 		// reload the datatables
+
+						// 		// this function is built in function of datatables;
+						// 	} else {
+						// 		mymodalss.style.display = "none";
+						// 		modals.style.display = "block";
+						// 		document.getElementById("msg").innerHTML = response
+						// 			.messages;
+						// 	} // /else
+						// }
+						success: function(response) {
 							// remove the error 
 							$(".form-group").removeClass('has-error').removeClass(
 								'has-success');
+							mymodalss.style.display = "none";
+							modals.style.display = "block";
+							document.getElementById("msg").innerHTML = response.messages;
 
-							if (response.code == 'success_message') {
+							$('#FormDisplayCreate').modal('hide');
+							$("[data-dismiss=modal]").trigger({type: "click"});
 
-								mymodalss.style.display = "none";
-								modals.style.display = "block";
-								document.getElementById("msg").innerHTML = response
-									.messages;
-								datatable.ajax.reload(null, true);
-								$("[data-dismiss=modal]").trigger({
-									type: "click"
-								});
-
-								// reset the form
-								// $("#FormDisplayCreate")[0].reset();
-								// reload the datatables
-
-								// this function is built in function of datatables;
-							} else {
-								mymodalss.style.display = "none";
-								modals.style.display = "block";
-								document.getElementById("msg").innerHTML = response
-									.messages;
-							} // /else
-						} // success  
-					}); // ajax subit 				
-
+							// reset the form
+							$("#FormDisplayCreate")[0].reset();
+							// reload the datatables
+							datatable.ajax.reload(null, false);
+						},
+						error: function(xhr, status, error) {
+							mymodalss.style.display = "none";
+							modals.style.display = "block";
+							document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+						}
+					});
 					return false;
 				}
 

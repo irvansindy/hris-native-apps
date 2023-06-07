@@ -836,7 +836,8 @@ $('body').on('click tap', '.buttonOnDutyRequest', function(e) {
 							<thead class="thead-light">
 								<tr>
 									<th style="text-align:center">
-										<input type="checkbox" onchange="checkAll(this)" class="inputCheckAll" name="checkAllRequest[]"> <span>Check All</span>
+										<input type="checkbox" class="inputCheckAll" name="checkAllRequest[]" onclick="checkAll(this)"> <span>Check All</span>
+										
 									</th>
 									<th style="text-align:center">Number</th>
 									<th style="text-align:center">Start Date</th>
@@ -863,6 +864,7 @@ $('body').on('click tap', '.buttonOnDutyRequest', function(e) {
 					</button>
 				</div>
 			`)
+			// onchange="checkAll(this)"
 
 			let no = 1;
 			let checked = 1;
@@ -870,7 +872,7 @@ $('body').on('click tap', '.buttonOnDutyRequest', function(e) {
 				$('#list_data_on_duty_detail_request').append(`
 					<tr>
 						<td style="width:20%;text-align:left;">
-							<input class="input--style-7" type="checkbox" class="checkbox-tanggal" name="checked[]" onchange="uncheck(this)" value="${checked++}">
+							<input class="input--style-7" type="checkbox" class="checkbox-tanggal" name="checked[]" onclick="uncheck(this)" value="${checked++}">
 						</td>
 						<td style="width:20%;text-align:left;">
 							${no++}
@@ -886,7 +888,7 @@ $('body').on('click tap', '.buttonOnDutyRequest', function(e) {
 					</tr>
 				`)
 			}
-
+// onchange="uncheck(this)"
 
 		},
 		error: function(xhr, status, error) {
@@ -905,11 +907,16 @@ $('body').on('click tap', '#backOnDutyRequest', function() {
 })
 
 function checkAll(e) {
-	var checkboxes = document.getElementsByTagName('input');
+	var checkboxes = document.getElementsByTagName('input')
+	var checkboxes = document.getElementsByName('checked[]')
+	
 	if(e.checked) {
 		for (let index = 0; index < checkboxes.length; index++) {
 			if(checkboxes[index].type == 'checkbox' && !(checkboxes[index].disabled)) {
 				checkboxes[index].checked = true;
+				// let data = document.querySelector('input[name="checked[]"]:checked').value
+				var values = [].filter.call(document.getElementsByName('checked[]'), (c) => c.checked).map(c => c.value);
+				console.log(values)
 			}
 		}
 	} else {
@@ -921,20 +928,20 @@ function checkAll(e) {
 	}
 }
 
-$('.checkbox-tanggal').on('change', function() {
-	
-})
-
-// function uncheck(e) {
-// 	let checkboxData = document.getElementsByClassName('checkbox-tanggal');
-// 	if (!e.checked) {
-// 		let inputCheckAll = document.getElementsByClassName('inputCheckAll');
-// 		if(inputCheckAll.type == 'checkbox' && inputCheckAll.checked = true) {
-// 			alert('ga jadi pilih semua');
-// 			inputCheckAll.checked = false;
-// 		}
-// 	}
-// }
+function uncheck() {
+	let checked = document.getElementsByName('checked[]')
+	for (let index = 0; index < checked.length; index++) {
+		var checked_data = checked[index];
+		if(checked_data.type == 'checkbox' && checked_data.checked == false) {
+			let checked_parent = document.getElementsByName('checkAllRequest[]')
+			for (let index = 0; index < checked_parent.length; index++) {
+				if (checked_parent[index].type == 'checkbox') {
+					checked_parent[index].checked = false
+				}
+			}
+		}
+	}
+}
 
 $('body').on('click', '#submit_request', function() {
 	$.ajax({

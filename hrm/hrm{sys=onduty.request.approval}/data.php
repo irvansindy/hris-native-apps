@@ -863,6 +863,7 @@ if ($platform != 'mobile') {
 
         if (id) {
             // fetch the member data
+            alert(id)
             $.ajax({
                 url: 'php_action/getSelectedRequest.php<?php echo $getPackage; ?>',
                 type: 'GET',

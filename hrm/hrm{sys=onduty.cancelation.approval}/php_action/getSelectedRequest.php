@@ -2,17 +2,17 @@
 require_once '../../../application/config.php';
 !empty($_GET['emp_id']) ? $getdata = '1' : $getdata = '0';
 if ($getdata == 0) {
-       include "../../../application/session/sessionlv2.php";
+	include "../../../application/session/sessionlv2.php";
 } else {
-       include "../../../application/session/mobile.session.php";
+	include "../../../application/session/mobile.session.php";
 }
 
 
-$memberId = $_POST['member_id'];
+$request_no = $_GET['member_id'];
 //$memberId = 'PAREQ2022-130299';
 
-$get_data_0          = mysqli_fetch_array(mysqli_query($connect, "SELECT position_id FROM view_employee WHERE emp_no = '$username'"));
-$get_data_print_0    = $get_data_0['position_id'];
+	$getPositionId = mysqli_fetch_array(mysqli_query($connect, "SELECT position_id FROM view_employee WHERE emp_no = '$username'"));
+	$empPositionId = $getPositionId['position_id'];
 
 //$memberId = 'DO170048';
 
@@ -25,7 +25,7 @@ $sql = "SELECT
 			b.Full_Name,
 			b.emp_no,
 			rests.revised_remark as remark
-			FROM hrmleavecancelrequest a
+			FROM hrmondutycancelrequest a
 			LEFT JOIN view_employee b ON a.requestfor=b.emp_id
 			LEFT JOIN (
 				SELECT 
@@ -34,7 +34,7 @@ $sql = "SELECT
 				MAX(request_status) AS sts
 				FROM
 				hrmrequestapproval
-				WHERE position_id = '$get_data_print_0'
+				WHERE position_id = '$empPositionId'
 				GROUP BY request_no
 			) rests ON rests.request_no = a.request_no
 			LEFT JOIN hrmstatus d ON d.code = rests.sts
@@ -44,7 +44,32 @@ $sql = "SELECT
 $query = mysqli_query($connect, $sql);
 $result = mysqli_fetch_assoc($query);
 
-$connect->close();
+$query_get_data = "SELECT 
+	a.*,
+	a.request_no,
+	DATE_FORMAT(a.requestdate, '%d %b %Y') as requestdate,
+	b.Full_Name,
+	b.emp_no,
+	rests.revised_remark as remark
+	FROM hrmondutycancelrequest a
+	LEFT JOIN view_employee b ON a.requestfor=b.emp_id
+	LEFT JOIN (
+		SELECT 
+		request_no,
+		revised_remark,
+		MAX(request_status) AS sts
+		FROM
+		hrmrequestapproval
+		WHERE position_id = '$empPositionId'
+		GROUP BY request_no
+	) rests ON rests.request_no = a.request_no
+	LEFT JOIN hrmstatus d ON d.code = rests.sts
+	WHERE a.request_no = '$request_no'
+	GROUP BY a.request_no";
 
-echo json_encode($result);
+$result_data = mysqli_fetch_assoc(mysqli_query($connect, $query_get_data));
+
+$connect->close();
+header('Content-Type: application/json');
+echo json_encode($result_data);
 

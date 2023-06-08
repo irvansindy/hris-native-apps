@@ -178,95 +178,95 @@ $(document).ready(function () {
 
 <!-- add modal -->
 <div class="modal  fade fade-custom" tabindex="-1" role="dialog" id="CreateForm">
-<div class="modal-dialog modal-belakang modal-med" role="document">
-	<div class="modal-content">
-		<div class="modal-header">
-			<h4 class="modal-title">List On Duty Request</h4>
-			<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close"
-				style="margin-top: -15px;">
-				<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
-			</a>
-		</div>
-
-		<form class="form-horizontal" action="php_action/FuncDataCreate.php<?php echo $getPackage; ?>" method="POST"
-			id="FormDisplayCreate">
-
-			<div class="card-body table-responsive p-0" style="width: 100vw;height: 50vh; width: 100%; overflow: scroll;overflow-x: hidden;">
-				<div id="filter_onduty">
-					<fieldset id="fset_1">
-						<legend>General Filter</legend>
-						<div class="messages_create"></div>
-						<input id="inp_emp_no" name="inp_emp_no" type="hidden" value="<?php echo $username; ?>">
-						<!--FROM SESSION -->
-						<input id="inp_token" name="inp_token" type="hidden" value="<?php echo $get_token; ?>">
-						<!--FROM CONFIGURATION -->
-						<div class="form-row">
-							<div class="col-4 name">Employee no*</div>
-							<div class="col-sm-8">
-								<div class="input-group card-body table-responsive p-0">
-									<td>
-										<input class="input--style-6"
-											autocomplete="off" autofocus="on" id="emp_no_for" name="emp_no_for" type="Text"
-											onfocus="this.value=''" size="30" value=""
-											maxlength="50" validate="NotNull:Invalid Form Entry"
-											data-emp="<?php echo $username; ?>">
-										</div>
-										<div id="employeeList"></div>
-										<input type="hidden" name="emp_id_for" id="emp_id_for">
-									</td>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-4 name">On Duty Request No.</div>
-							<div class="col-sm-8">
-								<div class="input-group">
-									<input class="input--style-6" id="input_onduty_request" name="input_onduty_request" type="Text"
-										value="" onfocus="hlentry(this)" size="20" maxlength="50"
-										validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="">
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-4 name">Date</div>
-							<div class="col-sm-4">
-								<div class="input-group">
-									<input type="text" id="inp_startdate" name="inp_startdate" class="input--style-6"
-										style="
-										background-image:url(../../asset/dist/img/icons/calendar_icon.gif);  
-										background-size: 17px;
-										background-position:right;   
-										background-repeat:no-repeat; 
-										padding-right:10px;  
-										" />
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="input-group">
-									<input type="text" id="inp_enddate" name="inp_enddate" class="input--style-6" style="
-										background-image:url(../../asset/dist/img/icons/calendar_icon.gif);  
-										background-size: 17px;
-										background-position:right;   
-										background-repeat:no-repeat; 
-										padding-right:10px;  
-										" />
-								</div>
-							</div>
-							<div class="col-sm-4"></div>
-							<div class="col-sm-8 name">
-								<button id="show_preview_leave_request" class='btn btn-default' data-empno='<?php echo $username; ?>'>
-									Show
-								</button>
-							</div>
-						</div>
-					</fieldset>
-				</div>
-				<div id="table_on_duty_request"></div>
-				<div id="table_on_duty_detail_request"></div>
+	<div class="modal-dialog modal-belakang modal-med" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">List On Duty Request</h4>
+				<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close"
+					style="margin-top: -15px;">
+					<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
+				</a>
 			</div>
-			<div id="button_submit_data"></div>
-		</form>
+
+			<form class="form-horizontal" action="php_action/FuncDataCreate.php<?php echo $getPackage; ?>" method="POST"
+				id="FormDisplayCreate">
+
+				<div class="card-body table-responsive p-0" style="width: 100vw;height: 50vh; width: 100%; overflow: scroll;overflow-x: hidden;">
+					<div id="filter_onduty">
+						<fieldset id="fset_1">
+							<legend>General Filter</legend>
+							<div class="messages_create"></div>
+							<input id="inp_emp_no" name="inp_emp_no" type="hidden" value="<?php echo $username; ?>">
+							<!--FROM SESSION -->
+							<input id="inp_token" name="inp_token" type="hidden" value="<?php echo $get_token; ?>">
+							<!--FROM CONFIGURATION -->
+							<div class="form-row">
+								<div class="col-4 name">Employee no*</div>
+								<div class="col-sm-8">
+									<div class="input-group card-body table-responsive p-0">
+										<td>
+											<input class="input--style-6"
+												autocomplete="off" autofocus="on" id="emp_no_for" name="emp_no_for" type="Text"
+												onfocus="this.value=''" size="30" value=""
+												maxlength="50" validate="NotNull:Invalid Form Entry"
+												data-emp="<?php echo $username; ?>">
+											</div>
+											<div id="employeeList"></div>
+											<input type="hidden" name="emp_id_for" id="emp_id_for">
+										</td>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="col-4 name">On Duty Request No.</div>
+								<div class="col-sm-8">
+									<div class="input-group">
+										<input class="input--style-6" id="input_onduty_request" name="input_onduty_request" type="Text"
+											value="" onfocus="hlentry(this)" size="20" maxlength="50"
+											validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="">
+									</div>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="col-4 name">Date</div>
+								<div class="col-sm-4">
+									<div class="input-group">
+										<input type="text" id="inp_startdate" name="inp_startdate" class="input--style-6"
+											style="
+											background-image:url(../../asset/dist/img/icons/calendar_icon.gif);  
+											background-size: 17px;
+											background-position:right;   
+											background-repeat:no-repeat; 
+											padding-right:10px;  
+											" />
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="input-group">
+										<input type="text" id="inp_enddate" name="inp_enddate" class="input--style-6" style="
+											background-image:url(../../asset/dist/img/icons/calendar_icon.gif);  
+											background-size: 17px;
+											background-position:right;   
+											background-repeat:no-repeat; 
+											padding-right:10px;  
+											" />
+									</div>
+								</div>
+								<div class="col-sm-4"></div>
+								<div class="col-sm-8 name">
+									<button id="show_preview_leave_request" class='btn btn-default' data-empno='<?php echo $username; ?>'>
+										Show
+									</button>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+					<div id="table_on_duty_request"></div>
+					<div id="table_on_duty_detail_request"></div>
+				</div>
+				<div id="button_submit_data"></div>
+			</form>
+		</div>
 	</div>
-</div>
 </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <!-- /edit modal -->
@@ -597,7 +597,109 @@ $(document).ready(function () {
 	});
 </script>
 
-<script>
+<!-- isi JSON -->
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		$("#CreateButton").on('click', function () {
+			var empno = $(this).data("empno")
+			// reset the form 
+			$("#FormDisplayCreate")[0].reset();
+			// empty the message div
+			$(".messages_create").html("");
+			$('#filter_onduty').show()
+			$('#table_on_duty_request').show()
+			$('#table_on_duty_request').empty()
+			$('#table_on_duty_detail_request').empty()
+			$('#button_submit_data').empty()
+		
+			// submit form
+			$("#FormDisplayCreate").unbind('submit').bind('submit', function () {
+		
+				$(".text-danger").remove();
+		
+				var form = $(this);
+		
+				var inp_remark = $("#inp_remark").val();
+		
+		
+				var regex = /^[a-zA-Z]+$/;
+		
+				if (inp_remark == "") {
+					modals.style.display = "block";
+					document.getElementById("msg").innerHTML = "Remark cannot empty";
+		
+				}
+		
+				if (inp_remark) {
+		
+					//submi the form to server
+					$.ajax({
+						url: form.attr('action'),
+						type: form.attr('method'),
+						// data: form.serialize(),
+		
+						data: new FormData(this),
+						processData: false,
+						contentType: false,
+		
+						dataType: 'json',
+						success: function (response) {
+		
+							// remove the error 
+							$(".form-group").removeClass('has-error').removeClass(
+								'has-success');
+		
+		
+		
+							if (response.code == 'success_message') {
+		
+								$('#FormDisplayCreate').modal('hide');
+								$("[data-dismiss=modal]").trigger({
+									type: "click"
+								});
+		
+								// reset the form
+								$("#FormDisplayCreate")[0].reset();
+								// reload the datatables
+								datatable.ajax.reload(null, false);
+								// this function is built in function of datatables;
+		
+								modals.style.display = "block";
+								document.getElementById("msg").innerHTML = response
+									.messages;
+							} else {
+								modals.style.display = "block";
+								document.getElementById("msg").innerHTML = response
+									.messages;
+		
+								window.setTimeout(
+									function () {
+										$(".alert")
+											.fadeTo(
+												500,
+												0
+											)
+											.slideUp(
+												500,
+												function () {
+													$(this)
+														.remove();
+												}
+											);
+									},
+									4000
+								);
+							} // /else
+						} // success  
+					}); // ajax subit 				
+				} /// if
+				return false;
+			});
+		
+		});
+	})
+
 	$("#show_preview_leave_request").click(function () {
 		var empno = $(this).data('empno')
 		var input_onduty_request = $('#input_onduty_request').val()
@@ -660,12 +762,6 @@ $(document).ready(function () {
 					`)
 				}
 
-				// $('#tableOnDuty').DataTable({
-				// 	scrollX: true,
-				// 	pageLength: 15,
-				// 	pagingType: "simple"
-				// });
-
 			},
 			error: function(xhr, status, error) {
 				mymodalss.style.display = "none";
@@ -674,604 +770,200 @@ $(document).ready(function () {
 			}
 		})
 	});
-</script>
 
-<!-- isi JSON -->
-<script type="text/javascript">
-
-$("#CreateButton").on('click', function () {
-	var empno = $(this).data("empno")
-	// reset the form 
-	$("#FormDisplayCreate")[0].reset();
-	// empty the message div
-
-	$(".messages_create").html("");
-	$('#table_on_duty_request').empty()
-
-	// submit form
-	$("#FormDisplayCreate").unbind('submit').bind('submit', function () {
-
-		$(".text-danger").remove();
-
-		var form = $(this);
-
-		var inp_remark = $("#inp_remark").val();
-
-
-		var regex = /^[a-zA-Z]+$/;
-
-		if (inp_remark == "") {
-			modals.style.display = "block";
-			document.getElementById("msg").innerHTML = "Remark cannot empty";
-
-		}
-
-		if (inp_remark) {
-
-			//submi the form to server
-			$.ajax({
-				url: form.attr('action'),
-				type: form.attr('method'),
-				// data: form.serialize(),
-
-				data: new FormData(this),
-				processData: false,
-				contentType: false,
-
-				dataType: 'json',
-				success: function (response) {
-
-					// remove the error 
-					$(".form-group").removeClass('has-error').removeClass(
-						'has-success');
-
-
-
-					if (response.code == 'success_message') {
-
-						$('#FormDisplayCreate').modal('hide');
-						$("[data-dismiss=modal]").trigger({
-							type: "click"
-						});
-
-						// reset the form
-						$("#FormDisplayCreate")[0].reset();
-						// reload the datatables
-						datatable.ajax.reload(null, false);
-						// this function is built in function of datatables;
-
-						modals.style.display = "block";
-						document.getElementById("msg").innerHTML = response
-							.messages;
-					} else {
-						modals.style.display = "block";
-						document.getElementById("msg").innerHTML = response
-							.messages;
-
-						window.setTimeout(
-							function () {
-								$(".alert")
-									.fadeTo(
-										500,
-										0
-									)
-									.slideUp(
-										500,
-										function () {
-											$(this)
-												.remove();
-										}
-									);
-							},
-							4000
-						);
-					} // /else
-				} // success  
-			}); // ajax subit 				
-		} /// if
-		return false;
-	});
-
-});
-
-$('body').on('click tap', '.buttonOnDutyRequest', function(e) {
-	var target = $(e.target);
-	var request_no = target.data("id");
-	var emp_id = target.data("empid");
-	var requestby = target.data("requestby");
-	e.preventDefault()
-	// alert(emp_id)
-	$('#table_on_duty_detail_request').empty()
-	$.ajax({
-		url: 'php_action/getListDataDetailOnDutyRequest.php',
-		type: 'GET',
-		data: {
-			request_no: request_no,
-			requestby: requestby
-		},
-		dataType: 'json',
-		async: true,
-		success: function(response) {
-			$('#table_on_duty_request').hide()
-			$('#filter_onduty').hide()
-			$('#table_on_duty_detail_request').append(`
-				<fieldset id="fset_1">
-					<legend>List On Duty Detail Request</legend>
-					<div class="form-row">
-						<div class="col-4 name">On Duty Request No : </div>
-						<div class="col-sm-8 name">
-							${response.data[0][0]['request_no']}
-							<input id="input_onduty_request_no" name="input_onduty_request_no" type="Hidden" value="${response.data[0][0]['request_no']}">
+	$('body').on('click tap', '.buttonOnDutyRequest', function(e) {
+		var target = $(e.target);
+		var request_no = target.data("id");
+		var emp_id = target.data("empid");
+		var requestby = target.data("requestby");
+		e.preventDefault()
+		// alert(emp_id)
+		$('#table_on_duty_detail_request').empty()
+		$.ajax({
+			url: 'php_action/getListDataDetailOnDutyRequest.php',
+			type: 'GET',
+			data: {
+				request_no: request_no,
+				requestby: requestby
+			},
+			dataType: 'json',
+			async: true,
+			success: function(response) {
+				$('#table_on_duty_request').hide()
+				$('#filter_onduty').hide()
+				$('#table_on_duty_detail_request').append(`
+					<fieldset id="fset_1">
+						<legend>List On Duty Detail Request</legend>
+						<div class="form-row">
+							<div class="col-4 name">On Duty Request No : </div>
+							<div class="col-sm-8 name">
+								${response.data[0][0]['request_no']}
+								<input id="input_onduty_request_no" name="input_onduty_request_no" type="Hidden" value="${response.data[0][0]['request_no']}">
+							</div>
 						</div>
-					</div>
-					<div class="form-row">
-						<div class="col-4 name">Request For</div>
-						<div class="col-sm-8 name">
-							[${response.data[0][0]['emp_no']}] - ${response.data[0][0]['Full_Name']}
-							<input id="input_onduty_request_for" name="input_onduty_request_for" type="Hidden" value="${response.data[0][0]['requestfor']}">
-							<input id="input_onduty_request_by" name="input_onduty_request_by" type="Hidden" value="${response.requestby}">
+						<div class="form-row">
+							<div class="col-4 name">Request For</div>
+							<div class="col-sm-8 name">
+								[${response.data[0][0]['emp_no']}] - ${response.data[0][0]['Full_Name']}
+								<input id="input_onduty_request_for" name="input_onduty_request_for" type="Hidden" value="${response.data[0][0]['requestfor']}">
+								<input id="input_onduty_request_by" name="input_onduty_request_by" type="Hidden" value="${response.requestby}">
+							</div>
 						</div>
-					</div>
-					<div class="form-row">
-						<div class="col-4 name">Purpose On Duty</div>
-						<div class="col-sm-8 name">
-							${response.data[0][0]['purpose_name_en']}
-							<input id="input_onduty_purpose_code" name="input_onduty_purpose_code" type="Hidden" value="${response.data[0][0]['purpose_code']}">
+						<div class="form-row">
+							<div class="col-4 name">Purpose On Duty</div>
+							<div class="col-sm-8 name">
+								${response.data[0][0]['purpose_name_en']}
+								<input id="input_onduty_purpose_code" name="input_onduty_purpose_code" type="Hidden" value="${response.data[0][0]['purpose_code']}">
+							</div>
 						</div>
-					</div>
-					<div class="form-row">
-						<div class="col-4 name">Remark</div>
-						<div class="col-sm-8 name">
-							${response.data[0][0]['remark']}
+						<div class="form-row">
+							<div class="col-4 name">Remark</div>
+							<div class="col-sm-8 name">
+								${response.data[0][0]['remark']}
+							</div>
 						</div>
-					</div>
-					<div class="form-row">
-						<div class="col-4 name">Remark Cancelation</div>
-						<div class="col-sm-8 name">
-							<textarea  class="input--style-6"  rows="3" cols="40" id="input_remark_cancelation" name="input_remark_cancelation"></textarea>
+						<div class="form-row">
+							<div class="col-4 name">Remark Cancelation</div>
+							<div class="col-sm-8 name">
+								<textarea  class="input--style-6"  rows="3" cols="40" id="input_remark_cancelation" name="input_remark_cancelation"></textarea>
+							</div>
 						</div>
+						<div>
+							<table class="table table-striped table-bordered display mt-4" id="tableOnDuty">
+								<thead class="thead-light">
+									<tr>
+										<th style="text-align:center">
+											<input type="checkbox" class="inputCheckAll" name="checkAllRequest[]" onclick="checkAll(this)"> <span>Check All</span>
+											
+										</th>
+										<th style="text-align:center">Number</th>
+										<th style="text-align:center">Start Date</th>
+										<th style="text-align:center">End Date</th>
+									</tr>
+								</thead>
+								<tbody id="list_data_on_duty_detail_request">
+								</tbody>
+							</table>
+						</div>
+						<div>
+							<button type="button" class="btn btn-danger btn-sm" id="backOnDutyRequest" style="float: right;">Back</button>
+						</div>
+					</fieldset>
+					`)
+					
+					$('#button_submit_data').append(`
+					<div class="modal-footer-sdk">
+						<button type="reset" class="btn-sdk btn-primary-left" data-dismiss="modal" aria-hidden="true">
+							&nbsp;Cancel&nbsp;
+						</button>
+						<button class="btn-sdk btn-primary-right" type="button" name="submit_request" id="submit_request">
+							Confirm
+						</button>
 					</div>
-					<div>
-						<table class="table table-striped table-bordered display mt-4" id="tableOnDuty">
-							<thead class="thead-light">
-								<tr>
-									<th style="text-align:center">
-										<input type="checkbox" class="inputCheckAll" name="checkAllRequest[]" onclick="checkAll(this)"> <span>Check All</span>
-										
-									</th>
-									<th style="text-align:center">Number</th>
-									<th style="text-align:center">Start Date</th>
-									<th style="text-align:center">End Date</th>
-								</tr>
-							</thead>
-							<tbody id="list_data_on_duty_detail_request">
-							</tbody>
-						</table>
-					</div>
-					<div>
-						<button type="button" class="btn btn-danger btn-sm" id="backOnDutyRequest" style="float: right;">Back</button>
-					</div>
-				</fieldset>
 				`)
-				
-				$('#button_submit_data').append(`
-				<div class="modal-footer-sdk">
-					<button type="reset" class="btn-sdk btn-primary-left" data-dismiss="modal" aria-hidden="true">
-						&nbsp;Cancel&nbsp;
-					</button>
-					<button class="btn-sdk btn-primary-right" type="button" name="submit_request" id="submit_request">
-						Confirm
-					</button>
-				</div>
-			`)
-			// onchange="checkAll(this)"
 
-			let no = 1;
-			let checked = 1;
-			for (let index = 0; index < response.data[1].length; index++) {
-				$('#list_data_on_duty_detail_request').append(`
-					<tr>
-						<td style="width:20%;text-align:left;">
-							<input class="input--style-7" type="checkbox" class="checkbox-tanggal" name="checked[]" onclick="uncheck(this)" value="${checked++}">
-						</td>
-						<td style="width:20%;text-align:left;">
-							${no++}
-						</td>
-						<td style="width:20%;text-align:left;">
-							${response.data[1][index]['startdate'] == null ? '' : moment(response.data[1][index]['startdate']).format('LL')}
-							<input type="hidden" id="startdate_detail" name="startdate_detail[]" value="${response.data[1][index]['startdate']}"></input>
-						</td>
-						<td style="width:20%;text-align:left;">
-							${response.data[1][index]['enddate'] == null ? '' : moment(response.data[1][index]['enddate']).format('LL')}
-							<input type="hidden" id="enddate_detail" name="enddate_detail[]" value="${response.data[1][index]['enddate']}"></input>
-						</td>
-					</tr>
-				`)
+				let no = 1;
+				let checked = 1;
+				for (let index = 0; index < response.data[1].length; index++) {
+					$('#list_data_on_duty_detail_request').append(`
+						<tr>
+							<td style="width:20%;text-align:left;">
+								<input class="input--style-7" type="checkbox" class="checkbox-tanggal" name="checked[]" onclick="checklist(this)" value="${checked++}">
+							</td>
+							<td style="width:20%;text-align:left;">
+								${no++}
+							</td>
+							<td style="width:20%;text-align:left;">
+								${response.data[1][index]['startdate'] == null ? '' : moment(response.data[1][index]['startdate']).format('LL')}
+								<input type="hidden" id="startdate_detail" name="startdate_detail[]" value="${response.data[1][index]['startdate']}"></input>
+							</td>
+							<td style="width:20%;text-align:left;">
+								${response.data[1][index]['enddate'] == null ? '' : moment(response.data[1][index]['enddate']).format('LL')}
+								<input type="hidden" id="enddate_detail" name="enddate_detail[]" value="${response.data[1][index]['enddate']}"></input>
+							</td>
+						</tr>
+					`)
+				}
+			},
+			error: function(xhr, status, error) {
+				mymodalss.style.display = "none";
+				modals.style.display = "block";
+				document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
 			}
-// onchange="uncheck(this)"
-
-		},
-		error: function(xhr, status, error) {
-			mymodalss.style.display = "none";
-			modals.style.display = "block";
-			document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
-		}
+		})
 	})
-})
 
-$('body').on('click tap', '#backOnDutyRequest', function() {
-	$('#filter_onduty').show()
-	$('#table_on_duty_request').show()
-	$('#table_on_duty_detail_request').empty()
-	$('#button_submit_data').empty()
-})
+	$('body').on('click tap', '#backOnDutyRequest', function() {
+		$('#filter_onduty').show()
+		$('#table_on_duty_request').show()
+		$('#table_on_duty_detail_request').empty()
+		$('#button_submit_data').empty()
+	})
 
-function checkAll(e) {
-	var checkboxes = document.getElementsByTagName('input')
-	var checkboxes = document.getElementsByName('checked[]')
-	
-	if(e.checked) {
-		for (let index = 0; index < checkboxes.length; index++) {
-			if(checkboxes[index].type == 'checkbox' && !(checkboxes[index].disabled)) {
-				checkboxes[index].checked = true;
-				// let data = document.querySelector('input[name="checked[]"]:checked').value
-				var values = [].filter.call(document.getElementsByName('checked[]'), (c) => c.checked).map(c => c.value);
-				console.log(values)
+	function checkAll(e) {
+		var checkboxes = document.getElementsByTagName('input')
+		var checkboxes = document.getElementsByName('checked[]')
+		
+		if(e.checked) {
+			for (let index = 0; index < checkboxes.length; index++) {
+				if(checkboxes[index].type == 'checkbox' && !(checkboxes[index].disabled)) {
+					checkboxes[index].checked = true;
+					// let data = document.querySelector('input[name="checked[]"]:checked').value
+					// var values = [].filter.call(document.getElementsByName('checked[]'), (c) => c.checked).map(c => c.value).length;
+					// console.log(values)
+				}
 			}
-		}
-	} else {
-		for (var index = 0; index < checkboxes.length; index++) {
-			if (checkboxes[index].type == 'checkbox') {
-				checkboxes[index].checked = false;
-			}
-		}
-	}
-}
-
-function uncheck() {
-	let checked = document.getElementsByName('checked[]')
-	for (let index = 0; index < checked.length; index++) {
-		var checked_data = checked[index];
-		if(checked_data.type == 'checkbox' && checked_data.checked == false) {
-			let checked_parent = document.getElementsByName('checkAllRequest[]')
-			for (let index = 0; index < checked_parent.length; index++) {
-				if (checked_parent[index].type == 'checkbox') {
-					checked_parent[index].checked = false
+		} else {
+			for (var index = 0; index < checkboxes.length; index++) {
+				if (checkboxes[index].type == 'checkbox') {
+					checkboxes[index].checked = false;
 				}
 			}
 		}
 	}
-}
 
-$('body').on('click', '#submit_request', function() {
-	$.ajax({
-		url: 'php_action/funcDataCreate.php',
-		type: 'POST',
-		data: new FormData($('#FormDisplayCreate')[0]),
-		// data: data,
-		processData: false,
-		contentType: false,
-		dataType: 'json',
-		success: function (response) {
-			// alert('sukses')
-			$('#FormDisplayCreate').modal('hide');
-			$("[data-dismiss=modal]").trigger({
-				type: "click"
-			});
-
-			// reset the form
-			$("#FormDisplayCreate")[0].reset();
-			// reload the datatables
-			datatable.ajax.reload(null, false);
-			// this function is built in function of datatables;
-
-			modals.style.display = "block";
-			document.getElementById("msg").innerHTML = response.messages;
-		},
-		error: function(xhr, status, error) {
-			// alert('gagal')
-			mymodalss.style.display = "none";
-			modals.style.display = "block";
-			document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
-		}
-	})
-})
-
-function detailApproval(request_no) {
-	$('#list_user_approval_detail').empty()
-	$('.cancel_button').removeAttr('style')
-
-	$.ajax({
-		url: 'php_action/FuncGetDetailApproval.php<?php echo $getPackage; ?>',
-		// url: 'php_action/getSelectedRequest.php<?php echo $getPackage; ?>',
-		type: 'post',
-		data: {
-			request_no: request_no
-		},
-		dataType: 'json',
-		success: function(response) {
-			if (response.data[2].status_request == 1) {
-				$("#cancel_button_0").css("display", "none")
-				$("#cancel_button_1").css("display", "none")
-				$("#cancel_button_2").css("display", "true")
-				$('#cancel_onduty').attr('data-request_no', response.data[0].request_no)
-			} else {
-				$("#cancel_button_0").css("display", "true")
-				$("#cancel_button_1").css("display", "none")
-				$("#cancel_button_2").css("display", "none")
+	function checklist() {
+		let checked = document.getElementsByName('checked[]')
+		let checked_values = [].filter.call(document.getElementsByName('checked[]'), (c) => c.checked).map(c => c.value).length;
+		for (let index = 0; index < checked.length; index++) {
+			var checked_data = checked[index];
+			if(checked_data.type == 'checkbox' && checked_data.checked == false) {
+				let checked_parent = document.getElementsByName('checkAllRequest[]')
+				for (let index = 0; index < checked_parent.length; index++) {
+					if (checked_parent[index].type == 'checkbox') {
+						checked_parent[index].checked = false
+					}
+				}
+			} else if(checked.length == checked_values) {
+				let checked_parent = document.getElementsByName('checkAllRequest[]')
+				for (let index = 0; index < checked_parent.length; index++) {
+					if (checked_parent[index].type == 'checkbox') {
+						checked_parent[index].checked = true
+					}
+				}
+				// checked_parent[index].checked = true
 			}
-			document.getElementById("detail_request_no").innerHTML = response.data[0].request_no;
-			document.getElementById("detail_requester_employee").innerHTML = response.data[0].Full_Name + " (" + response.data[0].emp_no + ") "
-			document.getElementById("detail_purpose").innerHTML = response.data[0].purpose_name_en
-			document.getElementById("detail_request_date").innerHTML = response.data[0].requestdate
+			// else if ($('input:checkbox[name=checked[]]:checked').length) {
 
-			// auto number list approval
-			let no = 1
-
-			for (let index = 0; index < response.data[1].length; index++) {
-				$('#list_user_approval_detail').append(
-					`
-					<tr>
-						<td style="width:20%;text-align:left;">
-							${no++}
-						</td>
-						<td style="width:20%;text-align:left;">
-							${response.data[1][index]['Full_Name'] == null ? '' : response.data[1][index]['Full_Name']} - ${response.data[1][index]['emp_no'] == null ? '' : response.data[1][index]['emp_no']}
-						</td>
-						<td style="width:20%;text-align:left;">
-							${response.data[1][index]['req'] == null ? '' : response.data[1][index]['req']}
-							</td>
-						<td style="width:20%;text-align:left;">
-							${response.data[1][index]['status_approve'] == null ? '' : response.data[1][index]['status_approve']}
-						</td>
-					</tr>
-					`
-				);
-			}
-		},
-		error: function(xhr, status, error) {
-			alert('error')
-			mymodalss.style.display = "none";
-			modals.style.display = "block";
-			document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+			// }
 		}
+	}
+	// input:checkbox[name=checked[]]:checked
+	$('body').on('click tap', '.checkbox-tanggal', function() {
+		console.log('get attr')
 	})
-	// mymodalss.style.display = "block";
-	// if (request_no) {
-	// 	$.ajax({
-	// 		url: 'php_action/getSelectedRequest.php<?php echo $getPackage; ?>',
-	// 		type: 'post',
-	// 		data: {
-	// 			request_no: request_no
-	// 		},
-	// 		dataType: 'json',
-	// 		success: function (response) {
-	// 			alert('wkwkwkwk')
-	// 			document.getElementById("detail_request_no").innerHTML = response.request_no;
-	// 			document.getElementById("detail_purpose").innerHTML = response.leave_code +
-	// 				" ( Total Days : " + response.totaldays + ") " + " Leave Date " + response
-	// 				.leave_startdates + " - " + response.leave_enddates;
-	// 			document.getElementById("detail_requester_employee").innerHTML = response.Full_Name + " (" +
-	// 				response.emp_no + ") ";
 
-	// 			// document.getElementsByTagName("harusdiselipin").setAttribute("class", "democlass"); 
-	// 			$("#submit_reject_spvdown").attr("onclick", "editreject_approval(`" + response.request_no +
-	// 				"`)");
-	// 			$("#submit_revision_spvdown").attr("onclick", "editrevision_approval(`" + response
-	// 				.request_no + "`)");
-	// 			// onclick="editrejectrequest(`PAREQ2022-130299`)"
-
-	// 			$("#sel_approval_request_no").val(response.request_no);
-	// 			$("#sel_ipp_requester_spv_downS").val(response.requester);
-	// 			// $("#sel_remark_from_approver").val(response.remark);
-
-	// 			$("#cancellation_id").attr("data-id", response.request_no);
-
-	// 			$("#box_approval_request_detail").load(
-	// 				"pages_relation/_pages_approval.php<?php echo $getPackage; ?>rfid=" + response
-	// 				.request_no,
-	// 				function (responseTxt, statusTxt, jqXHR) {
-	// 					if (statusTxt == "success") {
-
-	// 						$("#box_approval_request_detail").show();
-	// 					}
-	// 					if (statusTxt == "error") {
-	// 						alert("Error: " + jqXHR.status + " " + jqXHR.statusText);
-	// 					}
-	// 				}
-	// 			);
-
-
-	// 			$.ajax({
-	// 				url: 'php_action/getRequestStatus.php<?php echo $getPackage; ?>',
-	// 				type: 'post',
-	// 				data: {
-	// 					request_no: response.request_no
-	// 				},
-	// 				dataType: 'json',
-	// 				success: function (response) {
-
-	// 					mymodalss.style.display = "none";
-
-	// 					if (response.status_request == 1) {
-	// 						$("#modalcancelcondition_0").hide();
-	// 						$("#modalcancelcondition_1").hide();
-	// 						$("#modalcancelcondition_2").show();
-	// 					} else {
-	// 						$("#modalcancelcondition_0").hide();
-	// 						$("#modalcancelcondition_1").show();
-	// 						$("#modalcancelcondition_2").hide();
-	// 					}
-
-	// 					document.getElementById("contoh").innerHTML = fill_is_urgent_request;
-
-	// 					if (fill_is_approved_spvdown == '0') { //jika sudah approve request
-	// 						document.getElementById("submit_reject_spvdown").style.display =
-	// 							"none";
-	// 						document.getElementById("submit_revision_spvdown").style.display =
-	// 							"none";
-	// 						document.getElementById("submit_approval_spvdown").style.display =
-	// 							"none";
-	// 					} else if (fill_is_ready == '0') { //jika sudah approve request
-	// 						document.getElementById("submit_reject_spvdown").style.display =
-	// 							"none";
-	// 						document.getElementById("submit_revision_spvdown").style.display =
-	// 							"none";
-	// 						document.getElementById("submit_approval_spvdown").style.display =
-	// 							"none";
-	// 					} else if (fill_is_urgent_request == 'Y' && fill_is_file_name ==
-	// 						'0') { //jika tipe request urgent dan attachment belum ada maka hide tombol
-	// 						document.getElementById("submit_reject_spvdown").style.display =
-	// 							"none";
-	// 						document.getElementById("submit_revision_spvdown").style.display =
-	// 							"none";
-	// 						document.getElementById("submit_approval_spvdown").style.display =
-	// 							"none";
-	// 					} else {
-	// 						document.getElementById("submit_reject_spvdown").style.display =
-	// 							"block";
-	// 						document.getElementById("submit_revision_spvdown").style.display =
-	// 							"block";
-	// 						document.getElementById("submit_approval_spvdown").style.display =
-	// 							"block";
-	// 					}
-	// 				}
-	// 			}); // /ajax
-
-	// 			// mmeber id 
-	// 			$(".FormDisplayDetailApproval").append(
-	// 				'<input type="hidden" name="member_id" id="member_id" value="' + response.id +
-	// 				'"/>');
-
-	// 			// here update the member data
-	// 			$("#updatedelMemberForm").unbind('submit').bind('submit', function () {
-
-	// 				// remove error messages
-	// 				$(".text-danger").remove();
-
-	// 				var form = $(this);
-
-	// 				// validation
-	// 				var sel_approval_request_no = $("#sel_approval_request_no").val();
-	// 				var sel_emp_no_approver = $("#sel_emp_no_approver").val();
-
-	// 				if (sel_approval_request_no == "") {
-	// 					modals.style.display = "block";
-	// 					document.getElementById("msg").innerHTML = "There is some error";
-	// 				} else if (sel_emp_no_approver == "") {
-	// 					modals.style.display = "block";
-	// 					document.getElementById("msg").innerHTML = "There is some error";
-	// 				} else {
-	// 					$('#submit_approval_spvdown').hide();
-	// 					$('#submit_approval_spvdown2').show();
-	// 					mymodalss.style.display = "block";
-	// 				}
-
-	// 				if (sel_approval_request_no && sel_emp_no_approver) {
-
-
-	// 					$.ajax({
-	// 						url: form.attr('action'),
-	// 						type: form.attr('method'),
-	// 						data: form.serialize(),
-	// 						dataType: 'json',
-	// 						success: function (response) {
-	// 							if (response.code == 'success_message_approved') {
-
-
-
-	// 								$('#submit_approval_spvdown').show();
-	// 								$('#submit_approval_spvdown2').hide();
-
-	// 								mymodalss.style.display = "none";
-
-	// 								// reload the datatables
-	// 								datatable.ajax.reload(null, false);
-	// 								// reload the datatables
-
-	// 								$('#FormDisplayDetailApproval').modal('hide');
-
-	// 								$("[data-dismiss=modal]").trigger({
-	// 									type: "click"
-	// 								});
-
-	// 								modals.style.display = "block";
-	// 								document.getElementById("msg").innerHTML = response
-	// 									.messages;
-
-
-
-	// 							} else {
-	// 								$('#submit_approval_spvdown').show();
-	// 								$('#submit_approval_spvdown2').hide();
-
-	// 								mymodalss.style.display = "none";
-
-	// 								modals.style.display = "block";
-	// 								document.getElementById("msg").innerHTML = response
-	// 									.messages;
-	// 								// reload the datatables      
-	// 							}
-	// 						} // /success
-	// 					}); // /ajax
-	// 				} // /if
-
-	// 				return false;
-	// 			});
-
-	// 		} // /success
-	// 	}); // /fetch selected member info
-
-	// 	// Delete 
-	// 	$('.delete').click(function () {
-	// 		var el = this;
-
-	// 		// Delete id
-	// 		var deleteid = $(this).data('id');
-
-	// 		var confirmalert = confirm("Are you sure to cancel request?");
-	// 		if (confirmalert == true) {
-	// 			// AJAX Request
-	// 			$.ajax({
-	// 				url: 'php_action/FuncDataDelete.php<?php echo $getPackage; ?>id=' + deleteid,
-	// 				type: 'GET',
-	// 				processData: false,
-	// 				contentType: false,
-	// 				dataType: 'json',
-	// 				success: function (response) {
-	// 					if (response.code == 'success_message') {
-	// 						mymodals_withhref.style.display = "block";
-	// 						document.getElementById("msg_href").innerHTML = response.messages;
-	// 					} else {
-	// 						mymodals_withhref.style.display = "block";
-	// 						document.getElementById("msg_href").innerHTML = response.messages;
-	// 						return false;
-	// 					}
-	// 				}
-
-	// 			});
-	// 		}
-
-	// 	});
-
-	// } else {
-	// 	alert("Error : Refresh the page again");
-	// }
-}
-
-$('#cancel_onduty').click(function () {
-	var request_no = $(this).data('request_no')
-	var confirmation = confirm("Are you sure to cancel request " + request_no + " ?")
-	if (confirmation == true) {
-		// alert('success cancel')
+	$('body').on('click', '#submit_request', function() {
 		$.ajax({
-			// url: 'php_action/FuncCancelFromUser.php',
-			url: 'php_action/FuncCancelFromUser.php<?php echo $getPackage; ?>request_no=' + request_no,
-			type: 'GET',
+			url: 'php_action/funcDataCreate.php',
+			type: 'POST',
+			data: new FormData($('#FormDisplayCreate')[0]),
+			// data: data,
 			processData: false,
 			contentType: false,
 			dataType: 'json',
 			success: function (response) {
+				// alert('sukses')
 				$('#FormDisplayCreate').modal('hide');
 				$("[data-dismiss=modal]").trigger({
 					type: "click"
@@ -1293,8 +985,332 @@ $('#cancel_onduty').click(function () {
 				document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
 			}
 		})
-	} 
-})
+	})
+
+	$('.close-create').on('click', function() {
+		// $('#table_on_duty_request').empty()
+		$('#table_on_duty_detail_request').empty()
+		$('#button_submit_data').empty()
+	})
+
+	function detailApproval(request_no) {
+		$('#list_user_approval_detail').empty()
+		$('.cancel_button').removeAttr('style')
+
+		$.ajax({
+			url: 'php_action/FuncGetDetailApproval.php<?php echo $getPackage; ?>',
+			// url: 'php_action/getSelectedRequest.php<?php echo $getPackage; ?>',
+			type: 'post',
+			data: {
+				request_no: request_no
+			},
+			dataType: 'json',
+			success: function(response) {
+				if (response.data[2].status_request == 1) {
+					$("#cancel_button_0").css("display", "none")
+					$("#cancel_button_1").css("display", "none")
+					$("#cancel_button_2").css("display", "true")
+					$('#cancel_onduty').attr('data-request_no', response.data[0].request_no)
+				} else {
+					$("#cancel_button_0").css("display", "true")
+					$("#cancel_button_1").css("display", "none")
+					$("#cancel_button_2").css("display", "none")
+				}
+				document.getElementById("detail_request_no").innerHTML = response.data[0].request_no;
+				document.getElementById("detail_requester_employee").innerHTML = response.data[0].Full_Name + " (" + response.data[0].emp_no + ") "
+				document.getElementById("detail_purpose").innerHTML = response.data[0].purpose_name_en
+				document.getElementById("detail_request_date").innerHTML = response.data[0].requestdate
+
+				// auto number list approval
+				let no = 1
+
+				for (let index = 0; index < response.data[1].length; index++) {
+					$('#list_user_approval_detail').append(
+						`
+						<tr>
+							<td style="width:20%;text-align:left;">
+								${no++}
+							</td>
+							<td style="width:20%;text-align:left;">
+								${response.data[1][index]['Full_Name'] == null ? '' : response.data[1][index]['Full_Name']} - ${response.data[1][index]['emp_no'] == null ? '' : response.data[1][index]['emp_no']}
+							</td>
+							<td style="width:20%;text-align:left;">
+								${response.data[1][index]['req'] == null ? '' : response.data[1][index]['req']}
+								</td>
+							<td style="width:20%;text-align:left;">
+								${response.data[1][index]['status_approve'] == null ? '' : response.data[1][index]['status_approve']}
+							</td>
+						</tr>
+						`
+					);
+				}
+			},
+			error: function(xhr, status, error) {
+				alert('error')
+				mymodalss.style.display = "none";
+				modals.style.display = "block";
+				document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+			}
+		})
+		// mymodalss.style.display = "block";
+		// if (request_no) {
+		// 	$.ajax({
+		// 		url: 'php_action/getSelectedRequest.php<?php echo $getPackage; ?>',
+		// 		type: 'post',
+		// 		data: {
+		// 			request_no: request_no
+		// 		},
+		// 		dataType: 'json',
+		// 		success: function (response) {
+		// 			alert('wkwkwkwk')
+		// 			document.getElementById("detail_request_no").innerHTML = response.request_no;
+		// 			document.getElementById("detail_purpose").innerHTML = response.leave_code +
+		// 				" ( Total Days : " + response.totaldays + ") " + " Leave Date " + response
+		// 				.leave_startdates + " - " + response.leave_enddates;
+		// 			document.getElementById("detail_requester_employee").innerHTML = response.Full_Name + " (" +
+		// 				response.emp_no + ") ";
+
+		// 			// document.getElementsByTagName("harusdiselipin").setAttribute("class", "democlass"); 
+		// 			$("#submit_reject_spvdown").attr("onclick", "editreject_approval(`" + response.request_no +
+		// 				"`)");
+		// 			$("#submit_revision_spvdown").attr("onclick", "editrevision_approval(`" + response
+		// 				.request_no + "`)");
+		// 			// onclick="editrejectrequest(`PAREQ2022-130299`)"
+
+		// 			$("#sel_approval_request_no").val(response.request_no);
+		// 			$("#sel_ipp_requester_spv_downS").val(response.requester);
+		// 			// $("#sel_remark_from_approver").val(response.remark);
+
+		// 			$("#cancellation_id").attr("data-id", response.request_no);
+
+		// 			$("#box_approval_request_detail").load(
+		// 				"pages_relation/_pages_approval.php<?php echo $getPackage; ?>rfid=" + response
+		// 				.request_no,
+		// 				function (responseTxt, statusTxt, jqXHR) {
+		// 					if (statusTxt == "success") {
+
+		// 						$("#box_approval_request_detail").show();
+		// 					}
+		// 					if (statusTxt == "error") {
+		// 						alert("Error: " + jqXHR.status + " " + jqXHR.statusText);
+		// 					}
+		// 				}
+		// 			);
+
+
+		// 			$.ajax({
+		// 				url: 'php_action/getRequestStatus.php<?php echo $getPackage; ?>',
+		// 				type: 'post',
+		// 				data: {
+		// 					request_no: response.request_no
+		// 				},
+		// 				dataType: 'json',
+		// 				success: function (response) {
+
+		// 					mymodalss.style.display = "none";
+
+		// 					if (response.status_request == 1) {
+		// 						$("#modalcancelcondition_0").hide();
+		// 						$("#modalcancelcondition_1").hide();
+		// 						$("#modalcancelcondition_2").show();
+		// 					} else {
+		// 						$("#modalcancelcondition_0").hide();
+		// 						$("#modalcancelcondition_1").show();
+		// 						$("#modalcancelcondition_2").hide();
+		// 					}
+
+		// 					document.getElementById("contoh").innerHTML = fill_is_urgent_request;
+
+		// 					if (fill_is_approved_spvdown == '0') { //jika sudah approve request
+		// 						document.getElementById("submit_reject_spvdown").style.display =
+		// 							"none";
+		// 						document.getElementById("submit_revision_spvdown").style.display =
+		// 							"none";
+		// 						document.getElementById("submit_approval_spvdown").style.display =
+		// 							"none";
+		// 					} else if (fill_is_ready == '0') { //jika sudah approve request
+		// 						document.getElementById("submit_reject_spvdown").style.display =
+		// 							"none";
+		// 						document.getElementById("submit_revision_spvdown").style.display =
+		// 							"none";
+		// 						document.getElementById("submit_approval_spvdown").style.display =
+		// 							"none";
+		// 					} else if (fill_is_urgent_request == 'Y' && fill_is_file_name ==
+		// 						'0') { //jika tipe request urgent dan attachment belum ada maka hide tombol
+		// 						document.getElementById("submit_reject_spvdown").style.display =
+		// 							"none";
+		// 						document.getElementById("submit_revision_spvdown").style.display =
+		// 							"none";
+		// 						document.getElementById("submit_approval_spvdown").style.display =
+		// 							"none";
+		// 					} else {
+		// 						document.getElementById("submit_reject_spvdown").style.display =
+		// 							"block";
+		// 						document.getElementById("submit_revision_spvdown").style.display =
+		// 							"block";
+		// 						document.getElementById("submit_approval_spvdown").style.display =
+		// 							"block";
+		// 					}
+		// 				}
+		// 			}); // /ajax
+
+		// 			// mmeber id 
+		// 			$(".FormDisplayDetailApproval").append(
+		// 				'<input type="hidden" name="member_id" id="member_id" value="' + response.id +
+		// 				'"/>');
+
+		// 			// here update the member data
+		// 			$("#updatedelMemberForm").unbind('submit').bind('submit', function () {
+
+		// 				// remove error messages
+		// 				$(".text-danger").remove();
+
+		// 				var form = $(this);
+
+		// 				// validation
+		// 				var sel_approval_request_no = $("#sel_approval_request_no").val();
+		// 				var sel_emp_no_approver = $("#sel_emp_no_approver").val();
+
+		// 				if (sel_approval_request_no == "") {
+		// 					modals.style.display = "block";
+		// 					document.getElementById("msg").innerHTML = "There is some error";
+		// 				} else if (sel_emp_no_approver == "") {
+		// 					modals.style.display = "block";
+		// 					document.getElementById("msg").innerHTML = "There is some error";
+		// 				} else {
+		// 					$('#submit_approval_spvdown').hide();
+		// 					$('#submit_approval_spvdown2').show();
+		// 					mymodalss.style.display = "block";
+		// 				}
+
+		// 				if (sel_approval_request_no && sel_emp_no_approver) {
+
+
+		// 					$.ajax({
+		// 						url: form.attr('action'),
+		// 						type: form.attr('method'),
+		// 						data: form.serialize(),
+		// 						dataType: 'json',
+		// 						success: function (response) {
+		// 							if (response.code == 'success_message_approved') {
+
+
+
+		// 								$('#submit_approval_spvdown').show();
+		// 								$('#submit_approval_spvdown2').hide();
+
+		// 								mymodalss.style.display = "none";
+
+		// 								// reload the datatables
+		// 								datatable.ajax.reload(null, false);
+		// 								// reload the datatables
+
+		// 								$('#FormDisplayDetailApproval').modal('hide');
+
+		// 								$("[data-dismiss=modal]").trigger({
+		// 									type: "click"
+		// 								});
+
+		// 								modals.style.display = "block";
+		// 								document.getElementById("msg").innerHTML = response
+		// 									.messages;
+
+
+
+		// 							} else {
+		// 								$('#submit_approval_spvdown').show();
+		// 								$('#submit_approval_spvdown2').hide();
+
+		// 								mymodalss.style.display = "none";
+
+		// 								modals.style.display = "block";
+		// 								document.getElementById("msg").innerHTML = response
+		// 									.messages;
+		// 								// reload the datatables      
+		// 							}
+		// 						} // /success
+		// 					}); // /ajax
+		// 				} // /if
+
+		// 				return false;
+		// 			});
+
+		// 		} // /success
+		// 	}); // /fetch selected member info
+
+		// 	// Delete 
+		// 	$('.delete').click(function () {
+		// 		var el = this;
+
+		// 		// Delete id
+		// 		var deleteid = $(this).data('id');
+
+		// 		var confirmalert = confirm("Are you sure to cancel request?");
+		// 		if (confirmalert == true) {
+		// 			// AJAX Request
+		// 			$.ajax({
+		// 				url: 'php_action/FuncDataDelete.php<?php echo $getPackage; ?>id=' + deleteid,
+		// 				type: 'GET',
+		// 				processData: false,
+		// 				contentType: false,
+		// 				dataType: 'json',
+		// 				success: function (response) {
+		// 					if (response.code == 'success_message') {
+		// 						mymodals_withhref.style.display = "block";
+		// 						document.getElementById("msg_href").innerHTML = response.messages;
+		// 					} else {
+		// 						mymodals_withhref.style.display = "block";
+		// 						document.getElementById("msg_href").innerHTML = response.messages;
+		// 						return false;
+		// 					}
+		// 				}
+
+		// 			});
+		// 		}
+
+		// 	});
+
+		// } else {
+		// 	alert("Error : Refresh the page again");
+		// }
+	}
+
+	$('#cancel_onduty').click(function () {
+		var request_no = $(this).data('request_no')
+		var confirmation = confirm("Are you sure to cancel request " + request_no + " ?")
+		if (confirmation == true) {
+			// alert('success cancel')
+			$.ajax({
+				// url: 'php_action/FuncCancelFromUser.php',
+				url: 'php_action/FuncCancelFromUser.php<?php echo $getPackage; ?>request_no=' + request_no,
+				type: 'GET',
+				processData: false,
+				contentType: false,
+				dataType: 'json',
+				success: function (response) {
+					$('#FormDisplayCreate').modal('hide');
+					$("[data-dismiss=modal]").trigger({
+						type: "click"
+					});
+
+					// reset the form
+					$("#FormDisplayCreate")[0].reset();
+					// reload the datatables
+					datatable.ajax.reload(null, false);
+					// this function is built in function of datatables;
+
+					modals.style.display = "block";
+					document.getElementById("msg").innerHTML = response.messages;
+				},
+				error: function(xhr, status, error) {
+					// alert('gagal')
+					mymodalss.style.display = "none";
+					modals.style.display = "block";
+					document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+				}
+			})
+		} 
+	})
 </script>
 <!-- isi JSONs -->
 </body>

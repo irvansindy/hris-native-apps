@@ -280,11 +280,15 @@
 			</div>
 
 			<div class="modal-footer-sdk" id="config-form1" style="display:none">
-				<a style="<?php echo $button_status_hide_or_no; ?>; color: white;padding-top: 8px;"
+				<!-- <a style="<?php echo $button_status_hide_or_no; ?>; color: white;padding-top: 8px;"
 					class="btn-sdk btn-primary-not-only-left" data-dismiss="modal" aria-hidden="true">
-					&nbsp;&nbsp;Close&nbsp;&nbsp;
+					&nbsp;&nbsp;Close dong&nbsp;&nbsp;
+				</a> -->
+				<a style="<?php echo $button_status_hide_or_no; ?>; color: white;padding-top: 8px;"
+					class="btn-sdk btn-primary-not-only-left" name="submit_reject_spvdown"
+					id="submit_reject_spvdown" data-toggle="modal" data-target="#FormDisplayRejectRequest">
+					&nbsp;&nbsp;Reject dong&nbsp;&nbsp;
 				</a>
-
 				<button class="btn-sdk btn-primary-not-only-right" type="submit" name="submit_approval_spvdown"
 					id="submit_approval_spvdown">
 					Approved
@@ -333,7 +337,8 @@
 				<div class="form-group">
 					<div class="col-sm-12">
 						<table width="100%">
-							<td align="center"><label id="isi_sel_reject_request">Are you sure to reject datas ?</label>
+							<td align="center">
+								<label id="isi_sel_reject_request"></label>
 							</td>
 						</table>
 						<input type="hidden" class="form-control input-report" id="sel_reject_request"
@@ -574,6 +579,10 @@
 				document.getElementById("detail_request_date").innerHTML = response.data[0].requestdate
 				$('#data_approval_request_no').val(response.data[0].request_no)
 
+				$(".FormDisplayRejectRequest").append('<input type="hidden" name="member_id" id="member_id" value="' + response.data[0].emp_no +'"/>');
+				$("#submit_reject_spvdown").attr("onclick", "editreject_approval(`" + response.data[0].request_no + "`)");
+                $("#submit_revision_spvdown").attr("onclick", "editrevision_approval(`" + response.data[0].request_no + "`)");
+
 				var no = 1;
                 for (let index = 0; index < response.data[1].length; index++) {
 
@@ -702,10 +711,11 @@
 		mymodalss.style.display = "block";
 
 		if (id) {
+			// alert(id)
 			// fetch the member data
 			$.ajax({
 				url: 'php_action/getSelectedRequest.php<?php echo $getPackage; ?>',
-				type: 'post',
+				type: 'GET',
 				data: {
 					member_id: id
 				},
@@ -713,16 +723,15 @@
 				success: function (response) {
 
 					mymodalss.style.display = "none";
-
 					document.getElementById("isi_sel_reject_request").innerHTML =
 						"Are you sure to reject request " + response.request_no + " ?";
 
 					$("#sel_reject_request").val(response.request_no);
 
-					// mmeber id 
-					$(".FormDisplayRejectRequest").append(
-						'<input type="hidden" name="member_id" id="member_id" value="' + response.id +
-						'"/>');
+					// $(".FormDisplayRejectRequest").append(
+					// 	'<input type="hidden" name="member_id" id="member_id" value="' + response.id +
+					// 	'"/>');
+					$(".FormDisplayRejectRequest").append('<input type="hidden" name="member_id" id="member_id" value="' + response.emp_no +'"/>');
 
 					// here update the member data
 					$("#updaterejectMemberFormspvdown").unbind('submit').bind('submit', function () {

@@ -53,6 +53,7 @@
             $response['messages'] = 'Attendance correct request already exists';
         } else {
             // when file attachment filled
+            // var_dump($_FILES['fileupload']);
             if (!empty($_FILES['fileupload'])) {
                 $file_name = $_FILES['fileupload']['name'];
                 $file_upload = $_FILES['fileupload']['tmp_name'];
@@ -63,7 +64,7 @@
                 // can upload same image using rand function
                 $final_image = rand(1000,1000000).$file_name;
     
-                if (in_array($ext, $allowTypes)) {
+                if (in_array($ext, $allow_types)) {
                     $final_file = $directoryFile.strtolower($final_image);
             
                     $info_file = getimagesize($file_upload);
@@ -71,7 +72,10 @@
                 // destination upload file
                 $upload_data_file = move_uploaded_file($file_upload, $final_file);
             }
-
+            // var_dump([
+            //     $ext,
+            //     $final_image
+            // ]);
             // master
             $request_no = 'ATR'.$SFnumber;
             $inp_emp_no = $_POST['inp_emp_no'];
@@ -96,6 +100,9 @@
 
             // final file attachment
             $final_file_attachment = $final_file != '' ? $final_file : NULL;
+
+            // var_dump($final_file_attachment);
+            // die();
 
             // create data master
             $query_master = "INSERT INTO `hrmattcorrection` (
@@ -181,5 +188,3 @@
         echo json_encode($response);
 
     }
-
-// request_no

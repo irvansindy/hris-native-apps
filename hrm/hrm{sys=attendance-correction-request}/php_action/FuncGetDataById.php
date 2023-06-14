@@ -14,13 +14,34 @@
     $resultDetail = mysqli_fetch_all($exeDetail, MYSQLI_ASSOC);
     $resultDetailFirst = mysqli_fetch_assoc($exeDetailFirst);
 
-    $returnJson = [
-        $resultMaster, //0
-        $resultDetailFirst, //1
-        $resultDetail, //2
+    // get data master
+    $query_data_master = "SELECT
+        a.request_no,
+        a.emp_id,
+        DATE_FORMAT(a.requestdate, '%d %b %Y') as requestdate,
+        a.reason,
+        b.Full_Name,
+        a.attachment,
+        b.emp_no
+        FROM hrmattcorrection a LEFT JOIN view_employee b ON a.emp_id = b.emp_id 
+        WHERE a.request_no = '$request_no'";
+    $result_data_master = mysqli_fetch_assoc(mysqli_query($connect, $query_data_master));
+
+    // get data detail
+    $query_data_detail = "SELECT * FROM hrdattcorrection WHERE request_no = '$request_no'";
+    $result_data_detail = mysqli_fetch_all(mysqli_query($connect, $query_data_detail), MYSQLI_ASSOC);
+
+    // get detail first
+    $query_detail_first = "SELECT * FROM hrdattcorrection WHERE request_no = '$request_no' LIMIT 1";
+    $result_detail_first = mysqli_fetch_assoc(mysqli_query($connect, $query_detail_first));
+
+    $return_json = [
+        $result_data_master, //0
+        $result_data_detail, //1
+        // $result_detail_first, //2
     ];
 
     $connect->close();
     header('Content-Type: application/json');
 	// echo json_encode($rows);
-	echo json_encode($returnJson);
+	echo json_encode($return_json);

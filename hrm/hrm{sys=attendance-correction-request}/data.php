@@ -426,7 +426,7 @@ if ($platform != 'mobile') {
 	<div class="modal-dialog modal-belakang modal-bg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="revised_title">Detail On Duty Request</h4>
+				<h4 class="modal-title" id="revised_title">Detail Attendance Correction Request</h4>
 				<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close"
 					style="margin-top: -15px;">
 					<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
@@ -484,32 +484,17 @@ if ($platform != 'mobile') {
 					style="width: 100vw;height: 50vh; width: 98%; margin: 5px;overflow: scroll;overflow-x: hidden;">
 
 					<fieldset id="fset_1">
-						<legend>On Duty Detail Form</legend>
+						<legend>Attendance Correction Request</legend>
 
 						<div class="messages_create"></div>
-
 						<div class="form-row" id="frm_employee_no">
-							<div class="col-lg-3 name">On Duty Purpose Type <font color="red">*</font>
+							<div class="col-sm-3 name">Request No <font color="red">*</font>
 							</div>
-							<div class="col-lg-4">
+							<div class="col-sm-5">
 								<div class="input-group">
-									<input type="hidden" name="detail_emp_no" id="detail_emp_no" value="<?php echo $username; ?>">
-									<select class="input--style-6 modal_leave" name="detail_purpose_type"
-										style="width: 80%;height: 30px;" id="detail_purpose_type" required disabled>
-										<option value="">--Select One--</option>
-										<!-- onchange="isi_otomatis_leave()" -->
-										<?php
-											$sql = mysqli_query($connect, "SELECT 
-											a.purpose_code,
-											a.purpose_name_en
-											FROM 
-											hrmondutypurposetype a
-											ORDER BY a.purpose_code ASC");
-											while ($row = mysqli_fetch_array($sql)) {
-													echo '<option value="' . $row['purpose_code'] . '">' . $row['purpose_name_en'] . '</option>';
-											}
-										?>
-									</select>
+									<input type="text" class="input--style-6 search-input" id="detail_request_no"
+										name="detail_request_no"
+										size="30" maxlength="50" validate="NotNull:Invalid Form Entry" readonly required>
 								</div>
 							</div>
 						</div>
@@ -522,19 +507,17 @@ if ($platform != 'mobile') {
 									<input type="text" class="input--style-6 search-input" id="detail_modal_emp"
 										name="detail_modal_emp"
 										size="30" maxlength="50" validate="NotNull:Invalid Form Entry" readonly required>
-									<!-- <div id="employeeList"></div> -->
 								</div>
 							</div>
 						</div>
 
 						<div class="form-row" id="frm_employee_no">
-							<div class="col-lg-3 name">remark <font color="red">*</font>
+							<div class="col-lg-3 name">Reason <font color="red">*</font>
 							</div>
 							<div class="col-lg-8">
 								<div class="input-group">
-									<textarea class="input--style-6 search-input" onfocus="this.value=''"
-										autocomplete="off" id="detail_remark" name="detail_remark" type="Text" value=""
-										title="" required></textarea>
+									<textarea class="input--style-6 search-input"
+										autocomplete="off" id="detail_reason" name="detail_reason" type="Text" readonly></textarea>
 								</div>
 							</div>
 						</div>
@@ -552,9 +535,47 @@ if ($platform != 'mobile') {
 								</div>
 							</div>
 						</div>
+
+						<div class="form-row">
+							<div class="col-sm-3 mr-2 name">
+								Date Between <font color="red">*</font>
+							</div>
+							<div class="row">
+								<div class="col-sm">
+									<input type="text" id="detail_add_startdate" name="detail_add_startdate"
+										class="input--style-6" placeholder="Start Date" style="background-image:url(../../asset/dist/img/icons/calendar_icon.gif);  
+										background-size: 17px;
+										background-position:right;   
+										background-repeat:no-repeat; 
+										padding-right:10px;" autocomplete="off" readonly/>
+								</div>
+								<div class="col-sm">
+									<input type="text" id="detail_add_enddate" name="detail_add_enddate"
+										class="input--style-6" placeholder="End Date" style="background-image:url(../../asset/dist/img/icons/calendar_icon.gif);  
+										background-size: 17px;
+										background-position:right;   
+										background-repeat:no-repeat;
+										padding-right:10px;" autocomplete="off" readonly/>
+								</div>
+								</div>
+							</div>
+							<div id="list_detail_onduty">
+								<table class="table table-striped table-bordered display mt-4">
+									<thead class="thead-dark">
+										<tr>
+											<th style="text-align:center">Date</th>
+											<th style="text-align:center">Time In</th>
+											<th style="text-align:center">Time Out</th>
+										</tr>
+									</thead>
+									<tbody id="detailOnDutyTable">
+									</tbody>
+								</table>
+							</div>
+						</div>
 					</fieldset>
 
-					<fieldset class="mb-5" id="fset_1">
+					<!-- <fieldset class="mb-5" id="fset_1">
 						<legend>Destination</legend>
 						<div class="form-row" id="frm_employee_no">
 							<div class="col-sm-3 name">Destination <span class="required">*</span></div>
@@ -580,46 +601,9 @@ if ($platform != 'mobile') {
 							</div>
 						</div>
 						<div id="detailOtherDestination"></div>
-						<div class="form-row">
-							<div class="col-sm-3 mr-2 name">
-								Date Between <font color="red">*</font>
-							</div>
-							<div class="row">
-								<div class="col-sm">
-									<input type="text" id="detail_add_startdate" name="detail_add_startdate"
-										class="input--style-6" placeholder="Start Date" style="background-image:url(../../asset/dist/img/icons/calendar_icon.gif);  
-										background-size: 17px;
-										background-position:right;   
-										background-repeat:no-repeat; 
-										padding-right:10px;" autocomplete="off" readonly/>
-								</div>
-								<div class="col-sm">
-									<input type="text" id="detail_add_enddate" name="detail_add_enddate"
-										class="input--style-6" placeholder="End Date" style="background-image:url(../../asset/dist/img/icons/calendar_icon.gif);  
-										background-size: 17px;
-										background-position:right;   
-										background-repeat:no-repeat;
-										padding-right:10px;" autocomplete="off" readonly/>
-								</div>
-								</div>
-							</div>
-							<div id="list_detail_onduty">
-								<!-- id="detailOnDutyTable" -->
-								<table class="table table-striped table-bordered display mt-4">
-									<thead class="thead-dark">
-										<tr>
-											<th style="text-align:center">Date</th>
-											<th style="text-align:center">Time In</th>
-											<th style="text-align:center">Time Out</th>
-										</tr>
-									</thead>
-									<tbody id="detailOnDutyTable">
-									</tbody>
-								</table>
-							</div>
-						</div>
 						
-					</fieldset>
+						
+					</fieldset> -->
 					<!-- //LOAD BUTTON APPROVER STATUS -->
 					<div class="modal-footer-sdk" id="modalcancelcondition_0" style="display:none">
 						<button type="reset" class="btn-sdk btn-primary-left" data-dismiss="modal" aria-hidden="true">
@@ -665,11 +649,11 @@ if ($platform != 'mobile') {
 <!-- /edit modal -->
 
 <!--approval onduty modal -->
-<div class="modal fade fade-custom" tabindex="-1" role="dialog" id="FormDisplayOnDutyApproval">
+<div class="modal fade fade-custom" tabindex="-1" role="dialog" id="FormDisplayAttendanceCorrectApproval">
 	<div class="modal-dialog modal-belakang modal-bs modal-med" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Onduty Approval</h4>
+				<h4 class="modal-title">Attendance Correction Approval</h4>
 				<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close"
 					style="margin-top: -15px;">
 					<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
@@ -713,18 +697,18 @@ if ($platform != 'mobile') {
 						</div>
 
 						<div class="form-row">
-							<div class="col-sm-4 name"> Detail On Duty <span class="required">*</span></div>
+							<div class="col-sm-4 name"> Reason <span class="required">*</span></div>
 							<div class="col-sm-8 name">
-								<div class="input-group" id="detail_on_duty"
+								<div class="input-group" id="detail_reason"
 									style="font-weight: bold;color: #5b5b5b;">
 								</div>
 							</div>
 						</div>
 				
 						<div class="form-row">
-							<div class="col-sm-4 name"> Date <span class="required">*</span></div>
+							<div class="col-sm-4 name"> Date Request <span class="required">*</span></div>
 							<div class="col-sm-8 name">
-								<div class="input-group" id="detail_date_on_duty"
+								<div class="input-group" id="detail_date_attendance_correct"
 									style="font-weight: bold;color: #5b5b5b;">
 								</div>
 							</div>
@@ -748,7 +732,7 @@ if ($platform != 'mobile') {
 								<thead class="thead-light">
 									<tr>
 									<th>No.</th>
-									<th>Approver name </th>
+									<th>Approver name</th>
 									<th>Type of approver</th>
 									<th>Approval status</th>
 									</tr>
@@ -998,150 +982,12 @@ if ($platform != 'mobile') {
 			});
 		});
 	});
-
-	function DestinationForm(id = null) {
-		if (id) {
-			// remove the error 
-			$(".form-group").removeClass('has-error').removeClass('has-success');
-			$(".text-danger").remove();
-			// empty the message div
-			$(".messages_update").html("");
-
-			// remove the id
-			$("#member_id").remove();
-
-			$("#DestinationForm").show();
-
-			$("#detail_destination").on('click', function () {
-				mymodalss.style.display = "none";
-				var modal_emp = $("#modal_emp").val();
-
-				var myarr = modal_emp.split(" ");
-
-				var myvar = myarr[1];
-
-				if (myvar == '') {
-					mymodalss.style.display = "none";
-					modals.style.display = "block";
-					document.getElementById("msg").innerHTML = "Please select employee";
-					return false
-				}
-
-				var inp_add_startdate = $("#inp_add_startdate").val();
-				var inp_add_enddate = $("#inp_add_enddate").val();
-				$("#attendance_list").show();
-
-
-
-				$(document).ready(function () {
-					$("#attendance_list").load(
-						"pages_relation/_pages_attendance.php<?php echo $getPackage; ?>inp_add_startdate=" +
-						inp_add_startdate + "&inp_add_enddate=" + inp_add_enddate +
-						"&src_emp_no=<?php echo $username; ?>",
-						function (responseTxt, statusTxt, xhr) {
-							if (statusTxt == "success")
-								mymodalss.style.display = "none";
-							if (statusTxt == "error")
-								alert("Error: " + xhr.status + ": " + xhr.statusText);
-
-						});
-				})
-			});
-
-			// fetch the member data
-			$.ajax({
-				url: 'php_action/getSelectedEmployeeFamily.php',
-				type: 'post',
-				data: {
-					member_id: id
-				},
-				dataType: 'json',
-
-				success: function (response) {
-
-					// $("#settlement_emp_id").val(response.emp_id);
-					$("#family_empfamily_id").val(response.empfamily_id);
-					$("#family_relationship").val(response.relationship);
-					$("#family_name").val(response.name);
-					$("#family_gender").val(response.gender);
-					$("#family_birth_date").val(response.birthdate);
-					$("#family_alivestatus").val(response.alive_status);
-
-
-					// here update the member data
-					$("#FormFamily").unbind('submit').bind('submit', function () {
-						// remove error messages
-						$(".text-danger").remove();
-
-						var form = $(this);
-
-						var family_empfamily_id = $("#family_empfamily_id").val();
-						var family_relationship = $("#family_relationship").val();
-						var family_name = $("#family_name").val();
-
-						var regex = /^[a-zA-Z]+$/;
-
-						if (family_empfamily_id == "") {
-							modals.style.display = "block";
-							document.getElementById("msg").innerHTML = "Family id code cannot empty";
-						}
-
-						if (family_empfamily_id) {
-
-							$.ajax({
-								url: form.attr('action'),
-								type: form.attr('method'),
-								// data: form.serialize(),
-
-								data: new FormData(this),
-								processData: false,
-								contentType: false,
-
-								dataType: 'json',
-								success: function (response) {
-
-									if (response.code == 'success_message_update') {
-
-										modals.style.display = "block";
-										document.getElementById("msg").innerHTML = response
-											.messages;
-
-										$("#destination_list").load(
-											"pages_relation/_pages_destination.php<?php echo $getPackage; ?>rfid=" +
-											response.employee,
-											function (responseTxt, statusTxt, jqXHR) {
-												if (statusTxt == "success") {
-													$("#destination_list").show();
-												}
-												if (statusTxt == "error") {
-													alert("Error: " + jqXHR.status +
-														" " + jqXHR.statusText);
-												}
-											}
-										);
-
-									} else {
-										modals.style.display = "block";
-										document.getElementById("msg").innerHTML = response
-											.messages;
-									}
-								} // /success
-							}); // /ajax
-						} // /if
-						return false;
-					});
-				} // /success
-			}); // /fetch selected member info
-		} else {
-			alert("Error : Refresh the page again");
-		}
-	}
 </script>
 <!-- isi JSONs -->
 
 <!-- detail function -->
 <script>
-	function detailUpdateOndutyRequest(request_no) {
+	function detailAttendanceCorrectRequest(request_no) {
 		$("#list_detail_attendance").hide();
 		$("#modalcancelcondition_0").show();
 		$("#modalcancelcondition_1").hide();
@@ -1163,31 +1009,21 @@ if ($platform != 'mobile') {
 			dataType: 'json',
 			async: true,
 			success: function(response) {
-				// $('#FormDisplayDetail')
-				$('#detail_emp_no').val(response[0].request_no)
-				$('#detail_purpose_type').val(response[0].purpose_code)
-				$('#detail_modal_emp').val(response[0].requestfor)
-				
-				var data_fileupload = response[0].upload_filename
-				// alert(response[0].upload_filename)
-				// alert(data_fileupload)
+				$('#detail_request_no').val(response[0].request_no)
+				// $('#detail_modal_emp').val(response[0].Full_Name)
+				$('#detail_modal_emp').val(response[0].emp_id)
+				$('#detail_reason').val(response[0].reason)
+				var data_fileupload = response[0].attachment
 				if (data_fileupload == "") {
-					// $('#detail_fileupload').removeAttr('download')
-					// $('#icon_file_upload').append(`<i class="bi bi-file-x-fill fa-5x"></i>`)
 					$('.file-attachment-data').hide()
 				} else {
-					// $('#detail_fileupload').attr('download')
 					let fileExtension = data_fileupload.replace(/^.*\./, '');
-					// console.log (fileExtension);
 					if (fileExtension == 'pdf') {
 						$('#icon_file_upload').append(`<i class="bi bi-filetype-pdf fa-5x"></i>`)
-						// $('#data_detail_file').remove()
 					} else if (fileExtension == 'doc') {
 						$('#icon_file_upload').append(`<i class="bi bi-file-earmark-text fa-5x"></i>`)
-						// $('#data_detail_file').remove()
 					} else if (fileExtension == 'docx') {
 						$('#icon_file_upload').append(`<i class="bi bi-file-earmark-text fa-5x"></i>`)
-						// $('#data_detail_file').remove()
 					} else {
 						$('#icon_file_upload').append(`<img id="data_detail_file" class="img-fluid img-thumbnail" src="" alt="file attachment" width="100" height="140">`)
 					}
@@ -1195,43 +1031,24 @@ if ($platform != 'mobile') {
 
 				$('#detail_fileupload').attr("href", 'hrstudio.presfst/'+data_fileupload)
 				$('#data_detail_file').attr("src", 'hrstudio.presfst/'+data_fileupload)
-				$('#detail_remark').val(response[0].remark)
-				$('#detail_onduty_purpose').val(response[1].destination_no)
 
 				var start_time = moment(response[1].startdate).format('YYYY-MM-DD')
 				var end_time = moment(response[1].enddate).format('YYYY-MM-DD')
 				$('#detail_add_startdate').val(start_time)
 				$('#detail_add_enddate').val(end_time)
 
-				var destination_detail = response[1].destination_detail
-				$('#detailOtherDestination').empty()
-				if(destination_detail != '') {
-					$('#detailOtherDestination').append(`
-						<div class="form-row" id="formDestinationDetail" name="formDestinationDetail">
-							<div class="col-lg-3 name">Destination Detail <font color="red">*</font>
-							</div>
-							<div class="col-lg-8">
-								<div class="input-group">
-									<textarea class="input--style-6 search-input" readonly
-										title="">${destination_detail}</textarea>
-								</div>
-							</div>
-						</div>
-					`)
-				}
-
-				for (var index = 0; index < response[2].length; index++) {
+				for (var index = 0; index < response[1].length; index++) {
 					$('#detailOnDutyTable').append(
 						`
 							<tr>
 								<td style="width:20%;text-align:left;">
-									${response[2][index]['startdate'] == null ? '' : moment(response[2][index]['startdate']).format('LL')}
+									${response[1][index]['startdate'] == null ? '-' : moment(response[1][index]['startdate']).format('LL')}
 								</td>
 								<td style="width:20%;text-align:left;">
-									${response[2][index]['startdate'] == null ? '' : moment(response[2][index]['startdate']).format('LTS')}
+									${response[1][index]['startdate'] == null ? '-' : moment(response[1][index]['startdate']).format('LTS')}
 								</td>
 								<td style="width:20%;text-align:left;">
-									${response[2][index]['enddate'] == null ? '' : moment(response[2][index]['enddate']).format('LTS')}
+									${response[1][index]['enddate'] == null ? '-' : moment(response[1][index]['enddate']).format('LTS')}
 								</td>
 							</tr>
 						`
@@ -1244,12 +1061,12 @@ if ($platform != 'mobile') {
 
 <!-- detail approval on duty request -->
 <script>
-	function detailApproval(request_no) {
+	function detailAttendanceCorrectApproval(request_no) {
 		$('#list_user_approval_detail').empty()
 		$('.cancel_button').removeAttr('style')
 
 		$.ajax({
-			url:'php_action/FuncDetailApproval.php',
+			url:'php_action/FuncDetailAttendanceCorrect.php',
 			type: 'GET',
 			data: {
 				request_no: request_no
@@ -1270,8 +1087,9 @@ if ($platform != 'mobile') {
 				}
 				document.getElementById("detail_request_no").innerHTML = response[0].request_no;
 				document.getElementById("detail_full_name").innerHTML = response[0].Full_Name  + " - " + "[" + response[0].emp_no + "]";
-				document.getElementById("detail_on_duty").innerHTML = response[0].remark;
-				document.getElementById("detail_date_on_duty").innerHTML = response[0].requestdate + " - " + response[0].requestenddate;
+				document.getElementById("detail_reason").innerHTML = response[0].reason;
+				document.getElementById("detail_date_attendance_correct").innerHTML = response[0].requestdate;
+				//  + " - " + response[0].requestenddate
 				
 				// looping detail approval
 				var no = 1;

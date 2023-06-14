@@ -20,7 +20,7 @@
 
 	while ($row = mysqli_fetch_assoc($query)) {
 
-		$request_number = '<a type="button" href="" nowrap="nowrap" data-toggle="modal" data-target="#DetailForm" data-backdrop="static" onclick="detailUpdateOndutyRequest(`'.$row['request_no'].'`)">'.$row['request_no'].'</a>';
+		$request_number = '<a type="button" href="" nowrap="nowrap" data-toggle="modal" data-target="#DetailForm" data-backdrop="static" onclick="detailAttendanceCorrectRequest(`'.$row['request_no'].'`)">'.$row['request_no'].'</a>';
 
 		$activebadge = '';
 		if ($row['name_en'] == "Draft") {
@@ -42,7 +42,7 @@
 		}
 
 		$status = '<span class="badge ' . $activebadge . '">' . $row['name_en'] . '</span>';
-		$button_approval = '<a type="button" nowrap="nowrap" data-toggle="modal" data-target="#FormDisplayOnDutyApproval" data-backdrop="static" style="color: blue; border: 5px; cursor:pointer" onclick="detailApproval(`' . $row['request_no'] . '`)"> <input type="image" src="../../asset/dist/img/icons/icon-addinfo.png" title="See detail approval request for ' . $row['request_no'] . '" width="22px"/></a>';
+		$button_approval = '<a type="button" nowrap="nowrap" data-toggle="modal" data-target="#FormDisplayAttendanceCorrectApproval" data-backdrop="static" style="color: blue; border: 5px; cursor:pointer" onclick="detailAttendanceCorrectApproval(`' . $row['request_no'] . '`)"> <input type="image" src="../../asset/dist/img/icons/icon-addinfo.png" title="See detail approval request for ' . $row['request_no'] . '" width="22px"/></a>';
 
 
 		$output['data'][] = array(

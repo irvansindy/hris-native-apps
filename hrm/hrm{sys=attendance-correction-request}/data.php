@@ -248,31 +248,6 @@ if ($platform != 'mobile') {
 
 						<div class="messages_create"></div>
 
-						<!-- <div class="form-row" id="frm_employee_no">
-							<div class="col-lg-3 name">On Duty Purpose Type <font color="red">*</font>
-							</div>
-							<div class="col-lg-4">
-								<div class="input-group">
-									<input type="hidden" name="inp_emp_no" value="<?php echo $username; ?>">
-									<select class="input--style-6 modal_leave" name="inp_purpose_type"
-										style="width: 80%;height: 30px;" id="inp_purpose_type" required>
-										<option value="">--Select One--</option>
-										<?php
-											$sql = mysqli_query($connect, "SELECT 
-											a.purpose_code,
-											a.purpose_name_en
-											FROM 
-											hrmondutypurposetype a
-											ORDER BY a.purpose_code ASC");
-											while ($row = mysqli_fetch_array($sql)) {
-													echo '<option value="' . $row['purpose_code'] . '">' . $row['purpose_name_en'] . '</option>';
-											}
-										?>
-									</select>
-								</div>
-							</div>
-						</div> -->
-
 						<?php
 							$emp = mysqli_fetch_array(mysqli_query($connect, "SELECT full_name, pos_name_en, emp_id FROM view_employee WHERE emp_no='$username'"));
 						?>
@@ -678,11 +653,7 @@ if ($platform != 'mobile') {
 						<div class="form-row">
 							<div class="col-sm-4 name"> Request No. <span class="required">*</span></div>
 							<div class="col-sm-8 name">
-								<div class="input-group" id="contoh"
-									style="display:none; font-weight: bold;color: #5b5b5b;">
-								</div>
-								<div class="input-group" id="detail_request_no"
-									style="font-weight: bold;color: #5b5b5b;">
+								<div class="input-group" id="detail_request_no2" style="font-weight: bold;color: #5b5b5b;">
 								</div>
 							</div>
 						</div>
@@ -699,7 +670,7 @@ if ($platform != 'mobile') {
 						<div class="form-row">
 							<div class="col-sm-4 name"> Reason <span class="required">*</span></div>
 							<div class="col-sm-8 name">
-								<div class="input-group" id="detail_reason"
+								<div class="input-group" id="detail_reason2"
 									style="font-weight: bold;color: #5b5b5b;">
 								</div>
 							</div>
@@ -1085,9 +1056,10 @@ if ($platform != 'mobile') {
 					$("#cancel_button_1").css("display", "none")
 					$("#cancel_button_2").css("display", "none")
 				}
-				document.getElementById("detail_request_no").innerHTML = response[0].request_no;
+				console.log([response[0].request_no, response[0].reason])
+				document.getElementById("detail_request_no2").innerHTML = response[0].request_no;
 				document.getElementById("detail_full_name").innerHTML = response[0].Full_Name  + " - " + "[" + response[0].emp_no + "]";
-				document.getElementById("detail_reason").innerHTML = response[0].reason;
+				document.getElementById("detail_reason2").innerHTML = response[0].reason;
 				document.getElementById("detail_date_attendance_correct").innerHTML = response[0].requestdate;
 				//  + " - " + response[0].requestenddate
 				

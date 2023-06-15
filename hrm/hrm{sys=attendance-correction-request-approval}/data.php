@@ -132,14 +132,14 @@ if ($platform != 'mobile') {
 <div class="col-md-12">
     <div class="card">
         <div class="card-header d-flex align-items-center">
-            <h4 class="card-title mb-0">On Duty Request </h4>
+            <h4 class="card-title mb-0">Attendance Correction Request</h4>
 
             <?php } else if ($platform == 'mobile') { ?>
 
             <div class="col-md-12">
                 <div class="card" style="border-radius: 20px 20px 20px 20px;margin-bottom: 25px;">
                     <div class="card-header d-flex align-items-center" style="border-bottom: 1px solid white;">
-                        <h4 class="card-title mb-0">On Duty Approval </h4>
+                        <h4 class="card-title mb-0">Attendance Correction Request Approval </h4>
                         <?php } ?>
                         <div class="card-actions ml-auto">
                             <table>
@@ -170,7 +170,7 @@ if ($platform != 'mobile') {
                     <table id="datatable" width="100%" border="1" align="left"
                         class="table table-bordered table-striped table-hover table-head-fixed">
                         <thead>
-                            <tr>
+                            <tr class="text-center">
                                 <th class="fontCustom" style="z-index: 1;vertical-align: ce;vertical-align: middle;"
                                     nowrap="nowrap">No.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                 <th class="fontCustom" style="z-index: 1; vertical-align: middle; width: 125px;">
@@ -178,16 +178,10 @@ if ($platform != 'mobile') {
                                 <th class="fontCustom" style="z-index: 1; vertical-align: middle; width: 100px;">
                                     Request For&nbsp;&nbsp;&nbsp;</th>
                                 <th class="fontCustom" style="z-index:1;vertical-align: ce;vertical-align: middle;">
-                                    Purpose&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </th>
-                                <th class="fontCustom" style="z-index:1;vertical-align: ce;vertical-align: middle;">
                                     Start Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </th>
                                 <th class="fontCustom" style="z-index:1;vertical-align: ce;vertical-align: middle;">
-                                    End Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </th>
-                                <th class="fontCustom" style="z-index:1;vertical-align: ce;vertical-align: middle;">
-                                    Remark&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    Reason&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </th>
                                 <th class="fontCustom" style="z-index:1;vertical-align: ce;vertical-align: middle;">
                                     Request status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -220,11 +214,11 @@ if ($platform != 'mobile') {
         </div>
 
             <!-- detail approval modal -->
-            <div class="modal fade fade-custom" tabindex="-1" role="dialog" id="FormDisplayOnDutyApproval">
+            <div class="modal fade fade-custom" tabindex="-1" role="dialog" id="FormDisplayAttendanceCorrectApproval">
                 <div class="modal-dialog modal-belakang modal-bs modal-med" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">On Duty Request Approval</h4>
+                            <h4 class="modal-title">Detail Attendance Correction Request Approval</h4>
                             <a type="button" class="close" onclick='return stopload()' data-dismiss="modal"
                                 aria-label="Close" style="margin-top: -15px;">
                                 <span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
@@ -337,12 +331,6 @@ if ($platform != 'mobile') {
                                 id="submit_reject_spvdown" data-toggle="modal" data-target="#FormDisplayRejectRequest">
                                 &nbsp;&nbsp;Reject&nbsp;&nbsp;
                             </a>
-                            <!-- <a style="<?php echo $button_status_hide_or_no; ?>; color: white;padding-top: 8px;"
-                                class="btn-sdk btn-primary-center-not-only" name="submit_revision_spvdown"
-                                id="submit_revision_spvdown" data-toggle="modal"
-                                data-target="#FormDisplayRevisionRequest">
-                                &nbsp;Revision&nbsp;
-                            </a> -->
                             <button class="btn-sdk btn-primary-not-only-right" type="submit"
                                 name="submit_approval_spvdown" id="submit_approval_spvdown">
                                 Approved
@@ -643,7 +631,8 @@ if ($platform != 'mobile') {
 
                 document.getElementById("detail_approval_employee_request").innerHTML =  response[0].Full_Name  + " - " + "[" + response[0].emp_no + "]";
 
-                document.getElementById("detail_approval_request_date").innerHTML = response[0].requestdate + " - " + response[0].requestenddate;
+                document.getElementById("detail_approval_request_date").innerHTML = response[0].requestdate;
+                //  + " - " + response[0].requestenddate;
 
                 // document.getElementsByTagName("harusdiselipin").setAttribute("class", "democlass"); 
                 $("#submit_reject_spvdown").attr("onclick", "editreject_approval(`" + response[0].request_no + "`)");
@@ -653,37 +642,37 @@ if ($platform != 'mobile') {
                 $("#sel_approval_request_no").val(response[0].request_no);
                 $("#sel_ipp_requester_spv_downS").val(response.requester);
 
-                // data list on duty detail
-                for (let index = 0; index < response[3].length; index++) {
-                    $('#listResultDetailOnDuty').append(
-                        `
-                            <div class="form-row">
-                                <div>
-                                    <input class="input--style-6" autocomplete="off" autofocus="on"
-                                    id="requestfor_request" name="requestfor_request[]"
-                                    type="hidden" value="${response[0].requestfor}">
-                                    </div>
-                                <div>
-                                <div>
-                                    <input class="input--style-6" autocomplete="off" autofocus="on"
-                                    id="starttime_request" name="starttime_request[]"
-                                    type="hidden" value="${response[3][index]['starttime']}">
-                                    </div>
-                                <div>
-                                    <input class="input--style-6" autocomplete="off" autofocus="on"
-                                    id="endtime_request" name="endtime_request[]"
-                                    type="hidden" value="${response[3][index]['endtime']}">
-                                </div>
-                                <div>
-                                    <input class="input--style-6" autocomplete="off" autofocus="on"
-                                    id="startdate_request" name="startdate_request[]"
-                                    type="hidden" value="${response[3][index]['startdate']}">
-                                </div>
-                            </div>
-                        `
-                    )
+                // data list Attendance Correction Requestdetail
+                // for (let index = 0; index < response[3].length; index++) {
+                //     $('#listResultDetailOnDuty').append(
+                //         `
+                //             <div class="form-row">
+                //                 <div>
+                //                     <input class="input--style-6" autocomplete="off" autofocus="on"
+                //                     id="requestfor_request" name="requestfor_request[]"
+                //                     type="hidden" value="${response[0].requestfor}">
+                //                     </div>
+                //                 <div>
+                //                 <div>
+                //                     <input class="input--style-6" autocomplete="off" autofocus="on"
+                //                     id="starttime_request" name="starttime_request[]"
+                //                     type="hidden" value="${response[3][index]['starttime']}">
+                //                     </div>
+                //                 <div>
+                //                     <input class="input--style-6" autocomplete="off" autofocus="on"
+                //                     id="endtime_request" name="endtime_request[]"
+                //                     type="hidden" value="${response[3][index]['endtime']}">
+                //                 </div>
+                //                 <div>
+                //                     <input class="input--style-6" autocomplete="off" autofocus="on"
+                //                     id="startdate_request" name="startdate_request[]"
+                //                     type="hidden" value="${response[3][index]['startdate']}">
+                //                 </div>
+                //             </div>
+                //         `
+                //     )
                     
-                }
+                // }
 
                 // data list attendance
                 for (let index = 0; index < response[3].length; index++) {
@@ -776,7 +765,7 @@ if ($platform != 'mobile') {
                 // }
 
                 // mmeber id 
-                $(".FormDisplayOnDutyApproval").append(
+                $(".FormDisplayAttendanceCorrectApproval").append(
                     '<input type="hidden" name="member_id" id="member_id" value="' + response.id +
                     '"/>');
 
@@ -822,7 +811,7 @@ if ($platform != 'mobile') {
                                     datatable.ajax.reload(null, false);
                                     // reload the datatables
 
-                                    $('#FormDisplayOnDutyApproval').modal('hide');
+                                    $('#FormDisplayAttendanceCorrectApproval').modal('hide');
 
                                     $("[data-dismiss=modal]").trigger({
                                         type: "click"
@@ -851,8 +840,8 @@ if ($platform != 'mobile') {
                     return false;
                 });
 
-            }
-        });
+            } // /success
+        }); // /fetch selected member info
 
     }
 
@@ -862,6 +851,7 @@ if ($platform != 'mobile') {
         mymodalss.style.display = "block";
 
         if (id) {
+            // fetch the member data
             $.ajax({
                 url: 'php_action/getSelectedRequest.php<?php echo $getPackage; ?>',
                 type: 'GET',
@@ -877,11 +867,6 @@ if ($platform != 'mobile') {
                         "Are you sure to reject request " + response[0].request_no + " ?";
 
                     $("#sel_reject_request").val(response[0].request_no);
-
-                    // mmeber id 
-                    // $(".FormDisplayRejectRequest").append(
-                    //     '<input type="hidden" name="member_id" id="member_id" value="' + response.id +
-                    //     '"/>');
                     $(".FormDisplayRejectRequest").append(
                         '<input type="hidden" name="member_id" id="member_id" value="' + response[0].emp_no +
                         '"/>');
@@ -923,7 +908,7 @@ if ($platform != 'mobile') {
                                         // reload the datatables
 
                                         $('#FormDisplayRejectRequest').hide();
-                                        $('#FormDisplayOnDutyApproval').modal('hide');
+                                        $('#FormDisplayAttendanceCorrectApproval').modal('hide');
 
                                         $("[data-dismiss=modal]").trigger({
                                             type: "click"
@@ -1029,7 +1014,7 @@ if ($platform != 'mobile') {
                                         // reload the datatables
 
                                         $('#FormDisplayrevisionspvup').hide();
-                                        $('#FormDisplayOnDutyApproval').modal('hide');
+                                        $('#FormDisplayAttendanceCorrectApproval').modal('hide');
 
                                         $("[data-dismiss=modal]").trigger({
                                             type: "click"

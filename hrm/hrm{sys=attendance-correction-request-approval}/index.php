@@ -15,7 +15,7 @@ if ($getdata == 0) {
 
 <!-- <script src="../../asset/gt_developer/jquery.min.js"></script> -->
 <?php
-$page   = '559'; //menu id SELECT * FROM hrmmenu WHERE menu_id = '21'ss
+$page   = '560'; //menu id SELECT * FROM hrmmenu WHERE menu_id = '21's
 $footer = 'no'; //set as `yes` if you want to use default footer & set as `no` if you want to use custom footer
 ?>
 
@@ -39,21 +39,20 @@ $get_auth = mysqli_fetch_array(mysqli_query($connect, "SELECT COUNT(*) as access
 
             <div class="row page-titles">
                 <div class="col-md-5 col-12 align-self-center">
-                    <h3 class="text-themecolor mb-0">Attendance Correction Request</h3>
+                    <h3 class="text-themecolor mb-0">Time & Attendance</h3>
                     <ol class="breadcrumb mb-0 p-0 bg-transparent">
-                        <li class="breadcrumb-item">
-                            <a href="../hrm{sys=emp.dashboard}/">Home&nbsp;&nbsp;</a>
-                        </li>
-                        <li>
-                            <i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;Attendance Correction Request
-                        </li>
+                        <li class="breadcrumb-item"><a href="../hrm{sys=emp.dashboard}/">Home&nbsp;&nbsp;</a></li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;Attendance Correction Request Approval</li>
                     </ol>
                 </div>
             </div>
 
         <?php } else if ($platform == 'mobile') { ?>
 
+
         <?php } ?>
+
+
 
         <!-- ============================================================== -->
         <!-- Container fluid  -->
@@ -80,7 +79,6 @@ $get_auth = mysqli_fetch_array(mysqli_query($connect, "SELECT COUNT(*) as access
             <!-- Row -->
         </div>
     </div>
-    
     <!-- ============================================================== -->
     <!-- End Container fluid  -->
     <!-- ============================================================== -->

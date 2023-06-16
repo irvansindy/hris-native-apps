@@ -103,6 +103,8 @@
                 `reason`,
                 `attachment`,
                 `requestdate`,
+                `startdate`,
+                `enddate`,
                 `created_by`,
                 `created_date`,
                 `modified_by`,
@@ -113,7 +115,9 @@
                 '$requestby',
                 '$inp_reason',
                 '$final_file_attachment',
+                '$SFdatetime',
                 '$request_start_date',
+                '$request_end_date',
                 '$requestby',
                 '$request_start_date',
                 '$requestby',
@@ -133,8 +137,8 @@
 
                 $quey_detail = "INSERT INTO `hrdattcorrection` (
                     `request_no`,
-                    `startdate`,
-                    `enddate`,
+                    -- `startdate`,
+                    -- `enddate`,
                     `starttime`,
                     `endtime`,
                     `created_by`,
@@ -143,8 +147,8 @@
                     `modified_date`
                 ) VALUES (
                     '$request_no',
-                    '$result_starttime',
-                    '$result_endtime',
+                    -- '$result_starttime',
+                    -- '$result_endtime',
                     '$result_starttime',
                     '$result_endtime',
                     '$requestby',

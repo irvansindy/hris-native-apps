@@ -543,7 +543,7 @@ if ($platform != 'mobile') {
 											<th style="text-align:center">Time Out</th>
 										</tr>
 									</thead>
-									<tbody id="detailOnDutyTable">
+									<tbody id="detail_attendance_correct_table">
 									</tbody>
 								</table>
 							</div>
@@ -774,47 +774,6 @@ if ($platform != 'mobile') {
 		$('#CreateForm')[0].reset()
 	})
 
-	// for file attachment
-	$('#checkFileAttachment').on('change', function() {
-		if(this.checked) {
-			$('#dataFileAttechment').append(`
-				<div class="form-row" id="formFileAttachment">
-					<div class="col-lg-3 name">File Attachment <font color="red">*</font>
-					</div>
-					<div class="col-lg-5">
-						<div class="input-group">
-							<input type="file" name="fileupload" id="fileupload" class="form-control">
-							<span><font color="red">pdf, doc/docx, jpg/jpeg, png</font></span>
-						</div>
-					</div>
-				</div>
-			`)
-		} else {
-			$('#formFileAttachment').remove()
-		}
-	})
-
-	// for append and remove textarea when change select option
-	$('#inp_onduty_purpose').on('change', function(){
-		if($(this).val() == 'DST005') {
-			$('#otherDestinationDetail').append(`
-				<div class="form-row" id="formDestinationDetail" name="formDestinationDetail">
-					<div class="col-lg-3 name">Destination Detail <font color="red">*</font>
-					</div>
-					<div class="col-lg-8">
-						<div class="input-group">
-							<textarea class="input--style-6 search-input" onfocus="this.value=''"
-								autocomplete="off" id="input_destination_detail" name="input_destination_detail" type="Text" value=""
-								title="" required></textarea>
-						</div>
-					</div>
-				</div>
-			`);
-		} else {
-			$('#formDestinationDetail').remove();
-		}
-	});
-
 	// for detail attendance list
 	$('#confirm_detail_destination').on('click', () => {
 		var modal_emp = $("#modal_emp").val();
@@ -970,7 +929,7 @@ if ($platform != 'mobile') {
 		$(".text-danger").remove();
 		$(".messages_update").html("");
 		$('#icon_file_upload').empty();
-		$('#detailOnDutyTable').empty();
+		$('#detail_attendance_correct_table').empty();
 		$.ajax({
 			url: 'php_action/FuncGetDataById.php',
 			type: 'GET',
@@ -1003,23 +962,24 @@ if ($platform != 'mobile') {
 				$('#detail_fileupload').attr("href", 'hrstudio.presfst/'+data_fileupload)
 				$('#data_detail_file').attr("src", 'hrstudio.presfst/'+data_fileupload)
 
-				var start_time = moment(response[1].startdate).format('YYYY-MM-DD')
-				var end_time = moment(response[1].enddate).format('YYYY-MM-DD')
+				var start_time = moment(response[0].startdate).format('YYYY-MM-DD')
+				var end_time = moment(response[0].enddate).format('YYYY-MM-DD')
+				console.log([start_time, end_time])
 				$('#detail_add_startdate').val(start_time)
 				$('#detail_add_enddate').val(end_time)
 
 				for (var index = 0; index < response[1].length; index++) {
-					$('#detailOnDutyTable').append(
+					$('#detail_attendance_correct_table').append(
 						`
 							<tr>
 								<td style="width:20%;text-align:left;">
-									${response[1][index]['startdate'] == null ? '-' : moment(response[1][index]['startdate']).format('LL')}
+									${response[1][index]['starttime'] == null ? '-' : moment(response[1][index]['starttime']).format('LL')}
 								</td>
 								<td style="width:20%;text-align:left;">
-									${response[1][index]['startdate'] == null ? '-' : moment(response[1][index]['startdate']).format('LTS')}
+									${response[1][index]['starttime'] == null ? '-' : moment(response[1][index]['starttime']).format('LTS')}
 								</td>
 								<td style="width:20%;text-align:left;">
-									${response[1][index]['enddate'] == null ? '-' : moment(response[1][index]['enddate']).format('LTS')}
+									${response[1][index]['endtime'] == null ? '-' : moment(response[1][index]['endtime']).format('LTS')}
 								</td>
 							</tr>
 						`
@@ -1060,8 +1020,7 @@ if ($platform != 'mobile') {
 				document.getElementById("detail_request_no2").innerHTML = response[0].request_no;
 				document.getElementById("detail_full_name").innerHTML = response[0].Full_Name  + " - " + "[" + response[0].emp_no + "]";
 				document.getElementById("detail_reason2").innerHTML = response[0].reason;
-				document.getElementById("detail_date_attendance_correct").innerHTML = response[0].requestdate;
-				//  + " - " + response[0].requestenddate
+				document.getElementById("detail_date_attendance_correct").innerHTML = response[0].startdate + " - " + response[0].enddate
 				
 				// looping detail approval
 				var no = 1;

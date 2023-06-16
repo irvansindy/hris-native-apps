@@ -19,6 +19,8 @@
         a.request_no,
         a.emp_id,
         DATE_FORMAT(a.requestdate, '%d %b %Y') as requestdate,
+        a.startdate,
+        a.enddate,
         a.reason,
         b.Full_Name,
         a.attachment,

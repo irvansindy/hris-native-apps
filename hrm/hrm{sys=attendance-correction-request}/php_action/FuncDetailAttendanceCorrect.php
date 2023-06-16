@@ -8,7 +8,8 @@
         a.request_no,
         a.emp_id,
         DATE_FORMAT(a.requestdate, '%d %b %Y') as requestdate,
-        -- DATE_FORMAT(a.requestenddate, '%d %b %Y') as requestenddate,
+        DATE_FORMAT(a.startdate, '%d %b %Y') as startdate,
+        DATE_FORMAT(a.enddate, '%d %b %Y') as enddate,
         a.reason,
         b.Full_Name,
         b.emp_no

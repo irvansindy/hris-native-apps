@@ -631,8 +631,7 @@ if ($platform != 'mobile') {
 
                 document.getElementById("detail_approval_employee_request").innerHTML =  response[0].Full_Name  + " - " + "[" + response[0].emp_no + "]";
 
-                document.getElementById("detail_approval_request_date").innerHTML = response[0].requestdate;
-                //  + " - " + response[0].requestenddate;
+                document.getElementById("detail_approval_request_date").innerHTML = response[0].startdate + " - " + response[0].enddate;
 
                 // document.getElementsByTagName("harusdiselipin").setAttribute("class", "democlass"); 
                 $("#submit_reject_spvdown").attr("onclick", "editreject_approval(`" + response[0].request_no + "`)");

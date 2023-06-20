@@ -20,55 +20,55 @@
 
     // get data detail approval attendance correction
     $query_get_list_approval = "SELECT 
-        a.position_id,
-        a.req,
-        b.emp_no,
-        b.Full_Name,
-        c.name_id as status_approve,
-        CASE 
-            WHEN a.`status` = '1' THEN 'Has been approved'
-            ELSE 'Waiting'
-            END AS req_status 
-        FROM hrmrequestapproval a
-        INNER JOIN view_employee b ON a.position_id=b.position_id AND (b.end_date IS NULL OR b.end_date = '0000-00-00 00:00:00')
-        INNER JOIN hrmstatus c ON a.request_status=c.code
-        AND a.request_no = '$request_no' AND a.req = 'Notification'
+    a.position_id,
+    a.req,
+    b.emp_no,
+    b.Full_Name,
+    c.name_id as status_approve,
+    CASE 
+        WHEN a.`status` = '1' THEN 'Has been approved'
+        ELSE 'Waiting'
+        END AS req_status 
+    FROM hrmrequestapproval a
+    INNER JOIN view_employee b ON a.position_id=b.position_id AND (b.end_date IS NULL OR b.end_date = '0000-00-00 00:00:00')
+    INNER JOIN hrmstatus c ON a.request_status=c.code
+    AND a.request_no = '$request_no' AND a.req = 'Notification'
 
-        UNION ALL
+    UNION ALL
 
-        SELECT 
-        a.position_id,
-        a.req,
-        b.emp_no,
-        b.Full_Name,
-        c.name_id as status_approve,
+    SELECT 
+    a.position_id,
+    a.req,
+    b.emp_no,
+    b.Full_Name,
+    c.name_id as status_approve,
 
-        CASE 
-            WHEN a.`status` = '1' THEN 'Has been approved'
-            ELSE 'Waiting'
-            END AS req_status 
-        FROM hrmrequestapproval a
-        INNER JOIN view_employee b ON a.position_id=b.position_id AND (b.end_date IS NULL OR b.end_date = '0000-00-00 00:00:00')
-        INNER JOIN hrmstatus c ON a.request_status=c.code
-        AND a.request_no = '$request_no' AND a.req = 'Sequence'
+    CASE 
+        WHEN a.`status` = '1' THEN 'Has been approved'
+        ELSE 'Waiting'
+        END AS req_status 
+    FROM hrmrequestapproval a
+    INNER JOIN view_employee b ON a.position_id=b.position_id AND (b.end_date IS NULL OR b.end_date = '0000-00-00 00:00:00')
+    INNER JOIN hrmstatus c ON a.request_status=c.code
+    AND a.request_no = '$request_no' AND a.req = 'Sequence'
 
-        UNION ALL
+    UNION ALL
 
-        SELECT 
-        a.position_id,
-        a.req,
-        b.emp_no,
-        b.Full_Name,
-        c.name_id as status_approve,
-        
-        CASE 
-            WHEN a.`status` = '1' THEN 'Has been approved'
-            ELSE 'Waiting'
-            END AS req_status 
-        FROM hrmrequestapproval a
-        INNER JOIN view_employee b ON a.position_id=b.position_id AND (b.end_date IS NULL OR b.end_date = '0000-00-00 00:00:00')
-        INNER JOIN hrmstatus c ON a.request_status=c.code
-    AND a.request_no = 'ATR20230613190517' AND a.req = 'Required'";
+    SELECT 
+    a.position_id,
+    a.req,
+    b.emp_no,
+    b.Full_Name,
+    c.name_id as status_approve,
+
+    CASE 
+        WHEN a.`status` = '1' THEN 'Has been approved'
+        ELSE 'Waiting'
+        END AS req_status 
+    FROM hrmrequestapproval a
+    INNER JOIN view_employee b ON a.position_id=b.position_id AND (b.end_date IS NULL OR b.end_date = '0000-00-00 00:00:00')
+    INNER JOIN hrmstatus c ON a.request_status=c.code
+    AND a.request_no = '$request_no' AND a.req = 'Required'";
 
     $result_data_approval = mysqli_fetch_all(mysqli_query($connect, $query_get_list_approval), MYSQLI_ASSOC);
 

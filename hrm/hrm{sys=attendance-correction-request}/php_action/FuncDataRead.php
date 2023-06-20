@@ -49,6 +49,8 @@
 			$number,
 			$request_number,
 			$row['requestdate'],
+			$row['startdate'],
+			$row['enddate'],
 			$row['Full_Name'],
 			$status,
 			$button_approval

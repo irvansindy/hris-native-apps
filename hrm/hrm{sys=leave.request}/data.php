@@ -1748,7 +1748,7 @@ if ($platform != 'mobile') {
 				} // /success
 			}); // /fetch selected member info
 
-			// Delete 
+			// Delete Add Leave Request
 			$('.delete').click(function () {
 				var el = this;
 

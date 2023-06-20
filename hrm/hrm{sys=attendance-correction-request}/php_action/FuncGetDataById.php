@@ -2,17 +2,17 @@
 	require_once '../../../application/config.php';
     $request_no = $_GET['request_no'];
 
-    $queryMaster = "SELECT * FROM hrdondutyrequest WHERE request_no = '$request_no'";
-    $queryDetail = "SELECT * from hrdondutyrequestdtl where request_no = '$request_no'";
-    $queryDetailFirst = "SELECT * from hrdondutyrequestdtl where request_no = '$request_no' LIMIT 1";
+    // $queryMaster = "SELECT * FROM hrdondutyrequest WHERE request_no = '$request_no'";
+    // $queryDetail = "SELECT * from hrdondutyrequestdtl where request_no = '$request_no'";
+    // $queryDetailFirst = "SELECT * from hrdondutyrequestdtl where request_no = '$request_no' LIMIT 1";
 
-    $exeMaster = mysqli_query($connect, $queryMaster);
-    $exeDetail = mysqli_query($connect, $queryDetail);
-    $exeDetailFirst = mysqli_query($connect, $queryDetailFirst);
+    // $exeMaster = mysqli_query($connect, $queryMaster);
+    // $exeDetail = mysqli_query($connect, $queryDetail);
+    // $exeDetailFirst = mysqli_query($connect, $queryDetailFirst);
     
-    $resultMaster = mysqli_fetch_assoc($exeMaster);
-    $resultDetail = mysqli_fetch_all($exeDetail, MYSQLI_ASSOC);
-    $resultDetailFirst = mysqli_fetch_assoc($exeDetailFirst);
+    // $resultMaster = mysqli_fetch_assoc($exeMaster);
+    // $resultDetail = mysqli_fetch_all($exeDetail, MYSQLI_ASSOC);
+    // $resultDetailFirst = mysqli_fetch_assoc($exeDetailFirst);
 
     // get data master
     $query_data_master = "SELECT

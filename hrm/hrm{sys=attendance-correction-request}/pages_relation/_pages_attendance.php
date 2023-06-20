@@ -20,16 +20,24 @@ include "../../../model/ta/GMAttendanceEditList.php";
 			<tr>
 				<td rowspan="2"
 					style="vertical-align: inherit;background: #74614a;font-weight: bold;color: white;border: 1px solid white;;text-align: center;">
-					Date</td>
+					Date
+				</td>
 				<td rowspan="2"
 					style="vertical-align: inherit;background: #74614a;font-weight: bold;color: white;border: 1px solid white;;text-align: center;">
-					Shift</td>
+					Shift
+				</td>
 				<td colspan="2" rowspan="1"
 					style="vertical-align: inherit;background: #74614a;font-weight: bold;color: white;border: 1px solid white;;text-align: center;">
-					Shift Daily</td>
-				<td colspan="3"
+					Shift Daily
+				</td>
+				<td colspan="2"
 					style="vertical-align: inherit;background: #74614a;font-weight: bold;color: white;border: 1px solid white;;text-align: center;">
-					Actual Time</td>
+					Actual Time
+				</td>
+				<td rowspan="2"
+					style="vertical-align: inherit;background: #74614a;font-weight: bold;color: white;border: 1px solid white;;text-align: center;">
+					reason
+				</td>
 			</tr>
 			<tr>
 				<td
@@ -178,6 +186,9 @@ include "../../../model/ta/GMAttendanceEditList.php";
 						</td>
 					</tr>
 				</table>
+			</td>
+			<td>
+				<textarea name="inp_attend_reason[]" id="inp_attend_reason[]" cols="30" rows="3"></textarea>
 			</td>
 			<style type="text/css">
 				label>input {

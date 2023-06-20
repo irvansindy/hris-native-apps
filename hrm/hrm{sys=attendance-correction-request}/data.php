@@ -153,7 +153,9 @@ if ($platform != 'mobile') {
 				<tr>
 					<th class="fontCustom" style="z-index: 1;" nowrap="nowrap">Number</th>
 					<th class="fontCustom" style="z-index: 1;">Request No</th>
+					<th class="fontCustom" style="z-index: 1;">Request Date</th>
 					<th class="fontCustom" style="z-index: 1;">Start Date</th>
+					<th class="fontCustom" style="z-index: 1;">End Date</th>
 					<th class="fontCustom" style="z-index: 1;">Request By</th>
 					<th class="fontCustom" style="z-index: 1;">Request Status</th>
 					<th class="fontCustom" style="z-index: 1;">Approval Status</th>

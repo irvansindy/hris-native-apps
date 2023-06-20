@@ -3,6 +3,8 @@
     a.*,
     c.Full_Name,
     DATE_FORMAT(a.requestdate, '%d %b %Y') as requestdate,
+    DATE_FORMAT(a.startdate, '%d %b %Y') as startdate,
+    DATE_FORMAT(a.enddate, '%d %b %Y') as enddate,
     d.name_en
     FROM hrmattcorrection a
     LEFT JOIN hrdattcorrection b ON a.request_no=b.request_no

@@ -9,6 +9,9 @@
 
 	$years		   	= date("Y");
 	$flag		   	= date("his");
+
+	// status
+    $list_denied_status = ['Unverified', 'Fully Approved', 'Partially Approved'];
 	//if form is submitted
 	if ($_POST) {
 
@@ -28,6 +31,7 @@
 		$inp_daytype			= $_POST['inp_daytype'];
 		$inp_remark				= $_POST['inp_remark'];
 		$inp_urgent_decl        = $_POST['inp_urgent_decl'];
+		$urgent_reason        = $_POST['urgent_reason'];
 
 		$modal_leave_start 		= $_POST['modal_leave_start'];
 		$modal_leave_end 		= $_POST['modal_leave_end'];
@@ -58,24 +62,34 @@
 		$shiftdaily_code_user = $result_data_user['shiftdaily_code'];
 
 		$get_data_request = "SELECT 
-				a.emp_id,
-				b.Full_Name,
-				c.shiftdaily_code,
-				b.cost_code,
-				DATE_FORMAT(a.leave_startdate, '%Y-%m-%d') AS start_date
-			FROM hrmleaverequest a
-				LEFT JOIN view_employee b ON a.emp_id = b.emp_id
-				LEFT JOIN hrdattendance c ON b.emp_id = c.emp_id
-			WHERE DATE_FORMAT(a.leave_startdate, '%Y-%m-%d') = '$modal_leave_start'
+			a.request_no,
+			a.emp_id,
+			b.Full_Name,
+			c.shiftdaily_code,
+			b.cost_code,
+			DATE_FORMAT(a.leave_startdate, '%Y-%m-%d') AS start_date,
+			d.max_manpower
+		FROM hrmleaverequest a
+			LEFT JOIN view_employee b ON a.emp_id = b.emp_id
+			INNER JOIN hrdattendance c ON b.emp_id = c.emp_id
+			INNER JOIN hrmvalleavegroup d ON c.shiftdaily_code = d.shiftdailycode
+				-- AND d.cost_code = b.cost_code
+		WHERE DATE_FORMAT(a.leave_startdate, '%Y-%m-%d') = '$modal_leave_start'
 			AND b.cost_code = '$cost_code_user'
 			AND c.shiftdaily_code = '$shiftdaily_code_user'
-			-- WHERE start_date = '2023-06-30'
-			GROUP BY a.emp_id ";
+		-- WHERE DATE_FORMAT(a.leave_startdate, '%Y-%m-%d') = '2023-06-30'
+		-- AND b.cost_code = 'HHA_350504_8001000000'
+		-- AND shiftdaily_code = 'NSC'
+		GROUP BY a.emp_id
+        ORDER BY a.request_no";
+		//  DESC LIMIT 1";
 		$result_data_request = mysqli_fetch_all(mysqli_query($connect, $get_data_request), MYSQLI_ASSOC);
+
 		if(count($result_data_request) >= 1 && $inp_urgent_decl == 0) {
 			$validator['success'] = false;
 			$validator['code'] = "failed_message";
-			$validator['messages'] = "Unable to apply for a request, please contact HRD";
+			// $validator['messages'] = "Unable to apply for a request because having request at range date please check : ". $result_data_request['request_no'] ." - ". $result_data_request['Full_Name']. " - " .$result_data_request['Full_Name']. " please contact HRD";
+			$validator['messages'] = "Unable to apply for a request because having request at range date please check : ". $result_data_request[0]['request_no'] ." - ". $result_data_request[0]['Full_Name']. " please contact HRD";
 		} else {
 			// $validator['success'] = false;
 			// $validator['code'] = "failed_message";
@@ -478,8 +492,35 @@ ORDER BY a.dateforcheck ASC";
 		$query_1 = $connect->query($sql_1);
 	}
 
+	// get data emp_id user 
+	$get_emp_id = "SELECT emp_id FROM view_employee WHERE emp_no = '$inp_emp_no'";
+	$result_emp_id = $get_emp_id['emp_id'];
 
-	if ($query_2['total'] > 0) {
+	// can't make request when status unverified(1) - partially approved(2) - fully approved(3) can make request when status cancel(8) - reject(5)
+	$query_check_leave_request = "SELECT 
+		a.request_no, a.emp_id,
+		b.leave_starttime, b.leave_endtime,
+		c.name_en as status_request
+	FROM hrmleaverequest a
+	INNER JOIN hrdleaverequest b
+		ON a.request_no = b.request_no 
+	LEFT JOIN hrmstatus c
+		ON (SELECT request_status FROM hrmrequestapproval WHERE request_no = a.request_no ORDER BY `request_status` DESC limit 1) = c.code    
+	WHERE 
+		DATE_FORMAT(b.leave_starttime, '%Y-%m-%d') BETWEEN '2023-06-30' AND '2023-06-30'
+		-- AND a.emp_id = '$modal_emp'
+		AND a.emp_id = '3402202205000001'
+		ORDER BY a.created_date DESC LIMIT 1";
+
+	$result_check_leave_request = mysqli_fetch_assoc(mysqli_query($connect, $query_check_leave_request));
+	$total_leave_request = mysqli_num_rows(mysqli_query($connect, $query_check_leave_request));
+
+	// if ($total_leave_request > 0 && in_array($result_check_leave_request['status_request'], $list_denied_status)) {
+	// 	$response['success'] = false;
+	// 	$response['code'] = "failed_message";
+	// 	$response['messages'] = 'Leave request already exists';
+	// } else 
+	if ($query_2['total'] > 0 && in_array($result_check_leave_request['status_request'], $list_denied_status)) {
 		$validator['success'] = false;
 		$validator['code'] = "failed_message";
 		$validator['messages'] = "Employee having request at range date please check : " .  $query_2['request_no'] . " | Date of leave : " . $query_2['leave_starttime'] . "-" .$query_2['leave_endtime'];
@@ -609,7 +650,8 @@ ORDER BY a.dateforcheck ASC";
 								'$inp_emp_no', 
 								'$SFdatetime', 
 								'0',
-								'$r_detail[urgent_request]',
+								-- '$r_detail[urgent_request]',
+								'$urgent_reason',
 								'$r_detail[urgent_request]',
 								'$inp_token')
 					");
@@ -666,7 +708,8 @@ ORDER BY a.dateforcheck ASC";
 							'$inp_emp_no', 
 							'$SFdatetime', 
 							'0',
-							'$r_detail[urgent_request]',
+							-- '$r_detail[urgent_request]',
+							'$urgent_reason',
 							'$r_detail[urgent_request]',
 							'$inp_token')
 				");

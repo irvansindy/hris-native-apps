@@ -502,15 +502,14 @@ if ($platform != 'mobile') {
 											</div>
 										</div>
 									</div>
-
-									<div class="form-row urgent_reason_additional" style='display:none;'>
+									<div id="add_urgent_reason_form"></div>
+									<!-- <div class="form-row urgent_reason_additional" style='display:none;'>
 										<div class="col-sm-2 name">Urgent Reason*</div>
 										<div class="col-sm-8">
 											<div class="input-group">
 
 												<select class="input--style-6 urgent_reason" name="urgent_reason"
-													style="width: 50%;height: 30px;" id="urgent_reason"
-													onchange="isi_otomatis_leave()">
+													style="width: 50%;height: 30px;" id="urgent_reason" required>
 													<option value="">--Select One--</option>
 													<?php
 														$sql = mysqli_query($connect, "SELECT 
@@ -526,7 +525,7 @@ if ($platform != 'mobile') {
 												</select>
 											</div>
 										</div>
-									</div>
+									</div> -->
 
 								</fieldset>
 
@@ -1075,7 +1074,7 @@ if ($platform != 'mobile') {
 				var inp_emp_no = $("#inp_emp_no").val();
 				var $inp_token = $("#inp_token").val();
 				var inp_requestfor = $("#inp_requestfor").val();
-				var $inp_leaverequestv = $("#inp_leaverequestv").val();
+				var inp_leaverequestv = $("#inp_leaverequestv").val();
 				var inp_remark = $("#inp_remark").val();
 				var modal_leave_start = $("#modal_leave_start").val();
 				var modal_leave_end = $("#modal_leave_end").val();
@@ -1138,6 +1137,12 @@ if ($platform != 'mobile') {
 						"Partial Day Permit just allowing max 5 Hours";
 					return false;
 
+				} 
+				else if ($('.urgent_reason_additional').show() && $('#urgent_reason').val() == '') {
+					mymodalss.style.display = "none";
+					modals.style.display = "block";
+					document.getElementById("msg").innerHTML = "Urgent reason cannot empty";
+					return false;
 				}
 
 				if (inp_requestfor && inp_leaverequestv && inp_remark && modal_leave_start && modal_leave_end) {
@@ -1209,18 +1214,44 @@ if ($platform != 'mobile') {
 		dropdownParent: $('#CreateForm')
 	})
 
-	$('#urgent_reason').select2({
-		dropdownParent: $('#CreateForm')
-	})
-
 	$('#inp_urgent_on').on('change', function() {
 		var isi = $('#inp_urgent_on').val()
-		$('.urgent_reason_additional').show()
+		// $('.urgent_reason_additional').show()
+		$('#add_urgent_reason_form').append(`
+		<div class="form-row urgent_reason_additional">
+			<div class="col-sm-2 name">Urgent Reason*</div>
+			<div class="col-sm-8">
+				<div class="input-group">
+
+					<select class="input--style-6 urgent_reason" name="urgent_reason"
+						style="width: 50%;height: 30px;" id="urgent_reason">
+						<option value="">--Select One--</option>
+						<?php
+							$sql = mysqli_query($connect, "SELECT 
+							a.reason_code,
+							a.reason_name
+						FROM hrmleaveurgreason a
+						GROUP BY a.reason_name
+						ORDER BY a.reason_name ASC;");
+							while ($row = mysqli_fetch_array($sql)) {
+								echo '<option value="' . $row['reason_code'] . '">' . $row['reason_name'] . '</option>';
+							}
+							?>
+					</select>
+				</div>
+			</div>
+		</div>
+		`)
+
+		$('#urgent_reason').select2({
+			dropdownParent: $('#CreateForm')
+		})
 	})
 	
 	$('#inp_urgent_off').on('change', function() {
 		var isi = $('#inp_urgent_on_back').val()
-		$('.urgent_reason_additional').hide()
+		// $('.urgent_reason_additional').hide()
+		$('#add_urgent_reason_form').empty()
 	})
 
 	// if($('#tr_inp_leaveisurgent').is(':hidden') && $('#modal_leave').val() == '') {
@@ -1652,7 +1683,7 @@ if ($platform != 'mobile') {
 							mymodalss.style.display = "none";
 
 
-							if (response.status_request == 1) {
+							if (response.status_request == 1 || response.status_request == 4) {
 								$("#modalcancelcondition_0").hide();
 								$("#modalcancelcondition_1").hide();
 								$("#modalcancelcondition_2").show();

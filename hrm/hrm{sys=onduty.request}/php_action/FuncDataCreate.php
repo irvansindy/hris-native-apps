@@ -171,7 +171,8 @@
     
                 $executeQueryDetail = $connect->query($queryOnDutyDetail);
             }
-            if ($executeQueryMaster == true && $executeApproval == true && $executeQueryDetail == true) {
+
+            if ($executeQueryMaster == true && $executeQueryDetail == true) {
                 http_response_code(200);
                 $response['success'] = true;
                 $response['code'] = "success_message";

@@ -120,7 +120,7 @@ if ($platform != 'mobile') {
 					<li class="digital" style="font-size: 12px;"><i class="fa fa-angle-right"
 							aria-hidden="true"></i>&nbsp;Time & Attendance&nbsp;&nbsp;</li>
 					<li class="digital" style="font-size: 12px;"><i class="fa fa-angle-right"
-							aria-hidden="true"></i>&nbsp;Shiftdaily Setting</li>
+							aria-hidden="true"></i>&nbsp;On Duty Request</li>
 				</ol>
 			</div>
 

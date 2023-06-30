@@ -368,6 +368,13 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 						</div>
 
 						<div class="form-row">
+							<div class="card-body table-responsive p-0"
+								style="width: 100vw;height: 30vh; width: 100%; overflow: scroll;overflow-x: hidden;border:1px solid #d2d2d2;border-radius: 4px;">
+								<div id="box"></div>
+							</div>
+						</div>
+
+						<!-- <div class="form-row">
 							<div class="col-sm-12">
 								<div class="input-group">
 									<link rel="stylesheet"
@@ -396,23 +403,23 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 									</select>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</fieldset>
 
 				</div>
 
 				<div class="modal-footer-sdk">
-					<button type="reset" class="btn-sdk btn-primary-left" data-dismiss="modal" aria-hidden="true">
-						&nbsp;Cancel&nbsp;
+					<button type="reset" class="btn-sdk btn-primary-center-only" data-dismiss="modal" aria-hidden="true">
+						&nbsp;Close&nbsp;
 					</button>
-					<button class="btn-sdk btn-primary-right" type="submit" name="submit_create" id="submit_create">
+					<!-- <button class="btn-sdk btn-primary-right" type="submit" name="submit_create" id="submit_create">
 						Confirm
-					</button>
-					<button class="btn-sdk btn-primary-right" type="button" name="submit_create2" id="submit_create2"
+					</button> -->
+					<!-- <button class="btn-sdk btn-primary-right" type="button" name="submit_create2" id="submit_create2"
 						style='display:none;' disabled>
 						<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
 						&nbsp;&nbsp;Processing..
-					</button>
+					</button> -->
 				</div>
 			</form>
 
@@ -550,12 +557,21 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 			dataType: 'json',
 			async: true,
 			success: function(response) {
-				console.log(response[0].users_menu_name)
-				// $('#detail-menu-item').clear()
-				
+				console.log(response[0].users_menu_name)				
 				$('#detail_user_menu_name').val(response[0].users_menu_name)
 				$('#detail_description').val(response[0].description)
 				$('#detail_remark').val(response[0].remark)
+
+				$("#box").load("pages_relation/_pages_setting?rfid=" + response.emp_no,
+					function (responseTxt, statusTxt, jqXHR) {
+						if (statusTxt == "success") {
+							$("#box").show();
+						}
+						if (statusTxt == "error") {
+							alert("Error: " + jqXHR.status + " " + jqXHR.statusText);
+						}
+					}
+				);
 			},
 		})
 	}

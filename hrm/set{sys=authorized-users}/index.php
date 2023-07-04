@@ -23,17 +23,43 @@ $footer = 'no'; //set as `yes` if you want to use default footer & set as `no` i
 <!-- ============================================================== -->
 <!-- Page wrapper  -->
 <!-- ============================================================== -->
-<div style="width: 100vw;height: 100vh;overflow-x: hidden;">
-    <div class="page-wrapper" style="display: block;">
-        <div class="row page-titles">
+<div style="width: 100vw;height: 100vh;overflow-x: hidden;overflow: hidden;">
+
+
+    <div id="new-header" style="z-index: 10;background: #eceaea;position: fixed;width: 100%;margin-top: 111px;height: 30px;padding: 5px;">
+        <div class="row page-titles" style="margin-top: -16px;">
             <div class="col-md-5 col-12 align-self-center">
-                <h3 class="text-themecolor mb-0">Setting</h3>
                 <ol class="breadcrumb mb-0 p-0 bg-transparent">
-                    <li class="breadcrumb-item"><a href="../hrm{sys=emp.dashboard}/">Home&nbsp;&nbsp;</a></li>
-                    <li><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;Authorized User</li>
+                    <li class="digital" style="font-size: 12px;">Setting&nbsp;&nbsp;</li>
+                    <!-- <li class="digital" style="font-size: 12px;"><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;Leave&nbsp;&nbsp;</li> -->
+                    <li class="digital" style="font-size: 12px;"><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;Authorized User</li>
                 </ol>
             </div>
+
+            <div class="card-actions ml-auto" style="margin-top: -3px;">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a href="#" class="open_modal_search" title="Add" data-toggle="modal" data-target="#CreateForm" id="CreateButton" data-keyboard="false" data-backdrop="static">
+                                    <div class="toolbar sprite-toolbar-add">
+                                    </div>
+                                </a>
+                            </td>
+                            <td>
+                                <div class="toolbar sprite-toolbar-reload" id="RELOAD" title="Reload" onclick="RefreshPage();">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
+    </div>
+
+    <div class="page-wrapper" style="display: block;">
+
         <!-- ============================================================== -->
         <!-- Container fluid  -->
         <!-- ============================================================== -->

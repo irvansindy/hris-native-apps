@@ -103,74 +103,22 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 	});
 </script>
 
-
-
-
-<div class="col-md-12">
-	<div class="card">
-		<div class="card-header d-flex align-items-center">
-			<h4 class="card-title mb-0">Authorized User </h4>
-
-
-			<div class="card-actions ml-auto">
-				<table>
-					<!-- <td>
-						<a href='#' class='open_modal_search' class="btn btn-demo" data-toggle="modal"
-							data-target="#myModal2">
-							<div class="toolbar sprite-toolbar-search" id="SEARCH" title="Search">
-							</div>
-						</a>
-					</td> -->
-					<td>
-						<div class="toolbar sprite-toolbar-reload" id="RELOAD" title="Reload" onclick="RefreshPage();">
-						</div>
-					</td>
-					<td>
-						<div class="toolbar sprite-toolbar-add" title="Add" data-toggle="modal"
-							data-target="#CreateForm" id="CreateButton" data-keyboard="false" data-backdrop="static">
-						</div>
-					</td>
-
-					
-				</table>
-
-
-
-			</div>
-		</div>
-
-		<div class="card-body table-responsive p-0"
-			style="width: 100vw;height: 78vh; width: 99.3%; margin: 5px;overflow: scroll;">
-			<table align="left" id="datatable" border="1"
-				class="table table-bordered table-striped table-hover table-head-fixed">
-				<thead>
-					<tr>
-						<th class="fontCustom" style="z-index: 1;vertical-align: ce;vertical-align: middle;"
-							nowrap="nowrap">No.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-						<th class="fontCustom" style="z-index: 1;vertical-align: ce;vertical-align: middle;"
-							nowrap="nowrap">
-							Authorize Name</th>
-						<th class="fontCustom" style="z-index:1;vertical-align: ce;vertical-align: middle;">
-							Type
-						</th>
-						<th class="fontCustom" nowrap="nowrap" style="z-index:1;vertical-align: ce;vertical-align: middle;">
-							Active Status
-						</th>
-					</tr>
-				</thead>
-			</table>
-
-		</div>
-
-		<div class='card-footer' style='background-color: #eee;height: 37px;padding-top: 5px;'>
-
-
-
-		</div>
-
+<div class="MaximumFrameHeight card-body table-responsive p-0"
+	style="width: 100vw;height: 80vh; width: 98%; margin-right: 5px;overflow: scroll;overflow-x: hidden;margin-top: 17px;">
+	<div class="col-12 col-fit" style="margin-top: 17px;">
+		<table id="datatable" width="100%" border="1" align="left"
+			class="table table-bordered table-striped table-hover table-head-fixed">
+			<thead>
+				<tr>
+					<th class="fontCustom" style="z-index: 1;" nowrap="nowrap">No</th>
+					<th class="fontCustom" style="z-index: 1;">Authorize Name</th>
+					<th class="fontCustom" style="z-index: 1;">Type</th>
+					<th class="fontCustom" style="z-index: 1;">Active Status</th>
+				</tr>
+			</thead>
+		</table>
 	</div>
 </div>
-
 
 <!-- create data modal -->
 <div class="modal  fade fade-custom" tabindex="-1" role="dialog" id="CreateForm">
@@ -453,7 +401,6 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 	// for create data
 	$(document).ready(function () {
 		$('#CreateButton').on('click', function() {
-			alert('create data')
 			document.getElementById("FormDisplayCreate").reset();
 
 			$("#FormDisplayCreate").unbind('submit').bind('submit', function () {

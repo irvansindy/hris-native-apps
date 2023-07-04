@@ -84,16 +84,15 @@
         ORDER BY a.request_no";
 		//  DESC LIMIT 1";
 		$result_data_request = mysqli_fetch_all(mysqli_query($connect, $get_data_request), MYSQLI_ASSOC);
+		$total_data_request = mysqli_num_rows(mysqli_query($connect, $get_data_request));
 
-		if(count($result_data_request) >= 1 && $inp_urgent_decl == 0) {
+		// if(count($result_data_request) >= 1 && $inp_urgent_decl == 0 && $total_data_request != $result_data_request[0]['max_manpower']) {
+		if(count($result_data_request) >= 1 && $inp_urgent_decl == 0 && $total_data_request > $result_data_request[0]['max_manpower']) {
 			$validator['success'] = false;
 			$validator['code'] = "failed_message";
-			// $validator['messages'] = "Unable to apply for a request because having request at range date please check : ". $result_data_request['request_no'] ." - ". $result_data_request['Full_Name']. " - " .$result_data_request['Full_Name']. " please contact HRD";
+			// $validator['messages'] = "ga bisa coy";
 			$validator['messages'] = "Unable to apply for a request because having request at range date please check : ". $result_data_request[0]['request_no'] ." - ". $result_data_request[0]['Full_Name']. " please contact HRD";
 		} else {
-			// $validator['success'] = false;
-			// $validator['code'] = "failed_message";
-			// $validator['messages'] = count($result_data_request);
 			$sql_leave_request_detail = "SELECT 
 			b.emp_id,
 			a.shiftstarttime,
@@ -509,17 +508,11 @@ ORDER BY a.dateforcheck ASC";
 	WHERE 
 		DATE_FORMAT(b.leave_starttime, '%Y-%m-%d') BETWEEN '2023-06-30' AND '2023-06-30'
 		-- AND a.emp_id = '$modal_emp'
-		AND a.emp_id = '3402202205000001'
+		AND a.emp_id = '$result_emp_id'
 		ORDER BY a.created_date DESC LIMIT 1";
 
 	$result_check_leave_request = mysqli_fetch_assoc(mysqli_query($connect, $query_check_leave_request));
 	$total_leave_request = mysqli_num_rows(mysqli_query($connect, $query_check_leave_request));
-
-	// if ($total_leave_request > 0 && in_array($result_check_leave_request['status_request'], $list_denied_status)) {
-	// 	$response['success'] = false;
-	// 	$response['code'] = "failed_message";
-	// 	$response['messages'] = 'Leave request already exists';
-	// } else 
 	if ($query_2['total'] > 0 && in_array($result_check_leave_request['status_request'], $list_denied_status)) {
 		$validator['success'] = false;
 		$validator['code'] = "failed_message";

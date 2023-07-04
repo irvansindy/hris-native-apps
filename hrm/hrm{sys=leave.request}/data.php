@@ -283,7 +283,7 @@ if ($platform != 'mobile') {
 				<div class="modal-dialog modal-belakang modal-bg" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h4 class="modal-title">Add Leave Request</h4>
+							<h4 class="modal-title">Add Leave Request Bang</h4>
 							<a type="button" class="close" onclick='return stopload()' data-dismiss="modal"
 								aria-label="Close" style="margin-top: -15px;">
 								<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
@@ -463,6 +463,18 @@ if ($platform != 'mobile') {
 											<div class="input-group">
 												<textarea class="textarea--style-6" id="inp_remark" name="inp_remark"
 													placeholder="Remark of Leave"></textarea>
+											</div>
+										</div>
+									</div>
+
+									<div class="form-row">
+										<div class="col-sm-2 name">
+											File Attachment <font color="red">*</font>
+										</div>
+										<div class="col-sm-8 name">
+											<div class="input-group">
+												<!-- <input type="file" name="fileupload" id="fileupload" class="form-control" /> -->
+												<input type="file" name="fileupload_request" id="fileupload_request" class="form-control" />
 											</div>
 										</div>
 									</div>

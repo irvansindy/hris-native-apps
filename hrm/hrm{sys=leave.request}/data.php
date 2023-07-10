@@ -283,7 +283,7 @@ if ($platform != 'mobile') {
 				<div class="modal-dialog modal-belakang modal-bg" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h4 class="modal-title">Add Leave Request Bang</h4>
+							<h4 class="modal-title">Add Leave Request</h4>
 							<a type="button" class="close" onclick='return stopload()' data-dismiss="modal"
 								aria-label="Close" style="margin-top: -15px;">
 								<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
@@ -328,7 +328,7 @@ if ($platform != 'mobile') {
 											<div class="input-group">
 
 												<select class="input--style-6 modal_leave" name="modal_leave"
-													style="width: 50%;height: 30px;" id="modal_leave"
+													style="width: 60%;height: 30px;" id="modal_leave"
 													onchange="isi_otomatis_leave()">
 													<option value="">--Select One--</option>
 													<?php
@@ -1222,9 +1222,9 @@ if ($platform != 'mobile') {
 		}); // /add modal
 	});
 
-	$('#modal_leave').select2({
-		dropdownParent: $('#CreateForm')
-	})
+	// $('#modal_leave').select2({
+	// 	dropdownParent: $('#CreateForm')
+	// })
 
 	$('#inp_urgent_on').on('change', function() {
 		var isi = $('#inp_urgent_on').val()

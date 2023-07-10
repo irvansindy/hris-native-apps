@@ -23,17 +23,16 @@
         // $input_user_menu_name = $_POST['input_user_menu_name'];
         $input_description = $_POST['input_description'];
         $input_remark = $_POST['input_remark'];
-        $menu_item = $_POST['menu_item'];
+        $menu_item = $_POST['data_menu_item'];
+        $input_active_status = $_POST['input_active_status'];
 
         $result_menu = implode(',', $menu_item);
-
-        // var_dump([
-
-        // ]);
-
-        // die();
+        $result_status = $input_active_status != null ? 1 : 0;
+        
+        $total_menu = count($menu_item);
+        // print_r($total_menu);
         // set input data to database
-        $query_insert_data = "INSERT INTO `users_menugroup_setting` (
+        $query_insert_master_data = "INSERT INTO `users_menugroup_setting` (
             `users_menu_name`,
             `description`,
             `active_status`,
@@ -47,7 +46,7 @@
         ) VALUES (
             '$input_user_menu_name',
             '$input_description',
-            '1',
+            '$result_status',
             '$result_menu',
             'FIXED',
             '$input_remark',
@@ -57,9 +56,43 @@
             '$SFdatetime'
         )";
 
-        $execute_query = $connect->query($query_insert_data);
+        $execute_query_master_data = $connect->query($query_insert_master_data);
 
-        if ($execute_query == true) {
+        for ($i=0; $i < $total_menu; $i++) { 
+            $query_detail = "INSERT INTO `users_menugroup_setting_detail` (
+                `users_menu_name`,
+                `menu_id`
+            ) VALUES (
+                '$input_user_menu_name',
+                '$menu_item[$i]'
+            )";
+
+            $execute_query_detail = $connect->query($query_detail);
+        }
+        // for ($i=0; $i < $total_menu; $i++) { 
+        //     $query_insert_menu = "INSERT INTO `users_menu_access` 
+        //         (
+        //             `emp_no`, 
+        //             `formula`, 
+        //             `is_acccessgroup_use`,
+        //             `company_id`
+        //         ) 
+        //         VALUES 
+        //             (
+        //                 '$input_emp_no',
+        //                 '$menu_item[$i]',
+        //                 '',
+        //                 '13576'
+                        
+        //             )";
+            
+        //     // $execute_query_menu = $connect->query($query_insert_menu);
+        // }
+        
+
+        // if ($execute_query_master_data == true && $execute_query_menu == true) {
+        // if ($execute_query_master_data == true) {
+        if ($execute_query_master_data == true && $execute_query_detail == true) {
             http_response_code(200);
             $response['success'] = true;
             $response['code'] = "success_message";

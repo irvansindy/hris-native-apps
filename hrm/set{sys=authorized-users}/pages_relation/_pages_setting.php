@@ -1,6 +1,6 @@
 <?php
 include "../../../application/config.php";
-$rfid = $_GET['rfid'];
+$users_menu_name = $_GET['rfid'];
 //$modal_id = '1';
 $modal = mysqli_query($connect, "SELECT 
 	a.menu_id,
@@ -27,12 +27,17 @@ while ($r = mysqli_fetch_array($modal)) {
 
 
 	<?php
+		// $modal = mysqli_query($connect, "SELECT a.menu_id,a.menu,a.module,
+		// 		(SELECT 'selected' FROM users_menu_access x WHERE x.formula=a.menu_id AND x.emp_no='$rfid') as selected
+		// 		FROM hrmmenu a ");
 		$modal = mysqli_query($connect, "SELECT a.menu_id,a.menu,a.module,
-				(SELECT 'selected' FROM users_menu_access x WHERE x.formula=a.menu_id AND x.emp_no='$rfid') as selected
-				FROM hrmmenu a ");
+				(SELECT 'selected' FROM users_menugroup_setting_detail x WHERE x.menu_id=a.menu_id AND x.users_menu_name='$users_menu_name') as selected
+				FROM hrmmenu a");
+
+		// $modal2 
 	?>
-	<select id="test-select-4s" multiple="multiple" class="framework" id="sel_application_menu"
-		name="sel_application_menu[]">
+	<select id="test-select-4s" multiple="multiple" class="framework data_menu_item" id="data_menu_item"
+		name="data_menu_item[]">
 		<?php if (mysqli_num_rows($modal) > 0) { ?>
 		<?php while ($row = mysqli_fetch_array($modal)) { ?>
 		<option value="<?php echo $row['menu_id'] ?>" data-section="<?php echo $row['module'] ?>" data-index="1"

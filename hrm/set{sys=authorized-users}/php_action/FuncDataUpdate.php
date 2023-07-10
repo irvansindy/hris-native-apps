@@ -18,11 +18,11 @@ if($_POST) {
 	$sql_0 = "DELETE FROM `users_menu_access` WHERE `emp_no` = '$sel_employee'";
 	$query_0 = $connect->query($sql_0);	
 
-	for($iemg=0;$iemg<count($_POST['sel_application_menu']);$iemg++){
+	for($iemg=0;$iemg<count($_POST['edit_menu_item']);$iemg++){
 		$iemg_plus = $iemg+1;
-		$sel_application_menu	= $_POST['sel_application_menu'][$iemg];
+		$edit_menu_item	= $_POST['edit_menu_item'][$iemg];
 		
-		if($sel_application_menu!==''){
+		if($edit_menu_item!==''){
 	 
 			$sql_1 = "INSERT INTO `users_menu_access` 
 				(
@@ -33,7 +33,7 @@ if($_POST) {
 					VALUES 
 						(
 							'$sel_employee',
-							'$sel_application_menu', 
+							'$edit_menu_item', 
 							'$get_company[company_id]'
 							
 						)

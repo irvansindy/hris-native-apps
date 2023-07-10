@@ -184,12 +184,29 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 								</div>
 							</div>
 						</div>
+					
+						<div class="form-row">
+							<div class="col-4 name">Active Status <span class="required">*</span></div>
+							<div class="col-sm-8">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="checkbox" name="input_active_status" id="input_active_status" value="1">
+									<label class="form-check-label" for="input_active_status">Yes</label>
+								</div>
+							</div>
+						</div>
 
 						<div class="form-row">
 							<div class="col-4 name">Menu Authorization </div>
 						</div>
 
 						<div class="form-row">
+							<div class="card-body table-responsive p-0"
+								style="width: 100vw;height: 30vh; width: 100%; overflow: scroll;overflow-x: hidden;border:1px solid #d2d2d2;border-radius: 4px;">
+								<div id="menu_item"></div>
+							</div>
+						</div>
+
+						<!-- <div class="form-row">
 							<div class="col-sm-12">
 								<div class="input-group">
 									<link rel="stylesheet"
@@ -218,7 +235,7 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 									</select>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</fieldset>
 
 				</div>
@@ -402,6 +419,16 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 	$(document).ready(function () {
 		$('#CreateButton').on('click', function() {
 			document.getElementById("FormDisplayCreate").reset();
+			$("#menu_item").load("pages_relation/_pages_setting?rfid=",
+				function (responseTxt, statusTxt, jqXHR) {
+					if (statusTxt == "success") {
+						$("#menu_item").show();
+					}
+					if (statusTxt == "error") {
+						alert("Error: " + jqXHR.status + " " + jqXHR.statusText);
+					}
+				}
+			);
 
 			$("#FormDisplayCreate").unbind('submit').bind('submit', function () {
 				var form = $(this);
@@ -409,10 +436,12 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 				var input_emp_no = $('#input_emp_no').val()
 				var input_user_menu_name = $('#input_user_menu_name').val()
 				var input_description = $('#input_description').val()
-				var input_remark = $('#input_remark').val()
-				// var menu_item = $('#menu_item').val()
-				// var list_menu_item = $("input[name='menu_item[]']").map(function(){return $(this).val();}).get();
-				var list_menu_item = $("input[name='menu_item']").map(function(){return $(this).val();}).get();
+				var input_remark = $('#input_remark').val();
+				// var list_menu_item = $("input[name='data_menu_item[]']").map(function(){return $(this).val();}).get();
+
+				var arr_menu = $('.option:checked').map(function(){
+					return this.value;
+				}).get();
 
 				if (input_user_menu_name == "") {
 					mymodalss.style.display = "none";
@@ -429,21 +458,22 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 					modals.style.display = "block";
 					document.getElementById("msg").innerHTML = "Remark cannot empty";
 					return false;
+				} else if (arr_menu.length < 1) {
+					mymodalss.style.display = "none";
+					modals.style.display = "block";
+					document.getElementById("msg").innerHTML = "List menu authorization cannot empty";
+					return false;
 				}
 
 				if (input_user_menu_name && input_description && input_remark) {
 					$.ajax({
 						url: "php_action/FuncDataCreate.php<?php echo $getPackage; ?>",
 						type: form.attr('method'),
-						// data: form.serialize(),
-
 						data: new FormData(this),
-						// data: formData,
 						processData: false,
 						contentType: false,
 						dataType: 'json',
 						success: function(response) {
-							// remove the error 
 							$(".form-group").removeClass('has-error').removeClass(
 								'has-success');
 							mymodalss.style.display = "none";
@@ -457,17 +487,11 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 							$("#FormDisplayCreate")[0].reset();
 							// reload the datatables
 							datatable.ajax.reload(null, false);
-							// window.location.reload()
-							// if (response.success == true) {
-								// this function is built in function of datatables;
-							// }
 						},
 						error: function(xhr, status, error) {
 							mymodalss.style.display = "none";
 							modals.style.display = "block";
 							document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
-							// var err = eval("(" + xhr.responseText + ")");
-							// alert(err.messages);
 						}
 					});
 					return false;
@@ -504,12 +528,12 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 			dataType: 'json',
 			async: true,
 			success: function(response) {
-				console.log(response[0].users_menu_name)				
+				// console.log(response[0].users_menu_name)				
 				$('#detail_user_menu_name').val(response[0].users_menu_name)
 				$('#detail_description').val(response[0].description)
 				$('#detail_remark').val(response[0].remark)
 
-				$("#box").load("pages_relation/_pages_setting?rfid=" + response.emp_no,
+				$("#box").load("pages_relation/_pages_setting?rfid=" + response[0].users_menu_name,
 					function (responseTxt, statusTxt, jqXHR) {
 						if (statusTxt == "success") {
 							$("#box").show();

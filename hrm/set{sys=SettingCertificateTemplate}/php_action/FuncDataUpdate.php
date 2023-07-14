@@ -29,7 +29,7 @@ if($_POST) {
 		`modified_date` = '$date'
 		WHERE certificate_code = '$edit_certificate_code'";
 
-	$exe_query_master = $connect->query($query_update_master_certificate);
+	// $exe_query_master = $connect->query($query_update_master_certificate);
 
 	if($exe_query_master == TRUE) {
 		$validator['success'] = true;

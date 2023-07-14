@@ -90,8 +90,6 @@
 <!-- sweetalert2 -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
-
 <!-- isi JSON -->
 <script type="text/javascript">
 // global the manage memeber table 
@@ -148,13 +146,15 @@ $(document).ready(function() {
 
 		<!-- table data list setting provider -->
 		<div class="card-body table-responsive p-0" style="width: 100vw;height: 78vh; width: 99.8%; margin: 5px;overflow: scroll;">
-			<table id="datatable" width="60%" border="1" align="left"
+			<table id="datatable" width="90%" border="1" align="left"
 				class="table table-bordered table-striped table-hover table-head-fixed">
 				<thead>
 					<tr>
                         <th class="fontCustom" style="z-index: 1;" nowrap="nowrap">No.</th>
-                        <th class="fontCustom" style="z-index: 1;">Certificate Code</th>
-                        <th class="fontCustom" style="z-index: 1;">Certificate Name</th>
+                        <th class="fontCustom" style="z-index: 1;">Title</th>
+                        <th class="fontCustom" style="z-index: 1;">Sub - Title</th>
+                        <th class="fontCustom" style="z-index: 1;">Status</th>
+                        <th class="fontCustom" style="z-index: 1;">Headline</th>
                         <th class="fontCustom" style="z-index: 1;">Action</th>
                     </tr>
 				</thead>
@@ -165,12 +165,12 @@ $(document).ready(function() {
 	</div>
 </div>
 
-<!-- data modal add certificate templates -->
+<!-- data modal add news templates -->
 <div class="modal fade fade-custom" tabindex="-1" role="dialog" id="CreateForm">
 	<div class="modal-dialog modal-belakang modal-bg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Add Data Certificate Templates</h4>
+				<h4 class="modal-title">Add News</h4>
 				<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close" style="margin-top: -15px;">
 					<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
 				</a>
@@ -188,66 +188,78 @@ $(document).ready(function() {
 					<input id="inp_token" name="inp_token" type="hidden" value="<?php echo $get_token; ?>">
 
 					<div class="form-row">
-						<div class="col-4 name">Certificate Code <span class="required">*</span></div>
+						<?php
+						// Date Format: Y/m/dd
+						
+						?>
+						<div class="col-4 name">Title <span class="required">*</span></div>
 						<div class="col-sm-8">
 							<div class="input-group">
-								<input class="input--style-6" autocomplete="off" autofocus="on" id="input_certificate_code"
-									name="input_certificate_code" type="Text" value="" onfocus="hlentry(this)" size="30"
-									maxlength="50" style="text-transform:uppercase;width: 60%;"
-									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="">
-							</div>
-						</div>
-					</div>
-
-					<div class="form-row">
-						<div class="col-4 name">Certificate Title <span class="required">*</span></div>
-						<div class="col-sm-8">
-							<div class="input-group">
-								<input class="input--style-6" autocomplete="off" autofocus="on" id="input_certificate_title_en"
-									name="input_certificate_title_en" type="Text" value="" onfocus="hlentry(this)" size="30"
-									maxlength="50" style="text-transform:uppercase;width: 60%;"
-									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="" placeholder="Inggris">
+								<input class="input--style-6" autocomplete="off" autofocus="on" id="input_title"
+									name="input_title" type="Text" value="" size="30"
+									maxlength="50" style="text-transform:uppercase;width: 60%;" title="">
 							</div>
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="col-4 name"></div>
+						<div class="col-4 name">Sub Title <span class="required">*</span></div>
 						<div class="col-sm-8">
 							<div class="input-group">
-								<input class="input--style-6" autocomplete="off" autofocus="on" id="input_certificate_title_id"
-									name="input_certificate_title_id" type="Text" value="" onfocus="hlentry(this)" size="30"
-									maxlength="50" style="text-transform:uppercase;width: 60%;"
-									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="" placeholder="Indonesia">
+								<input class="input--style-6" autocomplete="off" autofocus="on" id="input_sub_title"
+									name="input_sub_title" type="Text" value="" size="30"
+									maxlength="50" style="text-transform:uppercase;width: 60%;" title="">
 							</div>
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="col-4 name"></div>
+						<div class="col-4 name">SEO Title <span class="required">*</span></div>
 						<div class="col-sm-8">
 							<div class="input-group">
-								<input class="input--style-6" autocomplete="off" autofocus="on" id="input_certificate_title_th"
-									name="input_certificate_title_th" type="Text" value="" onfocus="hlentry(this)" size="30"
-									maxlength="50" style="text-transform:uppercase;width: 60%;"
-									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="" placeholder="Thailand">
+								<input class="input--style-6" autocomplete="off" autofocus="on" id="input_seo_title"
+									name="input_seo_title" type="Text" value="" size="30"
+									maxlength="50" style="text-transform:uppercase;width: 60%;" title="">
 							</div>
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="col-4 name">Preview Certificate <span class="required">English</span></div>
+						<div class="col-4 name">Headline Active <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="checkbox" name="input_active_headline" id="input_active_headline" value="1">
+								<label class="form-check-label" for="input_active_headline">Yes</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">Active Status <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="checkbox" name="input_active_status" id="input_active_status" value="1">
+								<label class="form-check-label" for="input_active_status">Yes</label>
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="col-4 name">Content <span class="required">*</span></div>
 						<div class="col-8">
-							<textarea id="input_certificate_editor_wysiwyg_en" name="input_certificate_editor_wysiwyg_en"></textarea>
+							<textarea id="input_content" name="input_content"></textarea>
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="col-4 name">Preview Certificate <span class="required">Indonesian</span></div>
+						<div class="col-4 name">Information <span class="required">*</span></div>
 						<div class="col-8">
-							<textarea id="input_certificate_editor_wysiwyg_id" name="input_certificate_editor_wysiwyg_id"></textarea>
+							<textarea class="input--style-6" id="input_information" name="input_information" style="width: 60%;"></textarea>
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="col-4 name">Preview Certificate <span class="required">Thailand</span></div>
+						<div class="col-4">
+							File Thumbnail <font color="red">*</font>
+						</div>
 						<div class="col-8">
-							<textarea id="input_certificate_editor_wysiwyg_th" name="input_certificate_editor_wysiwyg_th"></textarea>
+							<div class="input-group">
+								<input type="file" name="image_news_thumbnail" id="image_news_thumbnail" class="form-control" />
+							</div>
 						</div>
 					</div>
 				</fieldset>
@@ -271,18 +283,18 @@ $(document).ready(function() {
 </div><!-- /.modal -->
 <!-- /edit modal -->
 
-<!-- data modal edit Certificate Templates -->
+<!-- data modal edit news Templates -->
 <div class="modal fade fade-custom" tabindex="-1" role="dialog" id="UpdateForm">
 	<div class="modal-dialog modal-belakang modal-bg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Edit Data Certificate Templates</h4>
+				<h4 class="modal-title">Edit News</h4>
 				<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close" style="margin-top: -15px;">
 					<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
 				</a>
 			</div>
 
-			<form class="form-horizontal" action="php_action/FuncDataUpdate.php" method="POST" id="FormDisplayCreate">
+			<form class="form-horizontal" action="php_action/FuncDataUpdate.php" method="POST" id="FormDisplayUpdate">
 				<fieldset id="fset_1">
 					<legend>Form Data</legend>
 
@@ -290,82 +302,100 @@ $(document).ready(function() {
 
 					<!--FROM SESSION -->
 					<input id="edit_emp_no" name="edit_emp_no" type="hidden" value="<?php echo $username; ?>">
+					<input id="edit_id_berita" name="edit_id_berita" type="hidden" value="">
 					<!--FROM CONFIGURATION -->
 					<input id="inp_token" name="inp_token" type="hidden" value="<?php echo $get_token; ?>">
 
 					<div class="form-row">
-						<div class="col-4 name">Certificate Code <span class="required">*</span></div>
+						<div class="col-4 name">Title <span class="required">*</span></div>
+						<div class="col-8">
+							<input class="input--style-6" autocomplete="off" autofocus="on" id="edit_title"
+								name="edit_title" type="Text" value="" size="30"
+								maxlength="50" style="text-transform:uppercase;width: 60%;" title="">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">Sub Title <span class="required">*</span></div>
 						<div class="col-sm-8">
 							<div class="input-group">
-								<input class="input--style-6" autocomplete="off" autofocus="on" id="edit_certificate_code"
-									name="edit_certificate_code" type="Text" value="" onfocus="hlentry(this)" size="30"
-									maxlength="50" style="text-transform:uppercase;width: 60%;"
-									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="" readonly>
+								<input class="input--style-6" autocomplete="off" autofocus="on" id="edit_sub_title"
+									name="edit_sub_title" type="Text" value="" size="30"
+									maxlength="50" style="text-transform:uppercase;width: 60%;" title="">
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">SEO Title <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<input class="input--style-6" autocomplete="off" autofocus="on" id="edit_seo_title"
+									name="edit_seo_title" type="Text" value="" size="30"
+									maxlength="50" style="text-transform:uppercase;width: 60%;" title="">
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">Headline Active <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="checkbox" name="edit_active_headline" id="edit_active_headline" value="1">
+								<label class="form-check-label" for="edit_active_headline">Yes</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">Active Status <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="checkbox" name="edit_active_status" id="edit_active_status" value="1">
+								<label class="form-check-label" for="edit_active_status">Yes</label>
 							</div>
 						</div>
 					</div>
 
 					<div class="form-row">
-						<div class="col-4 name">Certificate Title <span class="required">*</span></div>
-						<div class="col-sm-8">
+						<div class="col-4 name">Content <span class="required">*</span></div>
+						<div class="col-8">
+							<textarea id="edit_content" name="edit_content"></textarea>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-4 name">Information <span class="required">*</span></div>
+						<div class="col-8">
+							<textarea class="input--style-6" id="edit_information" name="edit_information" style="width: 60%;"></textarea>
+						</div>
+					</div>
+					<div class="form-row file_news_thumbnail_data">
+						<div class="col-4">
+							File Thumbnail <font color="red">*</font>
+						</div>
+						<div class="col-8">
 							<div class="input-group">
-								<input class="input--style-6" autocomplete="off" autofocus="on" id="edit_certificate_title_en"
-									name="edit_certificate_title_en" type="Text" value="" onfocus="hlentry(this)" size="30"
-									maxlength="50" style="text-transform:uppercase;width: 60%;"
-									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="" placeholder="Inggris">
+								<a href="" id="edit_news_thumbnail" target="_blank" download>
+									<div id="preview_thumbnail"></div>
+								</a>
 							</div>
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="col-4 name"></div>
-						<div class="col-sm-8">
+						<div class="col-4">
+							Change File Thumbnail <font color="red">*</font>
+						</div>
+						<div class="col-8">
 							<div class="input-group">
-								<input class="input--style-6" autocomplete="off" autofocus="on" id="edit_certificate_title_id"
-									name="edit_certificate_title_id" type="Text" value="" onfocus="hlentry(this)" size="30"
-									maxlength="50" style="text-transform:uppercase;width: 60%;"
-									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="" placeholder="Indonesia">
+								<input type="file" name="image_news_thumbnail" id="image_news_thumbnail" class="form-control" />
 							</div>
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="col-4 name"></div>
-						<div class="col-sm-8">
-							<div class="input-group">
-								<input class="input--style-6" autocomplete="off" autofocus="on" id="edit_certificate_title_th"
-									name="edit_certificate_title_th" type="Text" value="" onfocus="hlentry(this)" size="30"
-									maxlength="50" style="text-transform:uppercase;width: 60%;"
-									validate="NotNull:Invalid Form Entry" onchange="formodified(this);" title="" placeholder="Thailand">
-							</div>
-						</div>
-					</div>
-
-					<div class="form-row">
-						<div class="col-4 name">Preview Certificate <span class="required">English</span></div>
-						<div class="col-8">
-							<textarea id="edit_certificate_editor_wysiwyg_en" name="edit_certificate_editor_wysiwyg_en"></textarea>
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="col-4 name">Preview Certificate <span class="required">Indonesian</span></div>
-						<div class="col-8">
-							<textarea id="edit_certificate_editor_wysiwyg_id" name="edit_certificate_editor_wysiwyg_id"></textarea>
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="col-4 name">Preview Certificate <span class="required">Thailand</span></div>
-						<div class="col-8">
-							<textarea id="edit_certificate_editor_wysiwyg_th" name="edit_certificate_editor_wysiwyg_th"></textarea>
 						</div>
 					</div>
 
 				</fieldset>
 
 				<div class="modal-footer">
-					<button type="reset" class="btn btn-primary1" data-dismiss="modal" aria-hidden="true" id="close_edit_form_venue">
+					<button type="reset" class="btn btn-primary1" data-dismiss="modal" aria-hidden="true" id="close_edit_form_venue submit_update">
 						&nbsp;Cancel&nbsp;
 					</button>
 					<button class="btn btn-warning" type="submit" name="submit_update" id="submit_update">
-						Confirm
+						Update
 					</button>
 					<button class="btn btn-warning" type="button" name="submit_update2"
 						id="submit_update2" style='display:none;' disabled>
@@ -426,18 +456,7 @@ $(document).ready(function() {
 <!-- /edit modal -->
 
 <script>
-	// summernote edit form
-	$('#edit_certificate_editor_wysiwyg_en').summernote({
-		tabsize: 2,
-		height: 100,
-		disableDragAndDrop: true
-	});
-	$('#edit_certificate_editor_wysiwyg_id').summernote({
-		tabsize: 2,
-		height: 100,
-		disableDragAndDrop: true
-	});
-	$('#edit_certificate_editor_wysiwyg_th').summernote({
+	$('#edit_content').summernote({
 		tabsize: 2,
 		height: 100,
 		disableDragAndDrop: true
@@ -449,9 +468,9 @@ function RefreshPage() {
 	datatable.ajax.reload(null, true);
 
 	setTimeout(function(){
-			mymodalss.style.display = "none";
-			document.getElementById("msg").innerHTML = "Data refreshed";
-			return false;
+		mymodalss.style.display = "none";
+		document.getElementById("msg").innerHTML = "Data refreshed";
+		return false;
 	}, 2000);
 
 	mymodalss.style.display = "block";
@@ -467,72 +486,14 @@ function RefreshPage() {
 		$("#CreateButton").on('click', function() {
 			// reset the form 
 			$("#FormDisplayCreate")[0].reset();
-			// empty the message div
 
 			// summernote create form
-			$('#input_certificate_editor_wysiwyg_en').summernote({
+			$('#input_content').summernote({
 				tabsize: 2,
 				height: 100,
 				spellCheck: true,
-				// toolbar: [
-				// 	['style', ['style']],
-				// 	['font', ['bold', 'underline', 'italic', 'superscript', 'subscript', 'clear']],
-				// 	['fontname', ['fontname','fontsize']],
-				// 	['color', ['color']],
-				// 	['para', ['ul', 'ol', 'paragraph']],
-				// 	['table', ['table']],
-				// 	['insert', ['link', 'picture', 'video']],
-				// 	['view', ['fullscreen', 'help', 'undo', 'redo']],
-				// ],
-				// callbacks: {
-				// 	onImageUpload: function(files, editor, welEditable) {
-				// 		uploadFile(files[0], editor, welEditable);
-				// 	}
-				// }
-
 			});
-			$('#input_certificate_editor_wysiwyg_id').summernote({
-				tabsize: 2,
-				height: 100,
-				spellCheck: true,
-				// toolbar: [
-				// 	['style', ['style']],
-				// 	['font', ['bold', 'underline', 'italic', 'superscript', 'subscript', 'clear']],
-				// 	['fontname', ['fontname','fontsize']],
-				// 	['color', ['color']],
-				// 	['para', ['ul', 'ol', 'paragraph']],
-				// 	['table', ['table']],
-				// 	['insert', ['link', 'picture', 'video']],
-				// 	['view', ['fullscreen', 'help', 'undo', 'redo']],
-				// ],
-				// callbacks: {
-				// 	onImageUpload: function(files, editor, welEditable) {
-				// 		uploadFile(files[0], editor, welEditable);
-				// 	}
-				// }
 
-			});
-			$('#input_certificate_editor_wysiwyg_th').summernote({
-				tabsize: 2,
-				height: 100,
-				spellCheck: true,
-				// toolbar: [
-				// 	['style', ['style']],
-				// 	['font', ['bold', 'underline', 'italic', 'superscript', 'subscript', 'clear']],
-				// 	['fontname', ['fontname','fontsize']],
-				// 	['color', ['color']],
-				// 	['para', ['ul', 'ol', 'paragraph']],
-				// 	['table', ['table']],
-				// 	['insert', ['link', 'picture', 'video']],
-				// 	['view', ['fullscreen', 'help', 'undo', 'redo']],
-				// ],
-				// callbacks: {
-				// 	onImageUpload: function(files, editor, welEditable) {
-				// 		uploadFile(files[0], editor, welEditable);
-				// 	}
-				// }
-
-			});
 			$(".messages_create").html("");
 
 			// submit form
@@ -544,57 +505,47 @@ function RefreshPage() {
 
 				// initial variable
 				var inp_emp_no = $("#inp_emp_no").val();
-				var input_certificate_code = $("#input_certificate_code").val();
-				var input_certificate_title_en = $("#input_certificate_title_en").val();
-				var input_certificate_title_id = $("#input_certificate_title_id").val();
-				var input_certificate_title_th = $("#input_certificate_title_th").val();
-				var input_certificate_editor_wysiwyg_en = $("#input_certificate_editor_wysiwyg_en").val();
-				var input_certificate_editor_wysiwyg_id = $("#input_certificate_editor_wysiwyg_id").val();
-				var input_certificate_editor_wysiwyg_th = $("#input_certificate_editor_wysiwyg_th").val();
+				var input_title = $("#input_title").val();
+				var input_sub_title = $("#input_sub_title").val();
+				var input_seo_title = $("#input_seo_title").val();
+				var input_active_headline = $("#input_active_headline").val();
+				var input_active_status = $("#input_active_status").val();
+				var input_content = $("#input_content").val();
+				var input_information = $("#input_information").val();
 				
 				var regex=/^[a-zA-Z]+$/;
 
-				if (input_certificate_code == "") {
+				if (input_title == "") {
 					modals.style.display ="block";
-					document.getElementById("msg").innerHTML = "Certificate Code cannot empty";
+					document.getElementById("msg").innerHTML = "Title cannot empty";
 					return false;
-				} else if (input_certificate_title_en == "") {
+				} else if (input_sub_title == "") {
 					modals.style.display ="block";
-					document.getElementById("msg").innerHTML = "Certificate Title English cannot empty";
+					document.getElementById("msg").innerHTML = "Sub Title cannot empty";
 					return false;
-				} else if (input_certificate_title_id == "") {
+				} else if (input_seo_title == "") {
 					modals.style.display ="block";
-					document.getElementById("msg").innerHTML = "Certificate Title Indonesian cannot empty";
+					document.getElementById("msg").innerHTML = "Headline Title cannot empty";
 					return false;
-				} else if (input_certificate_title_th == "") {
+				} else if (input_content == "") {
 					modals.style.display ="block";
-					document.getElementById("msg").innerHTML = "Certificate Title Thailand cannot empty";
+					document.getElementById("msg").innerHTML = "Content cannot empty";
 					return false;
-				} else if (input_certificate_editor_wysiwyg_en == "") {
+				} else if (input_information == "") {
 					modals.style.display ="block";
-					document.getElementById("msg").innerHTML = "Certificate Design English cannot empty";
-					return false;
-				} else if (input_certificate_editor_wysiwyg_id == "") {
-					modals.style.display ="block";
-					document.getElementById("msg").innerHTML = "Certificate Design Indonesian cannot empty";
-					return false;
-				} else if (input_certificate_editor_wysiwyg_th == "") {
-					modals.style.display ="block";
-					document.getElementById("msg").innerHTML = "Certificate Design Thailand cannot empty";
+					document.getElementById("msg").innerHTML = "Information cannot empty";
 					return false;
 				} else {
 					$('#submit_add').hide();
 					$('#submit_add2').show();
 				}
 
-				if (input_certificate_code && input_certificate_title_en && input_certificate_title_id && input_certificate_title_th && input_certificate_editor_wysiwyg_en && input_certificate_editor_wysiwyg_id && input_certificate_editor_wysiwyg_th) {
+				if (input_title && input_sub_title && input_seo_title && input_content && input_information) {
 
 					//submit the form to server
 					$.ajax({
 						url: form.attr('action'),
 						type: form.attr('method'),
-						// data: form.serialize(),
-
 						data: new FormData(this),
 						processData: false,
 						contentType: false,
@@ -656,6 +607,123 @@ function RefreshPage() {
 		}); // /add modal
 	});
 
+	// function update news
+	function UpdateNews(request) {
+		// alert(request)
+		$('#FormDisplayUpdate')[0].reset();
+		$(".form-group").removeClass('has-error').removeClass('has-success');
+			$(".text-danger").remove();
+			// empty the message div
+			$(".messages_update").html("");
+
+		$.ajax({
+			url: 'php_action/FuncGetDataById',
+			type: 'post',
+			data: {
+				request: request
+			},
+			dataType: 'json',
+			async: true,
+			success: function(response) {
+				// alert(response[0].judul)
+				$('#edit_id_berita').val(response[0].id_berita)
+				$('#edit_title').val(response[0].judul)
+				$("#edit_title").prop("readonly",true);
+				$('#edit_sub_title').val(response[0].sub_judul)
+				$('#edit_seo_title').val(response[0].judul_seo)
+				
+				let is_active_headline = $('#edit_active_headline')
+				response[0].headline == 'Y' ? is_active_headline.prop("checked",true) : is_active_headline.prop("checked",false)
+				let is_active_status = $('#edit_active_status')
+				response[0].aktif == 'Y' ? is_active_status.prop("checked",true) : is_active_status.prop("checked",false)
+
+				$('#edit_content').summernote('code', response[0].isi_berita)
+				$('#edit_information').val(response[0].keterangan_gambar)
+
+				let data_thumbnail = response[0].gambar
+				if (data_thumbnail == "") {
+					$('.file_news_thumbnail_data').hide()
+				}
+				preview_thumbnail
+				$('#preview_thumbnail').append(`<img id="data_preview_thumbnail" class="img-fluid img-thumbnail" src="" alt="file attachment" width="100" height="140">`)
+				$('#edit_news_thumbnail').attr("href", 'hrstudio.presfst/'+data_thumbnail)
+				$('#data_preview_thumbnail').attr("src", 'hrstudio.presfst/'+data_thumbnail)
+
+				$("#FormDisplayUpdate").unbind('submit').bind('submit', function() {
+					// remove error messages
+					$(".text-danger").remove();
+					var form = $(this);
+
+					// initial variable
+					var edit_emp_no = $("#edit_emp_no").val();
+					var edit_id_berita = $("#edit_id_berita").val();
+					var edit_title = $("#edit_title").val();
+					var edit_sub_title = $("#edit_sub_title").val();
+					var edit_seo_title = $("#edit_seo_title").val();
+					var edit_content = $("#edit_content").summernote('code');
+					var edit_information = $("#edit_information").val();
+
+					var regex=/^[a-zA-Z]+$/;
+
+					if (edit_title == "") {
+						modals.style.display ="block";
+						document.getElementById("msg").innerHTML = "Title cannot empty";
+						return false;
+					} else if (edit_sub_title == "") {
+						modals.style.display ="block";
+						document.getElementById("msg").innerHTML = "Sub Title cannot empty";
+						return false;
+					} else if (edit_seo_title == "") {
+						modals.style.display ="block";
+						document.getElementById("msg").innerHTML = "Headline Title cannot empty";
+						return false;
+					} else if (edit_content == "") {
+						modals.style.display ="block";
+						document.getElementById("msg").innerHTML = "Content cannot empty";
+						return false;
+					} else if (edit_information == "") {
+						modals.style.display ="block";
+						document.getElementById("msg").innerHTML = "Information cannot empty";
+						return false;
+					} else {
+						$('#submit_update').hide();
+						$('#submit_update2').show();
+
+						$.ajax({
+							url: form.attr('action'),
+							type: form.attr('method'),
+							// data: form.serialize(),
+
+							data: new FormData(this),
+							processData: false,
+							contentType: false,
+
+							dataType: 'json',
+							success: function(response) {
+								if (response.code =='success_message') {
+									modals.style.display = "block";
+									document.getElementById("msg").innerHTML =response.messages;
+
+									$('#submit_update').show();
+									$('#submit_update2').hide();
+
+									$('#FormDisplayUpdate').modal('hide'); 
+									$("[data-dismiss=modal]").trigger({type: "click"});
+									// reload the datatables
+									datatable.ajax.reload(null,false);
+									// reload the datatables
+								} else {
+									modals.style.display = "block";
+									document.getElementById("msg").innerHTML = response.messages;
+								}
+							} // /success
+						}); // /ajax
+					}
+					return false;
+				})
+			}
+		})
+	}
 
 	// function for update data
 	function updateCertificate(id = null) {
@@ -871,39 +939,6 @@ function RefreshPage() {
 </body>
 
 </html>
-
-<script>
-jQuery(function($) {
-	$("#nip").mask("99-9999");
-	$("#nik").mask("9999999999999999");
-	$("#join").mask("9999-99-99");
-	$("#date").mask("9999-99-99");
-	$("#account").mask("9999-9-99999-9");
-});
-</script>
-
-<script type="text/javascript">
-function isi_otomatis() {
-	var nip = $("#nip").val();
-	$.ajax({
-		url: 'ajax_cek.php',
-		data: "nip=" + nip,
-	}).success(function(data) {
-		var json = data,
-			obj = JSON.parse(json);
-		$('#nama').val(obj.nama);
-		$('#nik').val(obj.nik);
-		$('#org').val(obj.org);
-		$('#emp').val(obj.emp);
-		$('#join').val(obj.join);
-		$('#account').val(obj.account);
-		$('#norek').val(obj.norek);
-		$('#approve').val(obj.approve);
-		$('#grp').val(obj.grp);
-		$('#jobstatus').val(obj.jobstatus);
-	});
-}
-</script>
 
 <!-- function upload file from text editor wysiwyg -->
 <script>

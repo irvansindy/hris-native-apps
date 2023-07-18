@@ -508,37 +508,6 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 		})
 	}
 
-	function DetailAuthorizedUser(request) {
-		document.getElementById("FormDisplayDetail").reset();
-		
-		$.ajax({
-			url: 'php_action/FuncGetDataById.php',
-			type: 'GET',
-			data: {
-				request: request
-			},
-			dataType: 'json',
-			async: true,
-			success: function(response) {
-				// console.log(response[0].users_menu_name)				
-				$('#detail_name').val(response[0].users_menu_name)
-				$('#detail_description').val(response[0].description)
-				$('#detail_remark').val(response[0].remark)
-
-				$("#box").load("pages_relation/_pages_setting?rfid=" + response[0].users_menu_name,
-					function (responseTxt, statusTxt, jqXHR) {
-						if (statusTxt == "success") {
-							$("#box").show();
-						}
-						if (statusTxt == "error") {
-							alert("Error: " + jqXHR.status + " " + jqXHR.statusText);
-						}
-					}
-				);
-			},
-		})
-	}
-	
 	function editMember(id = null) {
 		if (id) {
 			// remove the error 

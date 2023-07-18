@@ -114,9 +114,11 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 			<thead>
 				<tr>
 					<th class="fontCustom" style="z-index: 1;" nowrap="nowrap">No</th>
-					<th class="fontCustom" style="z-index: 1;">Authorize Name</th>
+					<th class="fontCustom" style="z-index: 1;">Group Name</th>
+					<th class="fontCustom" style="z-index: 1;">Description</th>
 					<th class="fontCustom" style="z-index: 1;">Type</th>
 					<th class="fontCustom" style="z-index: 1;">Active Status</th>
+					<th class="fontCustom" style="z-index: 1;">Active Verify</th>
 				</tr>
 			</thead>
 		</table>
@@ -129,7 +131,7 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Function Authorization</h4>
+				<h4 class="modal-title">Add Function Authorization</h4>
 				<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close"
 					style="margin-top: -15px;">
 					<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
@@ -252,7 +254,7 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Detail Authorized User</h4>
+				<h4 class="modal-title">Detail Function Authorization </h4>
 				<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close"
 					style="margin-top: -15px;">
 					<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
@@ -263,14 +265,14 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 			<form class="form-horizontal" action="" method="" id="FormDisplayDetail">
 
 				<div class="card-body table-responsive p-0"
-					style="width: 100vw;height: 50vh; width: 98%; margin: 5px;overflow: scroll;overflow-x: hidden;">
+					style="width: 100vw;height: auto; width: 98%; margin: 5px;overflow: scroll;overflow-x: hidden;">
 
 					<fieldset id="fset_1">
 						<legend>General</legend>
 
 						<div class="messages_update"></div>
 
-						<input id="input_emp_no" name="input_emp_no" type="hidden" value="<?php echo $username; ?>">
+						<input id="detail_emp_no" name="detail_emp_no" type="hidden" value="<?php echo $username; ?>">
 
 						<!--FROM SESSION -->
 						<input id="sel_token" name="sel_token" type="hidden" value="<?php echo $get_token; ?>">
@@ -283,11 +285,11 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 						</div>
 
 						<div class="form-row">
-							<div class="col-4 name">User Group Name <span class="required">*</span></div>
+							<div class="col-4 name">Group Name <span class="required">*</span></div>
 							<div class="col-sm-8">
 								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="detail_user_menu_name"
-										name="detail_user_menu_name" type="Text" value="" readonly size="30"
+									<input class="input--style-6" autocomplete="off" autofocus="on" id="detail_name"
+										name="detail_name" type="Text" value="" readonly size="30"
 										maxlength="50" style="text-transform:uppercase;width: 60%;">
 								</div>
 							</div>
@@ -301,57 +303,39 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 								</div>
 							</div>
 						</div>
-						
+
 						<div class="form-row">
-							<div class="col-4 name">Remark <span class="required">*</span></div>
+							<div class="col-4 name">Admin Type <font color="red">*</font>
+							</div>
 							<div class="col-sm-8">
 								<div class="input-group">
-									<textarea class="input--style-6" name="detail_remark" id="detail_remark" cols="7" rows="" style="width:60%;" readonly></textarea>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-row">
-							<div class="col-4 name">Menu Authorization </div>
-						</div>
-
-						<div class="form-row">
-							<div class="card-body table-responsive p-0"
-								style="width: 100vw;height: 30vh; width: 100%; overflow: scroll;overflow-x: hidden;border:1px solid #d2d2d2;border-radius: 4px;">
-								<div id="box"></div>
-							</div>
-						</div>
-
-						<!-- <div class="form-row">
-							<div class="col-sm-12">
-								<div class="input-group">
-									<link rel="stylesheet"
-										href="../../asset/gt_developer/asset_use/jquery.tree-multiselect.min.css">
-									<script src="../../asset/gt_developer/asset_use/jquery-ui.min.js"></script>
-									<script src="../../asset/gt_developer/asset_use/jquery.tree-multiselect.js"></script>
-									<?php
-										$modal=mysqli_query($connect, "SELECT 
-										a.menu_id,
-										a.menu,
-										GROUP_CONCAT(b.formula ORDER BY b.formula ASC SEPARATOR ' . ') AS group_item
-												FROM hrmmenu a
-												LEFT JOIN users_menu_access b ON a.menu_id=b.formula
-										-- WHERE b.emp_no='$rfid'
-										GROUP BY a.menu_id
-										ORDER BY a.menu_id ASC");
-									?>
-									<select id="detail-menu-item" multiple="multiple" class="framework" id="detail_menu_item"
-										name="detail_menu_item[]">
-										<?php if (mysqli_num_rows($modal) > 0) { ?>
-											<?php while ($row = mysqli_fetch_array($modal)) { ?>
-											<option value="<?php echo $row['menu_id'] ?>" data-section="Detail Menu Item"
-												data-index="1"><?php echo $row['menu'] ?></option>
-											<?php } ?>
-										<?php } ?>
+									<select class="input--style-6" name="detail_admin_type" id="detail_admin_type"
+										style="width: 60%;height: 30px;">
 									</select>
+									<input type="hidden" class="form-control" id="value_detail_admin_type">
 								</div>
 							</div>
-						</div> -->
+						</div>
+											
+						<div class="form-row">
+							<div class="col-4 name">Active Status <span class="required">*</span></div>
+							<div class="col-sm-8">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="checkbox" name="detail_active_status" id="detail_active_status" value="1">
+									<label class="form-check-label" for="detail_active_status">Yes</label>
+								</div>
+							</div>
+						</div>
+						
+						<div class="form-row">
+							<div class="col-4 name">Verification On Accessing Menu <span class="required">*</span></div>
+							<div class="col-sm-8">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="checkbox" name="detail_active_verify" id="detail_active_verify" value="1">
+									<label class="form-check-label" for="detail_active_verify">Enable</label>
+								</div>
+							</div>
+						</div>
 					</fieldset>
 
 				</div>
@@ -481,14 +465,6 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 			})
 		})
 	})
-	
-	// $("#test-select-4").treeMultiselect({
-	// 	allowBatchSelection: true,
-	// 	enableSelectAll: true,
-	// 	searchable: true,
-	// 	sortable: true,
-	// 	startCollapsed: false,
-	// })
 
 	$("#detail-menu-item").treeMultiselect({
 		allowBatchSelection: true,
@@ -497,6 +473,40 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 		sortable: true,
 		startCollapsed: false,
 	});
+
+	function DetailFunctionAuthorization(request) {
+		document.getElementById("FormDisplayDetail").reset();
+		// alert(request)
+		$.ajax({
+			url: 'php_action/FuncGetDataById.php',
+			type: 'GET',
+			data: {
+				request: request
+			},
+			dataType: 'json',
+			async: true,
+			success: function(response) {
+				$('#detail_name').val(response[0].name)
+				$('#detail_description').val(response[0].description)
+				// load data cost code
+				$('#value_detail_admin_type').val(response[0].admin_type_name)
+				$('#detail_admin_type').empty()
+				$('#detail_admin_type').append('<option value="'+response[0].admin_type_id+'">'+response[0].admin_type_name+'</option>')
+				$.each(response[1], function(i, data) {
+					$('#detail_admin_type').append('<option value="'+data.id+'">'+data.admin_type_name+'</option>')
+				})
+				let is_active_status = $('#detail_active_status')
+				response[0].active_status == '1' ? is_active_status.prop("checked",true) : is_active_status.prop("checked",false)
+				let is_active_verify = $('#detail_active_verify')
+				response[0].verification == '1' ? is_active_verify.prop("checked",true) : is_active_verify.prop("checked",false)
+			},
+			error: function(xhr, status, error) {
+				mymodalss.style.display = "none";
+				modals.style.display = "block";
+				document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+			}
+		})
+	}
 
 	function DetailAuthorizedUser(request) {
 		document.getElementById("FormDisplayDetail").reset();
@@ -511,7 +521,7 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 			async: true,
 			success: function(response) {
 				// console.log(response[0].users_menu_name)				
-				$('#detail_user_menu_name').val(response[0].users_menu_name)
+				$('#detail_name').val(response[0].users_menu_name)
 				$('#detail_description').val(response[0].description)
 				$('#detail_remark').val(response[0].remark)
 

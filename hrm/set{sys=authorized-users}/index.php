@@ -31,7 +31,6 @@ $footer = 'no'; //set as `yes` if you want to use default footer & set as `no` i
             <div class="col-md-5 col-12 align-self-center">
                 <ol class="breadcrumb mb-0 p-0 bg-transparent">
                     <li class="digital" style="font-size: 12px;">Setting&nbsp;&nbsp;</li>
-                    <!-- <li class="digital" style="font-size: 12px;"><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;Leave&nbsp;&nbsp;</li> -->
                     <li class="digital" style="font-size: 12px;"><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;Authorized User</li>
                 </ol>
             </div>

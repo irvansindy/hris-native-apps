@@ -551,7 +551,7 @@
 					var edit_instructor_code = response.instructor_code;
 					var edit_instructor_name = response.instructor_name;
 
-					$(".multiple-select-by-id").load("pages_relation/_pages_setting?instructor_code=" + edit_instructor_code,
+					$("#multiple-select-by-id").load("pages_relation/_pages_setting?instructor_code=" + edit_instructor_code,
 						function (responseTxt, statusTxt, jqXHR) {
 							if (statusTxt == "success") {
 								$("#multiple-select-by-id").show();

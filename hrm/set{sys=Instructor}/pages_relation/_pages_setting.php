@@ -1,19 +1,6 @@
 <?php
     include "../../../application/config.php";
 	$instructor_code = $_GET['instructor_code'];
-	//$modal_id = '1';
-	// $modal=mysqli_query($connect, "SELECT 
-	// a.*,
-	// GROUP_CONCAT(c.item_name_en ORDER BY c.item_code ASC SEPARATOR ' . ') AS group_item
-	// 		FROM hrmondutypurposetype a
-	// 		LEFT JOIN hrrondutypurposecomp b on a.purpose_code=b.purpose_code
-	// 		LEFT JOIN hrmondutyallowitem c on b.item_code=c.item_code
-	// WHERE a.purpose_code='$instructor_code'
-	// GROUP BY a.purpose_code");
-
-	// while($r=mysqli_fetch_array($modal)){
-
-	// $purpose_code =  $r['purpose_code'];
 ?>
 
 <link rel="stylesheet" href="../../asset/gt_developer/developer_hris_form.css" />

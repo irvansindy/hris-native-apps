@@ -69,29 +69,7 @@
 
             $execute_query_detail = $connect->query($query_detail);
         }
-        // for ($i=0; $i < $total_menu; $i++) { 
-        //     $query_insert_menu = "INSERT INTO `users_menu_access` 
-        //         (
-        //             `emp_no`, 
-        //             `formula`, 
-        //             `is_acccessgroup_use`,
-        //             `company_id`
-        //         ) 
-        //         VALUES 
-        //             (
-        //                 '$input_emp_no',
-        //                 '$menu_item[$i]',
-        //                 '',
-        //                 '13576'
-                        
-        //             )";
-            
-        //     // $execute_query_menu = $connect->query($query_insert_menu);
-        // }
         
-
-        // if ($execute_query_master_data == true && $execute_query_menu == true) {
-        // if ($execute_query_master_data == true) {
         if ($execute_query_master_data == true && $execute_query_detail == true) {
             http_response_code(200);
             $response['success'] = true;

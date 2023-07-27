@@ -44,6 +44,8 @@
 			$row['admin_type_name'],
 			"<img src='../../asset/dist/img/$row[authorize_status]'/>",
 			"<img src='../../asset/dist/img/$row[authorize_verify]'/>",
+			"<img src='../../asset/dist/img/$row[authorize_status]'/>",
+			"<img src='../../asset/dist/img/$row[authorize_verify]'/>",
 		);
 
 		$number++;

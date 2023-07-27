@@ -117,6 +117,8 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 					<th class="fontCustom" style="z-index: 1;">Group Name</th>
 					<th class="fontCustom" style="z-index: 1;">Description</th>
 					<th class="fontCustom" style="z-index: 1;">Type</th>
+					<th class="fontCustom" style="z-index: 1;">Access</th>
+					<th class="fontCustom" style="z-index: 1;">Member</th>
 					<th class="fontCustom" style="z-index: 1;">Active Status</th>
 					<th class="fontCustom" style="z-index: 1;">Active Verify</th>
 				</tr>

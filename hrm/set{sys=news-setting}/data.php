@@ -122,46 +122,21 @@ $(document).ready(function() {
 });
 </script>
 
-<div class="col-md-12">
-	<div class="card">
-		<div class="card-header d-flex align-items-center">
-			<h4 class="card-title mb-0">Data Setting Certificate Templates</h4>
-			<div class="card-actions ml-auto">
-				<table>
-					<td>
-						<div class="toolbar sprite-toolbar-reload" id="RELOAD" title="Reload"
-							onclick="RefreshPage();">
-						</div>
-					</td>
-					<!-- AgusPrass 02/03/2021 -->
-					<td>
-						<div class="toolbar sprite-toolbar-add" title="Add" data-toggle="modal"
-							data-target="#CreateForm" id="CreateButton" data-keyboard="false"
-							data-backdrop="static">
-						</div>
-					</td>
-				</table>
-			</div>
-		</div>
-
-		<!-- table data list setting provider -->
-		<div class="card-body table-responsive p-0" style="width: 100vw;height: 78vh; width: 99.8%; margin: 5px;overflow: scroll;">
-			<table id="datatable" width="90%" border="1" align="left"
-				class="table table-bordered table-striped table-hover table-head-fixed">
-				<thead>
-					<tr>
-                        <th class="fontCustom" style="z-index: 1;" nowrap="nowrap">No.</th>
-                        <th class="fontCustom" style="z-index: 1;">Title</th>
-                        <th class="fontCustom" style="z-index: 1;">Sub - Title</th>
-                        <th class="fontCustom" style="z-index: 1;">Status</th>
-                        <th class="fontCustom" style="z-index: 1;">Headline</th>
-                        <th class="fontCustom" style="z-index: 1;">Action</th>
-                    </tr>
-				</thead>
-			</table>
-		</div>
-		<div class='card-footer' style='background-color: #eee;height: 37px;padding-top: 5px;'>
-		</div>
+<div class="MaximumFrameHeight card-body table-responsive p-0"
+	style="width: 100vw;height: 80vh; width: 98%; margin-right: 5px;overflow: scroll;overflow-x: hidden;margin-top: 17px;">
+	<div class="col-12 col-fit" style="margin-top: 17px;">
+		<table id="datatable" width="100%" border="1" align="left"
+			class="table table-bordered table-striped table-hover table-head-fixed">
+			<thead>
+				<tr>
+					<th class="fontCustom" style="z-index: 1;" nowrap="nowrap">No.1</th>
+					<th class="fontCustom" style="z-index: 1;">Title</th>
+					<th class="fontCustom" style="z-index: 1;">Sub - Title</th>
+					<th class="fontCustom" style="z-index: 1;">Status</th>
+					<th class="fontCustom" style="z-index: 1;">Headline</th>
+				</tr>
+			</thead>
+		</table>
 	</div>
 </div>
 

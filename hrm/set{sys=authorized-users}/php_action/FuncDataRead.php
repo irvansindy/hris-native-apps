@@ -10,8 +10,6 @@ if ($getdata == 0) {
 	$user = $_GET['username'];
 }
 
-// require_once '../../../model/gen_auth_data/_auth_data.php';
-// require_once '../../../model/eo/GMEmployeeList.php';
 require_once '../../../model/eo/GMAuthorizedUserList.php';
 
 $output = array('data' => array());
@@ -29,6 +27,7 @@ while ($row = mysqli_fetch_assoc($query)) {
 		$number,
 		$code,
 		$row['group_type'],
+		'<a type="button" nowrap="nowrap" data-toggle="modal" data-target="#AddUserEmployee" data-backdrop="static" style="color: blue; border: 5px; cursor:pointer" onclick="AddEmployee(`' . $row['users_menu_name'] . '`)"> <input type="image" src="../../asset/dist/img/icons/icon-addinfo.png" title="add employee" width="22px"/></a>',
 		"<img src='../../asset/dist/img/$row[authorize_status]'/>",
 	);
 

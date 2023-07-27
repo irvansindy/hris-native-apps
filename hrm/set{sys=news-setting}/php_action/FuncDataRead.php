@@ -31,7 +31,7 @@
             $row['sub_judul'],
             "<img src='../../asset/dist/img/$row[active_status]'/>",
             "<img src='../../asset/dist/img/$row[headline_status]'/>",
-            $button_delete
+            // $button_delete
         );
 
         $number++;

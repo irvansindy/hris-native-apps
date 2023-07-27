@@ -113,6 +113,7 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 					<th class="fontCustom" style="z-index: 1;" nowrap="nowrap">No</th>
 					<th class="fontCustom" style="z-index: 1;">Authorize Name</th>
 					<th class="fontCustom" style="z-index: 1;">Type</th>
+					<th class="fontCustom" style="z-index: 1;">Employee</th>
 					<th class="fontCustom" style="z-index: 1;">Active Status</th>
 				</tr>
 			</thead>
@@ -205,37 +206,6 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 								<div id="menu_item"></div>
 							</div>
 						</div>
-
-						<!-- <div class="form-row">
-							<div class="col-sm-12">
-								<div class="input-group">
-									<link rel="stylesheet"
-										href="../../asset/gt_developer/asset_use/jquery.tree-multiselect.min.css">
-									<script src="../../asset/gt_developer/asset_use/jquery-ui.min.js"></script>
-									<script src="../../asset/gt_developer/asset_use/jquery.tree-multiselect.js"></script>
-									<?php
-										$modal=mysqli_query($connect, "SELECT 
-										a.menu_id,
-										a.menu,
-										GROUP_CONCAT(b.formula ORDER BY b.formula ASC SEPARATOR ' . ') AS group_item
-												FROM hrmmenu a
-												LEFT JOIN users_menu_access b ON a.menu_id=b.formula
-										-- WHERE b.emp_no='$rfid'
-										GROUP BY a.menu_id
-										ORDER BY a.menu_id ASC");
-									?>
-									<select id="test-select-4" multiple="multiple" class="framework" id="menu_item"
-										name="menu_item[]">
-										<?php if (mysqli_num_rows($modal) > 0) { ?>
-											<?php while ($row = mysqli_fetch_array($modal)) { ?>
-											<option value="<?php echo $row['menu_id'] ?>" data-section="Menu item"
-												data-index="1"><?php echo $row['menu'] ?></option>
-											<?php } ?>
-										<?php } ?>
-									</select>
-								</div>
-							</div>
-						</div> -->
 					</fieldset>
 
 				</div>
@@ -287,7 +257,7 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 
 						<div class="messages_update"></div>
 
-						<input id="input_emp_no" name="input_emp_no" type="hidden" value="<?php echo $username; ?>">
+						<input id="detail_emp_no" name="detail_emp_no" type="hidden" value="<?php echo $username; ?>">
 
 						<!--FROM SESSION -->
 						<input id="sel_token" name="sel_token" type="hidden" value="<?php echo $get_token; ?>">
@@ -314,7 +284,7 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 							<div class="col-4 name">Description <span class="required">*</span></div>
 							<div class="col-sm-8">
 								<div class="input-group">
-									<textarea class="input--style-6" name="detail_description" id="detail_description" cols="7" rows="" style="width:60%;" readonly></textarea>
+									<textarea class="input--style-6" name="detail_description" id="detail_description" cols="7" rows="" style="width:60%;" ></textarea>
 								</div>
 							</div>
 						</div>
@@ -323,7 +293,7 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 							<div class="col-4 name">Remark <span class="required">*</span></div>
 							<div class="col-sm-8">
 								<div class="input-group">
-									<textarea class="input--style-6" name="detail_remark" id="detail_remark" cols="7" rows="" style="width:60%;" readonly></textarea>
+									<textarea class="input--style-6" name="detail_remark" id="detail_remark" cols="7" rows="" style="width:60%;" ></textarea>
 								</div>
 							</div>
 						</div>
@@ -335,56 +305,108 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 						<div class="form-row">
 							<div class="card-body table-responsive p-0"
 								style="width: 100vw;height: 30vh; width: 100%; overflow: scroll;overflow-x: hidden;border:1px solid #d2d2d2;border-radius: 4px;">
-								<div id="box"></div>
+								<div id="detail_list_menu_authorization"></div>
 							</div>
 						</div>
-
-						<!-- <div class="form-row">
-							<div class="col-sm-12">
-								<div class="input-group">
-									<link rel="stylesheet"
-										href="../../asset/gt_developer/asset_use/jquery.tree-multiselect.min.css">
-									<script src="../../asset/gt_developer/asset_use/jquery-ui.min.js"></script>
-									<script src="../../asset/gt_developer/asset_use/jquery.tree-multiselect.js"></script>
-									<?php
-										$modal=mysqli_query($connect, "SELECT 
-										a.menu_id,
-										a.menu,
-										GROUP_CONCAT(b.formula ORDER BY b.formula ASC SEPARATOR ' . ') AS group_item
-												FROM hrmmenu a
-												LEFT JOIN users_menu_access b ON a.menu_id=b.formula
-										-- WHERE b.emp_no='$rfid'
-										GROUP BY a.menu_id
-										ORDER BY a.menu_id ASC");
-									?>
-									<select id="detail-menu-item" multiple="multiple" class="framework" id="detail_menu_item"
-										name="detail_menu_item[]">
-										<?php if (mysqli_num_rows($modal) > 0) { ?>
-											<?php while ($row = mysqli_fetch_array($modal)) { ?>
-											<option value="<?php echo $row['menu_id'] ?>" data-section="Detail Menu Item"
-												data-index="1"><?php echo $row['menu'] ?></option>
-											<?php } ?>
-										<?php } ?>
-									</select>
-								</div>
-							</div>
-						</div> -->
 					</fieldset>
 
 				</div>
 
 				<div class="modal-footer-sdk">
-					<button type="reset" class="btn-sdk btn-primary-center-only" data-dismiss="modal" aria-hidden="true">
+					<!-- <button type="reset" class="btn-sdk btn-primary-center-only" data-dismiss="modal" aria-hidden="true">
 						&nbsp;Close&nbsp;
-					</button>
-					<!-- <button class="btn-sdk btn-primary-right" type="submit" name="submit_create" id="submit_create">
-						Confirm
 					</button> -->
-					<!-- <button class="btn-sdk btn-primary-right" type="button" name="submit_create2" id="submit_create2"
+					<button type="reset" class="btn-sdk btn-primary-left" data-dismiss="modal" aria-hidden="true">
+						&nbsp;Cancel&nbsp;
+					</button>
+					<button class="btn-sdk btn-primary-right" type="submit" name="submit_update" id="submit_update">
+						Update
+					</button>
+					<button class="btn-sdk btn-primary-right" type="button" name="submit_update2" id="submit_update2"
 						style='display:none;' disabled>
 						<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
 						&nbsp;&nbsp;Processing..
-					</button> -->
+					</button>
+				
+				</div>
+			</form>
+
+		</div>
+
+		</form>
+	</div><!-- /.modal-content -->
+</div>
+</div>
+<!-- add user employee modal -->
+<div class="modal fade fade-custom" tabindex="-1" role="dialog" id="AddUserEmployee">
+	<div class="modal-dialog modal-belakang modal-bg" role="document">
+
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Add Employee</h4>
+				<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close"
+					style="margin-top: -15px;">
+					<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
+				</a>
+			</div>
+
+			<!-- <form class="form-horizontal" action="php_action/FuncDataUpdate.php" method="POST" id="updateMemberForm"> -->
+			<form class="form-horizontal" action="" method="" id="FormDisplayEmployee">
+
+				<div class="card-body table-responsive p-0"
+					style="width: 100vw;height: 50vh; width: 98%; margin: 5px;overflow: scroll;overflow-x: hidden;">
+
+					<fieldset id="fset_1">
+						<legend>General</legend>
+
+						<div class="messages_update"></div>
+
+						<input id="input_emp_no" name="input_emp_no" type="hidden" value="<?php echo $username; ?>">
+						<input id="add_users_menu_name" name="add_users_menu_name" type="hidden" value="">
+
+						<!--FROM SESSION -->
+						<input id="sel_token" name="sel_token" type="hidden" value="<?php echo $get_token; ?>">
+						<!--FROM CONFIGURATION -->
+						<div class="form-row">
+						<div class="col-4 name">List Employee </div>
+					</div>
+					<div class="form-row">
+						<div class="col-sm-12">
+							<div class="input-group">
+								<link rel="stylesheet"
+									href="../../asset/gt_developer/asset_use/jquery.tree-multiselect.min.css">
+								<script src="../../asset/gt_developer/asset_use/jquery-ui.min.js"></script>
+								<script src="../../asset/gt_developer/asset_use/jquery.tree-multiselect.js"></script>
+								<?php
+									$modal=mysqli_query($connect, "SELECT emp_id, Full_Name, user_id, emp_no,
+									DATE_FORMAT(start_date,'%Y-%m-%d') as start_date, DATE_FORMAT(end_date,'%Y-%m-%d') as end_date 
+									from view_employee
+									where end_date = '0000-00-00' OR end_date = '' OR end_date = NULL
+									ORDER BY emp_no ASC");
+								?>
+								<select multiple="multiple" class="framework" id="list_employee"
+									name="list_employee[]">
+									<?php if (mysqli_num_rows($modal) > 0) { ?>
+									<?php while ($row = mysqli_fetch_array($modal)) { ?>
+									<option class="checked-employee" value="<?php echo $row['emp_no'] ?>" data-section="Employees"
+										data-index="1"><?php echo $row['Full_Name'] ?></option>
+									<?php } ?>
+									<?php } ?>
+								</select>
+							</div>
+						</div>
+					</div>
+					</fieldset>
+
+				</div>
+
+				<div class="modal-footer-sdk">
+					<button type="reset" class="btn-sdk btn-primary-left" data-dismiss="modal" aria-hidden="true">
+						&nbsp;Cancel&nbsp;
+					</button>
+					<button class="btn-sdk btn-primary-right" type="button" name="submit_employee" id="submit_employee">
+						Confirm
+					</button>
 				</div>
 			</form>
 
@@ -410,6 +432,96 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 		document.getElementById("msg").innerHTML = "Data refreshed";
 		return false;
 	}
+</script>
+
+<script>
+	function DetailAuthorizedUser(request) {
+		$('#FormDisplayDetail')[0].reset()
+		// alert(response)
+		$.ajax({
+			url: 'php_action/FuncGetDataById.php',
+			type: 'post',
+			data: {
+				request: request
+			},
+			dataType: 'json',
+			async: true,
+			success:function(response) {
+				$('#detail_user_menu_name').val(response[0].users_menu_name)
+				$('#detail_description').val(response[0].description)
+				$('#detail_remark').val(response[0].remark)
+				$("#detail_list_menu_authorization").load("pages_relation/list_data_menu?rfid=" + response[0].users_menu_name,
+					function (responseTxt, statusTxt, jqXHR) {
+						if (statusTxt == "success") {
+							$("#detail_list_menu_authorization").show();
+						}
+						if (statusTxt == "error") {
+							alert("Error: " + jqXHR.status + " " + jqXHR.statusText);
+						}
+					}
+				);
+			}
+		})
+	}
+
+	$("#FormDisplayDetail").unbind('submit').bind('submit', function (){
+		alert('submit update')
+		var form = $(this);
+		var detail_emp_no = $('#detail_emp_no').val()
+		var detail_user_menu_name = $('#detail_user_menu_name').val()
+		var detail_description = $('#detail_description').val()
+		var detail_remark = $('#detail_remark').val();
+
+		var detail_list_menu = $('.option:checked').map(function(){
+			return this.value;
+		}).get();
+
+		if (detail_description == "") {
+			mymodalss.style.display = "none";
+			modals.style.display = "block";
+			document.getElementById("msg").innerHTML = "Description cannot empty";
+			return false;
+		} else if (detail_remark == "") {
+			mymodalss.style.display = "none";
+			modals.style.display = "block";
+			document.getElementById("msg").innerHTML = "Remark cannot empty";
+			return false;
+		} else if (detail_list_menu.length < 1) {
+			mymodalss.style.display = "none";
+			modals.style.display = "block";
+			document.getElementById("msg").innerHTML = "List menu authorization cannot empty";
+			return false;
+		} else {
+			$.ajax({
+				url: 'php_action/FuncUpdate.php',
+				type: 'post',
+				data: new FormData(document.getElementById("FormDisplayDetail")),
+				processData: false,
+				contentType: false,
+				dataType: 'json',
+				success: function(response) {
+					$(".form-group").removeClass('has-error').removeClass(
+						'has-success');
+					mymodalss.style.display = "none";
+					modals.style.display = "block";
+					document.getElementById("msg").innerHTML = response.messages;
+
+					$('#FormDisplayCreate').modal('hide');
+					$("[data-dismiss=modal]").trigger({type: "click"});
+
+					// reset the form
+					$("#FormDisplayCreate")[0].reset();
+					// reload the datatables
+					datatable.ajax.reload(null, false);
+				},
+				error: function(xhr, status, error) {
+					mymodalss.style.display = "none";
+					modals.style.display = "block";
+					document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+				}
+			})
+		}
+	})
 </script>
 
 
@@ -500,7 +612,7 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 		})
 	})
 	
-	$("#test-select-4").treeMultiselect({
+	$("#list_employee").treeMultiselect({
 		allowBatchSelection: true,
 		enableSelectAll: true,
 		searchable: true,
@@ -516,147 +628,74 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 		startCollapsed: false,
 	});
 
-	function DetailAuthorizedUser(request) {
-		document.getElementById("FormDisplayDetail").reset();
-		
-		$.ajax({
-			url: 'php_action/FuncGetDataById.php',
-			type: 'GET',
-			data: {
-				request: request
-			},
-			dataType: 'json',
-			async: true,
-			success: function(response) {
-				// console.log(response[0].users_menu_name)				
-				$('#detail_user_menu_name').val(response[0].users_menu_name)
-				$('#detail_description').val(response[0].description)
-				$('#detail_remark').val(response[0].remark)
-
-				$("#box").load("pages_relation/_pages_setting?rfid=" + response[0].users_menu_name,
-					function (responseTxt, statusTxt, jqXHR) {
-						if (statusTxt == "success") {
-							$("#box").show();
-						}
-						if (statusTxt == "error") {
-							alert("Error: " + jqXHR.status + " " + jqXHR.statusText);
-						}
-					}
-				);
-			},
-		})
+	function AddEmployee(request) {
+		document.getElementById("FormDisplayEmployee").reset();
+		$('#add_users_menu_name').val(request)
+		let checked_employee = $('.option:checked').map(function(){
+			return this.value;
+		}).get();
+		console.log(checked_employee)
 	}
-	
-	function editMember(id = null) {
-		if (id) {
-			// remove the error 
-			$(".form-group").removeClass('has-error').removeClass('has-success');
-			$(".text-danger").remove();
-			// empty the message div
-			$(".messages_update").html("");
 
-			// remove the id
-			$("#member_id").remove();
+	function CreateListEmployee(request) {
+		let add_users_menu_name = $('#add_users_menu_name').val()
+		let list_employee = $('#list_employee').val()
+		let checked_employee = $('.option:checked').map(function(){
+			return this.value;
+		}).get();
 
-			// fetch the member data
-			$.ajax({
-				url: 'php_action/getSelectedEmployee.php',
-				type: 'post',
-				data: {
-					member_id: id
-				},
-				dataType: 'json',
+		console.log(checked_employee)
+	}
 
-
-				success: function (response) {
-					document.getElementById("sel_identity").innerHTML = response.Full_Name;
-
-					$("#sel_employee").val(response.emp_no);
-
-					$("#box").load("pages_relation/_pages_setting?rfid=" + response.emp_no,
-						function (responseTxt, statusTxt, jqXHR) {
-							if (statusTxt == "success") {
-								$("#box").show();
-							}
-							if (statusTxt == "error") {
-								alert("Error: " + jqXHR.status + " " + jqXHR.statusText);
-							}
-						}
-					);
-
-
-					// here update the member data
-					$("#FormDisplayUpdate").unbind('submit').bind('submit', function () {
-						// remove error messages
-						$(".text-danger").remove();
-
-						var form = $(this);
-
-						var sel_employee = $("#sel_employee").val();
-
-						var regex = /^[a-zA-Z]+$/;
-
-						if (sel_employee == "") {
-							modals.style.display = "block";
-							document.getElementById("msg").innerHTML = "work request";
-
-						} else {
-							$('#submit_update').hide();
-							$('#submit_update2').show();
-						}
-
-
-						if (sel_employee) {
-
-							$.ajax({
-
-								url: form.attr('action'),
-								type: form.attr('method'),
-								// data: form.serialize(),
-
-								data: new FormData(this),
-								processData: false,
-								contentType: false,
-
-								dataType: 'json',
-								success: function (response) {
-
-									if (response.code == 'success_message') {
-										modals.style.display = "block";
-										document.getElementById("msg").innerHTML = response
-											.messages;
-
-										$('#submit_update').show();
-										$('#submit_update2').hide();
-
-										$('#FormDisplayUpdate').modal('hide');
-										$("[data-dismiss=modal]").trigger({
-											type: "click"
-										});
-
-										// reload the datatables
-										datatable.ajax.reload(null, false);
-										// reload the datatables
-
-									} else {
-										$('#submit_update').show();
-										$('#submit_update2').hide();
-
-										modals.style.display = "block";
-										document.getElementById("msg").innerHTML = response
-											.messages;
-									}
-								} // /success
-							}); // /ajax
-						} // /if
-						return false;
-					});
-				} // /success
-			}); // /fetch selected member info
-		} else {
-			alert("Error : Refresh the page again");
+	$('#submit_employee').on('click',function() {
+		let add_users_menu_name = $('#add_users_menu_name').val()
+		let checked_employee = $('.option:checked').map(function(){
+			return this.value;
+		}).get();
+		console.log(checked_employee.length)
+		if (checked_employee.length < 1) {
+			mymodalss.style.display = "none";
+			modals.style.display = "block";
+			document.getElementById("msg").innerHTML = "List employee cannot empty";
+			return false;
 		}
-	}
+		$.ajax({
+			url: 'php_action/FuncAddEmployee.php',
+			type: 'post',
+			data: new FormData(document.getElementById("FormDisplayEmployee")),
+			processData: false,
+			contentType: false,
+			dataType: 'json',
+			success: function(response) {
+				$(".form-group").removeClass('has-error').removeClass(
+					'has-success');
+				mymodalss.style.display = "none";
+				modals.style.display = "block";
+				document.getElementById("msg").innerHTML = response.messages;
+
+				$('#FormDisplayCreate').modal('hide');
+				$("[data-dismiss=modal]").trigger({type: "click"});
+
+				// reset the form
+				$("#FormDisplayCreate")[0].reset();
+				// reload the datatables
+				datatable.ajax.reload(null, false);
+			},
+			// error: function(xhr, status, error) {
+			// 	mymodalss.style.display = "none";
+			// 	modals.style.display = "block";
+			// 	document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+			// }
+			error:function(response) {
+				mymodalss.style.display = "none";
+				modals.style.display = "block";
+				document.getElementById("msg").innerHTML = response.messages;
+			}
+		})
+
+	})
+	
+	
 </script>
 <!-- isi JSONs -->
 </body>

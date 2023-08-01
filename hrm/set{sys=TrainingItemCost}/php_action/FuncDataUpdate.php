@@ -7,19 +7,18 @@ if($_POST) {
 	$validator = array('success' => false, 'messages' => array());
 
 	$sel_emp_no = strtoupper($_POST['sel_emp_no']);
-	$edit_col1 = strtoupper($_POST['edit_col1']);
-	$edit_col2 = strtoupper($_POST['edit_col2']);
-	$edit_col3 = strtoupper($_POST['edit_col3']);
-	$edit_col4 = strtoupper($_POST['edit_col4']);
-	// $sel_reason_code		= strtoupper($_POST['sel_reason_code']);
-	// $sel_reason_name_en 		= strtoupper(addslashes($_POST['sel_reason_name_en']));
-	// $sel_reason_name_id 		= strtoupper(addslashes($_POST['sel_reason_name_id']));
+	$edit_cost_item_code = strtoupper($_POST['edit_cost_item_code']);
+	$edit_cost_item_name_id = strtoupper($_POST['edit_cost_item_name_id']);
+	$edit_cost_item_name_en = strtoupper($_POST['edit_cost_item_name_en']);
+	$edit_cost_item_status = strtoupper($_POST['edit_cost_item_status']);
 
-	$sql = "UPDATE debug SET 
-					`col2`	= '$edit_col2',
-					`col3`	= '$edit_col3',
-					`col4`	= '$edit_col4'
-				WHERE col1 = '$edit_col1'";
+	$result_status = $edit_cost_item_status = 'ACTIVE' ? 'ACTIVE' : 'INACTIVE';
+
+	$sql = "UPDATE trncost SET 
+				`item_name_id` = '$edit_cost_item_name_id',
+				`item_name_en` = '$edit_cost_item_name_en', 
+				`status` = '$result_status'
+			WHERE item_code = '$edit_cost_item_code'";
 
 	// condition start
 	$query = $connect->query($sql);
@@ -37,5 +36,6 @@ if($_POST) {
 
 	// close the database connection
 	$connect->close();
+	header('Content-Type: application/json');
 	echo json_encode($validator);
 }

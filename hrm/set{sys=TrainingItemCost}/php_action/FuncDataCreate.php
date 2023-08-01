@@ -13,8 +13,6 @@ if($_POST) {
 	$input_cost_item_name_id 	= strtoupper($_POST['input_cost_item_name_id']);
 	$input_cost_item_name_en 	= strtoupper($_POST['input_cost_item_name_en']);
 	$input_cost_item_status 	= strtoupper($_POST['input_cost_item_status']);
-	
-	// $get_company = mysqli_fetch_array(mysqli_query($connect, "SELECT company_id FROM view_employee WHERE emp_no = '$inp_emp_no'"));
 
 	$sql_0 = "INSERT INTO `trncost` 
 					(
@@ -48,5 +46,6 @@ if($_POST) {
 	// die();
 	// close the database connection
 	$connect->close();
+	header('Content-Type: application/json');
 	echo json_encode($validator);
 }

@@ -5,7 +5,7 @@ include "../../../model/st/GMOndtPurposeType.php";
 
 $output = array('data' => array());
 
-// $sql = $qListRender;
+$sql = $qListRender;
 
 
 $query = mysqli_query($connect, $sql);
@@ -22,7 +22,7 @@ while ($row = mysqli_fetch_assoc($query)) {
 		$rmintf,
 		$row['purpose_name_en'],
 		$row['group_item'],
-		$prn
+		// $prn
 	);
 
 	$x++;

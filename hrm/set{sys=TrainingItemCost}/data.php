@@ -2,17 +2,17 @@
 	$src_reason_code                   = '';
 	$src_reason_name_en                = '';
 	if (!empty($_POST['src_reason_code']) && !empty($_POST['src_reason_name_en'])) {
-			$src_reason_code            = $_POST['src_reason_code'];
-			$src_reason_name_en         = $_POST['src_reason_name_en'];
-			$frameworks                 = "?src_reason_code="."".$src_reason_code." &&src_reason_name_en="."".$src_reason_name_en."";
+		$src_reason_code            = $_POST['src_reason_code'];
+		$src_reason_name_en         = $_POST['src_reason_name_en'];
+		$frameworks                 = "?src_reason_code="."".$src_reason_code." &&src_reason_name_en="."".$src_reason_name_en."";
 	} else if (empty($_POST['src_reason_code']) && !empty($_POST['src_reason_name_en'])) {
-			$src_reason_code            = $_POST['src_reason_code'];
-			$src_reason_name_en         = $_POST['src_reason_name_en'];
-			$frameworks                 = "?src_reason_name_en="."".$src_reason_name_en."";
+		$src_reason_code            = $_POST['src_reason_code'];
+		$src_reason_name_en         = $_POST['src_reason_name_en'];
+		$frameworks                 = "?src_reason_name_en="."".$src_reason_name_en."";
 	} else if (!empty($_POST['src_reason_code']) && empty($_POST['src_reason_name_en'])) {
-			$src_reason_code            = $_POST['src_reason_code'];
-			$src_reason_name_en         = $_POST['src_reason_name_en'];
-			$frameworks                 = "?src_reason_code="."".$src_reason_code."";
+		$src_reason_code            = $_POST['src_reason_code'];
+		$src_reason_name_en         = $_POST['src_reason_name_en'];
+		$frameworks                 = "?src_reason_code="."".$src_reason_code."";
 	}
 ?>
 <!-- Modal -->
@@ -269,7 +269,7 @@ $(document).ready(function() {
 					<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
 				</a>
 			</div>
-			<form class="form-horizontal" action="php_action/FuncDataUpdate.php" method="POST" id="FormDisplayUpdate">
+			<form class="form-horizontal" action="" method="" id="FormDisplayUpdate">
 				<fieldset id="fset_1">
 					<legend>Form Data</legend>
 					<div class="messages_update"></div>
@@ -290,9 +290,7 @@ $(document).ready(function() {
 									id="edit_cost_item_code" name="edit_cost_item_code"
 									type="Text" value="" onfocus="hlentry(this)" size="30"
 									maxlength="50"
-									style="text-transform:uppercase;width: 60%;"
-									validate="NotNull:Invalid Form Entry"
-									onchange="formodified(this);" title="" readonly>
+									style="text-transform:uppercase;width: 60%;" readonly>
 							</div>
 						</div>
 					</div>
@@ -304,9 +302,7 @@ $(document).ready(function() {
 									id="edit_cost_item_name_id" name="edit_cost_item_name_id"
 									type="Text" value="" onfocus="hlentry(this)" size="30"
 									maxlength="50"
-									style="text-transform:uppercase;width: 60%;"
-									validate="NotNull:Invalid Form Entry"
-									onchange="formodified(this);" title="">
+									style="text-transform:uppercase;width: 60%;">
 							</div>
 						</div>
 					</div>
@@ -318,9 +314,7 @@ $(document).ready(function() {
 									id="edit_cost_item_name_en" name="edit_cost_item_name_en"
 									type="Text" value="" onfocus="hlentry(this)" size="30"
 									maxlength="50"
-									style="text-transform:uppercase;width: 60%;"
-									validate="NotNull:Invalid Form Entry"
-									onchange="formodified(this);" title="">
+									style="text-transform:uppercase;width: 60%;">
 							</div>
 						</div>
 					</div>
@@ -329,7 +323,7 @@ $(document).ready(function() {
 						<div class="col-sm-8">
 							<div class="input-group">
 								<div class="form-check form-check-inline">
-								<input class="form-check-input" type="checkbox" id="edit_cost_item_status" name="edit_cost_item_status" value>
+								<input class="form-check-input" type="checkbox" id="edit_cost_item_status" name="edit_cost_item_status" value="Active">
 									<label class="form-check-label">Active</label>
 								</div>
 							</div>
@@ -428,14 +422,9 @@ function RefreshPage() {
 // global the manage memeber table 
 $(document).ready(function() {
 	$("#CreateButton").on('click', function() {
-
-		// alert("Dummy Test");
 		// reset the form 
 		$("#FormDisplayCreate")[0].reset();
-		// empty the message div
-
 		$(".messages_create").html("");
-
 		// submit form
 		$("#FormDisplayCreate").unbind('submit').bind('submit', function() {
 
@@ -461,10 +450,6 @@ $(document).ready(function() {
 			} else if (input_cost_item_name_en == "") {
 				modals.style.display ="block";
 				document.getElementById("msg").innerHTML = "Training Cost Name En cannot empty";
-
-			// } else if (input_cost_item_status == "") {
-			// 	modals.style.display ="block";
-			// 	document.getElementById("msg").innerHTML = "Training Cost Code id cannot empty";
 			} else {
 				$('#submit_add').hide();
 				$('#submit_add2').show();
@@ -476,8 +461,7 @@ $(document).ready(function() {
 				$.ajax({
 					url: form.attr('action'),
 					type: form.attr('method'),
-					// data: form.serialize(),
-
+					// data: new FormData(this),
 					data: new FormData(this),
 					processData: false,
 					contentType: false,
@@ -547,7 +531,7 @@ function editTrainingCost(id = null) {
 				item_code: id
 			},
 			dataType: 'json',
-
+			async: true,
 			success: function(response) {
 				document.getElementById("sel_identity").innerHTML = response.item_code;   
 				$("#edit_cost_item_code").val(response.item_code);
@@ -584,19 +568,13 @@ function editTrainingCost(id = null) {
 							document.getElementById("msg").innerHTML = "Training Cost Name En cannot empty";
 
 					} else {
-							$('#submit_update').hide();
-							$('#submit_update2').show();
-					}
-					if (edit_cost_item_code && edit_cost_item_name_id && edit_cost_item_name_en) {
+						alert('bisa update')
 						$.ajax({
-							url: form.attr('action'),
-							type: form.attr('method'),
-							// data: form.serialize(),
-
-							data: new FormData(this),
+							url: 'php_action/FuncDataUpdate.php',
+							type: 'post',
+							data: new FormData(document.getElementById("FormDisplayUpdate")),
 							processData: false,
 							contentType: false,
-
 							dataType: 'json',
 							success: function(response) {
 								if (response.code =='success_message') {
@@ -616,13 +594,13 @@ function editTrainingCost(id = null) {
 									modals.style.display = "block";
 									document.getElementById("msg").innerHTML = response.messages;
 								}
-							} // /success
-						}); // /ajax
-					} // /if
+							}
+						})
+					}
 					return false;
 				});
-			} // /success
-		}); // /fetch selected member info
+			}
+		})
 	} else {
 		alert("Error : Refresh the page again");
 	}

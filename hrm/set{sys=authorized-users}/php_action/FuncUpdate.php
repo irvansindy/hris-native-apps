@@ -27,14 +27,14 @@
         $detail_active_status = $_POST['detail_active_status'];
 
         $result_menu = implode(',', $menu_item);
-        $result_status = $input_active_status != null ? 1 : 0;
+        $result_status = $detail_active_status == '1' ? 1 : 0;
         
         $total_menu = count($menu_item);
-
+        // print_r([$detail_active_status,$result_status]);
         $query_update_master_data = "UPDATE users_menugroup_setting SET 
             -- `users_menu_name` = '$detail_user_menu_name',
             `description` = '$detail_description',
-            `active_status` = '$detail_remark',
+            `active_status` = '$result_status',
             `membership_formula` = '$result_menu',
             `group_type` = 'FIXED',
             `remark` = '$detail_remark',
@@ -63,12 +63,14 @@
             http_response_code(200);
             $response['success'] = true;
             $response['code'] = "success_message";
-            $response['messages'] = 'List Employee successfully updated';
+            $response['messages'] = 'Successfully update authorize menu';
+            // $response['messages'] = 'List Employee successfully updated';
         } else {
             http_response_code(400);
             $response['success'] = false;
             $response['code'] = "success_message";
-            $response['messages'] = 'List Employee failed to update';
+            $response['messages'] = 'Failed to update authorize menu';
+            // $response['messages'] = 'List Employee failed to update';
         }
 
         $connect->close();

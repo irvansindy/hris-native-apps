@@ -118,14 +118,6 @@ $(document).ready(function() {
 			<h4 class="card-title mb-0">Data Setting Provider</h4>
 			<div class="card-actions ml-auto">
 				<table>
-					<!-- <td>
-						<form action="../rfid=repository/cli_Template_Download/st/StFunctionDownload.php" method="GET">
-							<input type="hidden" name="filedata" value="StDownloadGTTGROvertimeReasonData.php">
-							<input type="hidden" name="filename" value="OvertimeReason">
-							<input type="hidden" name="src_reason_code" value="<?php echo $src_reason_code; ?>">
-							<input type="hidden" name="src_reason_name_en" value="<?php echo $src_reason_name_en; ?>">
-						</form>
-					</td> -->
 					<td>
 						<div class="toolbar sprite-toolbar-reload" id="RELOAD" title="Reload"
 							onclick="RefreshPage();">
@@ -189,6 +181,20 @@ $(document).ready(function() {
 					<input id="inp_token" name="inp_token" type="hidden" value="<?php echo $get_token; ?>">
 
 					<div class="form-row">
+						<div class="col-4 name">Provider Code <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<input class="input--style-6" autocomplete="off" autofocus="on"
+									id="provider_code" name="provider_code"
+									type="Text" value="" size="30"
+									maxlength="50"
+									style="text-transform:uppercase; width: 80%;"
+									validate="NotNull:Invalid Form Entry"
+									onchange="formodified(this);" title="">
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
 						<div class="col-4 name">Provider Name <span class="required">*</span></div>
 						<div class="col-sm-8">
 							<div class="input-group">
@@ -207,8 +213,9 @@ $(document).ready(function() {
 						<div class="col-sm-8">
 							<div class="input-group">
 								<select class="input--style-6" id="provider_type" name="provider_type" style="width: 80%;height: 30px;">
-									<option value="Internal">Internal</option>
-									<option value="External">External</option>
+									<option value="">-- Select One --</option>
+									<option value="Internal">INTERNAL</option>
+									<option value="External">EXTERNAL</option>
 								</select>
 							</div>
 						</div>
@@ -413,12 +420,12 @@ $(document).ready(function() {
 					<legend>Form Data</legend>
 
 					<div class="messages_update"></div>
-					<div class="form-row">
+					<!-- <div class="form-row">
 						<div class="col-4 name">Provider Code <span class="required">*</span></div>
 						<div class="col-sm-8">
 							<div class="input-group" id="init_provider_code"></div>
 						</div>
-					</div>
+					</div> -->
 
 					<div class="form-row">
 						<div class="col-4 name">Provider Code <span class="required">*</span></div>
@@ -448,7 +455,7 @@ $(document).ready(function() {
 							</div>
 						</div>
 					</div>
-					<div class="form-row">
+					<!-- <div class="form-row">
 						<div class="col-4 name">Provider Type <span class="required">*</span></div>
 						<div class="col-sm-8">
 							<div class="input-group">
@@ -459,6 +466,17 @@ $(document).ready(function() {
 									style="text-transform:uppercase;width: 80%;"
 									validate="NotNull:Invalid Form Entry"
 									onchange="formodified(this);" title="">
+							</div>
+						</div>
+					</div> -->
+					<div class="form-row">
+						<div class="col-4 name">Provider Type <span class="required">*</span></div>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<select class="input--style-6" id="edit_provider_type" name="edit_provider_type" style="width: 80%;height: 30px;">
+									<option value="Internal">INTERNAL</option>
+									<option value="External">EXTERNAL</option>
+								</select>
 							</div>
 						</div>
 					</div>
@@ -815,17 +833,6 @@ $(document).ready(function() {
 						$("#FormDisplayCreate")[0].reset();
 						// reload the datatables
 						datatable.ajax.reload(null,false);
-						// if (response.code =='success_message') {
-							// this function is built in function of datatables;
-						// }
-						//  else {
-						// 	modals.style.display ="block";
-						// 	document.getElementById("msg").innerHTML = response.messages;
-
-						// 	$('#submit_add').show();
-						// 	$('#submit_add2').hide();
-
-						// } // /else
 					},
 					error: function(xhr, status, error) {
 						mymodalss.style.display = "none";
@@ -841,8 +848,6 @@ $(document).ready(function() {
 							},
 							4000
 						);
-						// var err = eval("(" + xhr.responseText + ")");
-						// alert(err.messages);
 					}
 				}); // ajax subit 				
 			} /// if
@@ -872,7 +877,7 @@ function editMember(id = null) {
 			dataType: 'json',
 
 			success: function(response) {
-				document.getElementById("init_provider_code").innerHTML = response.data[0].provider_code;
+				// document.getElementById("init_provider_code").innerHTML = response.data[0].provider_code;
 
 				$('#edit_provider_code').val(response.data[0].provider_code);
 				$('#edit_provider_name').val(response.data[0].provider_name);
@@ -1069,7 +1074,8 @@ if(id) {
 
 				if(del_provider_code == "") {
 					modals.style.display ="block";
-					document.getElementById("msg").innerHTML = "Provider Code cannot empty";
+					// document.getElementById("msg").innerHTML = "Provider Code cannot empty";
+					document.getElementById("msg").innerHTML = "Cannot delete the provider, please contact HRD";
 				} else {
 					$('#submit_delete').hide();
 					$('#submit_delete2').show();

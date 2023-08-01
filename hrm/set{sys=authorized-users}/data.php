@@ -299,6 +299,16 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 						</div>
 
 						<div class="form-row">
+							<div class="col-4 name">Active Status <span class="required">*</span></div>
+							<div class="col-sm-8">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="checkbox" name="detail_active_status" id="detail_active_status" value="1">
+									<label class="form-check-label" for="detail_active_status">Yes</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-row">
 							<div class="col-4 name">Menu Authorization </div>
 						</div>
 
@@ -373,26 +383,7 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 					<div class="form-row">
 						<div class="col-sm-12">
 							<div class="input-group">
-								<link rel="stylesheet"
-									href="../../asset/gt_developer/asset_use/jquery.tree-multiselect.min.css">
-								<script src="../../asset/gt_developer/asset_use/jquery-ui.min.js"></script>
-								<script src="../../asset/gt_developer/asset_use/jquery.tree-multiselect.js"></script>
-								<?php
-									$modal=mysqli_query($connect, "SELECT emp_id, Full_Name, user_id, emp_no,
-									DATE_FORMAT(start_date,'%Y-%m-%d') as start_date, DATE_FORMAT(end_date,'%Y-%m-%d') as end_date 
-									from view_employee
-									where end_date = '0000-00-00' OR end_date = '' OR end_date = NULL
-									ORDER BY emp_no ASC");
-								?>
-								<select multiple="multiple" class="framework" id="list_employee"
-									name="list_employee[]">
-									<?php if (mysqli_num_rows($modal) > 0) { ?>
-									<?php while ($row = mysqli_fetch_array($modal)) { ?>
-									<option class="checked-employee" value="<?php echo $row['emp_no'] ?>" data-section="Employees"
-										data-index="1"><?php echo $row['Full_Name'] ?></option>
-									<?php } ?>
-									<?php } ?>
-								</select>
+								<div id="list_data_employee"></div>
 							</div>
 						</div>
 					</div>
@@ -407,6 +398,9 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 					<button class="btn-sdk btn-primary-right" type="button" name="submit_employee" id="submit_employee">
 						Confirm
 					</button>
+					<!-- <button class="btn-sdk btn-primary-right" type="submit" name="submit_employee" id="submit_employee">
+						Confirm
+					</button> -->
 				</div>
 			</form>
 
@@ -437,7 +431,6 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 <script>
 	function DetailAuthorizedUser(request) {
 		$('#FormDisplayDetail')[0].reset()
-		// alert(response)
 		$.ajax({
 			url: 'php_action/FuncGetDataById.php',
 			type: 'post',
@@ -450,6 +443,8 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 				$('#detail_user_menu_name').val(response[0].users_menu_name)
 				$('#detail_description').val(response[0].description)
 				$('#detail_remark').val(response[0].remark)
+				let detail_status = $('#detail_active_status');
+				response[0].active_status == '1' ? detail_status.attr('checked', true) : detail_status.attr('checked', false)
 				$("#detail_list_menu_authorization").load("pages_relation/list_data_menu?rfid=" + response[0].users_menu_name,
 					function (responseTxt, statusTxt, jqXHR) {
 						if (statusTxt == "success") {
@@ -460,70 +455,157 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 						}
 					}
 				);
+				$("#FormDisplayDetail").unbind('submit').bind('submit', function (){
+					var form = $(this);
+					var detail_emp_no = $('#detail_emp_no').val()
+					var detail_user_menu_name = $('#detail_user_menu_name').val()
+					var detail_description = $('#detail_description').val()
+					var detail_remark = $('#detail_remark').val();
+
+					var detail_list_menu = $('.option:checked').map(function(){
+						return this.value;
+					}).get();
+
+					if (detail_description == "") {
+						mymodalss.style.display = "none";
+						modals.style.display = "block";
+						document.getElementById("msg").innerHTML = "Description cannot empty";
+						return false;
+					} else if (detail_remark == "") {
+						mymodalss.style.display = "none";
+						modals.style.display = "block";
+						document.getElementById("msg").innerHTML = "Remark cannot empty";
+						return false;
+					} else if (detail_list_menu.length < 1) {
+						mymodalss.style.display = "none";
+						modals.style.display = "block";
+						document.getElementById("msg").innerHTML = "List menu authorization cannot empty";
+						return false;
+					}
+
+					$.ajax({
+						url: 'php_action/FuncUpdate.php',
+						type: 'post',
+						data: new FormData(document.getElementById("FormDisplayDetail")),
+						processData: false,
+						contentType: false,
+						dataType: 'json',
+						success: function(response) {
+							$(".form-group").removeClass('has-error').removeClass(
+								'has-success');
+							mymodalss.style.display = "none";
+							modals.style.display = "block";
+							document.getElementById("msg").innerHTML = response.messages;
+
+							$('#FormDisplayDetail').modal('hide');
+							$("[data-dismiss=modal]").trigger({type: "click"});
+
+							// reset the form
+							$("#FormDisplayDetail")[0].reset();
+							datatable.ajax.reload(null, false);
+						},
+						error: function(xhr, status, error) {
+							mymodalss.style.display = "none";
+							modals.style.display = "block";
+							document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+						}
+					});
+					return false;
+				})
+			}, 
+			error: function(xhr, status, error) {
+				mymodalss.style.display = "none";
+				modals.style.display = "block";
+				document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
 			}
 		})
 	}
 
-	$("#FormDisplayDetail").unbind('submit').bind('submit', function (){
-		alert('submit update')
-		var form = $(this);
-		var detail_emp_no = $('#detail_emp_no').val()
-		var detail_user_menu_name = $('#detail_user_menu_name').val()
-		var detail_description = $('#detail_description').val()
-		var detail_remark = $('#detail_remark').val();
-
-		var detail_list_menu = $('.option:checked').map(function(){
+	function AddEmployee(request) {
+		document.getElementById("FormDisplayEmployee").reset();
+		$('#add_users_menu_name').val(request)
+		
+		let checked_employee = $('.option:checked').map(function(){
 			return this.value;
 		}).get();
+		$.ajax({
+			url: 'php_action/FuncGetDataById.php',
+			type: 'post',
+			data: {
+				request: request
+			},
+			dataType: 'json',
+			async: true,
+			success:function(response) {
+				$("#list_data_employee").load("pages_relation/page_list_employee?user_menu=" + response[0].users_menu_name,
+					function (responseTxt, statusTxt, jqXHR) {
+						if (statusTxt == "success") {
+							$("#list_data_employee").show();
+						}
+						if (statusTxt == "error") {
+							alert("Error: " + jqXHR.status + " " + jqXHR.statusText);
+						}
+					}
+				);
+			},
+			error: function(xhr, status, error) {
+				mymodalss.style.display = "none";
+				modals.style.display = "block";
+				document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+			}
+		})
 
-		if (detail_description == "") {
+	}
+
+	$('#submit_employee').on('click',function() {
+		let add_users_menu_name = $('#add_users_menu_name').val()
+		let checked_employee = $('.option:checked').map(function(){
+			return this.value;
+		}).get();
+		// console.log(checked_employee.length)
+		if (checked_employee.length < 1) {
 			mymodalss.style.display = "none";
 			modals.style.display = "block";
-			document.getElementById("msg").innerHTML = "Description cannot empty";
+			document.getElementById("msg").innerHTML = "List employee cannot empty";
 			return false;
-		} else if (detail_remark == "") {
-			mymodalss.style.display = "none";
-			modals.style.display = "block";
-			document.getElementById("msg").innerHTML = "Remark cannot empty";
-			return false;
-		} else if (detail_list_menu.length < 1) {
-			mymodalss.style.display = "none";
-			modals.style.display = "block";
-			document.getElementById("msg").innerHTML = "List menu authorization cannot empty";
-			return false;
-		} else {
-			$.ajax({
-				url: 'php_action/FuncUpdate.php',
-				type: 'post',
-				data: new FormData(document.getElementById("FormDisplayDetail")),
-				processData: false,
-				contentType: false,
-				dataType: 'json',
-				success: function(response) {
-					$(".form-group").removeClass('has-error').removeClass(
-						'has-success');
-					mymodalss.style.display = "none";
-					modals.style.display = "block";
-					document.getElementById("msg").innerHTML = response.messages;
-
-					$('#FormDisplayCreate').modal('hide');
-					$("[data-dismiss=modal]").trigger({type: "click"});
-
-					// reset the form
-					$("#FormDisplayCreate")[0].reset();
-					// reload the datatables
-					datatable.ajax.reload(null, false);
-				},
-				error: function(xhr, status, error) {
-					mymodalss.style.display = "none";
-					modals.style.display = "block";
-					document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
-				}
-			})
 		}
-	})
-</script>
+		$.ajax({
+			url: 'php_action/FuncAddEmployee.php',
+			type: 'post',
+			data: new FormData(document.getElementById("FormDisplayEmployee")),
+			processData: false,
+			contentType: false,
+			dataType: 'json',
+			success: function(response) {
+				$(".form-group").removeClass('has-error').removeClass(
+					'has-success');
+				mymodalss.style.display = "none";
+				modals.style.display = "block";
+				document.getElementById("msg").innerHTML = response.messages;
 
+				$('#FormDisplayCreate').modal('hide');
+				$("[data-dismiss=modal]").trigger({type: "click"});
+
+				// reset the form
+				$("#FormDisplayCreate")[0].reset();
+				// reload the datatables
+				datatable.ajax.reload(null, false);
+			},
+			// error: function(xhr, status, error) {
+			// 	mymodalss.style.display = "none";
+			// 	modals.style.display = "block";
+			// 	document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+			// }
+			error:function(response) {
+				mymodalss.style.display = "none";
+				modals.style.display = "block";
+				document.getElementById("msg").innerHTML = response.messages;
+			}
+		})
+
+	})
+	
+</script>
 
 <!-- isi JSON -->
 <script type="text/javascript">
@@ -627,84 +709,8 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 		sortable: true,
 		startCollapsed: false,
 	});
-
-	function AddEmployee(request) {
-		document.getElementById("FormDisplayEmployee").reset();
-		$('#add_users_menu_name').val(request)
-		let checked_employee = $('.option:checked').map(function(){
-			return this.value;
-		}).get();
-		console.log(checked_employee)
-	}
-
-	function CreateListEmployee(request) {
-		let add_users_menu_name = $('#add_users_menu_name').val()
-		let list_employee = $('#list_employee').val()
-		let checked_employee = $('.option:checked').map(function(){
-			return this.value;
-		}).get();
-
-		console.log(checked_employee)
-	}
-
-	$('#submit_employee').on('click',function() {
-		let add_users_menu_name = $('#add_users_menu_name').val()
-		let checked_employee = $('.option:checked').map(function(){
-			return this.value;
-		}).get();
-		console.log(checked_employee.length)
-		if (checked_employee.length < 1) {
-			mymodalss.style.display = "none";
-			modals.style.display = "block";
-			document.getElementById("msg").innerHTML = "List employee cannot empty";
-			return false;
-		}
-		$.ajax({
-			url: 'php_action/FuncAddEmployee.php',
-			type: 'post',
-			data: new FormData(document.getElementById("FormDisplayEmployee")),
-			processData: false,
-			contentType: false,
-			dataType: 'json',
-			success: function(response) {
-				$(".form-group").removeClass('has-error').removeClass(
-					'has-success');
-				mymodalss.style.display = "none";
-				modals.style.display = "block";
-				document.getElementById("msg").innerHTML = response.messages;
-
-				$('#FormDisplayCreate').modal('hide');
-				$("[data-dismiss=modal]").trigger({type: "click"});
-
-				// reset the form
-				$("#FormDisplayCreate")[0].reset();
-				// reload the datatables
-				datatable.ajax.reload(null, false);
-			},
-			// error: function(xhr, status, error) {
-			// 	mymodalss.style.display = "none";
-			// 	modals.style.display = "block";
-			// 	document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
-			// }
-			error:function(response) {
-				mymodalss.style.display = "none";
-				modals.style.display = "block";
-				document.getElementById("msg").innerHTML = response.messages;
-			}
-		})
-
-	})
-	
-	
 </script>
 <!-- isi JSONs -->
 </body>
 
 </html>
-
-
-<script type="text/javascript">
-	// var tree4 = 
-	
-	
-</script>

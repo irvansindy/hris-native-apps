@@ -110,93 +110,25 @@
 	});
 </script>
 
-<div class="col-md-12">
-	<div class="card">
-		<div class="card-header d-flex align-items-center">
-			<h4 class="card-title mb-0">On Duty Purpose Type Setting </h4>
 
 
-			<div class="card-actions ml-auto">
-				<table>
-
-					<td>
-						<form action="../rfid=repository/cli_Template_Download/st/StFunctionDownload.php" method="GET">
-							<input type="hidden" name="filedata" value="StDownloadGTTGROndtPurposeTypeData.php">
-							<input type="hidden" name="filename" value="OndtPurposeType">
-							<input type="hidden" name="src_purpose_code" value="<?php echo $src_purpose_code; ?>">
-							<input type="hidden" name="src_purpose_name_en" value="<?php echo $src_purpose_name_en; ?>">
-							<button type="submit" class="toolbar sprite-toolbar-excel" id="EXCEL"
-								style="border: 0;background-color: white;" name="submit_approve"
-								value="submit"></button>
-						</form>
-					</td>
-					<td>
-						<a href='#' class='open_modal_search' class="btn btn-demo" data-toggle="modal"
-							data-target="#myModal2">
-							<div class="toolbar sprite-toolbar-search" id="SEARCH" title="Search">
-							</div>
-						</a>
-					</td>
-					<!-- AgusPrass 02/03/2021 Menghapus # pada href-->
-					<td>
-						<div class="toolbar sprite-toolbar-reload" id="RELOAD" title="Reload" onclick="RefreshPage();">
-						</div>
-					</td>
-					<!-- AgusPrass 02/03/2021 -->
-
-					<td>
-						<div class="toolbar sprite-toolbar-add" title="Add" data-toggle="modal"
-							data-target="#CreateForm" id="CreateButton" data-keyboard="false" data-backdrop="static">
-							<!-- <a title="add" href="" class="toolbar sprite-toolbar-add" data-toggle="modal" data-target="#CreateForm" id="CreateButton" data-keyboard="false" data-backdrop="static">tambah</a> -->
-						</div>
-					</td>
-
-				</table>
-
-
-
-			</div>
-		</div>
-
-		<div class="card-body table-responsive p-0"
-			style="width: 100vw;height: 78vh; width: 99.3%; margin: 5px;overflow: scroll;">
-			<table align="left" id="datatable" width="80%" border="1"
-				class="table table-bordered table-striped table-hover table-head-fixed">
-				<thead>
-					<tr>
-						<th class="fontCustom" style="z-index: 1;vertical-align: ce;vertical-align: middle;"
-							nowrap="nowrap">No.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-						<th class="fontCustom" style="z-index: 1;vertical-align: ce;vertical-align: middle;"
-							nowrap="nowrap">
-							Purpose Type Code</th>
-						<th class="fontCustom" style="z-index:1;vertical-align: ce;vertical-align: middle;">Purpose Type
-							Name
-						</th>
-						<th class="fontCustom" style="z-index:1;vertical-align: ce;vertical-align: middle;">Allowance
-							Item
-						</th>
-						<th class="fontCustom" style="z-index: 1;vertical-align: ce;vertical-align: middle;">
-							Action
-						</th>
-						<!-- <th class="fontCustom" style="z-index: 1;vertical-align: ce;vertical-align: middle;">Grade</th>
-                                    
-						<th class="fontCustom" style="z-index: 1;vertical-align: ce;vertical-align: middle;">Join Date</th>
-                                                                <th class="fontCustom" style="z-index: 1;vertical-align: ce;vertical-align: middle;">Employment Code</th> -->
-					</tr>
-				</thead>
-			</table>
-
-		</div>
-
-		<div class='card-footer' style='background-color: #eee;height: 37px;padding-top: 5px;'>
-
-
-
-		</div>
-
+<div class="MaximumFrameHeight card-body table-responsive p-0"
+	style="width: 100vw;height: 80vh; width: 98%; margin-right: 5px;overflow: scroll;overflow-x: hidden;margin-top: 17px;">
+	<div class="col-12 col-fit" style="margin-top: 17px;">
+		<table id="datatable" width="100%" border="1" align="left"
+			class="table table-bordered table-striped table-hover table-head-fixed">
+			<thead>
+				<tr>
+					<th class="fontCustom" style="z-index: 1;" nowrap="nowrap">No</th>
+					<th class="fontCustom" style="z-index: 1;">Purpose Type Code</th>
+					<th class="fontCustom" style="z-index: 1;">Purpose Type Name</th>
+					<th class="fontCustom" style="z-index: 1;">Allowance Item</th>
+					<!-- <th class="fontCustom" style="z-index: 1;">Active Status</th> -->
+				</tr>
+			</thead>
+		</table>
 	</div>
 </div>
-
 <!-- add modal -->
 <div class="modal  fade fade-custom" tabindex="-1" role="dialog" id="CreateForm">
 	<div class="modal-dialog modal-belakang modal-bs" role="document">
@@ -273,7 +205,7 @@
 									$modal=mysqli_query($connect, "SELECT a.*
 									FROM hrmondutyallowitem a");
 								?>
-								<select id="test-select-4" multiple="multiple" class="framework" id="inp_allowance_item"
+								<select multiple="multiple" class="framework" id="inp_allowance_item"
 									name="inp_allowance_item[]">
 									<?php if (mysqli_num_rows($modal) > 0) { ?>
 									<?php while ($row = mysqli_fetch_array($modal)) { ?>
@@ -295,7 +227,8 @@
 									style="width:undefined;height: 33px;width: 80%;">
 									<option value="">--Select One--</option>
 									<?php 
-										$req = mysqli_query($connect, "SELECT * FROM `HRMTTAMATTSTATUS`");
+										// $req = mysqli_query($connect, "SELECT * FROM `HRMTTAMATTSTATUS`");
+										$req = mysqli_query($connect, "SELECT * FROM `hrmttamattstatus`");
 									?>
 									<?php if (mysqli_num_rows($req) > 0) { ?>
 									<?php while ($row = mysqli_fetch_array($req)) { ?>
@@ -552,98 +485,97 @@
 				var inp_attendcode = $("#inp_attendcode").val();
 
 				var inp_allowance_item = [];
+				let checked_allowance_item = $('.option:checked').map(function(){
+					return this.value;
+				}).get();
 
 				var regex = /^[a-zA-Z]+$/;
 
 				if (inp_purpose_code == "") {
 					modals.style.display = "block";
 					document.getElementById("msg").innerHTML = "Purpose code cannot empty";
-
+					return false
 				} else if (inp_purpose_name_en == "") {
 					modals.style.display = "block";
 					document.getElementById("msg").innerHTML = "Purpose desc en cannot empty";
-
+					return false
 				} else if (inp_purpose_name_id == "") {
 					modals.style.display = "block";
 					document.getElementById("msg").innerHTML = "Purpose desc id cannot empty";
-
+					return false
+				} else if (checked_allowance_item == "") {
+					modals.style.display = "block";
+					document.getElementById("msg").innerHTML = "Allowance cannot empty";
+					return false
 				} else if (inp_attendcode == "") {
 					modals.style.display = "block";
-					document.getElementById("msg").innerHTML = "Attend date cannot empty";
-
+					document.getElementById("msg").innerHTML = "Attend status cannot empty";
+					return false
 				} else {
 					$('#submit_add').hide();
 					$('#submit_add2').show();
 				}
 
-				if (inp_purpose_code && inp_purpose_name_en && inp_purpose_name_id &&
-					inp_attendcode) {
+				$.ajax({
+					url: form.attr('action'),
+					type: form.attr('method'),
+					// data: form.serialize(),
 
-					//submi the form to server
-					$.ajax({
-						url: form.attr('action'),
-						type: form.attr('method'),
-						// data: form.serialize(),
+					data: new FormData(this),
+					processData: false,
+					contentType: false,
 
-						data: new FormData(this),
-						processData: false,
-						contentType: false,
+					dataType: 'json',
+					success: function (response) {
 
-						dataType: 'json',
-						success: function (response) {
+						// remove the error 
+						$(".form-group").removeClass('has-error').removeClass(
+							'has-success');
 
-							// remove the error 
+						if (response.code == 'success_message') {
 							$(".form-group").removeClass('has-error').removeClass(
 								'has-success');
+							mymodalss.style.display = "none";
+							modals.style.display = "block";
+							document.getElementById("msg").innerHTML = response.messages;
 
-							if (response.code == 'success_message') {
-								modals.style.display = "block";
-								document.getElementById("msg").innerHTML = response
-									.messages;
+							$('#FormDisplayDetail').modal('hide');
+							$("[data-dismiss=modal]").trigger({type: "click"});
 
-								$('#submit_add').show();
-								$('#submit_add2').hide();
+							// reset the form
+							$("#FormDisplayDetail")[0].reset();
+							datatable.ajax.reload(null, false);
+						} else {
+							modals.style.display = "block";
+							document.getElementById("msg").innerHTML = response
+								.messages;
 
-								$('#FormDisplayCreate').modal('hide');
-								$("[data-dismiss=modal]").trigger({
-									type: "click"
-								});
+							$('#submit_add').show();
+							$('#submit_add2').hide();
 
-								// reset the form
-								$("#FormDisplayCreate")[0].reset();
-								// reload the datatables
-								datatable.ajax.reload(null, false);
-								// this function is built in function of datatables;
-							} else {
-								modals.style.display = "block";
-								document.getElementById("msg").innerHTML = response
-									.messages;
-
-								$('#submit_add').show();
-								$('#submit_add2').hide();
-
-								window.setTimeout(
-									function () {
-										$(".alert")
-											.fadeTo(
-												500,
-												0
-											)
-											.slideUp(
-												500,
-												function () {
-													$(this)
-														.remove();
-												}
-											);
-									},
-									4000
-								);
-							} // /else
-						} // success  
-					}); // ajax subit 				
-				} /// if
+							window.setTimeout(
+								function () {
+									$(".alert")
+										.fadeTo(
+											500,
+											0
+										)
+										.slideUp(
+											500,
+											function () {
+												$(this)
+													.remove();
+											}
+										);
+								},
+								4000
+							);
+						} // /else
+					} // success  
+				}); // ajax subit 				
 				return false;
+				// if (inp_purpose_code && inp_purpose_name_en && inp_purpose_name_id && inp_attendcode) {
+				// }
 			}); // /submit form for create member
 		}); // /add modal
 	});
@@ -712,8 +644,7 @@
 					member_id: id
 				},
 				dataType: 'json',
-
-
+				async: true,
 				success: function (response) {
 					document.getElementById("sel_identity").innerHTML = response.purpose_code;
 
@@ -723,7 +654,7 @@
 					$("#sel_attend_code").val(response.attend_code);
 
 					var sel_purpose_code = response.purpose_code;
-
+					// alert(sel_purpose_code)
 					$("#box").load("pages_relation/_pages_setting?rfid=" + sel_purpose_code,
 						function (responseTxt, statusTxt, jqXHR) {
 							if (statusTxt == "success") {
@@ -1010,7 +941,7 @@
 </script>
 
 <script type="text/javascript">
-	var tree4 = $("#test-select-4").treeMultiselect({
+	var tree4 = $("#inp_allowance_item").treeMultiselect({
 		allowBatchSelection: true,
 		enableSelectAll: true,
 		searchable: true,

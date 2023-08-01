@@ -442,6 +442,14 @@ $(document).ready(function() {
 							</div>
 						</div>
 					</div>
+					<!-- <div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+						<label class="form-check-label" for="inlineRadio1">1</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+						<label class="form-check-label" for="inlineRadio2">2</label>
+					</div> -->
 					<div class="edit_venue_room"></div>
 					<div class="dynamic_edit_venue_room"></div>
 					<div class="form-row">
@@ -869,6 +877,11 @@ function getDetailVenue(id) {
 				</div>
 			`);
 
+			// checkbox Check only one checkbox and unchek others
+			$('input[type=checkbox]').click(function() {
+				$('input[type="checkbox"]').not(this).prop("checked", false);
+			})
+
 			// get list country
 			$('#valueEditCountryId').val(response.master.country_id)
 			$('#edit_venue_country').empty()
@@ -952,18 +965,6 @@ function getDetailVenue(id) {
 				$(this).closest('.array_edit_venue_room').remove();
 			});
 
-			// validate checkbox venue type
-			$('input[type=checkbox]').on('change', function(evt) {
-				if($('input[id=edit_venue_type]:checked').length > 1) {
-					this.checked = false;
-					mymodalss.style.display = "none";
-					modals.style.display = "block";
-					document.getElementById("msg").innerHTML =
-					"Can only choose one type";
-					return false;
-				}
-			});
-			// here update the member data
 		},
 		error: function(xhr, status, error) {
 			mymodalss.style.display = "none";
@@ -1164,53 +1165,24 @@ if(id) {
 
 </html>
 
-<script>
-jQuery(function($) {
-	$("#nip").mask("99-9999");
-	$("#nik").mask("9999999999999999");
-	$("#join").mask("9999-99-99");
-	$("#date").mask("9999-99-99");
-	$("#account").mask("9999-9-99999-9");
-});
-</script>
-
-<script type="text/javascript">
-function isi_otomatis() {
-	var nip = $("#nip").val();
-	$.ajax({
-		url: 'ajax_cek.php',
-		data: "nip=" + nip,
-	}).success(function(data) {
-		var json = data,
-			obj = JSON.parse(json);
-		$('#nama').val(obj.nama);
-		$('#nik').val(obj.nik);
-		$('#org').val(obj.org);
-		$('#emp').val(obj.emp);
-		$('#join').val(obj.join);
-		$('#account').val(obj.account);
-		$('#norek').val(obj.norek);
-		$('#approve').val(obj.approve);
-		$('#grp').val(obj.grp);
-		$('#jobstatus').val(obj.jobstatus);
-	});
-}
-</script>
-
 <!-- onchange data dropdown country -->
 <script>
 	// validate checkbox venue type
-    $('input[type=checkbox]').on('change', function(evt) {
-    if($('input[id=input_venue_type]:checked').length > 1) {
-        this.checked = false;
-        // alert('can only choose one type');
-        mymodalss.style.display = "none";
-        modals.style.display = "block";
-        document.getElementById("msg").innerHTML =
-        "Can only choose one type";
-        return false;
-    }
-    });
+    // $('input[type=checkbox]').on('change', function(evt) {
+	// 	if($('input[id=input_venue_type]:checked').length > 1) {
+	// 		this.checked = false;
+	// 		mymodalss.style.display = "none";
+	// 		modals.style.display = "block";
+	// 		document.getElementById("msg").innerHTML =
+	// 		"Can only choose one type";
+	// 		return false;
+	// 	}
+    // });
+
+	// checkbox Check only one checkbox and unchek others
+	$('input[type=checkbox]').click(function() {
+		$('input[type="checkbox"]').not(this).prop("checked", false);
+	})
 
     $('#add_room').on('click', function() {
         $('.dynamic_venue_room').append(
@@ -1383,9 +1355,5 @@ function isi_otomatis() {
 		$(this).find('#UpdateForm')[0].clear();
 
 	})
-
-	// $('#UpdateForm').on('hidden.bs.modal', function(e) {
-	// 	$(this).find('#edit_form_venue')[0].reset();
-	// });
 
 </script>

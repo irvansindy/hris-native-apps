@@ -8,8 +8,10 @@ if($_POST) {
 
 	$validator = array('success' => false, 'messages' => array());
 
+	$provider_code 	= strtoupper($_POST['provider_code']);
 	$provider_name 	= $_POST['provider_name'];
 	$formula_code = ucwords(strtolower($provider_name));
+	// $provider_code = preg_filter('/[^A-Z]/', '', $formula_code);
 	$provider_type 	= strtoupper($_POST['provider_type']);
 	$pic 	= strtoupper($_POST['pic']);
 	$provider_country 	= strtoupper($_POST['provider_country']);
@@ -23,7 +25,6 @@ if($_POST) {
 	$provider_speciality 	= strtoupper($_POST['provider_speciality']);
 	$provider_address 	= strtoupper($_POST['provider_address']);
 	$provider_remark 	= strtoupper($_POST['provider_remark']);
-	$provider_code = preg_filter('/[^A-Z]/', '', $formula_code);
 
 	$query = "INSERT INTO `trnprovider` 
 		(
@@ -77,8 +78,6 @@ if($_POST) {
 		$validator['messages'] = "Failed saved data";	
 	}
 	// condition ends
-	// var_dump($query_0);
-	// die();
 	// close the database connection
 	$connect->close();
 	header('Content-Type: application/json');

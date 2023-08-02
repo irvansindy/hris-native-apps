@@ -507,7 +507,6 @@ ORDER BY a.dateforcheck ASC";
 		ON (SELECT request_status FROM hrmrequestapproval WHERE request_no = a.request_no ORDER BY `request_status` DESC limit 1) = c.code    
 	WHERE 
 		DATE_FORMAT(b.leave_starttime, '%Y-%m-%d') BETWEEN '2023-06-30' AND '2023-06-30'
-		-- AND a.emp_id = '$modal_emp'
 		AND a.emp_id = '$result_emp_id'
 		ORDER BY a.created_date DESC LIMIT 1";
 

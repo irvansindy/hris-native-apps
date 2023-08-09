@@ -518,6 +518,7 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 				modals.style.display = "block";
 				document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
 			}
+			
 		})
 	}
 

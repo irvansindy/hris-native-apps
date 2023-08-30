@@ -305,7 +305,6 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 </div>
 </div>
 
-
 <!-- form create sub menu modal -->
 <div class="modal fade fade-custom" tabindex="-1" role="dialog" id="form_create_sub_menu">
 	<div class="modal-dialog" role="document">
@@ -320,7 +319,7 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 			</div>
 			<form class="form-horizontal" action="" method="" id="create_data_sub_menu">
 
-				<div class="card-body table-responsive p-0"">
+				<div class="card-body table-responsive p-0">
 
 					<fieldset id="fset_1">
 						<legend>Input Form Data</legend>

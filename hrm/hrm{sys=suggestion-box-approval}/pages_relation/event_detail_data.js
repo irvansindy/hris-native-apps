@@ -72,7 +72,6 @@ $(document).ready(function () {
                 let detail_category_direct_cause = response[1]
                 let total_detail_category_direct_cause = detail_category_direct_cause.length
 
-                // check length from detail category direct cause
                 if (total_detail_category_direct_cause == 0) {
                     for (let i = 0; i < master_root_cause.length; i++) {
                         $('#detail_data_list_root_cause').append(
@@ -88,12 +87,12 @@ $(document).ready(function () {
                                         <input class="input--style-6 border-0" id="detail_possible_direct_cause_${master_root_cause[i].category_name.replace(/ /g,"_")}" placeholder="Possible Direct Cause ${master_root_cause[i].category_name}" name="detail_possible_direct_cause_${master_root_cause[i].category_name.replace(/ /g,"_")}[]" type="Text" value="" placeholder="Room Code">
                                         </div>
                                         <div class="col-sm">
-                                            <button class="btn btn-primary btn-sm" id="add_detail_dynamic_form_${master_root_cause[i].category_name.replace(/ /g,"_")}" type="button">
+                                            <button class="btn btn-primary btn-sm" id="add_dynamic_form_${master_root_cause[i].category_name.replace(/ /g,"_")}" data-categoryId="${master_root_cause[i].id}" type="button">
                                                 <i class="fa-solid fa-plus"></i>
                                             </button>
                                         </div>
                                     </div>
-                                    <div id="detail_dynamic_form_${master_root_cause[i].category_name.replace(/ /g,"_")}"></div>
+                                    <div id="dynamic_form_${master_root_cause[i].category_name.replace(/ /g,"_")}"></div>
                                 </td>
                             </tr>
                             ` 
@@ -103,56 +102,34 @@ $(document).ready(function () {
                 } else {
                     for (let i = 0; i < master_root_cause.length; i++) {
 
-                        // set variable for data direct cause
                         let value_category_direct_cause = []
 
                         for (let j = 0; j < detail_category_direct_cause[i].length; j++) {
-                            // set variable for check index direct cause
+                            // console.log(detail_category_direct_cause[i][j].category_id)
+                            // console.log(detail_category_direct_cause[i][j].possible_direct_cause)
                             let length_category_direct_cause = Object.keys(detail_category_direct_cause[i][j])
-                            let list_detail_category_direct_cause = ''
-                            if(length_category_direct_cause == 0) {
-                                list_detail_category_direct_cause = ``
-                            } else {
-                                // check index for button direct cause
-                                let index_for_button_add_or_pop_direct_cause = detail_category_direct_cause[i].indexOf(detail_category_direct_cause[i][j])
-                                // set varibale for result button dynamic form
-                                let result_button_add_or_pop_direct_cause = ''
-                                // final result button
-                                let result_detail_dynamic_form_direct_cause = ''
-                                // set variable for add class array dynamic form
-                                let class_array_detail_dynamic_form_direct_cause = ''
+                            if(length_category_direct_cause === 0) {
+                                alert('kosong')
 
-                                if (index_for_button_add_or_pop_direct_cause == 0) {
-                                    result_button_add_or_pop_direct_cause = `<button class="btn btn-primary btn-sm" id="add_detail_dynamic_form_${master_root_cause[i].category_name.replace(/ /g,"_")}" type="button">
-                                        <i class="fa-solid fa-plus"></i>
-                                    </button>`
-                                    result_detail_dynamic_form_direct_cause = ''
-                                } else {
-                                    result_button_add_or_pop_direct_cause = `<button class="btn btn-danger btn-sm" id="pop_detail_dynamic_form_${master_root_cause[i].category_name.replace(/ /g,"_")}" type="button">
-                                        <i class="fa-solid fa-minus"></i>
-                                    </button>`
-                                    result_detail_dynamic_form_direct_cause = `<div id="detail_dynamic_form_${master_root_cause[i].category_name.replace(/ /g,"_")}"></div>`
-                                    class_array_detail_dynamic_form_direct_cause = 'array_detail_dynamic_form_'+master_root_cause[i].category_name.replace(/ /g,"_")
-                                }
-                                // set data direct cause
-                                list_detail_category_direct_cause = `
-                                    <div class="row ${class_array_detail_dynamic_form_direct_cause} mt-2">
+                            } else {
+                                let list_detail_category_direct_cause = `
+                                    <div class="row">
                                         <div class="col-10">
                                             <input type="hidden" value="${master_root_cause[i].id}" name="detail_category_id_${master_root_cause[i].id}[]">
                                             <input class="input--style-6 border-0" id="detail_possible_direct_cause_${master_root_cause[i].category_name.replace(/ /g,"_")}" placeholder="Possible Direct Cause ${master_root_cause[i].category_name}" name="detail_possible_direct_cause_${master_root_cause[i].category_name.replace(/ /g,"_")}[]" type="Text" value="${detail_category_direct_cause[i][j].possible_direct_cause}" placeholder="Room Code">
                                         </div>
                                         <div class="col-sm">
-                                            ${result_button_add_or_pop_direct_cause}
+                                            <button class="btn btn-primary btn-sm" id="add_dynamic_form_${master_root_cause[i].category_name.replace(/ /g,"_")}" data-categoryId="${master_root_cause[i].id}" type="button">
+                                                <i class="fa-solid fa-plus"></i>
+                                            </button>
                                         </div>
                                     </div>
-                                    ${result_detail_dynamic_form_direct_cause}
                                 `
-                                // push all data direct cause
                                 value_category_direct_cause.push(list_detail_category_direct_cause)
                             }
+                            
                         }
-
-                        // result all data list category direct cause for root cause
+                        
                         $('#detail_data_list_root_cause').append(
                             `
                             <tr>
@@ -160,37 +137,15 @@ $(document).ready(function () {
                                     ${master_root_cause[i].category_name}
                                 </td>
                                 <td>
-                                    <div id="detail_list_${master_root_cause[i].category_name.replace(/ /g,"_")}"></div>
-                                    <div id="detail_dynamic_form_${master_root_cause[i].category_name.replace(/ /g,"_")}"></div>
+                                    ${value_category_direct_cause[i]}
+                                    <div id="dynamic_form_${master_root_cause[i].category_name.replace(/ /g,"_")}"></div>
                                 </td>
                             </tr>
                             ` 
                         )
-
-                        let direct_cause_length = value_category_direct_cause.length
-                        let id_value_category_direct_cause = '#detail_list_'+master_root_cause[i].category_name.replace(/ /g,"_")
-                        if (direct_cause_length == 0) {
-                            $(id_value_category_direct_cause).append(
-                                `
-                                <div class="row">
-                                    <div class="col-10">
-                                        <input type="hidden" value="${master_root_cause[i].id}" name="detail_category_id_${master_root_cause[i].id}[]">
-                                        <input class="input--style-6 border-0" id="detail_possible_direct_cause_${master_root_cause[i].category_name.replace(/ /g,"_")}" placeholder="Possible Direct Cause ${master_root_cause[i].category_name}" name="detail_possible_direct_cause_${master_root_cause[i].category_name.replace(/ /g,"_")}[]" type="Text" value="" placeholder="Room Code">
-                                    </div>
-                                    <div class="col-sm">
-                                        <button class="btn btn-primary btn-sm" id="add_detail_dynamic_form_${master_root_cause[i].category_name.replace(/ /g,"_")}" data-categoryId="${master_root_cause[i].id}" type="button">
-                                            <i class="fa-solid fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                `
-                            )
-                        } else {
-                            $(id_value_category_direct_cause).append(value_category_direct_cause)
-                        }
                     }
                 }
-                
+
                 // for data list master planing
                 $('#detail_data_list_planing_root_cause').empty()
                 let total_planing = response[2].length
@@ -274,167 +229,5 @@ $(document).ready(function () {
                 document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
             }
         })
-    })
-
-    // add_detail_dynamic_form_Man
-    $(document).on('click', '#add_detail_dynamic_form_Man', function(e) {
-        e.preventDefault()
-        $('#detail_dynamic_form_Man').append(
-            `
-            <div class="row array_detail_dynamic_form_Man mt-2">
-                <div class="col-10">
-                    <input type="hidden" value="1" name="input_category_id_1[]">
-                    <input class="input--style-6 border-0" id="detail_possible_direct_cause_Man" placeholder="Possible Direct Cause Man" name="detail_possible_direct_cause_Man[]" type="Text" value="" placeholder="Room Code">
-                </div>
-                <div class="col-sm">
-                    <button class="btn btn-danger btn-sm" id="pop_detail_dynamic_form_Man" data-categoryId="" type="button">
-                    <i class="fa-solid fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            `
-        )
-    })
-
-    // pop_detail_dynamic_form_Man
-    $(document).on('click', '#pop_detail_dynamic_form_Man', function (e) {
-        e.preventDefault()
-        $(this).closest('.array_detail_dynamic_form_Man').remove();
-    });
-
-    // add_detail_dynamic_form_Machine
-    $(document).on('click', '#add_detail_dynamic_form_Machine', function(e) {
-        e.preventDefault()
-        $('#detail_dynamic_form_Machine').append(
-            `
-            <div class="row array_detail_dynamic_form_Machine mt-2">
-                <div class="col-10">
-                    <input type="hidden" value="1" name="input_category_id_1[]">
-                    <input class="input--style-6 border-0" id="detail_possible_direct_cause_Machine" placeholder="Possible Direct Cause Machine" name="detail_possible_direct_cause_Machine[]" type="Text" value="" placeholder="Room Code">
-                </div>
-                <div class="col-sm">
-                    <button class="btn btn-danger btn-sm" id="pop_detail_dynamic_form_Machine" data-categoryId="" type="button">
-                    <i class="fa-solid fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            `
-        )
-    })
-
-    // pop_detail_dynamic_form_Machine
-    $(document).on('click', '#pop_detail_dynamic_form_Machine', function (e) {
-        e.preventDefault()
-        $(this).closest('.array_detail_dynamic_form_Machine').remove();
-    });
-
-    // add_detail_dynamic_form_Method
-    $(document).on('click', '#add_detail_dynamic_form_Method', function(e) {
-        e.preventDefault()
-        $('#detail_dynamic_form_Method').append(
-            `
-            <div class="row array_detail_dynamic_form_Method mt-2">
-                <div class="col-10">
-                    <input type="hidden" value="1" name="input_category_id_1[]">
-                    <input class="input--style-6 border-0" id="detail_possible_direct_cause_Method" placeholder="Possible Direct Cause Method" name="detail_possible_direct_cause_Method[]" type="Text" value="" placeholder="Room Code">
-                </div>
-                <div class="col-sm">
-                    <button class="btn btn-danger btn-sm" id="pop_detail_dynamic_form_Method" data-categoryId="" type="button">
-                    <i class="fa-solid fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            `
-        )
-    })
-
-    // pop_detail_dynamic_form_Method
-    $(document).on('click', '#pop_detail_dynamic_form_Method', function (e) {
-        e.preventDefault()
-        $(this).closest('.array_detail_dynamic_form_Method').remove();
-    });
-
-    // add_detail_dynamic_form_Material
-    $(document).on('click', '#add_detail_dynamic_form_Material', function(e) {
-        e.preventDefault()
-        $('#detail_dynamic_form_Material').append(
-            `
-            <div class="row array_detail_dynamic_form_Material mt-2">
-                <div class="col-10">
-                    <input type="hidden" value="1" name="input_category_id_1[]">
-                    <input class="input--style-6 border-0" id="detail_possible_direct_cause_Material" placeholder="Possible Direct Cause Material" name="detail_possible_direct_cause_Material[]" type="Text" value="" placeholder="Room Code">
-                </div>
-                <div class="col-sm">
-                    <button class="btn btn-danger btn-sm" id="pop_detail_dynamic_form_Material" data-categoryId="" type="button">
-                    <i class="fa-solid fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            `
-        )
-    })
-
-    // pop_detail_dynamic_form_Material
-    $(document).on('click', '#pop_detail_dynamic_form_Material', function (e) {
-        e.preventDefault()
-        $(this).closest('.array_detail_dynamic_form_Material').remove();
-    });
-    
-    // add_detail_dynamic_form_Mother_Nature
-    $(document).on('click', '#add_detail_dynamic_form_Mother_Nature', function(e) {
-        e.preventDefault()
-        $('#detail_dynamic_form_Mother_Nature').append(
-            `
-            <div class="row array_detail_dynamic_form_Mother_Nature mt-2">
-                <div class="col-10">
-                    <input type="hidden" value="1" name="input_category_id_1[]">
-                    <input class="input--style-6 border-0" id="detail_possible_direct_cause_Mother_Nature" placeholder="Possible Direct Cause Mother Nature" name="detail_possible_direct_cause_Mother_Nature[]" type="Text" value="" placeholder="Room Code">
-                </div>
-                <div class="col-sm">
-                    <button class="btn btn-danger btn-sm" id="pop_detail_dynamic_form_Mother_Nature" data-categoryId="" type="button">
-                    <i class="fa-solid fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            `
-        )
-    })
-
-    // pop_detail_dynamic_form_Mother_Nature
-    $(document).on('click', '#pop_detail_dynamic_form_Mother_Nature', function (e) {
-        e.preventDefault()
-        $(this).closest('.array_detail_dynamic_form_Mother_Nature').remove();
-    });
-
-    // add_detail_dynamic_form_Measurement
-    $(document).on('click', '#add_detail_dynamic_form_Measurement', function(e) {
-        e.preventDefault()
-        $('#detail_dynamic_form_Measurement').append(
-            `
-            <div class="row array_detail_dynamic_form_Measurement mt-2">
-                <div class="col-10">
-                    <input type="hidden" value="1" name="input_category_id_1[]">
-                    <input class="input--style-6 border-0" id="detail_possible_direct_cause_Measurement" placeholder="Possible Direct Cause Mother Nature" name="detail_possible_direct_cause_Measurement[]" type="Text" value="" placeholder="Room Code">
-                </div>
-                <div class="col-sm">
-                    <button class="btn btn-danger btn-sm" id="pop_detail_dynamic_form_Measurement" data-categoryId="" type="button">
-                    <i class="fa-solid fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            `
-        )
-    })
-
-    // pop_detail_dynamic_form_Measurement
-    $(document).on('click', '#pop_detail_dynamic_form_Measurement', function (e) {
-        e.preventDefault()
-        $(this).closest('.array_detail_dynamic_form_Measurement').remove();
-    });
-
-    // update draft
-    $(document).on('click', '#detail_update_draft', function(e) {
-        e.preventDefault()
-        alert('Update Draft')
     })
 })

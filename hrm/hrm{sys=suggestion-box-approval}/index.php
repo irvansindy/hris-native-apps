@@ -32,7 +32,7 @@ $footer = 'no'; //set as `yes` if you want to use default footer & set as `no` i
             <div class="col-md-5 col-12 align-self-center">
                 <ol class="breadcrumb mb-0 p-0 bg-transparent">
                     <li class="digital" style="font-size: 12px;">Employee&nbsp;&nbsp;</li>
-                    <li class="digital" style="font-size: 12px;"><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;Suggestion Box</li>
+                    <li class="digital" style="font-size: 12px;"><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;Suggestion Approval</li>
                 </ol>
             </div>
 
@@ -40,12 +40,12 @@ $footer = 'no'; //set as `yes` if you want to use default footer & set as `no` i
                 <table>
                     <tbody>
                         <tr>
-                            <td>
+                            <!-- <td>
                                 <a href="#" class="open_modal_search" title="First Step For Add Suggestion Innovation" data-toggle="modal" data-target="#CreateForm" id="create_data_Suggestion" data-keyboard="false" data-backdrop="static">
                                     <div class="toolbar sprite-toolbar-add">
                                     </div>
                                 </a>
-                            </td>
+                            </td> -->
                             <td>
                                 <div class="toolbar sprite-toolbar-reload" id="RELOAD" title="Reload" onclick="RefreshPage();">
                                 </div>

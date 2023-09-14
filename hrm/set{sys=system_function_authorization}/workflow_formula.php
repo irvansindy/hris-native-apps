@@ -3,6 +3,9 @@ $SFnumbercon  = $SFnumbercon;
 $request_type = $SFReqtype;
 $employee     = $inp_requestfor;
 $username     = $inp_emp_no;
+$status     = $input_status;
+
+$final_status = $status = 'draft' ? 10 : 1;
 
 $get_Formula = mysqli_query($connect, "SELECT
 			a.order_no,
@@ -75,7 +78,7 @@ $get_Formula = mysqli_query($connect, "SELECT
 						WHEN empno_appvr1 = '$employee' THEN '2'
 						WHEN empno_appvr2 = '$employee' THEN '2'
 						WHEN empno_appvr3 = '$employee' THEN '2'
-						ELSE '1'
+						ELSE $final_status
 					END,
 					x2.position_id,
 					'$username'
@@ -102,7 +105,7 @@ $get_Formula = mysqli_query($connect, "SELECT
 						WHEN empno_appvr1 = '$employee' THEN '2'
 						WHEN empno_appvr2 = '$employee' THEN '2'
 						WHEN empno_appvr3 = '$employee' THEN '2'
-						ELSE '1'
+						ELSE $final_status
 					END,
 					x2.position_id,
 					'$username'
@@ -129,7 +132,7 @@ $get_Formula = mysqli_query($connect, "SELECT
 								WHEN empno_appvr1 = '$employee' THEN '2'
 								WHEN empno_appvr2 = '$employee' THEN '2'
 								WHEN empno_appvr3 = '$employee' THEN '2'
-								ELSE '1'
+								ELSE $final_status
 							END,
 							x2.position_id,
 							'$username'
@@ -170,7 +173,7 @@ $get_Formula = mysqli_query($connect, "SELECT
 						WHEN empno_appvr1 = '$employee' THEN '2'
 						WHEN empno_appvr2 = '$employee' THEN '2'
 						WHEN empno_appvr3 = '$employee' THEN '2'
-						ELSE '1'
+						ELSE $final_status
 					END,
 					x2.position_id,
 					'$username'
@@ -198,7 +201,7 @@ $get_Formula = mysqli_query($connect, "SELECT
 							WHEN empno_appvr1 = '$employee' THEN '2'
 							WHEN empno_appvr2 = '$employee' THEN '2'
 							WHEN empno_appvr3 = '$employee' THEN '2'
-							ELSE '1'
+							ELSE $final_status
 					END,
 					x2.position_id,
 					'$username'
@@ -225,7 +228,7 @@ $get_Formula = mysqli_query($connect, "SELECT
 							WHEN empno_appvr1 = '$employee' THEN '2'
 							WHEN empno_appvr2 = '$employee' THEN '2'
 							WHEN empno_appvr3 = '$employee' THEN '2'
-							ELSE '1'
+							ELSE $final_status
 						END,
 						x2.position_id,
 						'$username'

@@ -499,7 +499,7 @@ $(document).ready(function () {
             'input_planing_root_cause': input_planing_root_cause,
         }
 
-        console.log(JSON.stringify(result_data))
+        // console.log(JSON.stringify(result_data))
 
         $.ajax({
             url: 'php_action/CreateDataAsDraft.php',

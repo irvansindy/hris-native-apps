@@ -57,13 +57,19 @@
         // for status
         $status = '<span class="badge '.$activebadge.'">'.$result_fetch_data[$i]['name_my'].'</span>';
 
+        // for approval
+        $add_suggestion_planing_step = '<a type="button" nowrap="nowrap" data-toggle="modal" data-target="#create_suggestion_planing_step" data-backdrop="static" style="color: blue; border: 5px; cursor:pointer" id="add_suggestion_planing_step" data-request_no="'.$result_fetch_data[$i]['request_no'].'"> <input type="image" src="../../asset/dist/img/icons/icon-addinfo.png" title="Detail Approval" width="22px"/></a>';
+
+        // for action
+        $result_fetch_data[$i]['name_my'] == "Draft" ? $action = $preview.'<span class="text-center mr-2"></span>'.$add_suggestion_planing_step : $action = $preview;
+
         $response['data'][] = [
             $number,
             $link_request,
             $result_fetch_data[$i]['suggestion_title'],
             $result_fetch_data[$i]['requestdate'],
             $status,
-            $preview
+            $action
         ];
         $number++;
     }

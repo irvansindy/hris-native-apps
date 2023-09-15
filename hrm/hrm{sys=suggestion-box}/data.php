@@ -134,7 +134,7 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 					<th class="fontCustom" style="z-index: 1;">Title</th>
 					<th class="fontCustom" style="z-index: 1;">Date</th>
 					<th class="fontCustom" style="z-index: 1;">Status</th>
-					<th class="fontCustom" style="z-index: 1;">Preview</th>
+					<th class="fontCustom" style="z-index: 1;">Action</th>
 				</tr>
 			</thead>
 		</table>
@@ -322,6 +322,7 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 							<div class="messages_update"></div>
 
 							<input id="detail_emp_no" name="detail_emp_no" type="hidden" value="<?php echo $username; ?>">
+							<input id="detail_request_no" name="detail_request_no" type="hidden" value="">
 
 							<!--FROM SESSION -->
 							<input id="sel_token" name="sel_token" type="hidden" value="<?php echo $get_token; ?>">
@@ -467,6 +468,151 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 							<!-- <button type="button" class="btn-sdk btn-primary-right" name="submit_full" id="submit_full" data-type_submit="full_submit">
 								Submit
 							</button> -->
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- add planing step data modal -->
+	<div class="modal fade fade-custom" tabindex="-1" role="dialog" id="create_suggestion_planing_step">
+		<div class="modal-dialog modal-belakang modal-bg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Add Suggestion Planning Step</h4>
+					<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close"
+						style="margin-top: -15px;">
+						<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
+					</a>
+				</div>
+
+				<!-- <form class="form-horizontal" action="php_action/FuncDataUpdate.php" method="POST" id="updateMemberForm"> -->
+				<form class="form-horizontal" action="" method="POST" id="form_suggestion_planing_step">
+
+					<div class="card-body table-responsive p-0"
+						style="width: 100vw;height: auto%; width: 98%; margin: 5px;overflow: scroll;overflow-x: hidden;">
+
+						<fieldset id="fset_1">
+							<legend>General</legend>
+
+							<div class="messages_update"></div>
+
+							<input id="detail_emp_no" name="detail_emp_no" type="hidden" value="<?php echo $username; ?>">
+							<input id="detail_request_no" name="detail_request_no" type="hidden" value="">
+
+							<!--FROM SESSION -->
+							<input id="sel_token" name="sel_token" type="hidden" value="<?php echo $get_token; ?>">
+							<!--FROM CONFIGURATION -->
+							<div class="row">
+								<div class="col-sm">
+									<div class="form-row">
+										<div class="col-sm-3 name">Title Step <span class="required">*</span></div>
+										<div class="col-sm">
+											<div class="input-group">
+												<input class="input--style-6"  id="suggestion_planing_step_title" placeholder="Suggestion Title"
+													name="suggestion_planing_step_title[]" type="Text" value="">
+											</div>
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="col-sm-3 name">PIC <span class="required">*</span></div>
+										<div class="col-sm">
+											<div class="input-group">
+												<input class="input--style-6"  id="suggestion_planing_step_pic" placeholder="PIC"
+													name="suggestion_planing_step_pic[]" type="Text" value="">
+											</div>
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="col-sm-3 name">Type <span class="required">*</span></div>
+										<div class="col-sm">
+											<div class="input-group">
+													<select class="input--style-6" name="suggestion_planing_step_type[]" id="suggestion_planing_step_type" style="height: 30px;">
+														<option value="action">Action</option>
+														<option value="planning">Planning</option>
+													</select>
+											</div>
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="col-sm-3 name">Start Date <span class="required">*</span></div>
+										<div class="col-sm">
+											<div class="input-group">
+												<input class="input--style-6"  id="suggestion_planing_step_start_date" placeholder="PIC"
+													name="suggestion_planing_step_start_date[]" type="date" value="">
+											</div>
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="col-sm-3 name">End Date <span class="required">*</span></div>
+										<div class="col-sm">
+											<div class="input-group">
+												<input class="input--style-6"  id="suggestion_planing_step_end_date" placeholder="PIC"
+													name="suggestion_planing_step_end_date[]" type="date" value="">
+											</div>
+										</div>
+									</div>
+									
+								</div>
+								<div class="col-sm">
+									<div class="form-row">
+										<div class="col-sm-3 name">Title Step <span class="required">*</span></div>
+										<div class="col-sm">
+											<div class="input-group">
+												<input class="input--style-6"  id="suggestion_planing_step_title" placeholder="Suggestion Title"
+													name="suggestion_planing_step_title[]" type="Text" value="">
+											</div>
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="col-sm-3 name">PIC <span class="required">*</span></div>
+										<div class="col-sm">
+											<div class="input-group">
+												<input class="input--style-6"  id="suggestion_planing_step_pic" placeholder="PIC"
+													name="suggestion_planing_step_pic[]" type="Text" value="">
+											</div>
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="col-sm-3 name">Type <span class="required">*</span></div>
+										<div class="col-sm">
+											<div class="input-group">
+													<select class="input--style-6" name="suggestion_planing_step_type[]" id="suggestion_planing_step_type" style="height: 30px;">
+														<option value="action">Action</option>
+														<option value="planning">Planning</option>
+													</select>
+											</div>
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="col-sm-3 name">Start Date <span class="required">*</span></div>
+										<div class="col-sm">
+											<div class="input-group">
+												<input class="input--style-6"  id="suggestion_planing_step_start_date" placeholder="PIC"
+													name="suggestion_planing_step_start_date[]" type="date" value="">
+											</div>
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="col-sm-3 name">End Date <span class="required">*</span></div>
+										<div class="col-sm">
+											<div class="input-group">
+												<input class="input--style-6"  id="suggestion_planing_step_end_date" placeholder="PIC"
+													name="suggestion_planing_step_end_date[]" type="date" value="">
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+						</fieldset>
+						<div class="modal-footer-sdk">
+							<button type="button" class="btn-sdk btn-primary-center-only rounded-pill" name="submit_planing_step" id="submit_planing_step" data-type_submit="draft">
+								<p class="text-center text-dark">
+									&nbsp;Submit&nbsp;
+								</p>
+							</button>
 						</div>
 					</div>
 				</form>

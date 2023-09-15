@@ -13,6 +13,7 @@ $(document).ready(function () {
 			async: true,
             success: function(response) {
                 $('#form_detail_data_suggestion')[0].reset()
+                $('#detail_request_no').val(response[0].request_no)
                 $('#detail_suggestion_title').val(response[0].suggestion_title)
 
                 // set file diagram attachment
@@ -214,18 +215,21 @@ $(document).ready(function () {
                     for (let i = 0; i < total_planing; i++) {
                         let index_planing = response[2].indexOf(response[2][i], 0)
                         let button_detail_planing = ''
+                        let class_planing_root_cause = ''
                         if (index_planing == 0) {
                             button_detail_planing = `<button class="btn btn-primary btn-sm add_detail_dynamic_form_root_cause" id="add_detail_dynamic_form_root_cause" type="button">
                                 <i class="fa-solid fa-plus"></i>
                             </button>`
+                            class_planing_root_cause = ''
                         } else {
                             button_detail_planing = `<button class="btn btn-danger btn-sm pop_detail_dynamic_form_root_cause" id="pop_detail_dynamic_form_root_cause" type="button">
-                                <i class="fa-solid fa-minus"></i>
+                            <i class="fa-solid fa-minus"></i>
                             </button>`
+                            class_planing_root_cause = 'array_detail_form_planing_root_cause'
                         }
                         $('#detail_data_list_planing_root_cause').append(
                             `
-                            <tr>
+                            <tr class="${class_planing_root_cause}">
                                 <td>
                                     <input class="input--style-6 border-0 detail_planing_root_cause" id="detail_planing_root_cause" placeholder="Planing Root Cause" name="detail_planing_root_cause[]" type="Text" value="${response[2][i].root_cause}" placeholder="Room Code">
                                 </td>
@@ -297,7 +301,7 @@ $(document).ready(function () {
     })
 
     // pop_detail_dynamic_form_Man
-    $(document).on('click', '#pop_detail_dynamic_form_Man', function (e) {
+    $(document).on('click', '#pop_detail_dynamic_form_Man', function(e) {
         e.preventDefault()
         $(this).closest('.array_detail_dynamic_form_Man').remove();
     });
@@ -323,7 +327,7 @@ $(document).ready(function () {
     })
 
     // pop_detail_dynamic_form_Machine
-    $(document).on('click', '#pop_detail_dynamic_form_Machine', function (e) {
+    $(document).on('click', '#pop_detail_dynamic_form_Machine', function(e) {
         e.preventDefault()
         $(this).closest('.array_detail_dynamic_form_Machine').remove();
     });
@@ -375,7 +379,7 @@ $(document).ready(function () {
     })
 
     // pop_detail_dynamic_form_Material
-    $(document).on('click', '#pop_detail_dynamic_form_Material', function (e) {
+    $(document).on('click', '#pop_detail_dynamic_form_Material', function(e) {
         e.preventDefault()
         $(this).closest('.array_detail_dynamic_form_Material').remove();
     });
@@ -401,7 +405,7 @@ $(document).ready(function () {
     })
 
     // pop_detail_dynamic_form_Mother_Nature
-    $(document).on('click', '#pop_detail_dynamic_form_Mother_Nature', function (e) {
+    $(document).on('click', '#pop_detail_dynamic_form_Mother_Nature', function(e) {
         e.preventDefault()
         $(this).closest('.array_detail_dynamic_form_Mother_Nature').remove();
     });
@@ -427,14 +431,199 @@ $(document).ready(function () {
     })
 
     // pop_detail_dynamic_form_Measurement
-    $(document).on('click', '#pop_detail_dynamic_form_Measurement', function (e) {
+    $(document).on('click', '#pop_detail_dynamic_form_Measurement', function(e) {
         e.preventDefault()
         $(this).closest('.array_detail_dynamic_form_Measurement').remove();
     });
 
     // update draft
     $(document).on('click', '#detail_update_draft', function(e) {
-        e.preventDefault()
-        alert('Update Draft')
+        // e.preventDefault()
+        if(e.keyCode == 13) {
+            e.preventDefault();
+            return false;
+        }
+
+        // set all variable in form
+        let detail_suggestion_title = $('#detail_suggestion_title').val()
+        let detail_problem_identification = $('#detail_problem_identification').val()
+        let detail_problem_background = $('#detail_problem_background').val()
+        let detail_target_specify = $('#detail_target_specify').val()
+        let detail_possible_direct_cause_Man = $('input[name="detail_possible_direct_cause_Man[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let detail_possible_direct_cause_Machine = $('input[name="detail_possible_direct_cause_Machine[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let detail_possible_direct_cause_Method = $('input[name="detail_possible_direct_cause_Method[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let detail_possible_direct_cause_Material = $('input[name="detail_possible_direct_cause_Material[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let detail_possible_direct_cause_Mother_Nature = $('input[name="detail_possible_direct_cause_Mother_Nature[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let detail_possible_direct_cause_Measurement = $('input[name="detail_possible_direct_cause_Measurement[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let detail_planing_root_cause = $('input[name="detail_planing_root_cause[]"]').map(function(){
+            return $(this).val()
+        }).get()
+
+        if (detail_suggestion_title == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Title cannot empty";
+            return false;
+        } 
+        // else if (detail_problem_identification == '') {
+        //     mymodalss.style.display = "none";
+        //     modals.style.display = "block";
+        //     document.getElementById("msg").innerHTML = "Problem identification cannot empty";
+        //     return false;
+        // } else if (detail_problem_background == '') {
+        //     mymodalss.style.display = "none";
+        //     modals.style.display = "block";
+        //     document.getElementById("msg").innerHTML = "Problem identification cannot empty";
+        //     return false;
+        // }
+
+        $.ajax({
+            url: 'php_action/UpdateDraft.php',
+            type: 'POST',
+            data: new FormData($('#form_detail_data_suggestion')[0]),
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            async: true,
+            success: function(response) {
+                $(".form-group").removeClass('has-error').removeClass('has-success');
+                mymodalss.style.display = "none";
+                modals.style.display = "block";
+                document.getElementById("msg").innerHTML = response.messages;
+
+                $('#create_data_sub_menu').modal('hide');
+                $("[data-dismiss=modal]").trigger({type: "click"});
+
+                datatable.ajax.reload(null, false);
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                mymodalss.style.display = "none";
+                modals.style.display = "block";
+                document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+            }
+        })
+
+    })
+
+    // submit full data and send to approver
+    $(document).on('submit', '#form_detail_data_suggestion', function(e) {
+        // alert('Send to approver')
+        if(e.keyCode == 13) {
+            e.preventDefault();
+            return false;
+        }
+
+        // set all variable in form
+        let detail_suggestion_title = $('#detail_suggestion_title').val()
+        let detail_problem_identification = $('#detail_problem_identification').val()
+        let detail_problem_background = $('#detail_problem_background').val()
+        let detail_target_specify = $('#detail_target_specify').val()
+        let detail_possible_direct_cause_Man = $('input[name="detail_possible_direct_cause_Man[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let detail_possible_direct_cause_Machine = $('input[name="detail_possible_direct_cause_Machine[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let detail_possible_direct_cause_Method = $('input[name="detail_possible_direct_cause_Method[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let detail_possible_direct_cause_Material = $('input[name="detail_possible_direct_cause_Material[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let detail_possible_direct_cause_Mother_Nature = $('input[name="detail_possible_direct_cause_Mother_Nature[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let detail_possible_direct_cause_Measurement = $('input[name="detail_possible_direct_cause_Measurement[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let detail_planing_root_cause = $('input[name="detail_planing_root_cause[]"]').map(function(){
+            return $(this).val()
+        }).get()
+
+        if (detail_suggestion_title == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Title cannot empty";
+            return false;
+        } 
+        else if (detail_problem_identification == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Problem identification cannot empty";
+            return false;
+        } else if (detail_problem_background == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Problem background cannot empty";
+            return false;
+        } else if (detail_target_specify == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Target specify cannot empty";
+            return false;
+        } else if (detail_planing_root_cause == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Planning root cause cannot empty";
+            return false;
+        }
+
+        $.ajax({
+            url: 'php_action/SubmitAndSendToApprover.php',
+            type: 'POST',
+            data: new FormData($('#form_detail_data_suggestion')[0]),
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            async: true,
+            success: function(response) {
+                $(".form-group").removeClass('has-error').removeClass('has-success');
+                mymodalss.style.display = "none";
+                modals.style.display = "block";
+                document.getElementById("msg").innerHTML = response.messages;
+
+                $('#create_data_sub_menu').modal('hide');
+                $("[data-dismiss=modal]").trigger({type: "click"});
+
+                datatable.ajax.reload(null, false);
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                mymodalss.style.display = "none";
+                modals.style.display = "block";
+                document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+            }
+        })
+    })
+
+    // add and update suggestion planing step
+    $(document).on('click', '#add_suggestion_planing_step', function(e) {
+        // alert('buat nambahin planing step')
+        if(e.keyCode == 13) {
+            e.preventDefault();
+            return false;
+        }
+    })
+
+    // submit suggestion planing step
+    $(document).on('submit', '#form_suggestion_planing_step', function(e) {
+        // alert('Send to approver')
+        if(e.keyCode == 13) {
+            e.preventDefault();
+            return false;
+        }
     })
 })

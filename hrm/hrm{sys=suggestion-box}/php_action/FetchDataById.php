@@ -6,7 +6,11 @@
 
     $request_no = $_GET['request_no'];
     // get data from table_suggestion_master for data master suggestion
-    $query_fetch_master_data = "SELECT * FROM table_suggestion_master WHERE request_no = '$request_no'";
+    $query_fetch_master_data = "SELECT a.*, d.name_my  AS req_status FROM table_suggestion_master a
+        LEFT JOIN hrmstatus d on 
+        (SELECT request_status FROM hrmrequestapproval
+        WHERE request_no = a.request_no ORDER BY `request_status` DESC limit 1)=d.code
+    WHERE request_no = '$request_no'";
     $result_master_data = mysqli_fetch_assoc(mysqli_query($connect, $query_fetch_master_data));
     
     // get data from table_suggestion_identify_problem_master

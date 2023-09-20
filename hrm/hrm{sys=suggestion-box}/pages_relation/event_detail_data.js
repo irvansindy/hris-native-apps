@@ -1,4 +1,11 @@
 $(document).ready(function () {
+    // global varibale for planing step
+    var data_master_planning_for_planning_step = [] 
+    var list_data_select_option_master_plan_empty = ''
+    var list_data_select_option_master_plan_existing = ''
+    let total_form_master_plan_empty = []
+    let total_form_master_plan_existing = []
+
     $(document).on('click', '#get_detail_suggestion', function(e) {
         e.preventDefault()
         let request_no = $(this).data('request_no')
@@ -12,6 +19,15 @@ $(document).ready(function () {
 			dataType: 'json',
 			async: true,
             success: function(response) {
+                let req_status = response[0].req_status
+                if (req_status == 'Draft') {
+                    $('#status_draft').show()
+                    $('#status_after_draft').hide()
+                } else {
+                    $('#status_draft').hide()
+                    $('#status_after_draft').show()
+                }
+
                 $('#form_detail_data_suggestion')[0].reset()
                 $('#detail_request_no').val(response[0].request_no)
                 $('#detail_suggestion_title').val(response[0].suggestion_title)
@@ -477,17 +493,6 @@ $(document).ready(function () {
             document.getElementById("msg").innerHTML = "Title cannot empty";
             return false;
         } 
-        // else if (detail_problem_identification == '') {
-        //     mymodalss.style.display = "none";
-        //     modals.style.display = "block";
-        //     document.getElementById("msg").innerHTML = "Problem identification cannot empty";
-        //     return false;
-        // } else if (detail_problem_background == '') {
-        //     mymodalss.style.display = "none";
-        //     modals.style.display = "block";
-        //     document.getElementById("msg").innerHTML = "Problem identification cannot empty";
-        //     return false;
-        // }
 
         $.ajax({
             url: 'php_action/UpdateDraft.php',
@@ -553,6 +558,13 @@ $(document).ready(function () {
             return $(this).val()
         }).get()
 
+        let direct_cause_man_condition = detail_possible_direct_cause_Man[0] == '' && detail_possible_direct_cause_Man.length <= 1
+        let direct_cause_machine_condition = detail_possible_direct_cause_Machine[0] == '' && detail_possible_direct_cause_Machine <= 1
+        let direct_cause_method_condition = detail_possible_direct_cause_Method[0] == '' && detail_possible_direct_cause_Method <= 1
+        let direct_cause_material_condition = detail_possible_direct_cause_Material[0] == '' && detail_possible_direct_cause_Material <= 1
+        let direct_cause_mother_nature_condition = detail_possible_direct_cause_Mother_Nature[0] == '' && detail_possible_direct_cause_Mother_Nature <= 1
+        let direct_cause_measurement_condition = detail_possible_direct_cause_Measurement[0] == '' && detail_possible_direct_cause_Measurement <= 1
+
         if (detail_suggestion_title == '') {
             mymodalss.style.display = "none";
             modals.style.display = "block";
@@ -574,7 +586,12 @@ $(document).ready(function () {
             modals.style.display = "block";
             document.getElementById("msg").innerHTML = "Target specify cannot empty";
             return false;
-        } else if (detail_planing_root_cause == '') {
+        } else if (direct_cause_man_condition && direct_cause_machine_condition && direct_cause_method_condition && direct_cause_material_condition && direct_cause_mother_nature_condition && direct_cause_measurement_condition) {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Direct root cause cannot empty";
+            return false;
+        } else if (detail_planing_root_cause[0] == '' && detail_planing_root_cause.length == 1) {
             mymodalss.style.display = "none";
             modals.style.display = "block";
             document.getElementById("msg").innerHTML = "Planning root cause cannot empty";
@@ -611,19 +628,533 @@ $(document).ready(function () {
 
     // add and update suggestion planing step
     $(document).on('click', '#add_suggestion_planing_step', function(e) {
-        // alert('buat nambahin planing step')
         if(e.keyCode == 13) {
             e.preventDefault();
             return false;
+        }
+        let request_no = $(this).data('request_no')
+        data_master_planning_for_planning_step.splice(0, data_master_planning_for_planning_step.length)
+        $.ajax({
+            url: 'php_action/FetchPlanningStep.php',
+			type: 'GET',
+			data: {
+				request_no: request_no
+			},
+			dataType: 'json',
+			async: true,
+            success: function(response) {
+                // push all data master planing
+                for (let index = 0; index < response[1].length; index++) {
+                    data_master_planning_for_planning_step.push({
+                        ['root_id'] : response[1][index].id,
+                        ['root_name'] : response[1][index].root_cause
+                    })
+                }
+
+                // set request_no
+                $('#planing_request_no').val(response[1][0].request_no),
+
+                // reset object data for dynamic id master plan 
+                total_form_master_plan_empty.splice(0, total_form_master_plan_empty.length)
+                total_form_master_plan_existing.splice(0, total_form_master_plan_existing.length)
+
+                // for empty data
+                list_data_select_option_master_plan_empty = document.createElement('select')
+                list_data_select_option_master_plan_empty.classList.add('input--style-6', 'suggestion_planing_master_plan_empty')
+                list_data_select_option_master_plan_empty.setAttribute('name', 'suggestion_planing_master_plan[]')
+                list_data_select_option_master_plan_empty.setAttribute('style', "height: 30px;")
+                
+                // for existing data
+                list_data_select_option_master_plan_existing = document.createElement('select')
+                list_data_select_option_master_plan_existing.classList.add('input--style-6', 'suggestion_planing_master_plan_existing')
+                list_data_select_option_master_plan_existing.setAttribute('name', 'suggestion_planing_master_plan[]')
+                list_data_select_option_master_plan_existing.setAttribute('style', "height: 30px;")
+                
+
+                if (response[0].length === 0) {
+                    $('#form_add_planing_step').empty()
+                    $('#form_add_planing_step').append(
+                        `
+                            <div class="row py-1 px-1 d-flex new_list_planing_step" id="dynamic_planing_step">
+                                
+                            </div>
+                            <div class="pull-right">
+                                <button class="btn btn-info pull-right" id="add_dynamic_planing_step" type="button">Add Form</button>
+                            </div>
+                        `
+                    )
+                    // $('#form_add_planing_step').append(
+                    $('.new_list_planing_step').append(
+                        `
+                            <div class="col-sm-6">
+                                <div class="form-row">
+                                    <div class="col-sm-3 name">Title Step <span class="required">*</span></div>
+                                    <div class="col-sm">
+                                        <div class="input-group">
+                                            <input class="input--style-6"  id="suggestion_planing_step_title" placeholder="Suggestion Title"
+                                                name="suggestion_planing_step_title[]" type="Text" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-sm-3 name">PIC <span class="required">*</span></div>
+                                    <div class="col-sm">
+                                        <div class="input-group">
+                                            <input class="input--style-6"  id="suggestion_planing_step_pic" placeholder="PIC"
+                                                name="suggestion_planing_step_pic[]" type="Text" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-sm-3 name">Master Planning <span class="required">*</span></div>
+                                    <div class="col-sm">
+                                        <div class="input-group">
+                                            ${list_data_select_option_master_plan_empty.outerHTML}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-sm-3 name">Type <span class="required">*</span></div>
+                                    <div class="col-sm">
+                                        <div class="input-group">
+                                                <select class="input--style-6" name="suggestion_planing_step_type[]" id="suggestion_planing_step_type" style="height: 30px;">
+                                                    <option value="action">Action</option>
+                                                    <option value="planning">Planning</option>
+                                                </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-sm-3 name">Start Date <span class="required">*</span></div>
+                                    <div class="col-sm">
+                                        <div class="input-group">
+                                            <input class="input--style-6"  id="suggestion_planing_step_start_date" placeholder="PIC"
+                                                name="suggestion_planing_step_start_date[]" type="date" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-sm-3 name">End Date <span class="required">*</span></div>
+                                    <div class="col-sm">
+                                        <div class="input-group">
+                                            <input class="input--style-6"  id="suggestion_planing_step_end_date" placeholder="PIC"
+                                                name="suggestion_planing_step_end_date[]" type="date" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                    )
+
+                    for (let ind = 0; ind < data_master_planning_for_planning_step.length; ind++) {
+                        $('.suggestion_planing_master_plan_empty').append(`<option value="${data_master_planning_for_planning_step[ind].root_id}">${data_master_planning_for_planning_step[ind].root_name}</option>`)
+                    }
+                } else {
+                    $('#form_add_planing_step').empty()
+                    $('#form_add_planing_step').append(
+                        `<div class="row py-1 px-1 list_planing_step"></div>
+                        <div>
+                            <button class="btn btn-info pull-right" id="add_dynamic_planing_step_existing" type="button">Add Form</button>
+                        </div>
+                        `
+                    )
+                    for (let i = 0; i < response[0].length; i++) {
+                        let index_planing_step = response[0].indexOf(response[0][i])
+                        let master_plan_id_existing = 'value_master_plan_existing_'+index_planing_step
+                        let planing_type_id_existing = 'value_planing_type_existing_'+index_planing_step
+                        let selected_master_plan_id_existing = 'selected_master_plan_existing_'+index_planing_step
+                        let selected_planing_step_existing = 'selected_planing_step_existing_'+index_planing_step
+                        list_data_select_option_master_plan_existing.setAttribute('id', selected_master_plan_id_existing)
+                        let result_index_planing_step = ''
+                        if (index_planing_step == 0) {
+                            result_index_planing_step = ''
+                        } else {
+                            result_index_planing_step = `
+                                <div class="form-row">
+                                    <div class="col-sm-3 name"></div>
+                                    <div class="col-sm">
+                                        <button class="btn btn-danger pull-right" id="pop_dynamic_planing_step_existing" type="button">Delete Form</button>
+                                    </div>
+                                </div>
+                            `
+                        }
+                        // ${list_data_select_option_master_plan_existing.outerHTML}
+                        $('.list_planing_step').append(
+                            `
+                                <div class="col-sm-6 array_dynamic_planing_step_existing mb-5">
+                                    <div class="form-row mt-3">
+                                        <div class="col-sm-3 name">Title Step <span class="required">*</span></div>
+                                        <div class="col-sm">
+                                            <div class="input-group">
+                                                <input class="input--style-6"  id="suggestion_planing_step_title" placeholder="Suggestion Title"
+                                                    name="suggestion_planing_step_title[]" type="Text" value="${response[0][i].planing_step == null ? '' : response[0][i].planing_step}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-sm-3 name">PIC <span class="required">*</span></div>
+                                        <div class="col-sm">
+                                            <div class="input-group">
+                                                <input class="input--style-6"  id="suggestion_planing_step_pic" placeholder="PIC"
+                                                    name="suggestion_planing_step_pic[]" type="Text" value="${response[0][i].pic == null ? '' : response[0][i].pic}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+										<div class="col-sm-3 name">Master Planning <span class="required">*</span></div>
+										<div class="col-sm">
+											<div class="input-group">
+                                                ${list_data_select_option_master_plan_existing.outerHTML}
+                                                <input type="hidden" class="input--style-6" id="${master_plan_id_existing}">
+											</div>
+										</div>
+									</div>
+                                    <div class="form-row">
+                                        <div class="col-sm-3 name">Type <span class="required">*</span></div>
+                                        <div class="col-sm">
+                                            <div class="input-group">
+                                                    <select class="input--style-6" name="suggestion_planing_step_type[]" id="${selected_planing_step_existing}" style="height: 30px;">
+                                                        <option value="action">Action</option>
+                                                        <option value="planning">Planning</option>
+                                                    </select>
+                                                    <input type="hidden" class="input--style-6" id="${planing_type_id_existing}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-sm-3 name">Start Date <span class="required">*</span></div>
+                                        <div class="col-sm">
+                                            <div class="input-group">
+                                                <input class="input--style-6"  id="suggestion_planing_step_start_date" placeholder="Start Date"
+                                                    name="suggestion_planing_step_start_date[]" type="date" value="${response[0][i].start_date == null ? '' : response[0][i].start_date}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-sm-3 name">End Date <span class="required">*</span></div>
+                                        <div class="col-sm">
+                                            <div class="input-group">
+                                                <input class="input--style-6"  id="suggestion_planing_step_end_date" placeholder="End Date"
+                                                    name="suggestion_planing_step_end_date[]" type="date" value="${response[0][i].start_date == null ? '' : response[0][i].start_date}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    ${result_index_planing_step}
+                                </div>
+                            `
+                        )
+                        // append data select option master plan
+                        $('#'+master_plan_id_existing).val(response[0][i].master_plan_id)
+                        $('#'+selected_master_plan_id_existing).empty()
+                        $('#'+selected_master_plan_id_existing).append('<option value="'+response[0][i].master_plan_id+'">'+response[0][i].root_cause+'</option>')
+                        $.each(response[1], function(i, data) {
+                            $('#'+selected_master_plan_id_existing).append('<option value="'+data.id+'">'+data.root_cause+'</option>')
+                        })
+                        
+                        // append data select option planing type
+                        $('#'+planing_type_id_existing).val(response[0][i].type_planing)
+                        $('#'+selected_planing_step_existing).empty()
+                        $('#'+selected_planing_step_existing).append('<option value="'+response[0][i].type_planing+'">'+response[0][i].type_planing+'</option>')
+                        $('#'+selected_planing_step_existing).append('<option value="action">Action</option>')
+                        $('#'+selected_planing_step_existing).append('<option value="planning">Planning</option>')
+
+                    }
+                }
+            }
+        })
+    })
+
+    // add_dynamic_planing_step for empty data
+    $(document).on('click', '#add_dynamic_planing_step', function(e) {
+        e.preventDefault()
+        
+        // set dynamic id for select option master plan empty
+        let master_plan_empty_length = $('.suggestion_planing_master_plan_empty').length
+        total_form_master_plan_empty.push(master_plan_empty_length)
+        let master_plan_empty_id = 'suggestion_planing_master_plan_empty_' + total_form_master_plan_empty.length
+        list_data_select_option_master_plan_empty.setAttribute('id', master_plan_empty_id)
+
+        $('.new_list_planing_step').append(`
+            <div class="col-sm-6 mb-4 array_dynamic_planing_step_empty">
+                <div class="form-row">
+                    <div class="col-sm-3 name">Title Step <span class="required">*</span></div>
+                    <div class="col-sm">
+                        <div class="input-group">
+                            <input class="input--style-6"  id="suggestion_planing_step_title" placeholder="Suggestion Title"
+                                name="suggestion_planing_step_title[]" type="Text" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-3 name">PIC <span class="required">*</span></div>
+                    <div class="col-sm">
+                        <div class="input-group">
+                            <input class="input--style-6"  id="suggestion_planing_step_pic" placeholder="PIC"
+                                name="suggestion_planing_step_pic[]" type="Text" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-3 name">Master Planning <span class="required">*</span></div>
+                    <div class="col-sm">
+                        <div class="input-group">
+                            ${list_data_select_option_master_plan_empty.outerHTML}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-3 name">Type <span class="required">*</span></div>
+                    <div class="col-sm">
+                        <div class="input-group">
+                                <select class="input--style-6" name="suggestion_planing_step_type[]" id="suggestion_planing_step_type" style="height: 30px;">
+                                    <option value="action">Action</option>
+                                    <option value="planning">Planning</option>
+                                </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-3 name">Start Date <span class="required">*</span></div>
+                    <div class="col-sm">
+                        <div class="input-group">
+                            <input class="input--style-6"  id="suggestion_planing_step_start_date" placeholder="PIC"
+                                name="suggestion_planing_step_start_date[]" type="date" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-3 name">End Date <span class="required">*</span></div>
+                    <div class="col-sm">
+                        <div class="input-group">
+                            <input class="input--style-6"  id="suggestion_planing_step_end_date" placeholder="PIC"
+                                name="suggestion_planing_step_end_date[]" type="date" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-3 name"></div>
+                    <div class="col-sm">
+                        <button class="btn btn-danger pull-right" id="pop_dynamic_planing_step_empty" type="button">Delete Form</button>
+                    </div>
+                </div>
+            </div>
+        `)
+
+        // append data list master step
+        for (let ind = 0; ind < data_master_planning_for_planning_step.length; ind++) {
+            $('#'+master_plan_empty_id).append(`
+                <option value="${data_master_planning_for_planning_step[ind].root_id}">${data_master_planning_for_planning_step[ind].root_name}</option>
+            `)
         }
     })
 
-    // submit suggestion planing step
-    $(document).on('submit', '#form_suggestion_planing_step', function(e) {
-        // alert('Send to approver')
-        if(e.keyCode == 13) {
-            e.preventDefault();
-            return false;
+    // add_dynamic_planing_step for existing data
+    $(document).on('click', '#add_dynamic_planing_step_existing', function(e) {
+        e.preventDefault()
+        // set dynamic id for select option master plan existing
+        let master_plan_existing_length = $('.suggestion_planing_master_plan_existing').length
+        total_form_master_plan_existing.push(master_plan_existing_length)
+        let master_plan_existing_id = 'suggestion_planing_master_plan_existing_' + total_form_master_plan_existing.length
+        list_data_select_option_master_plan_existing.setAttribute('id', master_plan_existing_id)
+
+        $('.list_planing_step').append(`
+            <div class="col-sm-6 array_dynamic_planing_step_existing mb-5">
+                <div class="form-row">
+                    <div class="col-sm-3 name">Title Step <span class="required">*</span></div>
+                    <div class="col-sm">
+                        <div class="input-group">
+                            <input class="input--style-6"  id="suggestion_planing_step_title" placeholder="Suggestion Title"
+                                name="suggestion_planing_step_title[]" type="Text" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-3 name">PIC <span class="required">*</span></div>
+                    <div class="col-sm">
+                        <div class="input-group">
+                            <input class="input--style-6" id="suggestion_planing_step_pic" placeholder="PIC"
+                                name="suggestion_planing_step_pic[]" type="Text" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-3 name">Master Planning <span class="required">*</span></div>
+                    <div class="col-sm">
+                        <div class="input-group">
+                            ${list_data_select_option_master_plan_existing.outerHTML}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-3 name">Type <span class="required">*</span></div>
+                    <div class="col-sm">
+                        <div class="input-group">
+                                <select class="input--style-6" name="suggestion_planing_step_type[]" id="suggestion_planing_step_type" style="height: 30px;">
+                                    <option value="action">Action</option>
+                                    <option value="planning">Planning</option>
+                                </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-3 name">Start Date <span class="required">*</span></div>
+                    <div class="col-sm">
+                        <div class="input-group">
+                            <input class="input--style-6"  id="suggestion_planing_step_start_date" placeholder="Start Date"
+                                name="suggestion_planing_step_start_date[]" type="date" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-3 name">End Date <span class="required">*</span></div>
+                    <div class="col-sm">
+                        <div class="input-group">
+                            <input class="input--style-6"  id="suggestion_planing_step_end_date" placeholder="End Date"
+                                name="suggestion_planing_step_end_date[]" type="date" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-3 name"></div>
+                    <div class="col-sm">
+                        <button class="btn btn-danger pull-right" id="pop_dynamic_planing_step_existing" type="button">Delete Form</button>
+                    </div>
+                </div>
+            </div>
+        `)
+        // append data list master step
+        for (let ind = 0; ind < data_master_planning_for_planning_step.length; ind++) {
+            $('#'+master_plan_existing_id).append(`
+                <option value="${data_master_planning_for_planning_step[ind].root_id}">${data_master_planning_for_planning_step[ind].root_name}</option>
+            `)
         }
+    })
+
+    // pop dynamic planing step
+    // pop for empty data
+    $(document).on('click', '#pop_dynamic_planing_step_empty', function(e) {
+        e.preventDefault()
+        $(this).closest('.array_dynamic_planing_step_empty').remove();
+        // $('.array_dynamic_planing_step_empty').empty();
+    });
+    
+    // pop for existing data
+    $(document).on('click', '#pop_dynamic_planing_step_existing', function(e) {
+        e.preventDefault()
+        $(this).closest('.array_dynamic_planing_step_existing').remove();
+    });
+
+    // submit suggestion planing step
+    // $(document).on('submit', '#form_suggestion_planing_step', function(e) {
+    //     // alert('Send to approver')
+    //     if(e.keyCode == 13) {
+    //         e.preventDefault();
+    //         return false;
+    //     }
+    // })
+
+    // submit suggestion planing step
+    $(document).on('click', '#submit_planing_step', function(e) {
+        e.preventDefault()
+        let suggestion_planing_step_title = $('input[name="suggestion_planing_step_title[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let suggestion_planing_step_pic = $('input[name="suggestion_planing_step_pic[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let suggestion_planing_master_plan = $('select[name="suggestion_planing_master_plan[]"]').map(function(){
+            return $(this).val()
+        }).toArray()
+        let suggestion_planing_step_type = $('select[name="suggestion_planing_step_type[]"]').map(function(){
+            return $(this).val()
+        }).toArray()
+        let suggestion_planing_step_start_date = $('input[name="suggestion_planing_step_start_date[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let suggestion_planing_step_end_date = $('input[name="suggestion_planing_step_end_date[]"]').map(function(){
+            return $(this).val()
+        }).get()
+
+        // check object value in planning title
+        for (let index = 0; index < suggestion_planing_step_title.length; index++) {
+            if (suggestion_planing_step_title[index] == '') {
+                let counting_plan = index += 1
+                mymodalss.style.display = "none";
+                modals.style.display = "block";
+                document.getElementById("msg").innerHTML = "The title of section " + counting_plan + " cannot empty";
+                return false;
+            }
+        }
+        
+        // check object value in planning pic
+        for (let index = 0; index < suggestion_planing_step_pic.length; index++) {
+            if (suggestion_planing_step_pic[index] == '') {
+                let counting_plan = index += 1
+                mymodalss.style.display = "none";
+                modals.style.display = "block";
+                document.getElementById("msg").innerHTML = "The PIC of section " + counting_plan + " cannot empty";
+                return false;
+            }
+        }
+        
+        // check object value in planning pic
+        for (let index = 0; index < suggestion_planing_master_plan.length; index++) {
+            if (suggestion_planing_master_plan[index] == '') {
+                let counting_plan = index += 1
+                mymodalss.style.display = "none";
+                modals.style.display = "block";
+                document.getElementById("msg").innerHTML = "The master plan of section " + counting_plan + " cannot empty";
+                return false;
+            }
+        }
+        
+        // check object value in planning type
+        for (let index = 0; index < suggestion_planing_step_type.length; index++) {
+            if (suggestion_planing_step_type[index] == '') {
+                let counting_plan = index += 1
+                mymodalss.style.display = "none";
+                modals.style.display = "block";
+                document.getElementById("msg").innerHTML = "The planing type of section " + counting_plan + " cannot empty";
+                return false;
+            }
+        }
+        
+        // check object value in planning type
+        for (let index = 0; index < suggestion_planing_step_start_date.length; index++) {
+            if (suggestion_planing_step_start_date[index] == '') {
+                let counting_plan = index += 1
+                mymodalss.style.display = "none";
+                modals.style.display = "block";
+                document.getElementById("msg").innerHTML = "The planing start date of section " + counting_plan + " cannot empty";
+                return false;
+            }
+        }
+        
+        // check object value in planning type
+        for (let index = 0; index < suggestion_planing_step_end_date.length; index++) {
+            if (suggestion_planing_step_end_date[index] == '') {
+                let counting_plan = index += 1
+                mymodalss.style.display = "none";
+                modals.style.display = "block";
+                document.getElementById("msg").innerHTML = "The planing end date of section " + counting_plan + " cannot empty";
+                return false;
+            }
+        }
+
+        let data_planing_type = {
+            'emp_no' : $('#detail_emp_no').val(),
+            'request_no' : $('#planing_request_no').val(),
+            'suggestion_planing_step_title' : suggestion_planing_step_title,
+            'suggestion_planing_step_pic' : suggestion_planing_step_pic,
+            'suggestion_planing_master_plan' : suggestion_planing_master_plan,
+            'suggestion_planing_step_type' : suggestion_planing_step_type,
+            'suggestion_planing_step_start_date' : suggestion_planing_step_start_date,
+            'suggestion_planing_step_end_date' : suggestion_planing_step_end_date,
+        }
+
+        // console.log(data_planing_type)
+        $.ajax({
+            
+        })
     })
 })

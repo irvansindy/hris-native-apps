@@ -77,12 +77,8 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js" defer></script>
 
 <!-- gantt chart -->
-<!-- <script type="text/javascript" src="../../asset/gantt_chart/js/jquery.fn.gantt.js"></script> -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/jquery.gantt@1.0.0/dist/jquery-gantt.min.js" integrity="sha256-I8Y1RUotpfMVH7hfK/a8Xwbf0YHcvtsFx+WzAZEAB6k=" crossorigin="anonymous"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/frappe-gantt@0.6.1/dist/frappe-gantt.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/frappe-gantt@0.6.1/dist/frappe-gantt.min.css" rel="stylesheet">
-
-
 
 <!-- font awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -449,25 +445,21 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 							</div>
 						</fieldset>
 						<div class="modal-footer-sdk">
-							<a style="<?php echo $button_status_hide_or_no; ?>; color: white;padding-top: 8px; width: 150px !important"
-                                class="btn-sdk btn-primary-not-only-left" name="detail_update_draft"id="detail_update_draft">
-                                &nbsp;&nbsp;Update Draft&nbsp;&nbsp;
-                            </a>
-                            <button class="btn-sdk btn-primary-not-only-right" type="submit" style="width: 150px !important"
-                                name="detail_send_to_approver" id="detail_send_to_approver">
-                                Send to Approver
-                            </button>
-							<!-- <button type="button" class="btn-sdk btn-primary-center-only rounded-pill" name="submit_draft" id="submit_draft" data-type_submit="draft">
-								<p class="text-center text-dark">
-									&nbsp;Save as draft&nbsp;
-								</p>
-							</button> -->
-							<!-- <button type="button" class="btn-sdk btn-primary-left" name="submit_draft" id="submit_draft" data-type_submit="draft">
-								&nbsp;Save as draft&nbsp;
-							</button> -->
-							<!-- <button type="button" class="btn-sdk btn-primary-right" name="submit_full" id="submit_full" data-type_submit="full_submit">
-								Submit
-							</button> -->
+							<div id="status_draft">
+								<a style="<?php echo $button_status_hide_or_no; ?>; color: white;padding-top: 8px; width: 150px !important"
+									class="btn-sdk btn-primary-not-only-left" name="detail_update_draft"id="detail_update_draft">
+									&nbsp;&nbsp;Update Draft&nbsp;&nbsp;
+								</a>
+								<button class="btn-sdk btn-primary-not-only-right" type="submit" style="width: 150px !important"
+									name="detail_send_to_approver" id="detail_send_to_approver">
+									Send to Approver
+								</button>
+							</div>
+							<div id="status_after_draft" style="display:none">
+								<div type="reset" class="btn-sdk btn-primary-center-only" data-dismiss="modal" style="padding-top: 8px; color:black;" aria-hidden="true">
+									&nbsp;Close&nbsp;
+								</div>
+							</div>
 						</div>
 					</div>
 				</form>
@@ -498,114 +490,16 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 
 							<div class="messages_update"></div>
 
-							<input id="detail_emp_no" name="detail_emp_no" type="hidden" value="<?php echo $username; ?>">
-							<input id="detail_request_no" name="detail_request_no" type="hidden" value="">
+							<input id="planing_emp_no" name="planing_emp_no" type="hidden" value="<?php echo $username; ?>">
+							<input id="planing_request_no" name="planing_request_no" type="hidden" value="">
 
 							<!--FROM SESSION -->
 							<input id="sel_token" name="sel_token" type="hidden" value="<?php echo $get_token; ?>">
 							<!--FROM CONFIGURATION -->
-							<div class="row">
-								<div class="col-sm">
-									<div class="form-row">
-										<div class="col-sm-3 name">Title Step <span class="required">*</span></div>
-										<div class="col-sm">
-											<div class="input-group">
-												<input class="input--style-6"  id="suggestion_planing_step_title" placeholder="Suggestion Title"
-													name="suggestion_planing_step_title[]" type="Text" value="">
-											</div>
-										</div>
-									</div>
-									<div class="form-row">
-										<div class="col-sm-3 name">PIC <span class="required">*</span></div>
-										<div class="col-sm">
-											<div class="input-group">
-												<input class="input--style-6"  id="suggestion_planing_step_pic" placeholder="PIC"
-													name="suggestion_planing_step_pic[]" type="Text" value="">
-											</div>
-										</div>
-									</div>
-									<div class="form-row">
-										<div class="col-sm-3 name">Type <span class="required">*</span></div>
-										<div class="col-sm">
-											<div class="input-group">
-													<select class="input--style-6" name="suggestion_planing_step_type[]" id="suggestion_planing_step_type" style="height: 30px;">
-														<option value="action">Action</option>
-														<option value="planning">Planning</option>
-													</select>
-											</div>
-										</div>
-									</div>
-									<div class="form-row">
-										<div class="col-sm-3 name">Start Date <span class="required">*</span></div>
-										<div class="col-sm">
-											<div class="input-group">
-												<input class="input--style-6"  id="suggestion_planing_step_start_date" placeholder="PIC"
-													name="suggestion_planing_step_start_date[]" type="date" value="">
-											</div>
-										</div>
-									</div>
-									<div class="form-row">
-										<div class="col-sm-3 name">End Date <span class="required">*</span></div>
-										<div class="col-sm">
-											<div class="input-group">
-												<input class="input--style-6"  id="suggestion_planing_step_end_date" placeholder="PIC"
-													name="suggestion_planing_step_end_date[]" type="date" value="">
-											</div>
-										</div>
-									</div>
-									
-								</div>
-								<div class="col-sm">
-									<div class="form-row">
-										<div class="col-sm-3 name">Title Step <span class="required">*</span></div>
-										<div class="col-sm">
-											<div class="input-group">
-												<input class="input--style-6"  id="suggestion_planing_step_title" placeholder="Suggestion Title"
-													name="suggestion_planing_step_title[]" type="Text" value="">
-											</div>
-										</div>
-									</div>
-									<div class="form-row">
-										<div class="col-sm-3 name">PIC <span class="required">*</span></div>
-										<div class="col-sm">
-											<div class="input-group">
-												<input class="input--style-6"  id="suggestion_planing_step_pic" placeholder="PIC"
-													name="suggestion_planing_step_pic[]" type="Text" value="">
-											</div>
-										</div>
-									</div>
-									<div class="form-row">
-										<div class="col-sm-3 name">Type <span class="required">*</span></div>
-										<div class="col-sm">
-											<div class="input-group">
-													<select class="input--style-6" name="suggestion_planing_step_type[]" id="suggestion_planing_step_type" style="height: 30px;">
-														<option value="action">Action</option>
-														<option value="planning">Planning</option>
-													</select>
-											</div>
-										</div>
-									</div>
-									<div class="form-row">
-										<div class="col-sm-3 name">Start Date <span class="required">*</span></div>
-										<div class="col-sm">
-											<div class="input-group">
-												<input class="input--style-6"  id="suggestion_planing_step_start_date" placeholder="PIC"
-													name="suggestion_planing_step_start_date[]" type="date" value="">
-											</div>
-										</div>
-									</div>
-									<div class="form-row">
-										<div class="col-sm-3 name">End Date <span class="required">*</span></div>
-										<div class="col-sm">
-											<div class="input-group">
-												<input class="input--style-6"  id="suggestion_planing_step_end_date" placeholder="PIC"
-													name="suggestion_planing_step_end_date[]" type="date" value="">
-											</div>
-										</div>
-									</div>
-									
-								</div>
+							<div id="form_add_planing_step">
+
 							</div>
+							
 						</fieldset>
 						<div class="modal-footer-sdk">
 							<button type="button" class="btn-sdk btn-primary-center-only rounded-pill" name="submit_planing_step" id="submit_planing_step" data-type_submit="draft">

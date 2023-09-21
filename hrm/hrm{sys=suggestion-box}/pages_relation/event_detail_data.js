@@ -1152,9 +1152,34 @@ $(document).ready(function () {
             'suggestion_planing_step_end_date' : suggestion_planing_step_end_date,
         }
 
-        // console.log(data_planing_type)
+        console.log(data_planing_type)  
         $.ajax({
-            
+            url: 'php_action/CreateOrUpdatePlanningStep.php',
+            type: 'POST',
+            // data: data_planing_type,
+            // data: new FormData($('#form_detail_data_suggestion')[0]),
+            data: new FormData($('#form_suggestion_planing_step')[0]),
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            async: true,
+            success: function(response) {
+                $(".form-group").removeClass('has-error').removeClass('has-success');
+                mymodalss.style.display = "none";
+                modals.style.display = "block";
+                document.getElementById("msg").innerHTML = response.messages;
+
+                $('#create_data_sub_menu').modal('hide');
+                $("[data-dismiss=modal]").trigger({type: "click"});
+
+                datatable.ajax.reload(null, false);
+                // location.reload();
+            },
+            error: function(xhr, status, error) {
+                mymodalss.style.display = "none";
+                modals.style.display = "block";
+                document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+            }
         })
     })
 })

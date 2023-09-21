@@ -10,8 +10,8 @@
             a.planing_step,
             a.pic,
             a.type_planing,
-            DATE_FORMAT(a.start_date, '%d/%m/%Y') AS start_date,
-            DATE_FORMAT(a.end_date, '%d/%m/%Y') AS end_date,
+            DATE_FORMAT(a.start_date, '%Y-%m-%d') AS start_date,
+            DATE_FORMAT(a.end_date, '%Y-%m-%d') AS end_date,
             a.suggestion_improvement_planning_master_id AS master_plan_id,
             b.request_no,
             b.root_cause
@@ -19,7 +19,9 @@
             -- RIGHT JOIN table_suggestion_improvement_planning b 
             LEFT JOIN table_suggestion_improvement_planning b 
             ON a.suggestion_improvement_planning_master_id = b.id
-        WHERE b.request_no = '$request_no'";
+        WHERE b.request_no = '$request_no'
+        ORDER BY a.id ASC
+        ";
     $result_data_planing_step = mysqli_fetch_all(mysqli_query($connect, $fetch_data_planing_step), MYSQL_ASSOC);
     
     // master planning

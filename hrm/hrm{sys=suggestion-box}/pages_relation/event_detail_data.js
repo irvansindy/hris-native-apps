@@ -634,6 +634,7 @@ $(document).ready(function () {
         }
         let request_no = $(this).data('request_no')
         data_master_planning_for_planning_step.splice(0, data_master_planning_for_planning_step.length)
+        // console.log(data_master_planning_for_planning_step)
         $.ajax({
             url: 'php_action/FetchPlanningStep.php',
 			type: 'GET',
@@ -644,15 +645,19 @@ $(document).ready(function () {
 			async: true,
             success: function(response) {
                 // push all data master planing
-                for (let index = 0; index < response[1].length; index++) {
-                    data_master_planning_for_planning_step.push({
-                        ['root_id'] : response[1][index].id,
-                        ['root_name'] : response[1][index].root_cause
-                    })
+                console.log(response[2][1])
+                if (response[2][1] != 0 && response[1] != null) {
+                    for (let index = 0; index < response[1].length; index++) {
+                        data_master_planning_for_planning_step.push({
+                            ['root_id'] : response[1][index].id,
+                            ['root_name'] : response[1][index].root_cause
+                        })
+                    }
+                    
                 }
-
                 // set request_no
-                $('#planing_request_no').val(response[1][0].request_no),
+                // $('#planing_request_no').val(response[1][0].request_no),
+                $('#planing_request_no').val(request_no),
 
                 // reset object data for dynamic id master plan 
                 total_form_master_plan_empty.splice(0, total_form_master_plan_empty.length)
@@ -670,8 +675,8 @@ $(document).ready(function () {
                 list_data_select_option_master_plan_existing.setAttribute('name', 'suggestion_planing_master_plan[]')
                 list_data_select_option_master_plan_existing.setAttribute('style', "height: 30px;")
                 
-
-                if (response[0].length === 0) {
+                // if (response[0].length == 0 && response[0].length == 0) {
+                if (response[2][0] == 0 || response[2][1] == 0) {
                     $('#form_add_planing_step').empty()
                     $('#form_add_planing_step').append(
                         `

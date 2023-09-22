@@ -227,6 +227,8 @@
         }
 
         // update suggestion planing
+        // get data master plan
+        $query_fetch_master_plan = "";
         // delete initial data
         $query_delete_suggestion_planing_root_cause = "DELETE FROM table_suggestion_improvement_planning WHERE request_no = '$detail_request_no'";
         $exe_query_delete_suggestion_planing_root_cause = $connect->query($query_delete_suggestion_planing_root_cause);

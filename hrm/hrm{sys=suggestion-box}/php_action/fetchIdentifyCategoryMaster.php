@@ -6,7 +6,7 @@
 
     $query_fetch = "SELECT id, category_name as name FROM table_suggestion_identify_problem_master";
 
-    $result_data = mysqli_fetch_all(mysqli_query($connect, $query_fetch), MYSQL_ASSOC);
+    $result_data = mysqli_fetch_all(mysqli_query($connect, $query_fetch), MYSQLI_ASSOC);
 
     $connect->close();
     header('Content-Type: application/json');

@@ -645,7 +645,6 @@ $(document).ready(function () {
 			async: true,
             success: function(response) {
                 // push all data master planing
-                console.log(response[2][1])
                 if (response[2][1] != 0 && response[1] != null) {
                     for (let index = 0; index < response[1].length; index++) {
                         data_master_planning_for_planning_step.push({
@@ -656,7 +655,6 @@ $(document).ready(function () {
                     
                 }
                 // set request_no
-                // $('#planing_request_no').val(response[1][0].request_no),
                 $('#planing_request_no').val(request_no),
 
                 // reset object data for dynamic id master plan 
@@ -1178,7 +1176,7 @@ $(document).ready(function () {
                 $("[data-dismiss=modal]").trigger({type: "click"});
 
                 datatable.ajax.reload(null, false);
-                // location.reload();
+                location.reload();
             },
             error: function(xhr, status, error) {
                 mymodalss.style.display = "none";

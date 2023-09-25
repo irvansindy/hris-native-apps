@@ -62,7 +62,7 @@
             `diagram` = '$file_diagram_attachment',
             `updated_at` = '$date_time',
             `updated_by` = '$detail_emp_no'
-            WHERE request_no = '$detail_request_no'";
+        WHERE request_no = '$detail_request_no'";
         $exe_suggestion_master = $connect->query($query_update_suggestion_master);
 
         // update data direct root cause
@@ -227,17 +227,37 @@
         }
 
         // update suggestion planing
-        // get data master plan
-        $query_fetch_master_plan = "";
-        // delete initial data
-        $query_delete_suggestion_planing_root_cause = "DELETE FROM table_suggestion_improvement_planning WHERE request_no = '$detail_request_no'";
-        $exe_query_delete_suggestion_planing_root_cause = $connect->query($query_delete_suggestion_planing_root_cause);
-
+        // for checking master plan data existing
+        $list_master_plan_id = [];
         if (count($detail_planing_root_cause) > 0 && $detail_planing_root_cause[0] != '') {
             for ($i=0; $i < count($detail_planing_root_cause) ; $i++) { 
+                // insert data master plan
                 $lower_case_planing_root_cause = strtolower($detail_planing_root_cause[$i]);
                 $set_planing_root_cause = str_replace(' ', '_', $lower_case_planing_root_cause);
                 $result_planing_root_cause = $set_planing_root_cause.'_'.$detail_request_no;
+
+                // push data
+                array_push($list_master_plan_id, $result_planing_root_cause);
+            }
+            // delete planing step nesting master plan
+            $data_master_plan_id = implode("','", $list_master_plan_id);
+            // var_dump($data_master_plan_id);
+            $query_delete_planing_step = "DELETE ps FROM table_suggestion_improvement_planning_step ps
+            INNER JOIN table_suggestion_improvement_planning p 
+            ON ps.suggestion_improvement_planning_master_id = p.id 
+            WHERE 
+            p.request_no = '$detail_request_no'
+            AND 
+            ps.suggestion_improvement_planning_master_id NOT IN('$data_master_plan_id')";
+            // var_dump($query_delete_planing_step);
+            $exe_delete_planing_step = $connect->query($query_delete_planing_step);
+            
+            // delete initial data
+            $query_delete_suggestion_planing_root_cause = "DELETE FROM table_suggestion_improvement_planning WHERE request_no = '$detail_request_no'";
+            $exe_query_delete_suggestion_planing_root_cause = $connect->query($query_delete_suggestion_planing_root_cause);
+
+            // updating new data master plan
+            for ($i=0; $i < count($detail_planing_root_cause) ; $i++) { 
                 $query_planing_root_cause = "INSERT INTO `table_suggestion_improvement_planning`(
                     `id`,
                     `request_no`,
@@ -259,6 +279,24 @@
                 $exe_planing_root_cause = $connect->query($query_planing_root_cause);
             }
         }
+
+        
+        // if ($exe_planing_root_cause == true) {
+            # code...
+            // get data master plan and delete planing step when data is oldest
+            // $query_fetch_master_plan = "SELECT * FROM table_suggestion_improvement_planning WHERE request_no = '$detail_request_no'";
+            // $result_fetch_master_plan = mysqli_fetch_all(mysqli_query($connect, $query_fetch_master_plan), MYSQLI_ASSOC);
+
+            // $list_master_plan_id = [];
+            // for ($i=0; $i < count($result_fetch_master_plan); $i++) { 
+            //     array_push($list_master_plan_id, $result_fetch_master_plan[$i]["id"]);
+            // }
+
+        // }
+
+        // var_dump($query_delete_planing_step);
+        // die();
+
 
         // if ($exe_suggestion_master == FALSE || $exe_query_identify_cause_man == FALSE || $exe_identify_cause_machine == FALSE || $exe_identify_cause_method == FALSE || $exe_identify_cause_material == FALSE || $exe_identify_cause_mother_nature == FALSE || $exe_identify_cause_measurement == FALSE || $exe_planing_root_cause == FALSE) {
         if ($exe_suggestion_master == FALSE) {

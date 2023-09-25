@@ -29,6 +29,7 @@
             $end_planning = $suggestion_planing_step_end_date[$i].' '.$time;
             $query_create_data = "INSERT INTO `table_suggestion_improvement_planning_step` (
                 `suggestion_improvement_planning_master_id`,
+                -- `request_no`,
                 `pic`,
                 `type_planing`,
                 `start_date`,

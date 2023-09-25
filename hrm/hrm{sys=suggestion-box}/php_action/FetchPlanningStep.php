@@ -35,11 +35,12 @@
         $total_data_planing_step,
         $total_data_master_planing
     ];
+
     // result json
     $response_json = [
         $result_data_planing_step,
         $result_data_master_planing,
-        $total_data
+        $total_data,
     ];
 
     $connect->close();

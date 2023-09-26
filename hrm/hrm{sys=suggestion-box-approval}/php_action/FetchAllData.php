@@ -32,7 +32,8 @@
     LEFT JOIN view_employee e ON e.emp_no = '$username'
     INNER JOIN hrmrequestapproval f ON f.request_no = a.request_no
         AND f.position_id = e.position_id
-        WHERE (e.emp_no = '$username') AND stat.status IN ('1','2','3','5','10')
+        WHERE (e.emp_no = '$username') AND stat.status IN ('1','2','3','5')
+        -- WHERE (e.emp_no = '$username') AND stat.status IN ('1','2','3','5','10')
 		GROUP BY a.request_no
 		ORDER BY stat.name_my DESC, a.request_no DESC";
     

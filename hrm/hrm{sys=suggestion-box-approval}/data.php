@@ -298,12 +298,6 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 									&nbsp;Save as draft&nbsp;
 								</p>
 							</button>
-							<!-- <button type="button" class="btn-sdk btn-primary-left" name="submit_draft" id="submit_draft" data-type_submit="draft">
-								&nbsp;Save as draft&nbsp;
-							</button> -->
-							<!-- <button type="button" class="btn-sdk btn-primary-right" name="submit_full" id="submit_full" data-type_submit="full_submit">
-								Submit
-							</button> -->
 						</div>
 					</div>
 				</form>
@@ -325,30 +319,14 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 				</div>
 
 				<!-- <form class="form-horizontal" action="php_action/FuncDataUpdate.php" method="POST" id="updateMemberForm"> -->
-				<form class="form-horizontal" action="" method="POST" id="form_detail_data_suggestion">
+				<form class="form-horizontal" action="" method="" id="form_detail_data_suggestion">
 
 					<div class="card-body table-responsive p-0"
 						style="width: 100vw;height: auto%; width: 98%; margin: 5px;overflow: scroll;overflow-x: hidden;">
-
 						<fieldset id="fset_1">
 							<legend>General</legend>
-
-							<div class="messages_update"></div>
-
 							<input id="detail_emp_no" name="detail_emp_no" type="hidden" value="<?php echo $username; ?>">
-
-							<!--FROM SESSION -->
 							<input id="sel_token" name="sel_token" type="hidden" value="<?php echo $get_token; ?>">
-							<!--FROM CONFIGURATION -->
-							<!-- <div class="form-row">
-								<div class="col-4 name">Title <span class="required">*</span></div>
-								<div class="col-sm-8">
-									<div class="input-group">
-										<input class="input--style-6"  id="detail_suggestion_title" placeholder="Suggestion Title"
-											name="detail_suggestion_title" type="Text" value="" style="width: 60%;">
-									</div>
-								</div>
-							</div> -->
 							<div class="form-row">
 								<div class="col-sm-4 name"> Request Number <span class="required">*</span></div>
 								<div class="col-sm-8 name">
@@ -394,6 +372,7 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 								</div>
 							</div>
 						</fieldset>
+						
 						<fieldset id="fset_1">
 							<legend>Approval Detail</legend>
 							<div class="card-body table-responsive p-0" style="width: 99%; margin: 1px;overflow: scroll;">
@@ -414,26 +393,12 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 							</div>
 						</fieldset>
 						<div class="modal-footer-sdk">
-							<a style="<?php echo $button_status_hide_or_no; ?>; color: white;padding-top: 8px;"
-                                class="btn-sdk btn-primary-not-only-left" name="submit_reject_suggestion_approval"
-                                id="submit_reject_suggestion_approval" data-toggle="modal" data-target="#reject_suggestion_approval">
-                                &nbsp;&nbsp;Reject&nbsp;&nbsp;
-                            </a>
-                            <button class="btn-sdk btn-primary-not-only-right" type="submit"
-                                name="submit_approval_spvdown" id="submit_approval_spvdown">
-                                Approved
-                            </button>
-							<!-- <button type="button" class="btn-sdk btn-primary-center-only rounded-pill" name="submit_draft" id="submit_draft" data-type_submit="draft">
-								<p class="text-center text-dark">
-									&nbsp;Save as draft&nbsp;
+							<button type="button" class="btn-sdk btn-primary-center-only rounded-pill" name="create_suggestion_approval" id="create_suggestion_approval"  style="background-color: #1b6fb9; !important" data-toggle="modal" data-target="#comment_rating_suggestion_box" data-backdrop="static">
+							<!-- data-backdrop="static" -->
+								<p class="text-center">
+									&nbsp;Approve&nbsp;
 								</p>
-							</button> -->
-							<!-- <button type="button" class="btn-sdk btn-primary-left" name="submit_draft" id="submit_draft" data-type_submit="draft">
-								&nbsp;Save as draft&nbsp;
-							</button> -->
-							<!-- <button type="button" class="btn-sdk btn-primary-right" name="submit_full" id="submit_full" data-type_submit="full_submit">
-								Submit
-							</button> -->
+							</button>
 						</div>
 					</div>
 				</form>
@@ -441,62 +406,62 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 		</div>
 	</div>
 	<!-- end detail data approval modal -->
-
-	<!-- delete transaction modal -->
-	<!-- <div class="modal fade" tabindex="-1" role="dialog" id="FormDisplayRejectRequest"> -->
-	<div class="modal fade" tabindex="-1" role="dialog" id="reject_suggestion_approval">
-
-		<div class="modals-content" style="margin-top: 125px;border: 1px solid #dbd2d2;background: #fbfbfb;">
-
-
-			<form class="form-horizontal" action="php_action/FuncDataRejectRequest.php<?php echo $getPackage; ?>"
-				method="POST" id="updaterejectMemberFormspvdown">
-
-				<div class="modal-body">
-					<div class="edit-messages"></div>
-
-					<input id="sel_emp_no_approver" name="sel_emp_no_approver" type="hidden"
-						value="<?php echo $username; ?>">
-					<!--FROM SESSION -->
-
-					<table width="100%">
-						<tr>
-							<td align="center"><img src="../../asset/dist/img/sf-mola-mola.png"
-									style="max-width: 90%;margin-top: 20px;"></td>
-						</tr>
-					</table>
-					<div class="form-group">
-						<div class="col-sm-12">
-							<table width="100%">
-								<td align="center">
-									<label class="pb-4" id="value_reject_request_no"></label>
-								</td>
-							</table>
-							<input type="hidden" class="form-control input-report" id="sel_reject_request"
-								name="sel_reject_request" placeholder="">
+	
+	<!-- detail data approval submit modal -->
+	<div class="modal fade fade-custom" tabindex="-1" role="dialog" id="comment_rating_suggestion_box">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Comment and Rating Box</h4>
+					<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close"
+						style="margin-top: -15px;">
+						<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
+					</a>
+				</div>
+				<form class="form-horizontal" action="" method="" id="form_suggestion_approval">
+					<div class="modal-body">
+						<div class="input-group">
+							<label for="#input_remark_approval">Remark <span class="required">*</span></label>
+							<textarea class="input--style-6 suggestion_summernote_approval" name="input_remark_approval" id="input_remark_approval"></textarea>
+						</div>
+						<div class="input-group mt-5">
+							<div class="rating">
+								<i class="rating__star far fa-star fa-2xl"></i>
+								<i class="rating__star far fa-star fa-2xl"></i>
+								<i class="rating__star far fa-star fa-2xl"></i>
+								<i class="rating__star far fa-star fa-2xl"></i>
+								<i class="rating__star far fa-star fa-2xl"></i>
+							</div>
+						</div>
+						<div class="input-group mt-5">
+							<input type="hidden" name="input_data_rating" id="input_data_rating">
+							<input type="hidden" name="request_no_suggestion_approval" id="request_no_suggestion_approval">
 						</div>
 					</div>
-					<div class="modal-footer-delete FormDisplayRejectRequest"
-						style="text-align: center;padding-top: 20px;">
-						<button type="reset" class="btn btn-primary1"
-							style="background: #ececec;" data-dismiss="modal" aria-hidden="true">
-							&nbsp;Cancel&nbsp;
+					<div class="modal-footer-sdk">
+						<button type="button" class="btn-sdk btn-primary-center-only rounded-pill" name="submit_suggestion_approval" id="submit_suggestion_approval"  style="background-color: #1b6fb9; !important" data-toggle="modal" data-target="#comment_rating_suggestion_box" data-backdrop="static">
+						<!-- data-backdrop="static" -->
+							<p class="text-center mt-2">
+								&nbsp;Submit&nbsp;
+							</p>
 						</button>
-						<button class="btn btn-warning" type="submit" name="submit_reject_spvdown1"
-							id="submit_reject_spvdown1">
-							Confirm
-						</button>
-						<!-- <button class="btn btn-warning" type="button" name="submit_reject_spvdown2"
-							id="submit_reject_spvdown2" style='display:none;' disabled>
-							<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-							&nbsp;&nbsp;Processing..
-						</button> -->
 					</div>
-				</div>
-			</form>
+				</form>
+			</div>
 		</div>
 	</div>
-		<!-- </div> -->
+	<!-- end detail data approval modal -->
+
+	<style>
+		.rating {
+		width: 180px;
+		}
+
+		.rating__star {
+		cursor: pointer;
+		color: #dabd18b2;
+		}
+	</style>
 <script>
 	function RefreshPage() {
 		datatable.ajax.reload(null, true);

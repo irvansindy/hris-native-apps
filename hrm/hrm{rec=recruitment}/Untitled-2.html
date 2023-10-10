@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step Progress Bar</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .step {
+            text-align: center;
+        }
+    
+        .step-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #ccc;
+            margin: 0 auto 10px;
+            line-height: 30px;
+            font-weight: bold;
+            color: white;
+        }
+    
+        .completed {
+            background-color: #5cb85c; 
+            /* Green color for completed steps */
+        }
+    
+        .content {
+            margin-top: 20px;
+        }
+    
+        .content-item {
+            display: none;
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="step">
+                    <div class="step-circle completed">1</div>
+                    Step 1
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="step">
+                    <div class="step-circle">2</div>
+                    Step 2
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="step">
+                    <div class="step-circle">3</div>
+                    Step 3
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="step">
+                    <div class="step-circle">4</div>
+                    Step 4
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="content">
+                    <div class="content-item">
+                        <h3>Step 1 Content</h3>
+                        <p>This is the content for Step 1.</p>
+                    </div>
+                    <div class="content-item">
+                        <h3>Step 2 Content</h3>
+                        <p>This is the content for Step 2.</p>
+                    </div>
+                    <div class="content-item">
+                        <h3>Step 3 Content</h3>
+                        <p>This is the content for Step 3.</p>
+                    </div>
+                    <div class="content-item">
+                        <h3>Step 4 Content</h3>
+                        <p>This is the content for Step 4.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="module">
+        $(document).ready(function () {
+            // Initialize the first step and content
+            // $('.step:first-child .step-circle').addClass('completed');
+            $('.content-item:first-child').show();
+        
+            $('.step').click(function () {
+                // Mark the clicked step as completed
+                $(this).find('.step-circle').addClass('completed');
+                // alert('hahaha')
+        
+                // Show the corresponding content item
+                var index = $(this).index();
+                $('.content-item').hide();
+                $('.content-item:eq(' + index + ')').show();
+            });
+        });
+
+    </script>
+    
+</body>
+</html>

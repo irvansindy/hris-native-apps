@@ -39,12 +39,12 @@ $footer = 'no'; //set as `yes` if you want to use default footer & set as `no` i
                 <table>
                     <tbody>
                         <tr>
-                            <td>
+                            <!-- <td>
                                 <a href="#" class="open_modal_search" title="Add" data-toggle="modal" data-target="#CreateForm" id="CreateButton" data-keyboard="false" data-backdrop="static">
                                     <div class="toolbar sprite-toolbar-add">
                                     </div>
                                 </a>
-                            </td>
+                            </td> -->
                             <td>
                                 <div class="toolbar sprite-toolbar-reload" id="RELOAD" title="Reload" onclick="RefreshPage();">
                                 </div>

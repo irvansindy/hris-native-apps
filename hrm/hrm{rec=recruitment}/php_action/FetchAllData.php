@@ -8,6 +8,7 @@
     // $response = [];
 
     $query_fetch_data = "SELECT
+	a.id_applicant,
     a.userid,
     a.id_vacancy,
     DATE_FORMAT(a.applied_at, '%d-%M-%Y') AS applied_time,
@@ -38,7 +39,8 @@
         ON b.state_id = f.state_id
     LEFT JOIN application_status g
         ON a.status = g.id
-    GROUP BY a.id_vacancy
+    GROUP BY a.userid 
+    -- and a.id_vacancy
         ";
 
     $result = mysqli_fetch_all(mysqli_query($connect, $query_fetch_data), MYSQLI_ASSOC);

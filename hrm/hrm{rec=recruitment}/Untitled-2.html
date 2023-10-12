@@ -3,112 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Step Progress Bar</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .step {
-            text-align: center;
-        }
-    
-        .step-circle {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background-color: #ccc;
-            margin: 0 auto 10px;
-            line-height: 30px;
-            font-weight: bold;
-            color: white;
-        }
-    
-        .completed {
-            background-color: #5cb85c; 
-            /* Green color for completed steps */
-        }
-    
-        .content {
-            margin-top: 20px;
-        }
-    
-        .content-item {
-            display: none;
-        }
-    </style>
-    
+    <title>Pagination Card List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="step">
-                    <div class="step-circle completed">1</div>
-                    Step 1
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="step">
-                    <div class="step-circle">2</div>
-                    Step 2
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="step">
-                    <div class="step-circle">3</div>
-                    Step 3
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="step">
-                    <div class="step-circle">4</div>
-                    Step 4
-                </div>
-            </div>
+    <div class="container mt-5">
+        <h1>Pagination Card List</h1>
+        <div id="card-list">
+            <!-- Card items will be displayed here -->
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="content">
-                    <div class="content-item">
-                        <h3>Step 1 Content</h3>
-                        <p>This is the content for Step 1.</p>
-                    </div>
-                    <div class="content-item">
-                        <h3>Step 2 Content</h3>
-                        <p>This is the content for Step 2.</p>
-                    </div>
-                    <div class="content-item">
-                        <h3>Step 3 Content</h3>
-                        <p>This is the content for Step 3.</p>
-                    </div>
-                    <div class="content-item">
-                        <h3>Step 4 Content</h3>
-                        <p>This is the content for Step 4.</p>
-                    </div>
-                </div>
-            </div>
+        <div id="pagination">
+            <!-- Pagination controls will be displayed here -->
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script type="module">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
+    <script src="your-pagination-data.js"></script> <!-- This is where you put your data -->
+    <script src="pagination-script.js"></script> <!-- The script to handle pagination -->
+
+    <script>
         $(document).ready(function () {
-            // Initialize the first step and content
-            // $('.step:first-child .step-circle').addClass('completed');
-            $('.content-item:first-child').show();
-        
-            $('.step').click(function () {
-                // Mark the clicked step as completed
-                $(this).find('.step-circle').addClass('completed');
-                // alert('hahaha')
-        
-                // Show the corresponding content item
-                var index = $(this).index();
-                $('.content-item').hide();
-                $('.content-item:eq(' + index + ')').show();
+            // Initialize pagination
+            var data = [
+                { title: 'Item 1', description: 'Description for Item 1' },
+                { title: 'Item 2', description: 'Description for Item 2' },
+                { title: 'Item 2', description: 'Description for Item 2' },
+                { title: 'Item 2', description: 'Description for Item 2' },
+                { title: 'Item 2', description: 'Description for Item 2' },
+                { title: 'Item 2', description: 'Description for Item 2' },
+                { title: 'Item 2', description: 'Description for Item 2' },
+                { title: 'Item 2', description: 'Description for Item 2' },
+                { title: 'Item 2', description: 'Description for Item 2' },
+                { title: 'Item 2', description: 'Description for Item 2' },
+                { title: 'Item 2', description: 'Description for Item 2' },
+                { title: 'Item 2', description: 'Description for Item 2' },
+                { title: 'Item 2', description: 'Description for Item 2' },
+                // Add more data items here...
+                { title: 'Item 50', description: 'Description for Item 50' }
+            ];
+
+            var itemsPerPage = 4; // Change this to set the number of items per page
+            var totalPages = Math.ceil(data.length / itemsPerPage);
+
+            $('#pagination').twbsPagination({
+                totalPages: totalPages,
+                visiblePages: 5, // Adjust the number of visible pagination links as needed
+                onPageClick: function (event, page) {
+                    displayData(page);
+                }
             });
+
+            // Function to display data for the given page
+            function displayData(page) {
+                var start = (page - 1) * itemsPerPage;
+                var end = start + itemsPerPage;
+                var items = data.slice(start, end);
+
+                // Clear the previous data
+                $('#card-list').empty();
+
+                // Display items in cards
+                items.forEach(function (item) {
+                    var cardHtml = '<div class="card mb-3">';
+                    cardHtml += '<div class="card-body">';
+                    cardHtml += '<h5 class="card-title">' + item.title + '</h5>';
+                    cardHtml += '<p class="card-text">' + item.description + '</p>';
+                    cardHtml += '</div>';
+                    cardHtml += '</div>';
+                    $('#card-list').append(cardHtml);
+                });
+            }
+
+            // Initial display of the first page
+            displayData(1);
         });
 
     </script>
-    
 </body>
 </html>

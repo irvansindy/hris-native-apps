@@ -17,7 +17,7 @@ $(document).ready(function() {
                             <div class="card-header no-border>
                                 <h5 class="card-title text-dark">${response[index].id_vacancy}</h5>
                                 <h5 class="card-title ml-auto pull-right">
-                                    <span class="badge badge-success">${response[index].status_name}</span>
+                                    <span class="badge badge-danger">${response[index].status_name}</span>
                                 </h5>
                             </div>
                             <div class="card-body pt-0 mt-2">
@@ -83,7 +83,7 @@ $(document).ready(function() {
                                         <li class="widget-49-meeting-item"><span>Session timeout increase to 30 minutes</span></li>
                                     </ol> -->
                                     <div class="widget-49-meeting-action mt-4">
-                                        <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#detail_data_applicant" data-backdrop="static" data-vacancy="${response[index].id_vacancy}" data-user="${response[index].userid}" data-statusvalue="${response[index].status_name}" data-status_code="${response[index].status}" id="detail_applicant">
+                                        <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#detail_data_applicant" data-backdrop="static" data-id_applicant="${response[index].id_applicant}" data-vacancy="${response[index].id_vacancy}" data-user="${response[index].userid}" data-statusvalue="${response[index].status_name}" data-status_code="${response[index].status}" id="detail_applicant">
                                             View All
                                         </button>
                                     </div>
@@ -105,6 +105,7 @@ $(document).ready(function() {
             e.preventDefault();
             return false;
         }
+        let id_applicant = $(this).data('id_applicant')
         let vacancy = $(this).data('vacancy')
         let user = $(this).data('user')
         var statusvalue = $(this).data('statusvalue')
@@ -300,8 +301,8 @@ $(document).ready(function() {
                 // progress stepper 
                 $('#data_list_applicant_status').empty()
                 let no_status = 1
-                // $('#value_application_status').val(statusvalue)
-                $('#value_application_status').val(status_code)
+                $('#value_application_status').val(id_applicant)
+                $('#value_application_id').val(status_code)
                 $('#application_status').empty()
                 $('#application_status').append(`
                     <option value="${status_code}">${statusvalue}</option>
@@ -319,11 +320,6 @@ $(document).ready(function() {
                             <div class="md-step-bar-right"></div>
                         </div>
                     `)
-
-                    
-                    // console.log(active)
-                    // console.log(typeof response[6].indexOf(response[6][n]))
-                    // console.log(active_class)
                 }
 
                 for (let o = 0; o < response[7].length; o++) {
@@ -336,6 +332,76 @@ $(document).ready(function() {
                 //     $step_active.removeClass('active');
                 //     $(this).addClass('active');
                 // })
+
+                $('#button-reject').attr('data-applicant_number', id_applicant)
+                $('#button-update').attr('data-applicant_number', id_applicant)
+            }
+        })
+    })
+
+    // for reject applicant data
+    $(document).on('click', '#button-reject', function(e) {
+        e.preventDefault()
+        $.ajax({
+            url: 'php_action/UpdateApplicantStatus.php',
+            type: 'POST',
+            data: new FormData($('#form_detail_data_applicant')[0]),
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            async: true,
+            cache: false,
+            success: function(response) {
+                $(".form-group").removeClass('has-error').removeClass('has-success');
+                mymodalss.style.display = "none";
+                modals.style.display = "block";
+                document.getElementById("msg").innerHTML = response.messages;
+
+                $('#create_data_sub_menu').modal('hide');
+                $("[data-dismiss=modal]").trigger({type: "click"});
+
+                datatable.ajax.reload(null, false);
+                // location.reload();
+                window.location.reload()
+            },
+            error: function(xhr, status, error) {
+                mymodalss.style.display = "none";
+                modals.style.display = "block";
+                document.getElementById("msg").innerHTML = xhr.responseJSON;
+            }
+        })
+    })
+    
+    // for update applicant data
+    $(document).on('click', '#button-update', function(e) {
+        e.preventDefault()
+        $.ajax({
+            url: 'php_action/UpdateApplicantStatus.php',
+            type: 'POST',
+            data: new FormData($('#form_detail_data_applicant')[0]),
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            async: true,
+            cache: false,
+            success: function(response) {
+                $(".form-group").removeClass('has-error').removeClass('has-success');
+                mymodalss.style.display = "none";
+                modals.style.display = "block";
+                document.getElementById("msg").innerHTML = response.messages;
+
+                $('#create_data_sub_menu').modal('hide');
+                $("[data-dismiss=modal]").trigger({type: "click"});
+
+                datatable.ajax.reload(null, false);
+                // location.reload();
+                window.location.reload();
+            },
+            error: function(xhr, status, error) {
+                mymodalss.style.display = "none";
+                modals.style.display = "block";
+                document.getElementById("msg").innerHTML = xhr.responseJSON;
+                // document.getElementById("msg").innerHTML = response.messages;
 
             }
         })

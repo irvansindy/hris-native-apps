@@ -40,7 +40,8 @@
         ON b.state_id = f.state_id
     LEFT JOIN application_status g
         ON a.status = g.id
-    GROUP BY a.userid 
+    GROUP BY a.id_applicant
+    -- GROUP BY a.userid 
     -- and a.id_vacancy
     ORDER BY applied_time DESC
     LIMIT $limit_fetch

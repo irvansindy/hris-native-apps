@@ -344,7 +344,15 @@ $(document).ready(function() {
                             </div>
                         `)
                     }
+                    
+                    // let total_status = 
+                    for (let o = 0; o < response[7].length; o++) {
+                        $('#application_status').append(`
+                            <option value="${response[7][o].id}">${response[7][o].status_name}</option>
+                        `)
+                    }
                 } else {
+                    $('.status_view').hide()
                     for (let p = 0; p < response[8].length; p++) {
                         $('#data_list_applicant_status').append(`
                             <div class="md-step active">
@@ -357,11 +365,7 @@ $(document).ready(function() {
                     }
                 }
 
-                for (let o = 0; o < response[7].length; o++) {
-                    $('#application_status').append(`
-                        <option value="${response[7][o].id}">${response[7][o].status_name}</option>
-                    `)
-                }
+                
                 // var $step_active = $('.md-step').click(function() {
                 //     $step_active.removeClass('active');
                 //     $(this).addClass('active');

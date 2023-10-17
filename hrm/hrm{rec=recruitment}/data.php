@@ -201,7 +201,7 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 									<div class="md-stepper-horizontal blue container-fluid" id="data_list_applicant_status">
 										
 									</div>
-									<div class="col-md-8 mt-5">
+									<div class="col-md-8 mt-5 status_view">
 										<select class="input--style-6" name="application_status" id="application_status" style="width: 40%;height: 30px;">
 										</select>
 										<input type="hidden" class="input--style-6" id="value_application_status" name="value_application_status">

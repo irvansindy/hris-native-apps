@@ -5,7 +5,8 @@
 	require_once '../../../application/config.php';
 
     // response json
-    // $response = [];
+    $limit_fetch = $_GET['limit_fetch'];
+    $offset = $_GET['offset'];
 
     $query_fetch_data = "SELECT
 	a.id_applicant,
@@ -41,6 +42,9 @@
         ON a.status = g.id
     GROUP BY a.userid 
     -- and a.id_vacancy
+    ORDER BY applied_time DESC
+    LIMIT $limit_fetch
+    OFFSET $offset
         ";
 
     $result = mysqli_fetch_all(mysqli_query($connect, $query_fetch_data), MYSQLI_ASSOC);

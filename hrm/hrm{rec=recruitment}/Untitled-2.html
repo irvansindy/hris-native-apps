@@ -1,85 +1,177 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagination Card List</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Paginated Card List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://pagination.js.org/dist/2.1.4/pagination.css">
 </head>
+
 <body>
-    <div class="container mt-5">
-        <h1>Pagination Card List</h1>
-        <div id="card-list">
-            <!-- Card items will be displayed here -->
-        </div>
-        <div id="pagination">
-            <!-- Pagination controls will be displayed here -->
-        </div>
+    <!-- Card List Container -->
+    <div class="container">
+        <div id="card-list" class="row"></div>
     </div>
 
+    <!-- Pagination Container -->
+    <div class="container">
+        <div id="pagination-container"></div>
+    </div>
+
+    <!-- Include Bootstrap and jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
-    <script src="your-pagination-data.js"></script> <!-- This is where you put your data -->
-    <script src="pagination-script.js"></script> <!-- The script to handle pagination -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Include Pagination.js -->
+    <script src="https://pagination.js.org/dist/2.1.4/pagination.min.js"></script>
 
+    <!-- Your Custom JavaScript -->
     <script>
-        $(document).ready(function () {
-            // Initialize pagination
-            var data = [
-                { title: 'Item 1', description: 'Description for Item 1' },
-                { title: 'Item 2', description: 'Description for Item 2' },
-                { title: 'Item 2', description: 'Description for Item 2' },
-                { title: 'Item 2', description: 'Description for Item 2' },
-                { title: 'Item 2', description: 'Description for Item 2' },
-                { title: 'Item 2', description: 'Description for Item 2' },
-                { title: 'Item 2', description: 'Description for Item 2' },
-                { title: 'Item 2', description: 'Description for Item 2' },
-                { title: 'Item 2', description: 'Description for Item 2' },
-                { title: 'Item 2', description: 'Description for Item 2' },
-                { title: 'Item 2', description: 'Description for Item 2' },
-                { title: 'Item 2', description: 'Description for Item 2' },
-                { title: 'Item 2', description: 'Description for Item 2' },
-                // Add more data items here...
-                { title: 'Item 50', description: 'Description for Item 50' }
-            ];
+        // Mock data (replace with your AJAX data source)
+        const mockData = [
+            {
+                name: "Item 1",
+                description: "Description for Item 1"
+            },
+            {
+                name: 'Item 1',
+                description: 'Description for Item 1'
+            },
+            {
+                name: 'Item 2',
+                description: 'Description for Item 2'
+            },
+            {
+                name: 'Item 3',
+                description: 'Description for Item 3'
+            },
+            {
+                name: 'Item 4',
+                description: 'Description for Item 4'
+            },
+            {
+                name: 'Item 5',
+                description: 'Description for Item 5'
+            },
+            {
+                name: 'Item 6',
+                description: 'Description for Item 6'
+            },
+            {
+                name: 'Item 7',
+                description: 'Description for Item 7'
+            },
+            {
+                name: 'Item 8',
+                description: 'Description for Item 8'
+            },
+            {
+                name: 'Item 9',
+                description: 'Description for Item 9'
+            },
+            {
+                name: 'Item 10',
+                description: 'Description for Item 10'
+            },
+            {
+                name: 'Item 11',
+                description: 'Description for Item 11'
+            },
+            {
+                name: 'Item 12',
+                description: 'Description for Item 12'
+            },
+            {
+                name: 'Item 13',
+                description: 'Description for Item 13'
+            },
+            {
+                name: 'Item 14',
+                description: 'Description for Item 14'
+            },
+            {
+                name: 'Item 15',
+                description: 'Description for Item 15'
+            },
+            {
+                name: 'Item 16',
+                description: 'Description for Item 16'
+            },
+            {
+                name: 'Item 17',
+                description: 'Description for Item 17'
+            },
+            {
+                name: 'Item 18',
+                description: 'Description for Item 18'
+            },
+            {
+                name: 'Item 19',
+                description: 'Description for Item 19'
+            },
+            {
+                name: 'Item 20',
+                description: 'Description for Item 20'
+            },
+            {
+                name: 'Item 21',
+                description: 'Description for Item 21'
+            },
+            {
+                name: 'Item 22',
+                description: 'Description for Item 22'
+            },
+            {
+                name: 'Item 23',
+                description: 'Description for Item 23'
+            },
+            {
+                name: 'Item 24',
+                description: 'Description for Item 24'
+            },
+            {
+                name: 'Item 25',
+                description: 'Description for Item 25'
+            },
+        ];
 
-            var itemsPerPage = 4; // Change this to set the number of items per page
-            var totalPages = Math.ceil(data.length / itemsPerPage);
+        const itemsPerPage = 12; // Number of items per page
 
-            $('#pagination').twbsPagination({
-                totalPages: totalPages,
-                visiblePages: 5, // Adjust the number of visible pagination links as needed
-                onPageClick: function (event, page) {
-                    displayData(page);
+        // Function to render the card list
+        function renderCardList(data) {
+            const cardList = $("#card-list");
+            cardList.empty(); // Clear existing content
+
+            data.forEach((mockData) => {
+                const card = `
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">${mockData.name}</h5>
+                                <p class="card-text">${mockData.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                cardList.append(card);
+            });
+        }
+
+        // Initialize the pagination plugin
+        function initializePagination() {
+            $('#pagination-container').pagination({
+                dataSource: mockData,
+                pageSize: itemsPerPage,
+                callback: function (data, pagination) {
+                    renderCardList(data);
                 }
             });
+        }
 
-            // Function to display data for the given page
-            function displayData(page) {
-                var start = (page - 1) * itemsPerPage;
-                var end = start + itemsPerPage;
-                var items = data.slice(start, end);
-
-                // Clear the previous data
-                $('#card-list').empty();
-
-                // Display items in cards
-                items.forEach(function (item) {
-                    var cardHtml = '<div class="card mb-3">';
-                    cardHtml += '<div class="card-body">';
-                    cardHtml += '<h5 class="card-title">' + item.title + '</h5>';
-                    cardHtml += '<p class="card-text">' + item.description + '</p>';
-                    cardHtml += '</div>';
-                    cardHtml += '</div>';
-                    $('#card-list').append(cardHtml);
-                });
-            }
-
-            // Initial display of the first page
-            displayData(1);
+        // Load the initial data and initialize pagination
+        $(document).ready(function () {
+            initializePagination();
         });
-
     </script>
 </body>
+
 </html>

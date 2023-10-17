@@ -83,11 +83,16 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 
 			processing: true,
 			// retrieve: true,
+			fixedHeader: true,
+			fixedColumns: {
+				left: 2
+			},
 			searching: false,
 			paging: true,
-			order: [
-				[0, "asc"]
-			],
+			// order: [
+			// 	[0, "asc"]
+			// ],
+			ordering: true,
 			pagingType: "simple",
 			bPaginate: true,
 			bLengthChange: false,

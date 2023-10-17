@@ -8,7 +8,8 @@
     $vacancy = $_GET['vacancy'];
     $user = $_GET['user'];
     $status_code = $_GET['status_code'];
-
+    $id_applicant = $_GET['id_applicant'];
+    
     // get data user applicant
     $query_fetch_user = "SELECT 
         a.userid,
@@ -112,12 +113,37 @@
     $result_family = mysqli_fetch_all(mysqli_query($connect, $query_fetch_family), MYSQLI_ASSOC);
 
     // get status applicant
-    $query_fetch_status = "SELECT * FROM application_status ORDER BY id ASC";
+    // $query_fetch_status = "SELECT * FROM application_status ORDER BY id ASC";
+    $query_fetch_status = "SELECT 
+        a.id,
+        a.status_name,
+        (SELECT 'active' FROM employer_applicant_detail ead 
+        WHERE ead.application_status_id = a.id AND ead.employer_applicant_id = '$id_applicant')
+        AS active FROM application_status a";
     $result_status = mysqli_fetch_all(mysqli_query($connect, $query_fetch_status), MYSQLI_ASSOC);
 
     // get current status
     $query_fetch_current_status = "SELECT * FROM application_status WHERE id >= '$status_code' ORDER BY id ASC";
     $result_current_status = mysqli_fetch_all(mysqli_query($connect, $query_fetch_current_status), MYSQLI_ASSOC);
+
+    // get employee applicant detail (for log stepper)
+    $query_fetch_employer_applicant_detail = "SELECT
+        a.id,
+        a.employer_applicant_id,
+        a.application_status_id,
+        b.status,
+        b.id_applicant,
+        c.status_name
+    FROM
+    employer_applicant_detail a
+    INNER JOIN employer_applicant b
+        ON a.employer_applicant_id = b.id_applicant
+    INNER JOIN application_status c
+        ON c.id = a.application_status_id
+        WHERE b.id_applicant = '$id_applicant'
+        ORDER BY a.created_at ASC";
+    
+    $result_employer_applicant_detail = mysqli_fetch_all(mysqli_query($connect, $query_fetch_employer_applicant_detail), MYSQLI_ASSOC);
 
     $response_json = [
         $result_user, // index key 0
@@ -128,6 +154,7 @@
         $result_family, // index key 5
         $result_status, // index key 6
         $result_current_status, // index key 7
+        $result_employer_applicant_detail, // index key 8
     ];
 
     $connect->close();

@@ -24,14 +24,13 @@
         $query_reject_update_applicant = "UPDATE employer_applicant SET
             `status` = '$status'
             WHERE id_applicant = '$applicant_number'
-            -- WHERE id_vacancy = '$applicant_number'
         ";
 
-        var_dump($query_reject_update_applicant);
+        // var_dump($query_reject_update_applicant);
         $exe_query_reject_update_applicant = $connect->query($query_reject_update_applicant);
         
         if ($exe_query_reject_update_applicant == FALSE) {
-            http_response_code(402);
+            http_response_code(400);
             // rollback for error response
             mysqli_rollback($connect);
             $response['success'] = false;

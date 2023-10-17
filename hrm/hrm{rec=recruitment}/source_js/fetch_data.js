@@ -1,103 +1,124 @@
 $(document).ready(function() {
-    fetchAllData()
+    var limit_fetch = 12
+    var offset = 0
     function fetchAllData () {
-        
-        $('.applicant').empty()
+        // $('.applicant').empty()
         $.ajax({
             url: "php_action/FetchAllData.php",
             type: 'GET',
+            data: {
+                limit_fetch: limit_fetch,
+                offset: offset
+            },
             dataType: 'json',
             async: true,
             success: function(response) {
-                for (let index = 0; index < response.length; index++) {
-                    // const element = array[index];
-                    $('.applicant').append(`
-                    <div class="col-lg-3 card_applicant">
-                        <div class="card card-margin shadow">
-                            <div class="card-header no-border>
-                                <h5 class="card-title text-dark">${response[index].id_vacancy}</h5>
-                                <h5 class="card-title ml-auto pull-right">
-                                    <span class="badge badge-danger">${response[index].status_name}</span>
-                                </h5>
-                            </div>
-                            <div class="card-body pt-0 mt-2">
-                                <div class="widget-49">
-                                    <div class="widget-49-title-wrapper mb-4">
-                                        <div class="widget-49-date-primary">
-                                            <!-- <span class="widget-49-date-day">09</span>
-                                            <span class="widget-49-date-month">apr</span> -->
-                                            <img src="../../asset/emp_photos/13-0299.jpeg" class="img-fluid img-thumbnail" alt="profile">
-                                        </div>
-                                        <div class="widget-49-meeting-info">
-                                            <span class="widget-49-pro-title">${response[index].full_name}</span>
-                                            <div class="list-inline">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
-                                                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-                                                    <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
-                                                </svg>
-                                                <span class="widget-49-meeting-time ml-1 pt-2">Download Resume</span>
+                // list_data_applicant = response
+                // list_data_applicant.push(response)
+                if (response != '') {
+                    for (let index = 0; index < response.length; index++) {
+                        // const element = array[index];
+                        $('.applicant').append(`
+                        <div class="col-lg-3 card_applicant">
+                            <div class="card card-margin shadow">
+                                <div class="card-header no-border>
+                                    <h5 class="card-title text-dark">${response[index].id_vacancy}</h5>
+                                    <h5 class="card-title ml-auto pull-right">
+                                        <span class="badge badge-danger">${response[index].status_name}</span>
+                                    </h5>
+                                </div>
+                                <div class="card-body pt-0 mt-2">
+                                    <div class="widget-49">
+                                        <div class="widget-49-title-wrapper mb-4">
+                                            <div class="widget-49-date-primary">
+                                                <!-- <span class="widget-49-date-day">09</span>
+                                                <span class="widget-49-date-month">apr</span> -->
+                                                <img src="../../asset/emp_photos/13-0299.jpeg" class="img-fluid img-thumbnail" alt="profile">
+                                            </div>
+                                            <div class="widget-49-meeting-info">
+                                                <span class="widget-49-pro-title">${response[index].full_name}</span>
+                                                <div class="list-inline">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                                                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                                        <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                                                    </svg>
+                                                    <span class="widget-49-meeting-time ml-1 pt-2">Download Resume</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="row mb-2">
-                                            <div class="col-sm-1">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-mortarboard" viewBox="0 0 16 16">
-                                                    <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917l-7.5-3.5ZM8 8.46 1.758 5.965 8 3.052l6.242 2.913L8 8.46Z"/>
-                                                    <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466 4.176 9.032Zm-.068 1.873.22-.748 3.496 1.311a.5.5 0 0 0 .352 0l3.496-1.311.22.748L8 12.46l-3.892-1.556Z"/>
-                                                </svg>
+                                        <div class="col">
+                                            <div class="row mb-2">
+                                                <div class="col-sm-1">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-mortarboard" viewBox="0 0 16 16">
+                                                        <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917l-7.5-3.5ZM8 8.46 1.758 5.965 8 3.052l6.242 2.913L8 8.46Z"/>
+                                                        <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466 4.176 9.032Zm-.068 1.873.22-.748 3.496 1.311a.5.5 0 0 0 .352 0l3.496-1.311.22.748L8 12.46l-3.892-1.556Z"/>
+                                                    </svg>
+                                                </div>
+                                                <div class="col-sm">
+                                                    <span>${response[index].degree +' '+ response[index].major + ' - ' + response[index].institutionName}</span>
+                                                </div>
                                             </div>
-                                            <div class="col-sm">
-                                                <span>${response[index].degree +' '+ response[index].major + ' - ' + response[index].institutionName}</span>
+                                            <div class="row mb-2">
+                                                <div class="col-sm-1">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                                                        <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
+                                                    </svg>
+                                                </div>
+                                                <div class="col-sm">
+                                                    <span>${response[index].address + ', ' + response[index].city_name + ', ' + response[index].state_name}</span>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-sm-1">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-newspaper" viewBox="0 0 16 16">
+                                                        <path d="M0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 1 1 0v9a1.5 1.5 0 0 1-1.5 1.5H1.497A1.497 1.497 0 0 1 0 13.5v-11zM12 14c.37 0 .654-.211.853-.441.092-.106.147-.279.147-.531V2.5a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5v11c0 .278.223.5.497.5H12z"/>
+                                                        <path d="M2 3h10v2H2V3zm0 3h4v3H2V6zm0 4h4v1H2v-1zm0 2h4v1H2v-1zm5-6h2v1H7V6zm3 0h2v1h-2V6zM7 8h2v1H7V8zm3 0h2v1h-2V8zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1z"/>
+                                                    </svg>
+                                                </div>
+                                                <div class="col-sm">
+                                                    <span>${response[index].vacancy_name}</span>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="row mb-2">
-                                            <div class="col-sm-1">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
-                                                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
-                                                </svg>
-                                            </div>
-                                            <div class="col-sm">
-                                                <span>${response[index].address + ', ' + response[index].city_name + ', ' + response[index].state_name}</span>
-                                            </div>
+                                        <!-- <ol class="widget-49-meeting-points px-4 mt-2">
+                                            <li class="widget-49-meeting-item">
+                                                <span>
+                                                
+                                                </span>
+                                            </li>
+                                            <li class="widget-49-meeting-item"><span>Data migration is in scope</span></li>
+                                            <li class="widget-49-meeting-item"><span>Session timeout increase to 30 minutes</span></li>
+                                        </ol> -->
+                                        <div class="widget-49-meeting-action mt-4">
+                                            <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#detail_data_applicant" data-backdrop="static" data-id_applicant="${response[index].id_applicant}" data-vacancy="${response[index].id_vacancy}" data-user="${response[index].userid}" data-statusvalue="${response[index].status_name}" data-status_code="${response[index].status}" id="detail_applicant">
+                                                View All
+                                            </button>
                                         </div>
-                                        <div class="row mb-2">
-                                            <div class="col-sm-1">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-newspaper" viewBox="0 0 16 16">
-                                                    <path d="M0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 1 1 0v9a1.5 1.5 0 0 1-1.5 1.5H1.497A1.497 1.497 0 0 1 0 13.5v-11zM12 14c.37 0 .654-.211.853-.441.092-.106.147-.279.147-.531V2.5a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5v11c0 .278.223.5.497.5H12z"/>
-                                                    <path d="M2 3h10v2H2V3zm0 3h4v3H2V6zm0 4h4v1H2v-1zm0 2h4v1H2v-1zm5-6h2v1H7V6zm3 0h2v1h-2V6zM7 8h2v1H7V8zm3 0h2v1h-2V8zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1z"/>
-                                                </svg>
-                                            </div>
-                                            <div class="col-sm">
-                                                <span>${response[index].vacancy_name}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- <ol class="widget-49-meeting-points px-4 mt-2">
-                                        <li class="widget-49-meeting-item">
-                                            <span>
-                                            
-                                            </span>
-                                        </li>
-                                        <li class="widget-49-meeting-item"><span>Data migration is in scope</span></li>
-                                        <li class="widget-49-meeting-item"><span>Session timeout increase to 30 minutes</span></li>
-                                    </ol> -->
-                                    <div class="widget-49-meeting-action mt-4">
-                                        <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#detail_data_applicant" data-backdrop="static" data-id_applicant="${response[index].id_applicant}" data-vacancy="${response[index].id_vacancy}" data-user="${response[index].userid}" data-statusvalue="${response[index].status_name}" data-status_code="${response[index].status}" id="detail_applicant">
-                                            View All
-                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    `)
+                        `)
+                    }
+                    offset += limit_fetch
+                } else {
+                    $('#load-more').html('Tidak ada lagi data');
+                    $('#load-more').removeClass('btn btn-primary');
+                    $('#load-more').addClass('btn shine btn-sdk btn-primary-center-only');
+                    $('#load-more').attr('disabled', true);
                 }
                 // let card_length = $('.card_applicant').length
                 // console.log(card_length)
             }
         })
     }
+    
+    fetchAllData()
+
+    $(document).on('click', '#load-more', function(e) {
+        e.preventDefault()
+        fetchAllData()
+    })
 
     $(document).on('click', '#detail_applicant', function(e) {
         e.preventDefault()
@@ -117,7 +138,8 @@ $(document).ready(function() {
             data : {
                 vacancy:vacancy,
                 user:user,
-                status_code:status_code
+                status_code:status_code,
+                id_applicant: id_applicant
             },
             timeout: 120000,
             dataType: 'json',
@@ -301,32 +323,44 @@ $(document).ready(function() {
                 // progress stepper 
                 $('#data_list_applicant_status').empty()
                 let no_status = 1
-                $('#value_application_status').val(id_applicant)
-                $('#value_application_id').val(status_code)
+                $('#value_application_status').val(status_code)
+                $('#value_application_id').val(id_applicant)
                 $('#application_status').empty()
                 $('#application_status').append(`
                     <option value="${status_code}">${statusvalue}</option>
                 `)
-
-                for (let n = 0; n < response[6].length; n++) {
-                    let index_data = response[6].indexOf(response[6][n])
-                    let active_class = status_code >= index_data ? 'active' : '';
-                    
-                    $('#data_list_applicant_status').append(`
-                        <div class="md-step ${active_class}">
-                            <div class="md-step-circle"><span>${no_status++}</span></div>
-                            <div class="md-step-title">${response[6][n].status_name}</div>
-                            <div class="md-step-bar-left"></div>
-                            <div class="md-step-bar-right"></div>
-                        </div>
-                    `)
+                
+                if (response[6][5].active == null) {
+                    // alert(response[6][5].active)
+                    let status_progress = response[6].length - 1
+                    // alert(status_progress)
+                    for (let n = 0; n < status_progress; n++) {
+                        $('#data_list_applicant_status').append(`
+                            <div class="md-step ${response[6][n].active}">
+                                <div class="md-step-circle"><span>${no_status++}</span></div>
+                                <div class="md-step-title">${response[6][n].status_name}</div>
+                                <div class="md-step-bar-left"></div>
+                                <div class="md-step-bar-right"></div>
+                            </div>
+                        `)
+                    }
+                } else {
+                    for (let p = 0; p < response[8].length; p++) {
+                        $('#data_list_applicant_status').append(`
+                            <div class="md-step active">
+                                <div class="md-step-circle"><span>${Number(response[8][p].application_status_id) + 1}</span></div>
+                                <div class="md-step-title">${response[8][p].status_name}</div>
+                                <div class="md-step-bar-left"></div>
+                                <div class="md-step-bar-right"></div>
+                            </div>
+                        `)
+                    }
                 }
 
                 for (let o = 0; o < response[7].length; o++) {
                     $('#application_status').append(`
                         <option value="${response[7][o].id}">${response[7][o].status_name}</option>
                     `)
-                    
                 }
                 // var $step_active = $('.md-step').click(function() {
                 //     $step_active.removeClass('active');
@@ -406,14 +440,5 @@ $(document).ready(function() {
             }
         })
     })
-    
-    // var steps = $(".step");
-
-    // steps.on("click", function() {
-    //     var index = $(this).index();
-    //     steps.removeClass("active");
-    //     steps.slice(0, index + 1).addClass("active");
-    // });
-
     
 })

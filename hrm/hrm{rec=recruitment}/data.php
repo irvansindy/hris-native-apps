@@ -21,6 +21,13 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<!-- cdn pagination js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
+<!-- Include Pagination.js -->
+<link rel="stylesheet" href="https://pagination.js.org/dist/2.1.4/pagination.css">
+<script src="https://pagination.js.org/dist/2.1.4/pagination.min.js"></script>
+
+
 <!-- svg-percent-chart -->
 <link rel="stylesheet" href="source_js/svg-percent-chart/percent-chart.css"/>
 <script src="source_js/svg-percent-chart/percent-chart.js"></script>
@@ -30,39 +37,14 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <!-- data list card -->
-<div class="container-fluid overflow-auto mt-5">
-<!-- style="width: 100vw;height: 80vh; width: 98%; margin-right: 5px;overflow: scroll;overflow-x: hidden;margin-top: 17px;" -->
-	<div class="row mx-auto applicant">
-        
-    </div>
-	<!-- dummy pagination -->
-	<!-- <div id="data-container"></div>
-	<div id="pagination-container"></div> -->
-	<nav class="d-flex justify-content-center my-5" aria-label="Page navigation example">
-		<ul class="pagination pagination-lg">
-			<li class="page-item">
-				<a class="page-link" href="#" aria-label="Previous">
-					<span aria-hidden="true">«</span>
-					<span class="sr-only">Previous</span>
-				</a>
-			</li>
-			<li class="page-item">
-				<a class="page-link" href="#">1</a>
-			</li>
-			<li class="page-item">
-				<a class="page-link" href="#">2</a>
-			</li>
-			<li class="page-item">
-				<a class="page-link" href="#">3</a>
-			</li>
-			<li class="page-item">
-				<a class="page-link" href="#" aria-label="Next">
-					<span aria-hidden="true">»</span>
-					<span class="sr-only">Next</span>
-				</a>
-			</li>
-		</ul>
-	</nav>
+<div class="container-fluid overflow-auto mt-lg-5">
+	<!-- list data applicant -->
+	<div class="row mx-auto mt-lg-5 applicant" id="card-list"></div>
+
+	<!--  -->
+	<div class="d-flex justify-content-center mt-4">
+		<button class="btn btn-primary mx-auto rounded-pill" id="load-more">Tampilkan lebih banyak</button>
+	</div>
 </div>
 <!-- detail applicant data modal -->
 <div class="modal fade fade-custom" tabindex="-1" role="dialog" id="detail_data_applicant">
@@ -233,23 +215,6 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 						<button type="button" class="btn-sdk btn-primary-not-only-left" id="button-reject">Reject</button>
 						<button type="button" class="btn-sdk btn-primary-not-only-right" id="button-update">Update</button>
 					</div>
-					<!-- <div class="modal-footer-sdk">
-						<div id="status_draft">
-							<a style="<?php echo $button_status_hide_or_no; ?>; color: white;padding-top: 8px; width: 150px !important"
-								class="btn-sdk btn-primary-not-only-left" name="detail_update_draft"id="detail_update_draft">
-								&nbsp;&nbsp;Update Draft&nbsp;&nbsp;
-							</a>
-							<button class="btn-sdk btn-primary-not-only-right" type="submit" style="width: 150px !important"
-								name="detail_send_to_approver" id="detail_send_to_approver">
-								Send to Approver
-							</button>
-						</div>
-						<div id="status_after_draft" style="display:none">
-							<div type="reset" class="btn-sdk btn-primary-center-only" data-dismiss="modal" style="padding-top: 8px; color:black;" aria-hidden="true">
-								&nbsp;Close&nbsp;
-							</div>
-						</div>
-					</div> -->
 				</div>
 			</form>
 		</div>
@@ -277,33 +242,9 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 		background-color: #007bff;
 		color: #fff;
 	}
-
-	/* .pc-fill {
-		fill: #1b6fb9 !important;
-	}
-	.pc-bg {
-		fill: #1b6fb9 !important;
-	}
-	#pc-percent, #pc-actual, #pc-unit {
-		fill: #F5F5F5 !important;
-	} */
 </style>
 <script>
-	// var myStepper = new Stepper($('#stepper-example'))
 	$('#application_status').select2()
-
-	$('#application_status').on('change', function(e) {
-        if(e.keyCode == 13) {
-            e.preventDefault();
-            return false;
-        }
-        let step_length = $('.md-step').length
-		// alert(step_length)
-		for (let index = 0; index < step_length.length; index++) {
-			$('.md-step').addClass('active')
-			
-		}
-    })
 </script>
 </body>
 

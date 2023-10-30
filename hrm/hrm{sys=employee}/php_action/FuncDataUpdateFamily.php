@@ -7,6 +7,9 @@ if ($_POST) {
 
 	$validator = array('success' => false, 'messages' => array());
 
+	$inp_emp_no				= $_POST['inp_emp_no'];
+	$get_empid 				= mysqli_fetch_array(mysqli_query($connect, "SELECT emp_id FROM view_employee WHERE emp_no = '$inp_emp_no'"));
+
 	$family_empfamily_id	= addslashes($_POST['family_empfamily_id']);
 	$family_relationship	= addslashes($_POST['family_relationship']);
 	$family_name			= strtoupper(addslashes($_POST['family_name']));;
@@ -20,7 +23,7 @@ if ($_POST) {
 		$validator['success'] = true;
 		$validator['code'] = "success_message_update";
 		$validator['messages'] = "Successfully saved data";
-		$validator['employee'] = "DO177533";
+		$validator['employee'] = "$get_empid[0]";
 	}
 	// condition ends
 

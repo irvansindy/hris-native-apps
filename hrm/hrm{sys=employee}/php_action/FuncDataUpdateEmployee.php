@@ -21,7 +21,9 @@ if($_POST) {
 	$settlement_middle_name		= addslashes($_POST['settlement_middle_name']);
 	$settlement_last_name		= addslashes($_POST['settlement_last_name']);
 
-	$full_name					= $settlement_first_name.' '.$settlement_middle_name.' '.$settlement_last_name;
+	$full_name_pre					= $settlement_first_name.' '.$settlement_middle_name.' '.$settlement_last_name;
+
+	$full_name = str_replace("  "," ",$full_name_pre);
 
 	$settlement_emp_id 			= addslashes($_POST['settlement_emp_id']);
 	$settlement_emp_no 			= addslashes($_POST['settlement_emp_no']);
@@ -151,9 +153,36 @@ if($_POST) {
 												'$sql_012'
 											)";
 
+
+
+	$sql_01 = mysqli_fetch_array(mysqli_query($connect, "SELECT * FROM teodempmedical WHERE emp_id = '$settlement_emp_id'"));
+	!empty($sql_01['bloodtype'] != $settlement_bloodtype) ? $sql_011 = $settlement_bloodtype : $sql_011 = "---";
+
+	$sql_2 			= "INSERT INTO `mgtools_teodempmedical` 
+									(
+										`request_no`,
+										`emp_id`, 
+										`bloodtype`
+									) 
+										VALUES 
+											(
+												'$SFnumbercon',
+												'$settlement_emp_id', 
+												'$sql_011'
+											)";
+
 	// condition start
-	$query_0 = $connect->query($sql_0);
-	$query_1 = $connect->query($sql_1);
+	$query_0 = $connect->query($sql_0); //mgtools_view_employee
+	$query_1 = $connect->query($sql_1); //mgtools_teodempaddress
+	$query_2 = $connect->query($sql_2); //mgtools_teodempmedical
+	// condition end
+
+
+
+
+
+
+
 	if (!$list_approval_process) {
 		$validator['success'] = false;
 		$validator['code'] = "failed_message";
@@ -169,7 +198,7 @@ if($_POST) {
 	} else {
 		$validator['success'] = true;
 		$validator['code'] = "failed_message_update";
-		$validator['messages'] = "Failed saved data";		
+		$validator['messages'] = "Failed saved data $sql_0";		
 	}
 	// condition ends
 	// close the database connection

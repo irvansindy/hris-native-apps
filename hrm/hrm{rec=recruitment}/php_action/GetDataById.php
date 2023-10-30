@@ -18,7 +18,6 @@
         a.gender,
         a.phone,
         a.birthplace,
-        -- a.birthdate,
         DATE_FORMAT(a.birthdate, '%d %b %Y') AS birthdate,
         a.maritalstatus,
         a.address,

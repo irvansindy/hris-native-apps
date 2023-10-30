@@ -39,6 +39,14 @@ if($_POST) {
 	$sel_latitude       	= $_POST['sel_latitude'];
 	$sel_longitude          = $_POST['sel_longitude'];
 	$sel_pin             	= $_POST['sel_pin'];
+	//customfield
+	$sel_customfield4       = $_POST['sel_customfield4'];
+	$sel_ptkp       		= $_POST['sel_ptkp'];
+
+	$sel_bpjskes			= $_POST['sel_bpjskes'];
+	$sel_bpjspensiun		= $_POST['sel_bpjspensiun'];
+	$sel_bpjsket			= $_POST['sel_bpjsket'];
+
 
 	$full_name				= $sel_first_name.' '.$sel_middle_name.' '.$sel_last_name;
 	$sel_emp_no				= $_POST['sel_emp_no'];
@@ -92,28 +100,176 @@ if($_POST) {
 													WHERE emp_id = '$sel_emp_id'";
 
 		$sql_1 = "UPDATE `users` SET 
-													`avatar` = '$NewImageName',
-													`latitude` = '$sel_latitude',
-													`longlatitude` = '$sel_longitude',
-													`pin` = '$sel_pin'
-													WHERE username = '$sel_emp_no'";
+													`avatar` 		= '$NewImageName',
+													`latitude` 		= '$sel_latitude',
+													`longlatitude` 	= '$sel_longitude',
+													`pin` 			= '$sel_pin'
+													WHERE username 	= '$sel_emp_no'";
 
 		$sql_2 			= "UPDATE hrmempbank SET 
-													`name_inbank` = '$sel_account_name',
-													`bank` = '$sel_bank_name',
-													`cabang` = '$sel_branch',
-													`rekening` = '$sel_account_number',
-													`modified_by` = '$sel_emp_no',
+													`name_inbank` 	= '$sel_account_name',
+													`bank` 			= '$sel_bank_name',
+													`cabang` 		= '$sel_branch',
+													`rekening` 		= '$sel_account_number',
+													`modified_by` 	= '$sel_emp_no',
 													`modified_date` = '$SFdatetime'
-													WHERE emp_id = '$sel_emp_id'";
+													WHERE emp_id 	= '$sel_emp_id'";
 
+		$sql_3 			= "REPLACE INTO `mgtools_teodempcustomfield` 
+									(
+										`emp_id`,
+										`customfield4`, 
+										`customfield5`,
+										`created_by`,
+										`created_date`,
+										`modified_by`,
+										`modified_date`
+									) 
+									VALUES (
+											'$sel_emp_id',
+											'$sel_customfield4', 
+											'$sel_ptkp', 
+											'$sel_emp_no',
+											'$SFdatetime',
+											'$sel_emp_no',
+											'$SFdatetime'
+											)";
+
+		$sql_4 			= "REPLACE INTO `pay_insurance`
+								(
+									`emp_id`,
+									`component_id`,
+									`value`,
+									`company_id`,
+									`created_by`,
+									`created_date`,
+									`modified_by`,
+									`modified_date`
+								)
+								SELECT
+									'$sel_emp_id',
+									'BPJSJP',
+									'$sel_bpjspensiun',
+									'a.company_id',
+									'$sel_emp_no',
+									'$SFdatetime',
+									'$sel_emp_no',
+									'$SFdatetime'
+
+								FROM view_employee a
+								WHERE a.emp_id = '$sel_emp_id'
+								
+
+								UNION ALL
+
+								SELECT
+									'$sel_emp_id',
+									'BPJSJP_ALLOWANCE',
+									'$sel_bpjspensiun',
+									'a.company_id',
+									'$sel_emp_no',
+									'$SFdatetime',
+									'$sel_emp_no',
+									'$SFdatetime'
+
+								FROM view_employee a
+								WHERE a.emp_id = '$sel_emp_id'
+
+								";
+		
+		$sql_5 			= "REPLACE INTO `pay_insurance`
+										(
+											`emp_id`,
+											`component_id`,
+											`value`,
+											`company_id`,
+											`created_by`,
+											`created_date`,
+											`modified_by`,
+											`modified_date`
+										)
+										SELECT
+											'$sel_emp_id',
+											'BPJSKES',
+											'$sel_bpjskes',
+											'a.company_id',
+											'$sel_emp_no',
+											'$SFdatetime',
+											'$sel_emp_no',
+											'$SFdatetime'
+
+										FROM view_employee a
+										WHERE a.emp_id = '$sel_emp_id'
+
+										UNION ALL
+
+										SELECT
+											'$sel_emp_id',
+											'BPJSJHT_ALLOWANCE',
+											'$sel_bpjskes',
+											'a.company_id',
+											'$sel_emp_no',
+											'$SFdatetime',
+											'$sel_emp_no',
+											'$SFdatetime'
+
+										FROM view_employee a
+										WHERE a.emp_id = '$sel_emp_id'
+
+
+							";
+				$sql_6			= "REPLACE INTO `pay_insurance`
+										(
+											`emp_id`,
+											`component_id`,
+											`value`,
+											`company_id`,
+											`created_by`,
+											`created_date`,
+											`modified_by`,
+											`modified_date`
+										)
+										SELECT
+											'$sel_emp_id',
+											'BPJSJKK',
+											'$sel_bpjsket',
+											'a.company_id',
+											'$sel_emp_no',
+											'$SFdatetime',
+											'$sel_emp_no',
+											'$SFdatetime'
+
+										FROM view_employee a
+										WHERE a.emp_id = '$sel_emp_id'
+
+										UNION ALL
+
+										SELECT
+											'$sel_emp_id',
+											'BPJSJKK_ALLOWANCE',
+											'$sel_bpjsket',
+											'a.company_id',
+											'$sel_emp_no',
+											'$SFdatetime',
+											'$sel_emp_no',
+											'$SFdatetime'
+
+										FROM view_employee a
+										WHERE a.emp_id = '$sel_emp_id'
+
+
+										";
 
 		// condition start
 		$query_0 = $connect->query($sql_0);
 		$query_1 = $connect->query($sql_1);
 		$query_2 = $connect->query($sql_2);
+		$query_3 = $connect->query($sql_3);
+		$query_4 = $connect->query($sql_4);
+		$query_5 = $connect->query($sql_5);
+		$query_6 = $connect->query($sql_6);
 
-		if($query_0 == TRUE ) {						
+		if($query_3 == TRUE ) {						
 			$validator['success'] = true;
 			$validator['code'] = "success_message_update";
 			$validator['messages'] = "Successfully saved data";		
@@ -172,15 +328,196 @@ if($_POST) {
 													`modified_by` = '$sel_emp_no',
 													`modified_date` = '$SFdatetime'
 													WHERE emp_id = '$sel_emp_id'";
+
+		$sql_3 			= "REPLACE INTO `mgtools_teodempcustomfield` 
+									(
+										`emp_id`,
+										`customfield4`, 
+										`customfield5`,
+										`created_by`,
+										`created_date`,
+										`modified_by`,
+										`modified_date`
+									) 
+									VALUES (
+											'$sel_emp_id',
+											'$sel_customfield4', 
+											'$sel_ptkp', 
+											'$sel_emp_no',
+											'$SFdatetime',
+											'$sel_emp_no',
+											'$SFdatetime'
+											)";
+
+			$sql_4 			= "REPLACE INTO `pay_insurance`
+										(
+											`emp_id`,
+											`component_id`,
+											`value`,
+											`company_id`,
+											`created_by`,
+											`created_date`,
+											`modified_by`,
+											`modified_date`
+										)
+										SELECT
+											'$sel_emp_id',
+											'BPJSJP',
+											'$sel_bpjspensiun',
+											'a.company_id',
+											'$sel_emp_no',
+											'$SFdatetime',
+											'$sel_emp_no',
+											'$SFdatetime'
+
+										FROM view_employee a
+										WHERE a.emp_id = '$sel_emp_id'
+										
+
+										UNION ALL
+
+										SELECT
+											'$sel_emp_id',
+											'BPJSJP_ALLOWANCE',
+											'$sel_bpjspensiun',
+											'a.company_id',
+											'$sel_emp_no',
+											'$SFdatetime',
+											'$sel_emp_no',
+											'$SFdatetime'
+
+										FROM view_employee a
+										WHERE a.emp_id = '$sel_emp_id'
+
+										
+
+								";
+
+			$sql_5 			= "REPLACE INTO `pay_insurance`
+										(
+											`emp_id`,
+											`component_id`,
+											`value`,
+											`company_id`,
+											`created_by`,
+											`created_date`,
+											`modified_by`,
+											`modified_date`
+										)
+										SELECT
+											'$sel_emp_id',
+											'BPJSKES',
+											'$sel_bpjskes',
+											'a.company_id',
+											'$sel_emp_no',
+											'$SFdatetime',
+											'$sel_emp_no',
+											'$SFdatetime'
+
+										FROM view_employee a
+										WHERE a.emp_id = '$sel_emp_id'
+
+										UNION ALL
+
+										SELECT
+											'$sel_emp_id',
+											'BPJSJHT_ALLOWANCE',
+											'$sel_bpjskes',
+											'a.company_id',
+											'$sel_emp_no',
+											'$SFdatetime',
+											'$sel_emp_no',
+											'$SFdatetime'
+
+										FROM view_employee a
+										WHERE a.emp_id = '$sel_emp_id'
+
+
+							";
+
+					$sql_6			= "REPLACE INTO `pay_insurance`
+										(
+											`emp_id`,
+											`component_id`,
+											`value`,
+											`company_id`,
+											`created_by`,
+											`created_date`,
+											`modified_by`,
+											`modified_date`
+										)
+										SELECT
+											'$sel_emp_id',
+											'BPJSJKK',
+											'$sel_bpjsket',
+											'a.company_id',
+											'$sel_emp_no',
+											'$SFdatetime',
+											'$sel_emp_no',
+											'$SFdatetime'
+
+										FROM view_employee a
+										WHERE a.emp_id = '$sel_emp_id'
+
+										UNION ALL
+
+										SELECT
+											'$sel_emp_id',
+											'BPJSJKK_ALLOWANCE',
+											'$sel_bpjsket',
+											'a.company_id',
+											'$sel_emp_no',
+											'$SFdatetime',
+											'$sel_emp_no',
+											'$SFdatetime'
+
+										FROM view_employee a
+										WHERE a.emp_id = '$sel_emp_id'
+
+										UNION ALL
+										
+										SELECT
+											'$sel_emp_id',
+											'BPJSJKM',
+											'$sel_bpjsket',
+											'a.company_id',
+											'$sel_emp_no',
+											'$SFdatetime',
+											'$sel_emp_no',
+											'$SFdatetime'
+
+										FROM view_employee a
+										WHERE a.emp_id = '$sel_emp_id'
+
+										UNION ALL
+
+										SELECT
+											'$sel_emp_id',
+											'BPJSJKM_ALLOWANCE',
+											'$sel_bpjsket',
+											'a.company_id',
+											'$sel_emp_no',
+											'$SFdatetime',
+											'$sel_emp_no',
+											'$SFdatetime'
+
+										FROM view_employee a
+										WHERE a.emp_id = '$sel_emp_id'
+
+
+					";
 								
 
 		// condition start
 		$query_0 = $connect->query($sql_0);
 		$query_1 = $connect->query($sql_1);
 		$query_2 = $connect->query($sql_2);
+		$query_3 = $connect->query($sql_3);
+		$query_4 = $connect->query($sql_4);
+		$query_5 = $connect->query($sql_5);
+		$query_6 = $connect->query($sql_6);
 
-
-		if($query_0 == TRUE ) {						
+		if($query_3 == TRUE ) {						
 			$validator['success'] = true;
 			$validator['code'] = "success_message_update";
 			$validator['messages'] = "Successfully saved data";		

@@ -59,15 +59,32 @@
                                                  WHEN b.country_id = '---' THEN '---'
                                                  ELSE sub4.country_name
                                           END AS country_A,
+                                          CASE 
+                                                 WHEN b.city_id = '---' THEN '---'
+                                                 ELSE sub5a.city_name
+                                          END AS city_A,
+                                          CASE 
+                                                 WHEN b.rt = '---' THEN '---'
+                                                 ELSE b.rt
+                                          END AS rt_A,
+                                          CASE 
+                                                 WHEN b.rw = '---' THEN '---'
+                                                 ELSE b.rw
+                                          END AS rw_A,
+                                          CASE 
+                                                 WHEN b.zipcode = '---' THEN '---'
+                                                 ELSE b.zipcode
+                                          END AS zipcode_A,
                                           DATE_FORMAT(a.created_date, '%d %b %Y') as _timestamp,
                                           sub8.emp_no
                                    FROM mgtools_view_employee a
-                                   LEFT JOIN mgtools_teodempaddress b ON a.request_no=b.request_no AND B.addresstype_code='A'
+                                   LEFT JOIN mgtools_teodempaddress b ON a.request_no=b.request_no AND b.addresstype_code='A'
                                    LEFT JOIN ttamgender sub1 ON a.gender=sub1.id
                                    LEFT JOIN hrmreligion sub2 ON a.religion=sub2.religion_code
                                    LEFT JOIN teommarital sub3 ON a.maritalstatus=sub3.code
                                    LEFT JOIN hrmcountry sub4 ON b.country_id=sub4.country_id
                                    LEFT JOIN hrmstate sub5 ON b.state_id=sub5.state_id
+                                   LEFT JOIN hrmcity sub5a ON b.city_id=sub5a.city_id
                                    LEFT JOIN hrmdistrict sub6 ON b.district=sub6.district_id
                                    LEFT JOIN hrmsubdistrict sub7 ON b.subdistrict=sub7.subdistrict_id
                                    LEFT JOIN view_employee sub8 ON a.emp_id=sub8.emp_id
@@ -109,7 +126,7 @@
                      <div class="col-lg-2 name"> <label>Employee No </label><br> No. Induk</div>
                      <div class="col-lg-2 name">
                             <div class="input-group">
-                                   <?php echo $row['emp_id']; ?>
+                                   <?php echo $row['emp_no']; ?>
                             </div>
                      </div>
               </div>
@@ -138,7 +155,7 @@
                      <div class="col-lg-2 name">
                             <label>ID Number</label><br> Nomor KTP
                      </div>
-                     <div class="col-lg-6" style="margin-top: 5px;">
+                     <div class="col-lg-6 name" style="margin-top: 5px;">
                             <div class="input-group">
                                    <?php echo $row['idnumber']; ?>
                             </div>
@@ -148,7 +165,7 @@
                      <div class="col-lg-2 name">
                             <label>ID Family Number</label><br> Nomor KK
                      </div>
-                     <div class="col-lg-6" style="margin-top: 5px;">
+                     <div class="col-lg-6 name" style="margin-top: 5px;">
                             <div class="input-group">
                                    <?php echo $row['familyidnumber']; ?>
                             </div>
@@ -158,7 +175,7 @@
                      <div class="col-lg-2 name">
                             <label>Gender</label><br> Jenis Kelamin
                      </div>
-                     <div class="col-lg-6" style="margin-top: 5px;">
+                     <div class="col-lg-6 name" style="margin-top: 5px;">
                             <div class="input-group">
                                    <?php echo $row['gender_name']; ?>
                             </div>
@@ -169,7 +186,7 @@
                      <div class="col-lg-2 name">
                             <label>Blood Type</label><br> Golongan Darah
                      </div>
-                     <div class="col-lg-6" style="margin-top: 5px;">
+                     <div class="col-lg-6 name" style="margin-top: 5px;">
                             <div class="input-group">
                                    <?php echo $row['blood']; ?>
                             </div>
@@ -180,7 +197,7 @@
                      <div class="col-lg-2 name">
                             <label>Religion</label><br> Agama
                      </div>
-                     <div class="col-lg-6" style="margin-top: 5px;">
+                     <div class="col-lg-6 name" style="margin-top: 5px;">
                             <div class="input-group">
                                    <?php echo $row['religion_name_en']; ?>
                             </div>
@@ -192,7 +209,7 @@
                      <div class="col-lg-2 name">
                             <label>Marital Status</label><br> Status Perkawinan
                      </div>
-                     <div class="col-lg-6" style="margin-top: 5px;">
+                     <div class="col-lg-6 name" style="margin-top: 5px;">
                             <div class="input-group">
                                    <?php echo $row['marital_en']; ?>
                             </div>
@@ -203,7 +220,7 @@
                      <div class="col-lg-2 name">
                             <label>Nationality</label><br> Kebangsaan
                      </div>
-                     <div class="col-lg-6" style="margin-top: 5px;">
+                     <div class="col-lg-6 name" style="margin-top: 5px;">
                             <div class="input-group">
                                    <?php echo $row['nationality']; ?>
                             </div>
@@ -214,7 +231,7 @@
                      <div class="col-lg-2 name">
                             <label>Phone Number</label><br> Nomor Telepon
                      </div>
-                     <div class="col-lg-6" style="margin-top: 5px;">
+                     <div class="col-lg-6 name" style="margin-top: 5px;">
                             <div class="input-group">
                                    <?php echo $row['phone']; ?>
                             </div>
@@ -225,7 +242,7 @@
                      <div class="col-lg-2 name">
                             <label>Personal Email</label><br> Surel Pribadi
                      </div>
-                     <div class="col-lg-6" style="margin-top: 5px;">
+                     <div class="col-lg-6 name" style="margin-top: 5px;">
                             <div class="input-group">
                                    <?php echo $row['email_personal']; ?>
                             </div>
@@ -236,7 +253,7 @@
                      <div class="col-lg-2 name">
                             <label>Office Email</label> Surel Kantor
                      </div>
-                     <div class="col-lg-6" style="margin-top: 5px;">
+                     <div class="col-lg-6 name" style="margin-top: 5px;">
                             <div class="input-group">
                                    <?php echo $row['email']; ?>
                             </div>
@@ -274,6 +291,15 @@
                      </div>
 
                      <div class="col-lg-2 name">
+                            <label>City</label><br> Kota/Kabupaten
+                     </div>
+                     <div class="col-lg-2 name" style="margin-top: 5px;">
+                            <div class="input-group">
+                                   <?php echo $row['city_A']; ?>
+                            </div>
+                     </div>
+
+                     <div class="col-lg-2 name" style="display: none;">
                             <label>District</label><br> Kelurahan
                      </div>
                      <div class="col-lg-2 name" style="margin-top: 5px;">
@@ -289,7 +315,34 @@
                      </div>
                      <div class="col-lg-2 name" style="margin-top: 5px;">
                             <div class="input-group">
-                                   <?php echo $row['sub_district_name_A']; ?>
+                                   <?php echo $row['district_name_A']; ?>
+                            </div>
+                     </div>
+
+                     <div class="col-lg-2 name">
+                            <label>Postal Code</label><br> Kode Pos
+                     </div>
+                     <div class="col-lg-2 name" style="margin-top: 5px;">
+                            <div class="input-group">
+                                   <?php echo $row['zipcode_A']; ?>
+                            </div>
+                     </div>
+
+                     <div class="col-lg-1 name">
+                            <label>RT</label><br> rt
+                     </div>
+                     <div class="col-lg-1 name" style="margin-top: 5px;">
+                            <div class="input-group">
+                                   <?php echo $row['rt_A']; ?>
+                            </div>
+                     </div>
+
+                     <div class="col-lg-1 name">
+                            <label>RW</label><br> rw
+                     </div>
+                     <div class="col-lg-1 name" style="margin-top: 5px;">
+                            <div class="input-group">
+                                   <?php echo $row['rw_A']; ?>
                             </div>
                      </div>
               </div>

@@ -36,6 +36,10 @@ if($_POST) {
 	$inp_account_number     	= $_POST['inp_account_number'];
 	$inp_zipcode            	= $_POST['inp_zipcode'];
 
+	//customfield
+	$sel_customfield4       = $_POST['sel_customfield4'];
+	$sel_ptkp       		= $_POST['sel_ptkp'];
+
 	$full_name			= $inp_first_name.' '.$inp_middle_name.' '.$inp_last_name;
 	$inp_emp_no			= $_POST['inp_emp_no'];
 
@@ -162,7 +166,7 @@ if($_POST) {
 																'$inp_zipcode',
 																'--24',
 																'$inp_emp_id',
-																'--26',
+																'$inp_joindate',
 																'--27',
 																'--28',
 																'$inp_employ_code',
@@ -180,7 +184,7 @@ if($_POST) {
 																'$inp_position_id',
 																'--42',
 																'--43',
-																'--44',
+																'$inp_position_id',
 																'--45',
 																'--46',
 																'--47',
@@ -331,14 +335,14 @@ if($_POST) {
 																'$SFdatetime'
 															)";
 
-		$sql_5 = "INSERT INTO `users_menu_access` (
-															`emp_no`, 
-															`formula`, 
-															`is_acccessgroup_use`) 
-														VALUES (
-																'$inp_emp_id', 
-																'$dbsetting_var2', 
-																'DefaultAccess')";
+		// $sql_5 = "INSERT INTO `users_menu_access` (
+		// 													`emp_no`, 
+		// 													`formula`, 
+		// 													`is_acccessgroup_use`) 
+		// 												VALUES (
+		// 														'$inp_emp_id', 
+		// 														'$dbsetting_var2', 
+		// 														'DefaultAccess')";
 
 		$sql_6 = "INSERT INTO `teodempcustomfield` (
 															`emp_id`,
@@ -348,15 +352,54 @@ if($_POST) {
 																'$inp_emp_id', 
 																'$inp_idnumber', 
 																'$inp_religion')";
+		
+		$sql_7 = "INSERT IGNORE INTO users_menu_access
+													SELECT
+														A.emp_no,
+														B.menu_id,
+														'0',
+														'15136'
+													FROM view_employee A
+													LEFT JOIN hrmmenu B ON B.menu_id <> '99'
+													WHERE A.emp_no = '$inp_emp_id' AND B.menu_id IN ('1','113','115','2','24','4','43','5', '549', '7','8', '9')";
+
+		$sql_8 			= "INSERT INTO `mgtools_teodempcustomfield` 
+										(
+											`emp_id`,
+											`customfield4`, 
+											`customfield5`,
+											`created_by`,
+											`created_date`,
+											`modified_by`,
+											`modified_date`
+										) 
+										VALUES (
+												'$inp_emp_id',
+												'$sel_customfield4', 
+												'$sel_ptkp', 
+												'$username',
+												'$SFdatetime',
+												'$username',
+												'$SFdatetime'
+												)";
+
+
+													
 	
 	// condition start
 	$query_0 = $connect->query($sql_0);
 	$query_1 = $connect->query($sql_1);
 	$query_2 = $connect->query($sql_2);
 	$query_3 = $connect->query($sql_3); 
-	$query_4 = $connect->query($sql_4); 
+	$query_4 = $connect->query($sql_4);
+	$query_6 = $connect->query($sql_6);
+	$query_7 = $connect->query($sql_7); 
+ 
 
-	if($query_0 == TRUE && $query_1 == TRUE ) {						
+	if($query_0 == TRUE && $query_1 == TRUE ) {		
+
+		$query_8 = $connect->query($sql_8); 
+
 		$validator['success'] = true;
 		$validator['code'] = "success_message";
 		$validator['messages'] = "Successfully saved data";		

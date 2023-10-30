@@ -12,8 +12,8 @@
     ];
 
     // set variable
+    $date = date('Y:m:d h:i:s');
     $json_data = json_decode($_POST['json_data']);
-
     $applicant_number = $_POST['value_application_id'];
     $status_data = $_POST['application_status'];
     $status = $status_data = NULL ? 5 : $status_data;
@@ -26,10 +26,25 @@
             WHERE id_applicant = '$applicant_number'
         ";
 
-        // var_dump($query_reject_update_applicant);
         $exe_query_reject_update_applicant = $connect->query($query_reject_update_applicant);
+
+        $query_add_log_applicant_detail = "INSERT INTO `employer_applicant_detail` (
+            `employer_applicant_id`,
+            `application_status_id`,
+            `created_at`,
+            `updated_at`
+        ) VALUES (
+            '$applicant_number',
+            '$status',
+            '$date',
+            '$date'
+        )";
         
-        if ($exe_query_reject_update_applicant == FALSE) {
+        $exe_query_add_log_applicant_detail = $connect->query($query_add_log_applicant_detail);
+
+        print_r($query_add_log_applicant_detail);
+
+        if ($exe_query_reject_update_applicant == FALSE || $exe_query_add_log_applicant_detail == FALSE) {
             http_response_code(400);
             // rollback for error response
             mysqli_rollback($connect);

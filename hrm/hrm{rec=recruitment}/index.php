@@ -23,7 +23,76 @@ $footer = 'no'; //set as `yes` if you want to use default footer & set as `no` i
 <!-- ============================================================== -->
 <!-- Page wrapper  -->
 <!-- ============================================================== -->
+<!-- filter modal -->
+<div class="modal right fade in" id="form_search_filter" tabindex="-1" role="dialog" aria-labelledby="FormSearchFilter" data-backdrop="false">
+    <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                    <div class="modal-body">
+                        <a type="button" class="close" onclick="return stopload()" data-dismiss="modal" aria-label="Close" style="margin-top: -15px;">
+                            <span aria-hidden="true" style="color: black;"><img src="../../asset/dist/img/icons/icon_del.png"></span>
+                        </a>
+                        <form method="post" id="myform">
+                            <fieldset id="fset_1" style="margin-top: 25px;border-radius: 5px;border: 1px solid #e4e8ea;">
+                                    <legend>Searching</legend>
+                                    <div class="form-row">
+                                        <div class="col-4 name">City Location </div>
+                                        <div class="col-sm-8">
+                                            <div class="input-group">
+                                                <select class="input--style-6 search_select2" name="search_city" id="search_city" style="width: 100%;height: 30px;"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-4 name">Education </div>
+                                        <div class="col-sm-8">
+                                            <div class="input-group">
+                                                <select class="input--style-6 search_select2" name="search_education" id="search_education" style="width: 100%;height: 30px;"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="form-row">
+                                        <div class="col-4 name">Expected Salary </div>
+                                        <div class="col-sm-8">
+                                            <div class="input-group">
+                                                <input class="input--style-6" autocomplete="off" autofocus="on" id="search_expected_salary" name="search_expected_salary" type="Number" size="30" maxlength="50" validate="NotNull:Invalid Form Entry" value=""
+                                                min='0' type="number" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="form-row">
+                                        <div class="col-4 name">Gender </div>
+                                        <div class="col-sm-8">
+                                            <div class="input-group">
+                                                <input class="input--style-6" autocomplete="off" autofocus="on" id="search_gender" name="search_gender" type="Text" size="30" maxlength="50" validate="NotNull:Invalid Form Entry" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-4 name">Religion </div>
+                                        <div class="col-sm-8">
+                                            <div class="input-group">
+                                                <input class="input--style-6" autocomplete="off" autofocus="on" id="search_religion" name="search_religion" type="Text" size="30" maxlength="50" validate="NotNull:Invalid Form Entry" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-4 name">Applicant Status </div>
+                                        <div class="col-sm-8">
+                                            <div class="input-group">
+                                                <select class="input--style-6 search_select2" name="search_status" id="search_status" style="width: 100%;height: 30px;"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </fieldset>
+                            <button type="button" name="submit_search" id="submit_search" type="button" class="btn btn-warning button_bot">
+                                Filter
+                            </button>
+                        </form>
+                    </div>
 
+            </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div>
 <!-- <div style="width: 100vw;height: 100vh;overflow-x: hidden;"> -->
 <div style="width: 100vw;height: 100vh;overflow-x: hidden;">
 
@@ -36,14 +105,14 @@ $footer = 'no'; //set as `yes` if you want to use default footer & set as `no` i
                 </ol>
             </div>
 
-            <!-- <div class="card-actions ml-auto" style="margin-top: -3px;">
+            <div class="card-actions ml-auto" style="margin-top: -3px;">
                 <table>
                     <tbody>
                         <tr>
                             <td>
-                                <a href="#" class="open_modal_search" title="First Step For Add Suggestion Innovation" data-toggle="modal" data-target="#CreateForm" id="create_data_Suggestion" data-keyboard="false" data-backdrop="static">
-                                    <div class="toolbar sprite-toolbar-add">
-                                    </div>
+                                <a href="#" class="open_modal_search pull-right" id="search_applicant" data-toggle="modal" data-target="#form_search_filter">
+                                    <div class="toolbar sprite-toolbar-search" title="Search"></div>
+                                    <!-- <span class="toolbar sprite-toolbar-search"></span> -->
                                 </a>
                             </td>
                             <td>
@@ -53,7 +122,7 @@ $footer = 'no'; //set as `yes` if you want to use default footer & set as `no` i
                         </tr>
                     </tbody>
                 </table>
-            </div> -->
+            </div>
         </div>
     </div>
 
@@ -369,8 +438,3 @@ $footer = 'no'; //set as `yes` if you want to use default footer & set as `no` i
 
 <!-- fetch all data -->
 <script type="module" src="source_js/fetch_data.js"></script>
-
-
-<!-- pagination -->
-<link rel="stylesheet" href="source_js/pagination_js/dist/pagination.css"/>
-<script src="source_js/pagination_js/dist/pagination.js"></script>

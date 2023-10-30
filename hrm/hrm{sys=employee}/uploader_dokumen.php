@@ -1,5 +1,6 @@
-<?php include "../../application/session/session.php";?>
-<?php 
+<?php
+require_once '../../application/config.php';
+
 date_default_timezone_set('Asia/Bangkok'); 
 	
 $SFdate                 = date("Y-m-d");
@@ -708,7 +709,7 @@ $(document).ready(function() {
        $(".open_modal_search").click(function(e) {
               var m = $(this).attr("id");
               $.ajax({
-                     url: "modal_search.php?id=1&username=<?php echo $username; ?>",
+                     url: "modal_search.php<?php echo $getPackage; ?>id=1&username=<?php echo $username; ?>",
                      type: "POST",
                      data: {
                             id: m,
@@ -731,7 +732,7 @@ $(document).ready(function() {
        $(".open_modal_search2").click(function(e) {
               var m = $(this).attr("id");
               $.ajax({
-                     url: "modal_search.php?id=2&username=<?php echo $username; ?>",
+                     url: "modal_search.php<?php echo $getPackage; ?>id=2&username=<?php echo $username; ?>",
                      type: "POST",
                      data: {
                             id: m,
@@ -754,7 +755,7 @@ $(document).ready(function() {
        $(".open_modal_search3").click(function(e) {
               var m = $(this).attr("id");
               $.ajax({
-                     url: "modal_search.php?id=3&username=<?php echo $username; ?>",
+                     url: "modal_search.php<?php echo $getPackage; ?>id=3&username=<?php echo $username; ?>",
                      type: "POST",
                      data: {
                             id: m,
@@ -777,7 +778,7 @@ $(document).ready(function() {
        $(".open_modal_search5").click(function(e) {
               var m = $(this).attr("id");
               $.ajax({
-                     url: "modal_search.php?id=5&username=<?php echo $username; ?>",
+                     url: "modal_search.php<?php echo $getPackage; ?>id=5&username=<?php echo $username; ?>",
                      type: "POST",
                      data: {
                             id: m,

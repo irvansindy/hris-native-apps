@@ -7,6 +7,12 @@
     // response json
     $limit_fetch = $_GET['limit_fetch'];
     $offset = $_GET['offset'];
+    $search_city = $_GET['search_city'];
+    $search_education = $_GET['search_education'];
+    $search_expected_salary = $_GET['search_expected_salary'];
+    $search_gender = $_GET['search_gender'];
+    $search_religion = $_GET['search_religion'];
+    $search_status = $_GET['search_status'];
 
     $query_fetch_data = "SELECT
 	a.id_applicant,
@@ -17,6 +23,7 @@
     a.status,
     b.full_name,
     b.gender,
+    b.religion,
     b.photo,
     b.phone,
     b.address,
@@ -40,13 +47,39 @@
         ON b.state_id = f.state_id
     LEFT JOIN application_status g
         ON a.status = g.id
-    GROUP BY a.id_applicant
-    -- GROUP BY a.userid 
-    -- and a.id_vacancy
+        WHERE a.applied_at BETWEEN (CURDATE() - INTERVAL 90 DAY) AND CURDATE()
+        ";
+
+    if (!empty($search_city)) {
+        $query_fetch_data .= "AND e.city_name LIKE '%$search_city%' ";
+    }
+
+    if (!empty($search_education)) {
+        $query_fetch_data .= "AND c.major LIKE '%$search_education%' ";
+    }
+
+    // if (!empty($search_expected_salary)) {
+    //     $query_fetch_data .= "";
+    // }
+
+    if (!empty($search_gender)) {
+        $query_fetch_data .= "AND b.gender LIKE '%$gender%' ";
+    }
+
+    if (!empty($search_religion)) {
+        $query_fetch_data .= "AND b.religion LIKE '%$search_religion%' ";
+    }
+
+    if (!empty($search_status)) {
+        $query_fetch_data .= "AND g.status_name LIKE '%$search_status%' ";
+    }
+
+    $query_fetch_data .= " GROUP BY a.id_applicant
     ORDER BY applied_time DESC
     LIMIT $limit_fetch
-    OFFSET $offset
-        ";
+    OFFSET $offset";
+
+    // print_r($query_fetch_data);
 
     $result = mysqli_fetch_all(mysqli_query($connect, $query_fetch_data), MYSQLI_ASSOC);
 

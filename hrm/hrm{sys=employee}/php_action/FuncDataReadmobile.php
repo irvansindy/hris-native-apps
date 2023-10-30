@@ -6,7 +6,6 @@ if ($getdata == 0) {
 } else {
        include "../../../application/session/mobile.session.php";
 }
-
 require_once '../../../application/config.php';
 $user = $_GET['username'];
 require_once '../../../model/gen_auth_data/_auth_data.php';
@@ -21,20 +20,10 @@ $query = mysqli_query($connect, $sql);
 $x = 1;
 while ($row = mysqli_fetch_assoc($query)) {
 
-	$rmintf = '<a href="" type="button" nowrap="nowrap" data-toggle="modal" data-target="#UpdateForm" data-backdrop="static" onclick="editMember(`'.$row['emp_no'].'`)">'.$row['emp_no'].'</a> ';
+	$rmintf = '<img src="../../asset/emp_photos/'.$row['photo'].'" alt="user" class="profile-pic rounded-circle" width="30"> <a type="button" nowrap="nowrap" data-toggle="modal" data-target="#UpdateForm" data-backdrop="static" style="color: orange; border: 5px; cursor:pointer;font-weight: bold;font-size: 13px;" onclick="editMember(`'.$row['emp_no'].'`)">'.$row['emp_no'].'</a>  <br> <label style="padding-top: 4px;color: #A5B0B7 !important;">'.$row['Full_Name'].' </label>';
 
 	$output['data'][] = array(
-	 $x,
-        $rmintf,
-        $row['Full_Name'],
-        $row['gender_name'],
-        $row['pos_name_en'],
-        $row['join_date'],
-        $row['worklocation_name'],
-        $row['grade_code'],
-        $row['email'],
-        $urgent,
-        $row['end_date']
+		$rmintf
 	);
 
 	$x++;

@@ -2,25 +2,27 @@
        <?php
        include "../../../application/config.php";
        $rfid = $_GET['rfid'];
+       $emp_no = mysqli_fetch_array(mysqli_query($connect, "SELECT emp_no FROM view_employee WHERE emp_id = '$rfid'"));
        //$modal_id = '1';
        $modal = mysqli_query($connect, "SELECT 
-                                          a.request_no,
-                                          b.sts_approval,
-                                          c.name_en,
-                                          DATE_FORMAT(a.created_date, '%d %b %Y') as _timestamp
-                                   FROM mgtools_view_employee a
-                                   LEFT JOIN 
-                                          (
-                                                 SELECT 
-                                                        sub1.request_no,
-                                                        MAX(sub1.request_status) AS sts_approval
-                                                        FROM hrmrequestapproval sub1
-                                                        GROUP BY sub1.request_no
-                                          ) b ON a.request_no=b.request_no
+                                                 a.request_no,
+                                                 b.sts_approval,
+                                                 d.approval_list,
+                                                 c.name_en,
+                                                 DATE_FORMAT(a.created_date, '%d %b %Y') as _timestamp
+                                          FROM mgtools_view_employee a
+                                          LEFT JOIN 
+                                                 (
+                                                        SELECT 
+                                                               sub1.request_no,
+                                                               MAX(sub1.request_status) AS sts_approval
+                                                               FROM hrmrequestapproval sub1
+                                                               GROUP BY sub1.request_no
+                                                 ) b ON a.request_no=b.request_no
                                           LEFT JOIN hrmstatus c on b.sts_approval=c.code
-                                   WHERE a.emp_id = '$rfid'
-                                   GROUP BY a.request_no
-                                   ORDER BY a.request_no DESC");
+                                          LEFT JOIN hrmrequestapproval d ON b.request_no=d.request_no
+                                          WHERE d.approval_list = '$emp_no[emp_no]'
+                                          ORDER BY a.request_no DESC");
 
        while ($row = mysqli_fetch_array($modal)) {
 

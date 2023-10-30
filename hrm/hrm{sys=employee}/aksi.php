@@ -1,12 +1,26 @@
-<?php include "../../application/session/session.php";?>
 <?php
+echo 'da';
+    require_once '../../application/config.php';
+    // !empty($_GET['emp_id']) ? $getdata = '1' : $getdata = '0';
+    // if ($getdata == 0) {
+    //     include "../../application/session/session.php";
+    // } else {
+    //     include "../../application/session/mobile.session.php";
+    // }
+
+// echo 'da';
+// echo $_GET['proc'];
+
 if($_GET['proc'] == '1'){
+    
     $nama = $_POST['nama'];
     $sel = mysqli_fetch_array(mysqli_query($connect, "SELECT * FROM mgtools_attachment WHERE id = '$nama' or attachment LIKE '%$nama%' and document_file = '1'"));
     $sel_r = $sel['attachment'];
     $Path = "../../asset/list_document/$sel_r";
     if (unlink($Path)) {    
-        mysqli_query($connect, "DELETE FROM mgtools_attachment WHERE id = '$nama' or attachment LIKE '%$nama%' and document_file = '1'");
+        mysqli_query($connect, "DELETE FROM mgtools_attachment WHERE (id = '$nama' or attachment LIKE '%$nama%') and document_file = '1'");
+    } else {
+        mysqli_query($connect, "DELETE FROM mgtools_attachment WHERE (id = '$nama' or attachment LIKE '%$nama%') and document_file = '1'");
     }
 
 } else if($_GET['proc'] == '2'){
@@ -52,6 +66,8 @@ if($_GET['proc'] == '1'){
     $sel_r = $sel['attachment'];
     $Path = "../../asset/list_document/$sel_r";
     if (unlink($Path)) {    
+        mysqli_query($connect, "DELETE FROM mgtools_attachment WHERE id = '$nama' or attachment LIKE '%$nama%' and document_file = '1'");
+    } else {
         mysqli_query($connect, "DELETE FROM mgtools_attachment WHERE id = '$nama' or attachment LIKE '%$nama%' and document_file = '1'");
     }
     

@@ -37,15 +37,15 @@ $get_auth = mysqli_fetch_array(mysqli_query($connect, "SELECT COUNT(*) as access
         if ($platform != 'mobile') {
         ?>
 
-            <div class="row page-titles">
-                <div class="col-md-5 col-12 align-self-center">
-                    <h3 class="text-themecolor mb-0">Organization Structure</h3>
-                    <ol class="breadcrumb mb-0 p-0 bg-transparent">
-                        <li class="breadcrumb-item"><a href="../hrm{sys=emp.dashboard}/">Home&nbsp;&nbsp;</a></li>
-                        <li><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;Leave Request</li>
-                    </ol>
-                </div>
+        <div class="row page-titles">
+            <div class="col-md-5 col-12 align-self-center">
+                <h3 class="text-themecolor mb-0">Organization Structure</h3>
+                <ol class="breadcrumb mb-0 p-0 bg-transparent">
+                    <li class="breadcrumb-item"><a href="../hrm{sys=emp.dashboard}/">Home&nbsp;&nbsp;</a></li>
+                    <li><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;Leave Request</li>
+                </ol>
             </div>
+        </div>
 
         <?php } else if ($platform == 'mobile') { ?>
 
@@ -65,27 +65,28 @@ $get_auth = mysqli_fetch_array(mysqli_query($connect, "SELECT COUNT(*) as access
                     <div class="row">
 
                         <!-- Column -->
-                        <form name="myForm" id="myForm" action="data.php" method="post" target="popupwindow" onsubmit=" return validateForm(), window.open('data.php', 'popupwindow', 'scrollbars=yes,toolbar=no,width=800,height=400');">
+                        <form name="myForm" id="myForm" action="data.php" method="post" target="popupwindow"
+                            onsubmit=" return validateForm(), window.open('data.php', 'popupwindow', 'scrollbars=yes,toolbar=no,width=800,height=400');">
                             <fieldset id="fset_1">
-                                   <legend>View Structure</legend>
-
-                                 
-                                   <div class="form-row">
-                                          <div class="col-4 name"> </div>
-                                          <div class="col-sm-8" style="text-align: right;">
-                                                 <div class="input-group">
-                                                 <input class="btn btn-rounded btn-warning btn-sm text-white d-inline-block"
-                                   type="button" value="Open a Popup Window" 
-                                   onclick="window.open('data','popUpWindow','width=800,height=400,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no, status=yes');">
-                                                 </div>
-                                          </div>
-                                   </div>
+                                <legend>View Structure</legend>
 
 
-                                   
+                                <div class="form-row">
+                                    <div class="col-4 name"> </div>
+                                    <div class="col-sm-8" style="text-align: right;">
+                                        <div class="input-group">
+                                            <input class="btn btn-rounded btn-warning btn-sm text-white d-inline-block"
+                                                type="button" value="Open a Popup Window"
+                                                onclick="window.open('data','popUpWindow','width=800,height=400,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no, status=yes');">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
 
                             </fieldset>
-                     </form>
+                        </form>
                         <!-- Column -->
                     </div>
                 </div>

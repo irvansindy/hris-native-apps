@@ -42,7 +42,7 @@
         
         $exe_query_add_log_applicant_detail = $connect->query($query_add_log_applicant_detail);
 
-        print_r($query_add_log_applicant_detail);
+        // print_r($query_add_log_applicant_detail);
 
         if ($exe_query_reject_update_applicant == FALSE || $exe_query_add_log_applicant_detail == FALSE) {
             http_response_code(400);

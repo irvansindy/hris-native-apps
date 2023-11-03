@@ -17,15 +17,8 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 
 ?>
 
-<!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<!-- cdn pagination js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
-<!-- Include Pagination.js -->
-<link rel="stylesheet" href="https://pagination.js.org/dist/2.1.4/pagination.css">
-<script src="https://pagination.js.org/dist/2.1.4/pagination.min.js"></script>
 
 <!-- svg-percent-chart -->
 <link rel="stylesheet" href="source_js/svg-percent-chart/percent-chart.css"/>
@@ -41,8 +34,8 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 	<div class="row mx-auto mt-lg-5 applicant" id="card-list"></div>
 
 	<!--  -->
-	<div class="d-flex justify-content-center mt-4">
-		<button class="btn btn-primary mx-auto rounded-pill" id="load-more">Tampilkan lebih banyak</button>
+	<div class="d-flex justify-content-center mt-4 for-load-more">
+		
 	</div>
 	
 	<!-- detail applicant data modal -->
@@ -222,6 +215,68 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 
 	
 </div>
+
+<!-- filter modal -->
+<div class="modal fade right in" id="form_search_filter" tabindex="-1" role="dialog" aria-labelledby="FormSearchFilter" data-backdrop="false" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                    <div class="modal-body">
+                        <a type="button" class="close" onclick="return stopload()" data-dismiss="modal" aria-label="Close" style="margin-top: -15px;">
+                            <span aria-hidden="true" style="color: black;"><img src="../../asset/dist/img/icons/icon_del.png"></span>
+                        </a>
+                        <form method="post" id="myform">
+                            <fieldset id="fset_1" style="margin-top: 25px;border-radius: 5px;border: 1px solid #e4e8ea;">
+                                    <legend>Searching</legend>
+                                    <div class="form-row">
+                                        <div class="col-4 name">City Location </div>
+                                        <div class="col-sm-8">
+                                            <div class="input-group">
+                                                <select class="input--style-6 search_select2" name="search_city" id="search_city" style="width: 100%;height: 30px;"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-4 name">Education </div>
+                                        <div class="col-sm-8">
+                                            <div class="input-group">
+                                                <select class="input--style-6 search_select2" name="search_education" id="search_education" style="width: 100%;height: 30px;"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-4 name">Gender </div>
+                                        <div class="col-sm-8">
+                                            <div class="input-group">
+                                                <input class="input--style-6" autocomplete="off" autofocus="on" id="search_gender" name="search_gender" type="Text" size="30" maxlength="50" validate="NotNull:Invalid Form Entry" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-4 name">Religion </div>
+                                        <div class="col-sm-8">
+                                            <div class="input-group">
+                                                <input class="input--style-6" autocomplete="off" autofocus="on" id="search_religion" name="search_religion" type="Text" size="30" maxlength="50" validate="NotNull:Invalid Form Entry" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-4 name">Applicant Status </div>
+                                        <div class="col-sm-8">
+                                            <div class="input-group">
+                                                <select class="input--style-6 search_select2" name="search_status" id="search_status" style="width: 100%;height: 30px;"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </fieldset>
+                            <button type="button" name="submit_search" id="submit_search" type="button" class="btn btn-warning button_bot">
+                                Filter
+                            </button>
+                        </form>
+                    </div>
+
+            </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div>
 <style>
 	.stepper {
 		display: flex;
@@ -251,6 +306,9 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
     position: absolute;
 	}
 
+	.download-resume:hover{
+		cursor: pointer;
+	}
 </style>
 <script>
 	$('#application_status').select2({
@@ -259,9 +317,6 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 	$('.search_select2').select2({
 		dropdownParent: $('#form_search_filter')
 	})
-	// $('#search_city').select2()
-	// $('#search_education').select2()
-	// $('#search_status').select2()
 	
 </script>
 </body>

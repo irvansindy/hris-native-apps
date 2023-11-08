@@ -17,9 +17,6 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 
 ?>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 <!-- svg-percent-chart -->
 <link rel="stylesheet" href="source_js/svg-percent-chart/percent-chart.css"/>
 <script src="source_js/svg-percent-chart/percent-chart.js"></script>
@@ -217,7 +214,7 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 </div>
 
 <!-- filter modal -->
-<div class="modal fade right in" id="form_search_filter" tabindex="-1" role="dialog" aria-labelledby="FormSearchFilter" data-backdrop="false" aria-hidden="true">
+<div class="modal fade right" id="form_search_filter" tabindex="-1" role="dialog" aria-labelledby="FormSearchFilter" data-backdrop="false" aria-hidden="true">
     <div class="modal-dialog" role="document">
             <div class="modal-content">
                     <div class="modal-body">

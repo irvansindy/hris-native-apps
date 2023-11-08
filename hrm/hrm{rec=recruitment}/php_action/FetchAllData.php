@@ -13,6 +13,7 @@
     $search_gender = $_GET['search_gender'];
     $search_religion = $_GET['search_religion'];
     $search_status = $_GET['search_status'];
+    $ordering = $_GET['ordering'];
 
     $query_fetch_data = "SELECT
 	a.id_applicant,
@@ -74,10 +75,15 @@
         $query_fetch_data .= "AND g.status_name LIKE '%$search_status%' ";
     }
 
-    $query_fetch_data .= " GROUP BY a.id_applicant
-    ORDER BY applied_time DESC
-    LIMIT $limit_fetch
-    OFFSET $offset";
+    $query_fetch_data .= "GROUP BY a.id_applicant ";
+
+    if (!empty($ordering)) {
+        $query_fetch_data .= " ORDER BY a.status $ordering ";
+    } else {
+        $query_fetch_data .= " ORDER BY applied_time DESC ";
+    }
+    
+    $query_fetch_data .= "LIMIT " . $limit_fetch . " OFFSET " . $offset;
 
     // print_r($query_fetch_data);
 

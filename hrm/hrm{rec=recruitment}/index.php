@@ -24,15 +24,23 @@ $footer = 'no'; //set as `yes` if you want to use default footer & set as `no` i
 <!-- Page wrapper  -->
 <!-- ============================================================== -->
 
-<!-- <div style="width: 100vw;height: 100vh;overflow-x: hidden;"> -->
+<!-- font awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <div style="width: 100vw;height: 100vh;overflow-x: hidden;">
 
-    <div id="new-header" style="z-index: 10;background: #eceaea;position: fixed;width: 100%;margin-top: 111px;height: 30px;padding: 5px;" mb-4>
+    <div id="new-header"
+        style="z-index: 10;background: #eceaea;position: fixed;width: 100%;margin-top: 111px;height: 30px;padding: 5px;"
+        mb-4>
         <div class="row page-titles" style="margin-top: -16px;">
             <div class="col-md-5 col-12 align-self-center">
                 <ol class="breadcrumb mb-0 p-0 bg-transparent">
                     <li class="digital" style="font-size: 12px;">Recruitment&nbsp;&nbsp;</li>
-                    <li class="digital" style="font-size: 12px;"><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;Applicant</li>
+                    <li class="digital" style="font-size: 12px;"><i class="fa fa-angle-right"
+                            aria-hidden="true"></i>&nbsp;Applicant</li>
                 </ol>
             </div>
 
@@ -41,13 +49,28 @@ $footer = 'no'; //set as `yes` if you want to use default footer & set as `no` i
                     <tbody>
                         <tr>
                             <td>
-                                <a href="#" class="open_modal_search pull-right" id="search_applicant" data-toggle="modal" data-target="#form_search_filter">
+                                <div class="dropdown">
+                                    <div class="toolbar sprite-toolbar-reorder dropdown" type="button"
+                                        id="sorting_status" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                    </div>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="sorting_status">
+                                        <strong class="dropdown-header">Status Applicant</strong>
+                                        <a class="dropdown-item" id="sort_ascending" data-ascending="ASC">A to Z (Ascending)</a>
+                                        <a class="dropdown-item" id="sort_descending" data-descending="DESC">Z to A (Descending)</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="#" class="open_modal_search pull-right" id="search_applicant"
+                                    data-toggle="modal" data-target="#form_search_filter">
                                     <div class="toolbar sprite-toolbar-search" title="Search"></div>
                                     <!-- <span class="toolbar sprite-toolbar-search"></span> -->
                                 </a>
                             </td>
                             <td>
-                                <div class="toolbar sprite-toolbar-reload" id="RELOAD" title="Reload" onclick="window.location.reload();">
+                                <div class="toolbar sprite-toolbar-reload" id="RELOAD" title="Reload"
+                                    onclick="window.location.reload();">
                                 </div>
                             </td>
                         </tr>
@@ -89,283 +112,293 @@ $footer = 'no'; //set as `yes` if you want to use default footer & set as `no` i
     <!-- ============================================================== -->
     <!-- ============================================================== -->
 
-    <?php include "../template/sys.footer.php"; ?>
+    <!-- <?php include "../template/sys.footer.php"; ?> -->
 
-<style>
-    .card-margin {
-        margin-bottom: 1.875rem;
-    }
+    <style>
+        .card-margin {
+            margin-bottom: 1.875rem;
+        }
 
-    .card {
-        border: 0;
-        box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
-        -webkit-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
-        -moz-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
-        -ms-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
-    }
-    .card {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        min-width: 0;
-        word-wrap: break-word;
-        background-color: #ffffff;
-        background-clip: border-box;
-        border: 1px solid #e6e4e9;
-        border-radius: 8px;
-    }
+        .card {
+            border: 0;
+            box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+            -webkit-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+            -moz-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+            -ms-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+        }
 
-    .card .card-header.no-border {
-        border: 0;
-    }
-    .card .card-header {
-        background: none;
-        padding: 0 0.9375rem;
-        font-weight: 700;
-        display: flex;
-        align-items: center;
-        min-height: 50px;
-    }
-    .card-header:first-child {
-        border-radius: calc(8px - 1px) calc(8px - 1px) 0 0;
-    }
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #ffffff;
+            background-clip: border-box;
+            border: 1px solid #e6e4e9;
+            border-radius: 8px;
+        }
 
-    .widget-49 .widget-49-title-wrapper {
-    display: flex;
-    align-items: center;
-    }
+        .card .card-header.no-border {
+            border: 0;
+        }
 
-    .widget-49 .widget-49-title-wrapper .widget-49-date-primary {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    background-color: #edf1fc;
-    width: 5rem;
-    height: 5rem;
-    border-radius: 50%;
-    }
+        .card .card-header {
+            background: none;
+            padding: 0 0.9375rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            min-height: 50px;
+        }
 
-    .widget-49 .widget-49-title-wrapper .widget-49-date-primary .widget-49-date-day {
-    color: #4e73e5;
-    font-weight: 500;
-    font-size: 1.5rem;
-    line-height: 1;
-    }
+        .card-header:first-child {
+            border-radius: calc(8px - 1px) calc(8px - 1px) 0 0;
+        }
 
-    .widget-49 .widget-49-title-wrapper .widget-49-date-primary .widget-49-date-month {
-    color: #4e73e5;
-    line-height: 1;
-    font-size: 1rem;
-    text-transform: uppercase;
-    }
+        .widget-49 .widget-49-title-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-primary {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: #edf1fc;
+            width: 5rem;
+            height: 5rem;
+            border-radius: 50%;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-primary .widget-49-date-day {
+            color: #4e73e5;
+            font-weight: 500;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-primary .widget-49-date-month {
+            color: #4e73e5;
+            line-height: 1;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
 
 
-    .widget-49 .widget-49-title-wrapper .widget-49-meeting-info {
-    display: flex;
-    flex-direction: column;
-    margin-left: 1rem;
-    }
+        .widget-49 .widget-49-title-wrapper .widget-49-meeting-info {
+            display: flex;
+            flex-direction: column;
+            margin-left: 1rem;
+        }
 
-    .widget-49 .widget-49-title-wrapper .widget-49-meeting-info .widget-49-pro-title {
-    color: #3c4142;
-    font-size: 14px;
-    }
+        .widget-49 .widget-49-title-wrapper .widget-49-meeting-info .widget-49-pro-title {
+            color: #3c4142;
+            font-size: 14px;
+        }
 
-    .widget-49 .widget-49-title-wrapper .widget-49-meeting-info .widget-49-meeting-time {
-    color: #B1BAC5;
-    font-size: 11px;
-    }
+        .widget-49 .widget-49-title-wrapper .widget-49-meeting-info .widget-49-meeting-time {
+            color: #B1BAC5;
+            font-size: 11px;
+        }
 
-    .widget-49 .widget-49-meeting-points {
-    font-weight: 400;
-    font-size: 13px;
-    margin-top: .5rem;
-    }
+        .widget-49 .widget-49-meeting-points {
+            font-weight: 400;
+            font-size: 13px;
+            margin-top: .5rem;
+        }
 
-    .widget-49 .widget-49-meeting-points .widget-49-meeting-item {
-    display: list-item;
-    color: #727686;
-    }
+        .widget-49 .widget-49-meeting-points .widget-49-meeting-item {
+            display: list-item;
+            color: #727686;
+        }
 
-    .widget-49 .widget-49-meeting-points .widget-49-meeting-item span {
-    margin-left: .10rem;
-    }
+        .widget-49 .widget-49-meeting-points .widget-49-meeting-item span {
+            margin-left: .10rem;
+        }
 
-    .widget-49 .widget-49-meeting-action {
-    text-align: right;
-    }
+        .widget-49 .widget-49-meeting-action {
+            text-align: right;
+        }
 
-    .widget-49 .widget-49-meeting-action a {
-    text-transform: uppercase;
-    /* hover {
+        .widget-49 .widget-49-meeting-action a {
+            text-transform: uppercase;
+            /* hover {
         color: white
     } */
-    }
+        }
 
-    .widget-49 .widget-49-title-wrapper .widget-49-meeting-info .list-inline {
-        margin-left: 0; !important
-    }
+        .widget-49 .widget-49-title-wrapper .widget-49-meeting-info .list-inline {
+            margin-left: 0; !important
+        }
 
-    /* progress bar */
-    .back-skills {
-        width: 100%;
-        background-color: #ddd;
-    }
-    .skills {
-        text-align: right;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        font-weight: bold;
-        color: white;
-    }
-    .percentage {width: 65%; background-color: #f44336;}
+        /* progress bar */
+        .back-skills {
+            width: 100%;
+            background-color: #ddd;
+        }
 
-    /* stepper progress */
-    .md-stepper-horizontal {
-        display: table;
-        width: 100%;
-        margin: 0 auto;
-        background-color: transparent;
-        /* box-shadow: 0 3px 8px -6px rgba(0, 0, 0, .50); */
-    }
+        .skills {
+            text-align: right;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            font-weight: bold;
+            color: white;
+        }
 
-    .md-stepper-horizontal .md-step {
-        display: table-cell;
-        position: relative;
-        padding: 24px;
-    }
+        .percentage {
+            width: 65%;
+            background-color: #f44336;
+        }
 
-    .md-stepper-horizontal .md-step:hover,
-    .md-stepper-horizontal .md-step:active {
-        background-color: rgba(0, 0, 0, 0.04);
-    }
+        /* stepper progress */
+        .md-stepper-horizontal {
+            display: table;
+            width: 100%;
+            margin: 0 auto;
+            background-color: transparent;
+            /* box-shadow: 0 3px 8px -6px rgba(0, 0, 0, .50); */
+        }
 
-    .md-stepper-horizontal .md-step:active {
-        border-radius: 15% / 75%;
-    }
+        .md-stepper-horizontal .md-step {
+            display: table-cell;
+            position: relative;
+            padding: 24px;
+        }
 
-    .md-stepper-horizontal .md-step:first-child:active {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-    }
+        .md-stepper-horizontal .md-step:hover,
+        .md-stepper-horizontal .md-step:active {
+            background-color: rgba(0, 0, 0, 0.04);
+        }
 
-    .md-stepper-horizontal .md-step:last-child:active {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-    }
+        .md-stepper-horizontal .md-step:active {
+            border-radius: 15% / 75%;
+        }
 
-    .md-stepper-horizontal .md-step:hover .md-step-circle {
-        background-color: #757575;
-    }
+        .md-stepper-horizontal .md-step:first-child:active {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
 
-    .md-stepper-horizontal .md-step:first-child .md-step-bar-left,
-    .md-stepper-horizontal .md-step:last-child .md-step-bar-right {
-        display: none;
-    }
+        .md-stepper-horizontal .md-step:last-child:active {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
 
-    .md-stepper-horizontal .md-step .md-step-circle {
-        width: 30px;
-        height: 30px;
-        margin: 0 auto;
-        background-color: #999999;
-        border-radius: 50%;
-        text-align: center;
-        line-height: 30px;
-        font-size: 16px;
-        font-weight: 600;
-        color: #FFFFFF;
-    }
+        .md-stepper-horizontal .md-step:hover .md-step-circle {
+            background-color: #757575;
+        }
 
-    .md-stepper-horizontal.green .md-step.active .md-step-circle {
-        background-color: #00AE4D;
-    }
+        .md-stepper-horizontal .md-step:first-child .md-step-bar-left,
+        .md-stepper-horizontal .md-step:last-child .md-step-bar-right {
+            display: none;
+        }
 
-    .md-stepper-horizontal.blue .md-step.active .md-step-circle {
-        /* background-color: #F96302; */
-        background-color: #1b6fb9;
-    }
+        .md-stepper-horizontal .md-step .md-step-circle {
+            width: 30px;
+            height: 30px;
+            margin: 0 auto;
+            background-color: #999999;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
 
-    .md-stepper-horizontal .md-step.active .md-step-circle {
-        background-color: rgb(33, 150, 243);
-    }
+        .md-stepper-horizontal.green .md-step.active .md-step-circle {
+            background-color: #00AE4D;
+        }
 
-    .md-stepper-horizontal .md-step.done .md-step-circle:before {
-        font-family: 'FontAwesome';
-        font-weight: 100;
-        content: "\f00c";
-    }
+        .md-stepper-horizontal.blue .md-step.active .md-step-circle {
+            /* background-color: #F96302; */
+            background-color: #1b6fb9;
+        }
 
-    .md-stepper-horizontal .md-step.done .md-step-circle *,
-    .md-stepper-horizontal .md-step.editable .md-step-circle * {
-        display: none;
-    }
+        .md-stepper-horizontal .md-step.active .md-step-circle {
+            background-color: rgb(33, 150, 243);
+        }
 
-    .md-stepper-horizontal .md-step.editable .md-step-circle {
-        -moz-transform: scaleX(-1);
-        -o-transform: scaleX(-1);
-        -webkit-transform: scaleX(-1);
-        transform: scaleX(-1);
-    }
+        .md-stepper-horizontal .md-step.done .md-step-circle:before {
+            font-family: 'FontAwesome';
+            font-weight: 100;
+            content: "\f00c";
+        }
 
-    .md-stepper-horizontal .md-step.editable .md-step-circle:before {
-        font-family: 'FontAwesome';
-        font-weight: 100;
-        content: "\f040";
-    }
+        .md-stepper-horizontal .md-step.done .md-step-circle *,
+        .md-stepper-horizontal .md-step.editable .md-step-circle * {
+            display: none;
+        }
 
-    .md-stepper-horizontal .md-step .md-step-title {
-        margin-top: 16px;
-        font-size: 16px;
-        font-weight: 600;
-    }
+        .md-stepper-horizontal .md-step.editable .md-step-circle {
+            -moz-transform: scaleX(-1);
+            -o-transform: scaleX(-1);
+            -webkit-transform: scaleX(-1);
+            transform: scaleX(-1);
+        }
 
-    .md-stepper-horizontal .md-step .md-step-title,
-    .md-stepper-horizontal .md-step .md-step-optional {
-        text-align: center;
-        color: rgba(0, 0, 0, .26);
-    }
+        .md-stepper-horizontal .md-step.editable .md-step-circle:before {
+            font-family: 'FontAwesome';
+            font-weight: 100;
+            content: "\f040";
+        }
 
-    .md-stepper-horizontal .md-step.active .md-step-title {
-        font-weight: 600;
-        color: rgba(0, 0, 0, .87);
-    }
+        .md-stepper-horizontal .md-step .md-step-title {
+            margin-top: 16px;
+            font-size: 16px;
+            font-weight: 600;
+        }
 
-    .md-stepper-horizontal .md-step.active.done .md-step-title,
-    .md-stepper-horizontal .md-step.active.editable .md-step-title {
-        font-weight: 600;
-    }
+        .md-stepper-horizontal .md-step .md-step-title,
+        .md-stepper-horizontal .md-step .md-step-optional {
+            text-align: center;
+            color: rgba(0, 0, 0, .26);
+        }
 
-    .md-stepper-horizontal .md-step .md-step-optional {
-        font-size: 12px;
-    }
+        .md-stepper-horizontal .md-step.active .md-step-title {
+            font-weight: 600;
+            color: rgba(0, 0, 0, .87);
+        }
 
-    .md-stepper-horizontal .md-step.active .md-step-optional {
-        color: rgba(0, 0, 0, .54);
-    }
+        .md-stepper-horizontal .md-step.active.done .md-step-title,
+        .md-stepper-horizontal .md-step.active.editable .md-step-title {
+            font-weight: 600;
+        }
 
-    .md-stepper-horizontal .md-step .md-step-bar-left,
-    .md-stepper-horizontal .md-step .md-step-bar-right {
-        position: absolute;
-        top: 36px;
-        height: 1px;
-        border-top: 1px solid #DDDDDD;
-    }
+        .md-stepper-horizontal .md-step .md-step-optional {
+            font-size: 12px;
+        }
 
-    .md-stepper-horizontal .md-step .md-step-bar-right {
-        right: 0;
-        left: 50%;
-        margin-left: 20px;
-    }
+        .md-stepper-horizontal .md-step.active .md-step-optional {
+            color: rgba(0, 0, 0, .54);
+        }
 
-    .md-stepper-horizontal .md-step .md-step-bar-left {
-        left: 0;
-        right: 50%;
-        margin-right: 20px;
-    }
+        .md-stepper-horizontal .md-step .md-step-bar-left,
+        .md-stepper-horizontal .md-step .md-step-bar-right {
+            position: absolute;
+            top: 36px;
+            height: 1px;
+            border-top: 1px solid #DDDDDD;
+        }
 
-    
-</style>
+        .md-stepper-horizontal .md-step .md-step-bar-right {
+            right: 0;
+            left: 50%;
+            margin-left: 20px;
+        }
 
-<!-- fetch all data -->
-<script type="module" src="source_js/fetch_data.js"></script>
+        .md-stepper-horizontal .md-step .md-step-bar-left {
+            left: 0;
+            right: 50%;
+            margin-right: 20px;
+        }
+
+        .dropdown-item:hover{
+		cursor: pointer;
+	}
+    </style>
+
+    <!-- fetch all data -->
+    <script type="module" src="source_js/fetch_data.js"></script>

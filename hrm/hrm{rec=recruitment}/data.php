@@ -199,11 +199,14 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 									</div>
 								</div>
 							</div>
+
+							<input type="hidden" name="hired_full_name" id="hired_full_name">
+							<input type="hidden" name="hired_address" id="hired_address">
 						</fieldset>
 					</div>
-					<div class="modal-footer-sdk">
-						<button type="button" class="btn-sdk btn-primary-not-only-left" id="button-reject">Reject</button>
-						<button type="button" class="btn-sdk btn-primary-not-only-right" id="button-update">Update</button>
+					<div class="modal-footer-sdk" id="btn_group_detail">
+						<!-- <button type="button" class="btn-sdk btn-primary-not-only-left" id="button-reject">Reject</button>
+						<button type="button" class="btn-sdk btn-primary-not-only-right" id="button-update">Update</button> -->
 					</div>
 				</form>
 			</div>

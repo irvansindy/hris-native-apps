@@ -541,7 +541,7 @@ $(document).ready(function() {
         let user = $(this).data('user')
         var status_code = $(this).data('status_code')
         var statusvalue = $(this).data('statusvalue')
-        // $('#form_detail_data_applicant')[0].reset()
+        // alert(status_code)
         $.ajax({
             url: 'php_action/GetDataById',
             type: 'GET',
@@ -565,6 +565,20 @@ $(document).ready(function() {
                 document.getElementById('detail_maritalstatus').innerHTML = response[0][0].maritalstatus
                 document.getElementById('detail_religion').innerHTML = response[0][0].religion
                 document.getElementById('detail_address').innerHTML = response[0][0].address + ', ' + response[0][0].city_name + ', ' + response[0][0].state_name
+
+                if (status_code == 5 || status_code == 4) {
+                    $('#btn_group_detail').empty()
+                    $('#btn_group_detail').append(`
+                        <button type="reset" class="btn btn-sdk btn-primary-center-only rounded-pill" data-dismiss="modal">Close</button> 
+                    `)
+                } else {
+                    $('#btn_group_detail').empty()
+                    $('#btn_group_detail').append(`
+                        <button type="button" class="btn-sdk btn-primary-not-only-left" id="button-reject">Reject</button>
+                        <button type="button" class="btn-sdk btn-primary-not-only-right" id="button-update">Update</button>
+                    `)
+
+                }
 
                 // data experience
                 $('#data_list_experience').empty()

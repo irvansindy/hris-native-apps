@@ -65,62 +65,63 @@
         `address` -- 8
 	) VALUES (
 		'$employee_id', -- 1
-		null, -- 2
-		null, -- 3
-		null, -- 4
+		'', -- 2
+		'', -- 3
+		'', -- 4
 		'$full_name', -- 5
 		'$employee_no', -- 6
 		'$employee_no', -- 7
-		'$address', -- 8
+		'$address' -- 8
 	)";
 
 	// duplicate query to table user
 	$add_password = addslashes('$2y$10$J5szzn9EZTHRy6YJgdlUWeClckG3qZP65wil3SKlENo.qYoijIRDS');
-			$query_create_user = "REPLACE INTO `users` 
-				(
-					`idu`,
-					`nama`, 
-					`username`, 
-					`password`, 
-					`hak_akses`, 
-					`function_authorized`, 
-					`access_group`, 
-					`access_employee`, 
-					`user_type`, 
-					`user_status`, 
-					`avatar`, 
-					`position`, 
-					`login`, 
-					`latitude`, 
-					`longlatitude`,
-					`pin`,
-					`att_type`,
-					`timesheet`,
-					`timesheet_type`
-				) 
-				VALUES 
-					(
-						'$employee_id',
-						-- '$inp_first_name $inp_middle_name $inp_last_name', 
-						'$full_name,
-						'$employee_no', 
-						'$add_password', 
-						'pc.index{tsc=information}', 
-						'4', 
-						'1', 
-						'0', 
-						'Passive', 
-						'1', 
-						'', 
-						'', 
-						'1', 
-						'', 
-						'',
-						'',
-						'',
-						'Sales',
-						'Others'
-					)";
-
+	$query_create_user = "REPLACE INTO `users` 
+		(
+			`idu`,
+			`nama`, 
+			`username`, 
+			`password`, 
+			`hak_akses`, 
+			`function_authorized`, 
+			`access_group`, 
+			`access_employee`, 
+			`user_type`, 
+			`user_status`, 
+			`avatar`, 
+			`position`, 
+			`login`, 
+			`latitude`, 
+			`longlatitude`,
+			`pin`,
+			`att_type`,
+			`timesheet`,
+			`timesheet_type`
+		) 
+		VALUES 
+			(
+				'$employee_id',
+				-- '$inp_first_name $inp_middle_name $inp_last_name', 
+				'$full_name',
+				'$employee_no', 
+				'$add_password', 
+				'pc.index{tsc=information}', 
+				'4', 
+				'1', 
+				'0', 
+				'Passive', 
+				'1', 
+				'', 
+				'', 
+				'1', 
+				'', 
+				'',
+				'',
+				'',
+				'Sales',
+				'Others'
+			)";
+	// print_r($query_create_new_employee);
+	// print_r($query_create_user);
 	$exe_query_create_employee = $connect->query($query_create_new_employee);
 	$exe_query_create_user = $connect->query($query_create_user);

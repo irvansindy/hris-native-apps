@@ -542,6 +542,7 @@ $(document).ready(function() {
         var status_code = $(this).data('status_code')
         var statusvalue = $(this).data('statusvalue')
         // alert(status_code)
+        $('#form_detail_data_applicant')[0].reset()
         $.ajax({
             url: 'php_action/GetDataById',
             type: 'GET',
@@ -556,6 +557,8 @@ $(document).ready(function() {
             async: true,
             success: function(response) {
                 // data user
+                $('#hired_full_name').val(response[0][0].full_name)
+                $('#hired_address').val(response[0][0].address + ', ' + response[0][0].city_name + ', ' + response[0][0].state_name)
                 document.getElementById('detail_vacancy_id').innerHTML = vacancy
                 document.getElementById('detail_full_name').innerHTML = response[0][0].full_name
                 document.getElementById('detail_gender').innerHTML = response[0][0].gender
@@ -844,6 +847,10 @@ $(document).ready(function() {
     // for update applicant data
     $(document).on('click', '#button-update', function(e) {
         e.preventDefault()
+        let hired_full_name = $('#hired_full_name').val()
+        let hired_address = $('#hired_address').val()
+
+        alert(hired_address, hired_full_name)
         $.ajax({
             url: 'php_action/UpdateApplicantStatus.php',
             type: 'POST',

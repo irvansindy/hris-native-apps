@@ -43,10 +43,11 @@
         $exe_query_add_log_applicant_detail = $connect->query($query_add_log_applicant_detail);
 
         // create new data employee
-        if($status_data == 4) {
+        // print_r($status);
+        if($status == 4) {
             $full_name = $_POST['hired_full_name'];
             $address = $_POST['hired_address'];
-            $query_create_new_employee = include'CreateNewEmployee.php';
+            $query_create_new_employee = include 'CreateNewEmployee.php';
         }
 
         if ($exe_query_reject_update_applicant == FALSE || $exe_query_add_log_applicant_detail == FALSE) {

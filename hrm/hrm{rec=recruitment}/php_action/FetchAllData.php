@@ -88,6 +88,7 @@
     // print_r($query_fetch_data);
 
     $result = mysqli_fetch_all(mysqli_query($connect, $query_fetch_data), MYSQLI_ASSOC);
+    // print_r($result[0]['vacancy_name']);
 
     $connect->close();
     header('Content-Type: application/json');

@@ -577,8 +577,7 @@ $(document).ready(function() {
                 } else {
                     $('#btn_group_detail').empty()
                     $('#btn_group_detail').append(`
-                        <button type="button" class="btn-sdk btn-primary-not-only-left" id="button-reject">Reject</button>
-                        <button type="button" class="btn-sdk btn-primary-not-only-right" id="button-update">Update</button>
+                        <button type="button" class="btn-sdk btn-primary-center-only rounded-pill" id="button-update">Update</button> 
                     `)
 
                 }
@@ -847,10 +846,6 @@ $(document).ready(function() {
     // for update applicant data
     $(document).on('click', '#button-update', function(e) {
         e.preventDefault()
-        let hired_full_name = $('#hired_full_name').val()
-        let hired_address = $('#hired_address').val()
-
-        alert(hired_address, hired_full_name)
         $.ajax({
             url: 'php_action/UpdateApplicantStatus.php',
             type: 'POST',
@@ -867,11 +862,11 @@ $(document).ready(function() {
                 document.getElementById("msg").innerHTML = response.messages;
 
                 $('#create_data_sub_menu').modal('hide');
-                $("[data-dismiss=modal]").trigger({type: "click"});
-                // Reload the page after 10 seconds
-                setTimeout(function () {
-                    location.reload();
-                }, 3000);
+                $("[data-dismiss='modal']").trigger({type: "click"});
+
+                // reset the form
+                $("#form_detail_data_applicant")[0].reset();
+                // reload the datatables
             },
             error: function(xhr, status, error) {
                 var errorMessage = JSON.parse(xhr.responseText);
@@ -884,5 +879,9 @@ $(document).ready(function() {
         })
     })
     
+    $(document).on('click', '.closeds', function(e) {
+        e.preventDefault()
+        window.location.reload();
+    })
 
 })

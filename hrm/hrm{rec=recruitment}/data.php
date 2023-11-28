@@ -190,8 +190,8 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 										<div class="md-stepper-horizontal blue container-fluid" id="data_list_applicant_status">
 											
 										</div>
-										<div class="col-md-8 mt-5 status_view">
-											<select class="input--style-6" name="application_status" id="application_status" style="width: 40%;height: 30px;">
+										<div class="col-md-8 mb-8 status_view">
+											<select class="input--style-6" name="application_status" id="application_status" style="width: 40%;">
 											</select>
 											<input type="hidden" class="input--style-6" id="value_application_status" name="value_application_status">
 											<input type="hidden" class="input--style-6" id="value_application_id" name="value_application_id">
@@ -312,10 +312,12 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 </style>
 <script>
 	$('#application_status').select2({
-		dropdownParent: $('#detail_data_applicant')
+		dropdownParent: $('#detail_data_applicant'),
+		selectOnClose: true,
 	})
 	$('.search_select2').select2({
-		dropdownParent: $('#form_search_filter')
+		dropdownParent: $('#form_search_filter'),
+		selectOnClose: true,
 	})
 	
 </script>

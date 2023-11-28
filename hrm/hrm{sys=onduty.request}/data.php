@@ -1065,7 +1065,7 @@ if ($platform != 'mobile') {
 						error: function(xhr, status, error) {
 							mymodalss.style.display = "none";
 							modals.style.display = "block";
-							document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+							document.getElementById("msg").innerHTML = xhr.responseText.messages;
 							// var err = eval("(" + xhr.responseText + ")");
 							// alert(err.messages);
 						}

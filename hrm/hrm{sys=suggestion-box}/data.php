@@ -261,11 +261,6 @@ if (!empty($_POST['src_emp_no']) && !empty($_POST['src_employee_name'])) {
 												</tbody>
 											</table>
 										</div>
-										<!-- <div class="mt-4" id="list_detail_planing_step"></div>
-										<div class="float-right mb-4">
-											<button type="button" class="btn btn-danger btn-sm" id="reset_master_planing_root_cause" hidden="true"><i class="fa fa-eraser"></i> Reset</button>
-											<button type="button" class="btn btn btn-success btn-sm" id="confirm_master_planing_root_cause"><i class="fa-solid fa-check"></i> Confirm</button>
-										</div> -->
 										<br/>
 									</div>
 									<div role="tabpanel" class="tab-pane fade" id="dummy_gantt_chart">

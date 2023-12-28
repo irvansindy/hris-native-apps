@@ -1048,15 +1048,6 @@ $(document).ready(function () {
     });
 
     // submit suggestion planing step
-    // $(document).on('submit', '#form_suggestion_planing_step', function(e) {
-    //     // alert('Send to approver')
-    //     if(e.keyCode == 13) {
-    //         e.preventDefault();
-    //         return false;
-    //     }
-    // })
-
-    // submit suggestion planing step
     $(document).on('click', '#submit_planing_step', function(e) {
         e.preventDefault()
         let suggestion_planing_step_title = $('input[name="suggestion_planing_step_title[]"]').map(function(){
@@ -1155,7 +1146,7 @@ $(document).ready(function () {
             'suggestion_planing_step_end_date' : suggestion_planing_step_end_date,
         }
 
-        console.log(data_planing_type)  
+        // console.log(data_planing_type)  
         $.ajax({
             url: 'php_action/CreateOrUpdatePlanningStep.php',
             type: 'POST',
@@ -1182,6 +1173,27 @@ $(document).ready(function () {
                 mymodalss.style.display = "none";
                 modals.style.display = "block";
                 document.getElementById("msg").innerHTML = xhr.responseJSON.messages;
+            }
+        })
+    })
+
+    // preview a3 report
+    $(document).on('click', '.preview-a3-report', function(e) {
+        e.preventDefault()
+        let request_no = $(this).data('request_no')
+        // alert(request_no)
+        $.ajax({
+            url: 'php_action/GetPreviewA3ReportById.php',
+            type: 'POST',
+            data: {
+                request_no: request_no
+            },
+            success: function(res) {
+                window.open(
+                    '',
+                    '_blank',
+                    'width=800,height=400,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no, status=yes')
+                .document.write(res);
             }
         })
     })

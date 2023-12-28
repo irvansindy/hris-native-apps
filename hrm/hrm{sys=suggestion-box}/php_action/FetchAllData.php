@@ -55,7 +55,8 @@
 
         $status = '<span class="badge '.$activebadge.'">'.$row['name_my'].'</span>';
         
-        $preview = '<a type="button" nowrap="nowrap" data-toggle="modal" data-target="#UpdateForm" data-backdrop="static" style="color: blue; border: 5px; cursor:pointer"> <input type="image" src="../../asset/dist/img/glasses.png" title="Preview"></a>';
+        $preview = '<a type="button" class="preview-a3-report" data-request_no="'.$row['request_no'].'" nowrap="nowrap" style="color: blue; border: 5px; cursor:pointer"> <input type="image" src="../../asset/dist/img/glasses.png" title="Preview"></a>';
+        // $preview = '<a type="button" nowrap="nowrap" data-toggle="modal" data-target="#UpdateForm" data-backdrop="static" style="color: blue; border: 5px; cursor:pointer"> <input type="image" src="../../asset/dist/img/glasses.png" title="Preview"></a>';
 
         $add_suggestion_planing_step = '<a type="button" nowrap="nowrap" data-toggle="modal" data-target="#create_suggestion_planing_step" data-backdrop="static" style="color: blue; border: 5px; cursor:pointer" id="add_suggestion_planing_step" data-request_no="'.$row['request_no'].'"> <input type="image" src="../../asset/dist/img/icons/icon-addinfo.png" title="Detail Approval" width="22px"/></a>';
 

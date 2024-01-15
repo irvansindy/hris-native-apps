@@ -76,16 +76,8 @@ $(document).ready(function() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- <ol class="widget-49-meeting-points px-4 mt-2">
-                                            <li class="widget-49-meeting-item">
-                                                <span>
-                                                
-                                                </span>
-                                            </li>
-                                            <li class="widget-49-meeting-item"><span>Data migration is in scope</span></li>
-                                            <li class="widget-49-meeting-item"><span>Session timeout increase to 30 minutes</span></li>
-                                        </ol> -->
                                         <div class="widget-49-meeting-action mt-4">
+                                        <span class="pull-left">Value : ${response[index].value}</span>
                                             <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#detail_data_applicant" data-backdrop="static" data-id_applicant="${response[index].id_applicant}" data-vacancy="${response[index].id_vacancy}" data-user="${response[index].userid}" data-statusvalue="${response[index].status_name}" data-status_code="${response[index].status}" id="detail_applicant">
                                                 View All
                                             </button>

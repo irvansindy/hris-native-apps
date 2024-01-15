@@ -1,64 +1,92 @@
-<?php include "../../application/session/session.php";?>
-<?php include "../template/sys.header.php";?>
-<?php include "../template/sys.sidebar.php";?>
-
-<!-- LOADER -->
-<!-- <div onclick='return stopload()' id="divBlockSpace" class="divBlockSpace"></div>
-<div onclick='return stopload()' id="loading-circle"></div>
-<div id="contents"></div> -->
-<!-- LOADER -->
-<?php 
-// $page   = '2'; //menu id SELECT * FROM hrmmenu WHERE menu_id = '2'
-$footer = 'yes'; //set as `yes` if you want to use default footer & set as `no` if you want to use custom footer
+<?php
+!empty($_GET['emp_id']) ? $getdata = '1' : $getdata = '0';
+if ($getdata == 0) {
+    include "../../application/session/session.php";
+    $getPackage = "?";
+} else {
+    include "../../application/session/mobile.session.php";
+    $getPackage = "?emp_id=$username&";
+}
 ?>
 
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper  -->
-        <!-- ============================================================== -->
-        <div class="page-wrapper" style="display: block;">
-            <div class="row page-titles">
-                <div class="col-md-5 col-12 align-self-center">
-                    <h3 class="text-themecolor mb-0">Employee</h3>
-                    <ol class="breadcrumb mb-0 p-0 bg-transparent">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home&nbsp;&nbsp;</a></li>
-                        <li><i class="fa fa-angle-right" aria-hidden="true"></i>
-                                &nbsp;Employee Letter</li>
-                    </ol>
-                </div>
-                <div class="col-md-7 col-12 align-self-center d-none d-md-block">
-                    <div class="d-flex mt-2 justify-content-end">
+<?php include "../template/sys.header.php"; ?>
+
+<!-- <script src="../../asset/gt_developer/jquery.min.js"></script> -->
+<?php
+$page   = '2'; //menu id SELECT * FROM hrmmenu WHERE menu_id = '21'
+$footer = 'no'; //set as `yes` if you want to use default footer & set as `no` if you want to use custom footer
+?>
+
+<?php include "../template/sys.sidebar.php"; ?>
+
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Page wrapper  -->
+<!-- ============================================================== -->
+<div style="width: 100vw;height: 100vh;overflow-x: hidden;overflow: hidden;">
+
+
+    <div id="new-header" style="z-index: 10;background: #eceaea;position: fixed;width: 100%;margin-top: 111px;height: 30px;padding: 5px;">
+        <div class="row page-titles" style="margin-top: -16px;">
+            <div class="col-md-5 col-12 align-self-center">
+                <ol class="breadcrumb mb-0 p-0 bg-transparent">
+                    <li class="digital" style="font-size: 12px;">Employee&nbsp;&nbsp;</li>
+                    <li class="digital" style="font-size: 12px;"><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;Employee Letter&nbsp;&nbsp;</li>
+                </ol>
+            </div>
+
+            <div class="card-actions ml-auto" style="margin-top: -3px;">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a href='#' class='open_modal_search' class="btn btn-demo" data-toggle="modal" data-target="#myModal2">
+                                    <div class="toolbar sprite-toolbar-search" id="SEARCH" title="Search">
+                                    </div>
+                                </a>
+                            </td>
                         
+                            <td>
+                                <div class="toolbar sprite-toolbar-reload" id="RELOAD" title="Reload" onclick="RefreshPage();">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-wrapper" style="display: block;">
+
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <!-- Row -->
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+
+                    <div class="row">
+
+                        <!-- Column -->
+                        <?php
+                        if ($get_auth['access'] > 0) {
+                            include "data.php";
+                        } else {
+                            include "../saas.error/index.php";
+                        }
+                        ?>
+                        <!-- Column -->
                     </div>
                 </div>
             </div>
+            <!-- Row -->
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
 
-
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-            <div class="container-fluid">
-                <!-- Row -->
-                <div class="row">
-                    <div class="col-lg-12 col-md-12">
-
-                        <div class="row">
-                           
-                            <!-- Column -->
-                            <?php include "data.php"; ?>
-                            <!-- Column -->
-                        </div>
-                    </div>
-                   
-                        
-                </div>
-                <!-- Row -->
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-           
-
-<?php include "../template/sys.footer.php";?>
-
+    <?php include "../template/sys.footer.php"; ?>

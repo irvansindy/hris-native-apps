@@ -37,7 +37,7 @@ $query = mysqli_query($connect, $sql);
 $no    = 1;
 while ($row = mysqli_fetch_assoc($query)) {
 
-    $nc     = "<a href='data_letter?emp_no={$row['emp_no']}' id1='' class=''>{$row["Full_Name"]}</a>";
+    $nc     = "<a href='data_letter?emp_no={$row['emp_no']}&emp_id={$row['emp_id']}' id1='' class='fetch_employee_decree' data-emp_id='$row[emp_id]'>{$row["Full_Name"]}</a>";
 
 	$output['data'][] = array(
         $no,

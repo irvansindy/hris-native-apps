@@ -22,6 +22,7 @@
     DATE_FORMAT(a.applied_at, '%d-%M-%Y') AS applied_time,
     a.receive_at,
     a.status,
+    a.value,
     b.full_name,
     b.gender,
     b.religion,

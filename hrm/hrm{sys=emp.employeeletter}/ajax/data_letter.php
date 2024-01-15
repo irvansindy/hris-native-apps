@@ -20,6 +20,8 @@ $output = array('data' => array());
 
     $sql = "SELECT 
     d.Full_Name AS employee_name,
+    d.emp_id,
+    d.emp_no,
     b.letter_no,
     DATE_FORMAT(b.letter_date, '%d %M %Y') AS refdate,
     c.Full_Name AS signee
@@ -37,16 +39,20 @@ $no    = 1;
 while ($row = mysqli_fetch_assoc($query)) {
 
     $nc     = "<a href='#' id1='{$row["letter_no"]}' class='' data-toggle='modal' id='modal_view_letter' data-target='#modal-view-letter'>{$row["letter_no"]}</a>";
-    $ne     = "<a href='#' id1='{$row["letter_no"]}' class='' data-toggle='modal' id='modal_view_print' data-target='#modal-view-print'>[Assign Letter]</a>";
+    $ne     = "<a href='#' id1='{$row["letter_no"]}' id='submit_preview' name='submit_preview' onclick='myFunction()'>[Assign Letter]</a>";
+    
+    $detail = '<a type="button" nowrap="nowrap" data-toggle="modal" data-target="#DetailDecree" data-backdrop="static" style="color: blue; border: 5px; cursor:pointer" class="list_detail_decree" data-number_decree="'.$row['letter_no'].'"> <input type="image" src="../../asset/dist/img/icons/icon-addinfo.png" title="See detail Decree for ' . $row['letter_no'] . '" width="22px"/></a>';
 
 
 	$output['data'][] = array(
         $no,
+        // $row['emp_id'],
         $row['employee_name'],
         $nc,
         $row['refdate'],
 		$ne,
-        $row['signee']
+        $row['signee'],
+        $detail
 	);
 
 	$no++;

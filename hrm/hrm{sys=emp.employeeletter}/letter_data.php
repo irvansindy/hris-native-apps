@@ -10,20 +10,6 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- end cdn select2 -->
 
-<script type="text/javascript">
-	$(document).ready(function () {
-		$('#input_letter_date').bootstrapMaterialDatePicker({
-			time: false,
-			clearButton: true
-		});
-
-		$('#input_effective_date').bootstrapMaterialDatePicker({
-			time: false,
-			clearButton: true
-		});
-	});
-</script>
-
 <?php
 $username = $_GET['emp_no'];
 $search_en             = '';
@@ -109,13 +95,13 @@ if (!empty($_POST['cari'])) {
 
 
 <div class="MaximumFrameHeight card-body table-responsive p-0"
-	style="width: 50vw;height: 80vh; width: 60%; margin-right: 5px;overflow: scroll;overflow-x: hidden;margin-top: 17px;">
+	style="width: 50vw;height: 80vh; width: 70%; margin-right: 5px;overflow: scroll;overflow-x: hidden;margin-top: 17px;">
 	<div class="col-12 col-fit" style="margin-top: 17px;">
 		<table id="datatable" width="100%" border="1" align="left"
 			class="table table-bordered table-striped table-hover table-head-fixed">
 			<thead>
 				<tr>
-					<th class="fontCustom" style="z-index: 1;" nowrap="nowrap">No	</th>
+					<th class="fontCustom" style="z-index: 1;" nowrap="nowrap">No </th>
 					<th class="fontCustom" style="z-index: 1;">Employee Name</th>
 					<th class="fontCustom" style="z-index: 1;">Letter Number</th>
 					<th class="fontCustom" style="z-index: 1;">Reference Date</th>
@@ -130,59 +116,64 @@ if (!empty($_POST['cari'])) {
 
 <!-- create data modal -->
 <div class="modal fade fade-custom" tabindex="-1" role="dialog" id="CreateForm">
-		<div class="modal-dialog modal-belakang modal-bg" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Add Decree</h4>
-					<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close"
-						style="margin-top: -15px;">
-						<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
-					</a>
-				</div>
+	<div class="modal-dialog modal-belakang modal-bg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Add Decree</h4>
+				<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close"
+					style="margin-top: -15px;">
+					<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
+				</a>
+			</div>
 
-				<!-- <form class="form-horizontal" action="php_action/FuncDataUpdate.php" method="POST" id="updateMemberForm"> -->
-				<form class="form-horizontal" action="" method="POST" id="form_create_data">
+			<!-- <form class="form-horizontal" action="php_action/FuncDataUpdate.php" method="POST" id="updateMemberForm"> -->
+			<form class="form-horizontal" action="" method="POST" id="form_create_data">
 
-					<div class="card-body table-responsive p-0"
-						style="width: 100vw;height: auto%; width: 98%; margin: 5px;overflow: scroll;overflow-x: hidden;">
+				<div class="card-body table-responsive p-0"
+					style="width: 100vw;height: auto%; width: 98%; margin: 5px;overflow: scroll;overflow-x: hidden;">
 
-						<fieldset id="fset_1">
-							<legend>General</legend>
+					<fieldset id="fset_1">
+						<legend>General</legend>
 
-							<div class="messages_update"></div>
+						<div class="messages_update"></div>
 
-							<input id="input_emp_no" name="input_emp_no" type="hidden" value="<?php echo $username; ?>">
-							<input id="input_emp_id" name="input_emp_id" type="hidden" value="">
-							<input id="input_seq_number" name="input_seq_number" type="hidden" value="">
+						<input id="input_emp_no" name="input_emp_no" type="hidden" value="<?php echo $username; ?>">
+						<input id="input_emp_id" name="input_emp_id" type="hidden" value="">
+						<input id="input_seq_number" name="input_seq_number" type="hidden" value="">
 
-							<!--FROM SESSION -->
-							<input id="sel_token" name="sel_token" type="hidden" value="<?php echo $get_token; ?>">
-							<!--FROM CONFIGURATION -->
+						<!--FROM SESSION -->
+						<input id="sel_token" name="sel_token" type="hidden" value="<?php echo $get_token; ?>">
+						<!--FROM CONFIGURATION -->
+
+						<div class="form-row">
+							<div class="col-4 name">Letter Type <span class="required">*</span></div>
+							<div class="col-sm-8">
+								<div class="input-group">
+									<select class="input--style-6 letter_type" style="width: 70%;height: 30px;"
+										name="input_letter_type" id="input_letter_type" required>
+										<option value="">--Select Option--</option>
+										<?php
+												$sql = mysqli_query($connect, "SELECT
+												seq_id,
+												template_code,
+												pattern_group
+											FROM tsfmlettertemplate");
+												while ($row = mysqli_fetch_array($sql)) {
+													echo '<option value="' . $row['pattern_group'] . '">' . $row['template_code'] . '</option>';
+												}
+											?>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div id="form_data_decree">
 							<div class="form-row">
 								<div class="col-4 name">Decree Number <span class="required">*</span></div>
 								<div class="col-sm-8">
 									<div class="input-group">
-										<input class="input--style-6"  id="input_decree_number" placeholder=""
-											name="input_decree_number" type="Text" value="" style="width: 60%;" readonly="true">
-									</div>
-								</div>
-							</div>
-							<div class="form-row">
-								<div class="col-4 name">Letter Type <span class="required">*</span></div>
-								<div class="col-sm-8">
-									<div class="input-group">
-										<select class="input--style-6 letter_type" style="width: 60%;height: 30px;" name="input_letter_type" id="input_letter_type" required>
-											<option value="">--Select Option--</option>
-											<?php
-												$sql = mysqli_query($connect, "SELECT
-												seq_id,
-												template_code
-											FROM tsfmlettertemplate");
-												while ($row = mysqli_fetch_array($sql)) {
-													echo '<option value="' . $row['template_code'] . '">' . $row['template_code'] . '</option>';
-												}
-											?>
-									</select>
+										<input class="input--style-6" id="input_decree_number" placeholder=""
+											name="input_decree_number" type="Text" value="" style="width: 70%;"
+											readonly="true">
 									</div>
 								</div>
 							</div>
@@ -196,8 +187,8 @@ if (!empty($_POST['cari'])) {
 											background-position:right;   
 											background-repeat:no-repeat; 
 											padding-right:10px;
-											width: 60%;
-											" autocomplete="off" required/>
+											width: 70%;
+											" autocomplete="off" required />
 									</div>
 								</div>
 							</div>
@@ -211,8 +202,8 @@ if (!empty($_POST['cari'])) {
 											background-position:right;   
 											background-repeat:no-repeat; 
 											padding-right:10px;
-											width: 60%;
-											" autocomplete="off" required/>
+											width: 70%;
+											" autocomplete="off" required />
 									</div>
 								</div>
 							</div>
@@ -220,7 +211,8 @@ if (!empty($_POST['cari'])) {
 								<div class="col-4 name">Letter Reference <span class="required">*</span></div>
 								<div class="col-sm-8">
 									<div class="input-group">
-										<select class="input--style-6 letter_reference" style="width: 60%;height: 30px;" name="input_letter_reference" id="input_letter_reference">
+										<select class="input--style-6 letter_reference" style="width: 70%;height: 30px;"
+											name="input_letter_reference" id="input_letter_reference">
 											<option value="">--Select Option--</option>
 											<?php
 												$sql = mysqli_query($connect, "SELECT
@@ -234,178 +226,210 @@ if (!empty($_POST['cari'])) {
 													echo '<option value="' . $row['history_no'] . '">' . $row['history_no'] . '</option>';
 												}
 											?>
-									</select>
+										</select>
 									</div>
 								</div>
 							</div>
-						</fieldset>
-						<div class="modal-footer-sdk">
-							<button type="button" class="btn-sdk btn-primary-center-only rounded-pill" name="submit_decree" id="submit_decree" data-type_submit="draft" style="background-color: #337ab7 !important; color: #fff !important;">
-								<p class="text-center">
-									&nbsp;Save &nbsp;
-								</p>
-							</button>
 						</div>
+					</fieldset>
+					<div class="modal-footer-sdk">
+						<button type="button" class="btn-sdk btn-primary-center-only rounded-pill" name="submit_decree"
+							id="submit_decree" data-type_submit="draft"
+							style="background-color: #337ab7 !important; color: #fff !important;">
+							<p class="text-center">
+								&nbsp;Save &nbsp;
+							</p>
+						</button>
 					</div>
-				</form>
-			</div>
+				</div>
+			</form>
 		</div>
+	</div>
 </div>
 
 <!-- detail data modal -->
 <div class="modal fade fade-custom" tabindex="-1" role="dialog" id="DetailDecree">
-		<div class="modal-dialog modal-belakang modal-bg" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Detail Decree</h4>
-					<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close"
-						style="margin-top: -15px;">
-						<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
-					</a>
-				</div>
-
-				<!-- <form class="form-horizontal" action="php_action/FuncDataUpdate.php" method="POST" id="updateMemberForm"> -->
-				<form class="form-horizontal" action="" method="POST" id="form_update_data">
-
-					<div class="card-body table-responsive p-0"
-						style="width: 100vw;height: auto%; width: 98%; margin: 5px;overflow: scroll;overflow-x: hidden;">
-
-						<fieldset id="fset_1">
-							<legend>General</legend>
-
-							<div class="messages_update"></div>
-
-							<input id="detail_emp_no" name="detail_emp_no" type="hidden" value="<?php echo $username; ?>">
-							<input id="detail_emp_id" name="detail_emp_id" type="hidden" value="">
-							<input id="detail_seq_number" name="detail_seq_number" type="hidden" value="">
-
-							<!--FROM SESSION -->
-							<input id="sel_token" name="sel_token" type="hidden" value="<?php echo $get_token; ?>">
-							<!--FROM CONFIGURATION -->
-							<div class="form-row">
-								<div class="col-4 name">Decree Number <span class="required">*</span></div>
-								<div class="col-sm-8">
-									<div class="input-group">
-										<input class="input--style-6"  id="detail_decree_number" placeholder=""
-											name="detail_decree_number" type="Text" value="" style="width: 60%;" readonly="true">
-									</div>
-								</div>
-							</div>
-							<div class="form-row">
-								<div class="col-4 name">Letter Type <span class="required">*</span></div>
-								<div class="col-sm-8">
-									<div class="input-group">
-										<select class="input--style-6 letter_type" style="width: 60%;height: 30px;" name="detail_letter_type" id="detail_letter_type" required>
-											<option value="">--Select Option--</option>
-											<?php
-												$sql = mysqli_query($connect, "SELECT
-												seq_id,
-												template_code
-											FROM tsfmlettertemplate");
-												while ($row = mysqli_fetch_array($sql)) {
-													echo '<option value="' . $row['template_code'] . '">' . $row['template_code'] . '</option>';
-												}
-											?>
-									</select>
-									</div>
-								</div>
-							</div>
-							<div class="form-row">
-								<div class="col-4 name">Letter Date <span class="required">*</span></div>
-								<div class="col-sm-8">
-									<div class="input-group">
-										<input type="text" id="detail_letter_date" name="detail_letter_date"
-											class="input--style-6" placeholder="" style="background-image:url(../../asset/dist/img/icons/calendar_icon.gif);  
-											background-size: 17px;
-											background-position:right;   
-											background-repeat:no-repeat; 
-											padding-right:10px;
-											width: 60%;
-											" autocomplete="off" required/>
-									</div>
-								</div>
-							</div>
-							<div class="form-row">
-								<div class="col-4 name">Effective Date <span class="required">*</span></div>
-								<div class="col-sm-8">
-									<div class="input-group">
-										<input type="text" id="detail_effective_date" name="detail_effective_date"
-											class="input--style-6" placeholder="" style="background-image:url(../../asset/dist/img/icons/calendar_icon.gif);  
-											background-size: 17px;
-											background-position:right;   
-											background-repeat:no-repeat; 
-											padding-right:10px;
-											width: 60%;
-											" autocomplete="off" required/>
-									</div>
-								</div>
-							</div>
-							<div class="form-row">
-								<div class="col-4 name">Letter Reference <span class="required">*</span></div>
-								<div class="col-sm-8">
-									<div class="input-group">
-										<select class="input--style-6 letter_reference" style="width: 60%;height: 30px;" name="detail_letter_reference" id="detail_letter_reference">
-											<option value="">--Select Option--</option>
-											<?php
-												$sql = mysqli_query($connect, "SELECT
-												history_no,
-												emp_id,
-												careertransition_code,
-												careertranstype
-											FROM hrmemploymenthistory
-												WHERE emp_id = '".$_GET['emp_id']."'");
-												while ($row = mysqli_fetch_array($sql)) {
-													echo '<option value="' . $row['history_no'] . '">' . $row['history_no'] . '</option>';
-												}
-											?>
-									</select>
-									</div>
-								</div>
-							</div>
-						</fieldset>
-						<div class="modal-footer-sdk">
-							<button type="button" class="btn-sdk btn-primary-center-only rounded-pill" name="update_decree" id="update_decree" data-type_submit="draft" style="background-color: #337ab7 !important; color: #fff !important;">
-								<p class="text-center">
-									&nbsp;Update &nbsp;
-								</p>
-							</button>
-						</div>
-					</div>
-				</form>
+	<div class="modal-dialog modal-belakang modal-bg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Detail Decree</h4>
+				<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close"
+					style="margin-top: -15px;">
+					<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
+				</a>
 			</div>
+
+			<!-- <form class="form-horizontal" action="php_action/FuncDataUpdate.php" method="POST" id="updateMemberForm"> -->
+			<form class="form-horizontal" action="" method="POST" id="form_update_data">
+
+				<div class="card-body table-responsive p-0"
+					style="width: 100vw;height: auto%; width: 98%; margin: 5px;overflow: scroll;overflow-x: hidden;">
+
+					<fieldset id="fset_1">
+						<legend>General</legend>
+
+						<div class="messages_update"></div>
+
+						<input id="detail_emp_no" name="detail_emp_no" type="hidden" value="<?php echo $username; ?>">
+						<input id="detail_emp_id" name="detail_emp_id" type="hidden" value="">
+						<input id="detail_seq_number" name="detail_seq_number" type="hidden" value="">
+
+						<!--FROM SESSION -->
+						<input id="sel_token" name="sel_token" type="hidden" value="<?php echo $get_token; ?>">
+						<!--FROM CONFIGURATION -->
+						<div class="form-row">
+							<div class="col-4 name">Decree Number <span class="required">*</span></div>
+							<div class="col-sm-8">
+								<div class="input-group">
+									<input class="input--style-6" id="detail_decree_number" placeholder=""
+										name="detail_decree_number" type="Text" value="" style="width: 70%;"
+										readonly="true">
+								</div>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-4 name">Letter Type <span class="required">*</span></div>
+							<div class="col-sm-8">
+								<div class="input-group">
+									<select class="input--style-6 letter_type" style="width: 70%;height: 30px;" name="detail_letter_type" id="detail_letter_type" required></select>
+									<input type="hidden" class="form-control" id="value_detail_letter_type">
+								</div>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-4 name">Letter Date <span class="required">*</span></div>
+							<div class="col-sm-8">
+								<div class="input-group">
+									<input type="text" id="detail_letter_date" name="detail_letter_date"
+										class="input--style-6" placeholder="" style="background-image:url(../../asset/dist/img/icons/calendar_icon.gif);  
+											background-size: 17px;
+											background-position:right;   
+											background-repeat:no-repeat; 
+											padding-right:10px;
+											width: 70%;
+											" autocomplete="off" required />
+								</div>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-4 name">Effective Date <span class="required">*</span></div>
+							<div class="col-sm-8">
+								<div class="input-group">
+									<input type="text" id="detail_effective_date" name="detail_effective_date"
+										class="input--style-6" placeholder="" style="background-image:url(../../asset/dist/img/icons/calendar_icon.gif);  
+											background-size: 17px;
+											background-position:right;   
+											background-repeat:no-repeat; 
+											padding-right:10px;
+											width: 70%;
+											" autocomplete="off" required />
+								</div>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-4 name">Letter Reference <span class="required">*</span></div>
+							<div class="col-sm-8">
+								<div class="input-group">
+									<select class="input--style-6 letter_reference" style="width: 70%;height: 30px;" name="detail_letter_reference" id="detail_letter_reference">
+										<!-- <option value="">--Select Option--</option> -->
+									</select>
+									<input type="hidden" class="form-control" id="value_detail_letter_reference">
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					<div class="modal-footer-sdk">
+						<button type="button" class="btn-sdk btn-primary-center-only rounded-pill" name="update_decree"
+							id="update_decree" data-type_submit="draft"
+							style="background-color: #337ab7 !important; color: #fff !important;">
+							<p class="text-center">
+								&nbsp;Update &nbsp;
+							</p>
+						</button>
+					</div>
+				</div>
+			</form>
 		</div>
+	</div>
 </div>
 
 
 <script src="../../asset/vendor/datatable/datatables.min.js"></script>
 
 <script>
-	$('#input_letter_type').select2({
-		dropdownParent: $('#CreateForm')
-	});
-
-	$('#input_letter_reference').select2({
-		dropdownParent: $('#CreateForm')
-	});
-
-	$('#create_data_decree').on('click', function(e) {
+	$(document).on('click', '#create_data_decree', function (e) {
 		e.preventDefault()
 		let data_emp_id = $(this).data('emp_id')
 		$('#form_create_data')[0].reset()
+		$('#input_emp_id').val(data_emp_id)
+		$('#form_data_decree').hide()
+	})
+
+	$(document).on('change', '#input_letter_type', function () {
+		let val_input_letter_type = $('#input_letter_type').val()
+		// alert(val_input_letter_type)
 		$.ajax({
 			url: 'action/generateNumber.php',
 			type: 'GET',
+			data: {
+				pattern_group: val_input_letter_type
+			},
 			async: true,
-			success:function(res) {
-				$('#input_emp_id').val(data_emp_id)
-				$('#input_seq_number').val(res[1])
-				$('#input_decree_number').val(res[0])
-				// alert(res[0])
+			success: function(res) {
+				if (val_input_letter_type == '') {
+					$('#form_data_decree').hide()
+					$('#input_decree_number').val('')
+					$('#input_letter_date').val('')
+					$('#input_effective_date').val('')
+					$('#input_letter_reference').val('')
+				} else {
+					$('#form_data_decree').show()
+					$('#input_seq_number').val(res[1])
+					$('#input_decree_number').val(res[0])
+				}
+
 			}
 		})
+
 	})
 
-	$('#submit_decree').on('click', function(e) {
+	$('#input_letter_date').bootstrapMaterialDatePicker({
+		time: false,
+		clearButton: true
+	});
+
+	$('#input_effective_date').bootstrapMaterialDatePicker({
+		time: false,
+		clearButton: true
+	});
+
+	$('#detail_letter_date').bootstrapMaterialDatePicker({
+		time: false,
+		clearButton: true
+	});
+
+	$('#detail_effective_date').bootstrapMaterialDatePicker({
+		time: false,
+		clearButton: true
+	});
+
+	$('#input_letter_type').select2({
+		dropdownParent: $('#CreateForm')
+	});
+	
+	$('#input_letter_reference').select2({
+		dropdownParent: $('#CreateForm')
+	})
+
+	$('#detail_letter_type').select2({
+		dropdownParent: $('#DetailDecree')
+	});
+
+	$('#detail_letter_reference').select2({
+		dropdownParent: $('#DetailDecree')
+	});
+
+	$('#submit_decree').on('click', function (e) {
 		e.preventDefault()
 
 		let input_decree_number = $('#input_decree_number').val()
@@ -414,136 +438,166 @@ if (!empty($_POST['cari'])) {
 		let input_effective_date = $('#input_effective_date').val()
 
 		if (input_decree_number == '') {
-            mymodalss.style.display = "none";
-            modals.style.display = "block";
-            document.getElementById("msg").innerHTML = "Decree number cannot empty";
-            return false;
-        }
+			mymodalss.style.display = "none";
+			modals.style.display = "block";
+			document.getElementById("msg").innerHTML = "Decree number cannot empty";
+			return false;
+		}
 		if (input_letter_type == '') {
-            mymodalss.style.display = "none";
-            modals.style.display = "block";
-            document.getElementById("msg").innerHTML = "Letter type cannot empty";
-            return false;
-        }
+			mymodalss.style.display = "none";
+			modals.style.display = "block";
+			document.getElementById("msg").innerHTML = "Letter type cannot empty";
+			return false;
+		}
 		if (input_letter_date == '') {
-            mymodalss.style.display = "none";
-            modals.style.display = "block";
-            document.getElementById("msg").innerHTML = "Letter date cannot empty";
-            return false;
-        }
+			mymodalss.style.display = "none";
+			modals.style.display = "block";
+			document.getElementById("msg").innerHTML = "Letter date cannot empty";
+			return false;
+		}
 		if (input_effective_date == '') {
-            mymodalss.style.display = "none";
-            modals.style.display = "block";
-            document.getElementById("msg").innerHTML = "Effective date cannot empty";
-            return false;
-        }
+			mymodalss.style.display = "none";
+			modals.style.display = "block";
+			document.getElementById("msg").innerHTML = "Effective date cannot empty";
+			return false;
+		}
 
 		$.ajax({
 			url: 'action/createDecree.php',
-            type: 'POST',
-            data: new FormData($('#form_create_data')[0]),
-            processData: false,
-            contentType: false,
-            dataType: 'json',
-            async: true,
-			success: function(response) {
-                $(".form-group").removeClass('has-error').removeClass('has-success');
-                mymodalss.style.display = "none";
-                modals.style.display = "block";
-                document.getElementById("msg").innerHTML = response.messages;
+			type: 'POST',
+			data: new FormData($('#form_create_data')[0]),
+			processData: false,
+			contentType: false,
+			dataType: 'json',
+			async: true,
+			success: function (response) {
+				$(".form-group").removeClass('has-error').removeClass('has-success');
+				mymodalss.style.display = "none";
+				modals.style.display = "block";
+				document.getElementById("msg").innerHTML = response.messages;
 
 				$('#form_create_data')[0].reset()
 				$('#CreateForm').modal('toggle');
 				location.reload();
 				datatable.ajax.reload(null, false);
-            },
-			error: function(xhr, status, error) {
-                var errorMessage = JSON.parse(xhr.responseText);
-                alert(errorMessage.messages)
-            }
-		})
-	})
-
-	$(document).on('click','.list_detail_decree', function(e) {
-		e.preventDefault()
-		let detail_number_decree = $(this).data('number_decree')
-		// alert(detail_number_decree)
-		$.ajax({
-			url: 'action/getDataByid.php',
-			type: 'GET',
-			data: {
-				letter_no: detail_number_decree
 			},
-			dataType: 'json',
-			async: true,
-			success:function(res) {
-				$('#form_update_data')[0].reset()
-				$('#detail_emp_id').val(res.letter_receiver)
-				$('#detail_decree_number').val(res.letter_no)
-				$('#detail_letter_type').val(res.template_code)
-				$('#detail_letter_date').val(res.letter_date)
-				$('#detail_effective_date').val(res.effective_date)
-				$('#detail_letter_reference').val(res.letter_reference)
+			error: function (xhr, status, error) {
+				var errorMessage = JSON.parse(xhr.responseText);
+				mymodalss.style.display = "none";
+				modals.style.display = "block";
+				document.getElementById("msg").innerHTML = errorMessage.messages;
 			}
 		})
 	})
 
-	$('#update_decree').on('click', function(e) {
+	$(document).on('click', '.list_detail_decree', function (e) {
+		e.preventDefault()
+		let detail_number_decree = $(this).data('number_decree')
+		let detail_emp_id = $(this).data('emp_id')
+		$.ajax({
+			url: 'action/getDataByid.php',
+			type: 'GET',
+			data: {
+				letter_no: detail_number_decree,
+				emp_id: detail_emp_id
+			},
+			dataType: 'json',
+			async: true,
+			success: function (res) {
+				$('#form_update_data')[0].reset()
+				$('#detail_emp_id').val(res.decree.letter_receiver)
+				$('#detail_decree_number').val(res.decree.letter_no)
+
+				$('#value_detail_letter_type').val(res.decree.template_code)
+				$('#detail_letter_type').empty()
+				$('#detail_letter_type').append('<option value="'+res.decree.template_code+'">'+res.decree.template_code+'</option>')
+				
+				$('#detail_letter_date').val(res.decree.letter_date)
+				$('#detail_effective_date').val(res.decree.effective_date)
+
+				if(res.decree.letter_reference == '') {
+					$('#value_detail_letter_reference').val('')
+					$('#detail_letter_reference').empty()
+					$('#detail_letter_reference').append('<option value="">--Select Option--</option>')
+					$.each(res.ref, function(i, data) {
+						$('#detail_letter_reference').append('<option value="'+data.history_no+'">'+data.history_no+'</option>')
+					})
+				} else {
+					$('#value_detail_letter_reference').val(res.decree.letter_reference)
+					$('#detail_letter_reference').empty()
+					$.each(res.ref, function(i, data) {
+						$('#detail_letter_reference').append('<option value="'+data.history_no+'">'+data.history_no+'</option>')
+					})
+				}
+				// $('#detail_letter_reference').val(res.letter_reference)
+			}
+		})
+	})
+
+	$('#update_decree').on('click', function (e) {
 		let detail_decree_number = $('#detail_decree_number').val()
 		let detail_letter_type = $('#detail_letter_type').val()
 		let detail_letter_date = $('#detail_letter_date').val()
 		let detail_effective_date = $('#detail_letter_date').val()
 
 		if (input_decree_number == '') {
-            mymodalss.style.display = "none";
-            modals.style.display = "block";
-            document.getElementById("msg").innerHTML = "Decree number cannot empty";
-            return false;
-        }
+			mymodalss.style.display = "none";
+			modals.style.display = "block";
+			document.getElementById("msg").innerHTML = "Decree number cannot empty";
+			return false;
+		}
 		if (detail_letter_type == '') {
-            mymodalss.style.display = "none";
-            modals.style.display = "block";
-            document.getElementById("msg").innerHTML = "Letter type cannot empty";
-            return false;
-        }
+			mymodalss.style.display = "none";
+			modals.style.display = "block";
+			document.getElementById("msg").innerHTML = "Letter type cannot empty";
+			return false;
+		}
 		if (detail_letter_date == '') {
-            mymodalss.style.display = "none";
-            modals.style.display = "block";
-            document.getElementById("msg").innerHTML = "Letter date cannot empty";
-            return false;
-        }
+			mymodalss.style.display = "none";
+			modals.style.display = "block";
+			document.getElementById("msg").innerHTML = "Letter date cannot empty";
+			return false;
+		}
 		if (detail_effective_date == '') {
-            mymodalss.style.display = "none";
-            modals.style.display = "block";
-            document.getElementById("msg").innerHTML = "Effective date cannot empty";
-            return false;
-        }
+			mymodalss.style.display = "none";
+			modals.style.display = "block";
+			document.getElementById("msg").innerHTML = "Effective date cannot empty";
+			return false;
+		}
 
 		$.ajax({
 			url: 'action/updateDecree.php',
-            type: 'POST',
-            data: new FormData($('#form_update_data')[0]),
-            processData: false,
-            contentType: false,
-            dataType: 'json',
-            async: true,
-			success: function(response) {
-                $(".form-group").removeClass('has-error').removeClass('has-success');
-                mymodalss.style.display = "none";
-                modals.style.display = "block";
-                document.getElementById("msg").innerHTML = response.messages;
+			type: 'POST',
+			data: new FormData($('#form_update_data')[0]),
+			processData: false,
+			contentType: false,
+			dataType: 'json',
+			async: true,
+			success: function (response) {
+				$(".form-group").removeClass('has-error').removeClass('has-success');
+				mymodalss.style.display = "none";
+				modals.style.display = "block";
+				document.getElementById("msg").innerHTML = response.messages;
 
 				$('#form_create_data')[0].reset()
 				$('#CreateForm').modal('toggle');
 				location.reload();
 				datatable.ajax.reload(null, false);
-            },
-			error: function(xhr, status, error) {
-                var errorMessage = JSON.parse(xhr.responseText);
-                alert(errorMessage.messages)
-            }
+			},
+			error: function (xhr, status, error) {
+				var errorMessage = JSON.parse(xhr.responseText);
+				mymodalss.style.display = "none";
+				modals.style.display = "block";
+				document.getElementById("msg").innerHTML = errorMessage.messages;
+			}
 		})
 	})
+	$('#input_letter_reference').select2({
+		dropdownParent: $('#CreateForm')
+	});
+</script>
+
+<script>
 
 </script>
 

@@ -16,17 +16,17 @@
 
     $db_connect1 = mysqli_connect($db_host1, $db_user1, $db_password1, $db_name1);
 
-    // $db_host2 = "pralon.co.id";
-    // $db_user2 = "pralonco_hris_dev";
-    // $db_password2 = "P@yr0ll009ksf";
-    // $db_name2 = "pralonco_hris_dev";
-    // $db_port2 = "3306";
-
-    $db_host2 = "127.0.0.1";
-    $db_user2 = "root";
-    $db_password2 = "";
-    $db_name2 = "hris";
+    $db_host2 = "pralon.co.id";
+    $db_user2 = "pralonco_hris_dev";
+    $db_password2 = "P@yr0ll009ksf";
+    $db_name2 = "pralonco_hris_dev";
     $db_port2 = "3306";
+
+    // $db_host2 = "127.0.0.1";
+    // $db_user2 = "root";
+    // $db_password2 = "";
+    // $db_name2 = "hris";
+    // $db_port2 = "3306";
 
     $db_connect2 = mysqli_connect($db_host2, $db_user2, $db_password2, $db_name2);
 

@@ -41,7 +41,7 @@ while ($row = mysqli_fetch_assoc($query)) {
     $nc     = "<a href='#' id1='{$row["letter_no"]}' class='' data-toggle='modal' id='modal_view_letter' data-target='#modal-view-letter'>{$row["letter_no"]}</a>";
     $ne     = "<a href='#' id1='{$row["letter_no"]}' id='submit_preview' name='submit_preview' onclick='myFunction()'>[Assign Letter]</a>";
     
-    $detail = '<a type="button" nowrap="nowrap" data-toggle="modal" data-target="#DetailDecree" data-backdrop="static" style="color: blue; border: 5px; cursor:pointer" class="list_detail_decree" data-number_decree="'.$row['letter_no'].'"> <input type="image" src="../../asset/dist/img/icons/icon-addinfo.png" title="See detail Decree for ' . $row['letter_no'] . '" width="22px"/></a>';
+    $detail = '<a type="button" nowrap="nowrap" data-toggle="modal" data-target="#DetailDecree" data-backdrop="static" style="color: blue; border: 5px; cursor:pointer" class="list_detail_decree" data-number_decree="'.$row['letter_no'].'" data-emp_id="'.$row['emp_id'].'"> <input type="image" src="../../asset/dist/img/icons/icon-addinfo.png" title="See detail Decree for ' . $row['letter_no'] . '" width="22px"/></a>';
 
 
 	$output['data'][] = array(

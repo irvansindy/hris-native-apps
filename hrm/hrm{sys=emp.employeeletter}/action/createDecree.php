@@ -58,7 +58,7 @@
         
         $query_update_counter = "UPDATE tclmdocnumber SET 
             `seq_number` = '$input_seq_number'
-            WHERE code_type = 'SK'";
+            WHERE code_type = '$input_letter_type'";
         $exe_update_counter = $connect->query($query_update_counter);
 
         if ($exe_create_data = FALSE) {

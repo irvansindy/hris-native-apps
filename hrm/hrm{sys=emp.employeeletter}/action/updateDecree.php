@@ -24,7 +24,7 @@
     if($_POST) {
         $query_update_decree = "UPDATE tclmletterdocument SET
             `template_code` = '$detail_letter_type',
-            `letter_date` = '$detail_letter_type',
+            `letter_date` = '$detail_letter_date',
             `effective_date` = '$detail_effective_date',
             `letter_reference` = '$detail_letter_reference',
             `modified_date` = '$date_time',

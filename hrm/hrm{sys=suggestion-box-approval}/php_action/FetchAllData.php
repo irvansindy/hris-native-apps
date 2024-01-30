@@ -33,7 +33,6 @@
     INNER JOIN hrmrequestapproval f ON f.request_no = a.request_no
         AND f.position_id = e.position_id
         WHERE (e.emp_no = '$username') AND stat.status IN ('1','2','3','5')
-        -- WHERE (e.emp_no = '$username') AND stat.status IN ('1','2','3','5','10')
 		GROUP BY a.request_no
 		ORDER BY stat.name_my DESC, a.request_no DESC";
     
@@ -41,9 +40,10 @@
         'data' => []
     ];
 
+
     $exe_query_fetch = mysqli_query($connect, $query_fetch_data);
 
-    $result_fetch_data = mysqli_fetch_all($exe_query_fetch, MYSQL_ASSOC);
+    $result_fetch_data = mysqli_fetch_all($exe_query_fetch, MYSQLI_ASSOC);
     
     $number = 1;
 
@@ -95,4 +95,3 @@
     $connect->close();
     header('Content-Type: application/json');
     echo json_encode($response);
-    // echo json_encode($response['data'][0][1]);

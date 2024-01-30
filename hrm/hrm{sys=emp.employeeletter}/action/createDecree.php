@@ -38,14 +38,14 @@
             `modified_by`,
             `company_id`
         ) VALUES (
-            '$input_decree_number', -- letter no
-            '$input_letter_type', -- letter type / template code
-            '$input_letter_date', -- letter date
-            '$input_effective_date', -- effective date
-            '3402202107000001', -- signee 1
-            '3000000000000001', -- signee 2
-            '$input_emp_id', -- receiver
-            '', -- file
+            '$input_decree_number',
+            '$input_letter_type',
+            '$input_letter_date',
+            '$input_effective_date',
+            '3402202107000001',
+            '3000000000000001',
+            '$input_emp_id',
+            '',
             '$input_letter_reference',
             '$date_time',
             '$input_emp_no',
@@ -62,7 +62,7 @@
         $exe_update_counter = $connect->query($query_update_counter);
 
         if ($exe_create_data = FALSE) {
-            http_response_code(402);
+            http_response_code(422);
             mysqli_rollback($connect);
             $response['success'] = false;
             $response['code'] = "failed_message";

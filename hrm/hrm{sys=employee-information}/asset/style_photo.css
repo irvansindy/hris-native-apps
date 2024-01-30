@@ -1,0 +1,92 @@
+
+
+                                                  
+                                         
+                                                        @media (max-width:960px) 
+                                                        { 
+                                                               #imgbox1 {
+                                                                      width: 100%; display: block;
+                                                               }
+                                                               #imgbox1a {
+                                                                      width: 100%; display: block;
+                                                               }
+                                                                      #imgbox2 {
+                                                                             width: 100%; display: block;
+                                                                      }
+                                                                      #imgbox2a {
+                                                                             width: 100%; display: block;
+                                                                      }
+                                                                             #imgbox3 {
+                                                                                    width: 100%; display: block;
+                                                                             }
+                                                                             #imgbox3a {
+                                                                                    width: 100%; display: block;
+                                                                             }
+                                                                                    #imgbox4 {
+                                                                                           width: 100%; display: block;
+                                                                                    }
+                                                                                    #imgbox4a {
+                                                                                           width: 100%; display: block;
+                                                                                    }
+                                                                                           #imgbox5 {
+                                                                                                  width: 100%; display: block;
+                                                                                           }
+                                                                                           #imgbox5a {
+                                                                                                  width: 100%; display: block;
+                                                                                           }
+                                                        }
+
+                                                        @media (min-width:960px) 
+                                                        { 
+                                                               #imgbox1 {
+                                                                      width: 100%; display: block;
+                                                               }
+                                                               #imgbox1a {
+                                                                      width: 100%; display: block;
+                                                               }
+                                                                      #imgbox2 {
+                                                                             width: 100%; display: block;
+                                                                      }
+                                                                      #imgbox2a {
+                                                                             width: 100%; display: block;
+                                                                      }
+                                                                             #imgbox3 {
+                                                                                    width: 100%; display: block;
+                                                                             }
+                                                                             #imgbox3a {
+                                                                                    width: 100%; display: block;
+                                                                             }
+                                                                                    #imgbox4 {
+                                                                                           width: 100%; display: block;
+                                                                                    }
+                                                                                    #imgbox4a {
+                                                                                           width: 100%; display: block;
+                                                                                    }
+                                                                                           #imgbox5 {
+                                                                                                  width: 100%; display: block;
+                                                                                           }
+                                                                                           #imgbox5a {
+                                                                                                  width: 100%; display: block;
+                                                                                           }
+                                                        }
+
+
+                                                        input[type="file"] {
+                                                            white-space: nowrap !important;
+                                                            overflow: hidden !important;
+                                                            overflow-clip-box: padding-box;
+                                                            color: unset;
+                                                            appearance: none;
+                                                            -moz-default-appearance: none;
+                                                            cursor: default;
+                                                            border: none;
+                                                            background-color: transparent;
+                                                            padding: unset;
+                                                            color: transparent;
+                                                          }
+
+                                                          button, ::file-selector-button, input:is([type="color"], [type="reset"], [type="button"], [type="submit"]) {
+                            
+                                                            box-sizing: border-box;
+                                                            user-select: none;
+                                                          }

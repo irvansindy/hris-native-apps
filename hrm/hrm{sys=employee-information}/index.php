@@ -23,7 +23,7 @@ $footer = 'no'; //set as `yes` if you want to use default footer & set as `no` i
 <!-- ============================================================== -->
 <!-- Page wrapper  -->
 <!-- ============================================================== -->
-<div style="width: 100vw;height: 100vh;overflow-x: hidden;overflow: hidden;">
+<div style="width: 100vw;height: 100vh;overflow-x: hidden;">
 
     <div id="new-header" style="z-index: 10;background: #eceaea;position: fixed;width: 100%;margin-top: 111px;height: 30px;padding: 5px;">
         <div class="row page-titles" style="margin-top: -16px;">
@@ -50,7 +50,11 @@ $footer = 'no'; //set as `yes` if you want to use default footer & set as `no` i
                                     </div>
                                 </a>
                             </td>
-
+                            <td>
+                                <a href="#" class="open_modal_search" title="Add" data-toggle="modal" data-target="#CreateForm" id="CancelButton" data-keyboard="false" data-backdrop="static" data-emp_no="<?php echo $username; ?>">
+                                <div class="toolbar sprite-toolbar-back" id="add" title="Add"></div>
+                                </a>
+                            </td>
                             <td>
                                 <div class="toolbar sprite-toolbar-reload" id="RELOAD" title="Reload" onclick="RefreshPage();">
                                 </div>

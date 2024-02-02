@@ -28,7 +28,8 @@ $number = 1;
 while ($row = mysqli_fetch_assoc($query)) {
 
     if ($row['status_req'] == 'draft') {
-        $request_number = '<a href="" type="button" nowrap="nowrap" data-toggle="modal" data-target="#UpdateEmployeeData" data-backdrop="static" data-request_id="'.$row['request_update_id'].'" class="detail_request_id" >'.$row['request_update_id'].'</a>';
+        // $request_number = '<a href="" type="button" nowrap="nowrap" data-toggle="modal" data-target="#UpdateEmployeeData" data-backdrop="static" data-request_id="'.$row['request_update_id'].'" class="detail_request_id" >'.$row['request_update_id'].'</a>';
+        $request_number = '<a href="#" type="button" nowrap="nowrap" data-request_id="'.$row['request_update_id'].'" class="detail_request_id">'.$row['request_update_id'].'</a>';
     } else {
         $request_number = $row['request_update_id'];
     }

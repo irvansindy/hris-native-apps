@@ -22,6 +22,7 @@
     $inp_birth_place = $_POST['inp_birth_place'];
     $inp_birthdate = $_POST['inp_birthdate'];
     $inp_nik = $_POST['inp_nik'];
+    $inp_kk = $_POST['inp_kk'];
     $inp_start_date = $_POST['inp_start_date'];
     $inp_gender = $_POST['inp_gender'];
     $inp_blood_type = $_POST['inp_blood_type'];
@@ -33,6 +34,7 @@
     $inp_email_personal = $_POST['inp_email_personal'];
     $inp_address_ktp = $_POST['inp_address_ktp'];
     $inp_npwp = $_POST['inp_npwp'];
+    $inp_ptkp = $_POST['inp_ptkp'];
     $inp_bpjs_ks = $_POST['inp_bpjs_ks'];
     $inp_bpjs_tk = $_POST['inp_bpjs_tk'];
     $inp_insurance = $_POST['inp_insurance'];
@@ -42,6 +44,7 @@
     $inp_bank_branch_office = $_POST['inp_bank_branch_office'];
 
     $input_employee_education = $_POST['input_employee_education'];
+    $input_employee_education_value = $_POST['input_employee_education_value'];
     $input_school_name = $_POST['input_school_name'];
     $input_school_place = $_POST['input_school_place'];
     $input_school_major = $_POST['input_school_major'];
@@ -55,6 +58,7 @@
     $input_contact_address = $_POST['input_contact_address'];
     
     $input_family_member = $_POST['input_family_member'];
+    $input_family_member_value = $_POST['input_family_member_value'];
     $input_family_name = $_POST['input_family_name'];
     $input_family_birth_date = $_POST['input_family_birth_date'];
     $input_family_status = $_POST['input_family_status'];
@@ -146,6 +150,7 @@
             `birth_place`,
             `birth_date`,
             `gender`,
+            `NIK`,
             `family_card`,
             `work_entry_date`,
             `blood_type`,
@@ -156,6 +161,7 @@
             `address_ktp`,
             `address_domisili`,
             `npwp`,
+            `ptkp`,
             `bpjs_ks`,
             `bpjs_tk`,
             `insurance_number`,
@@ -177,6 +183,7 @@
             '$inp_birthdate',
             '$inp_gender',
             '$inp_nik',
+            '$inp_kk',
             '$inp_start_date',
             '$inp_blood_type',
             '$inp_religion',
@@ -186,6 +193,7 @@
             '$inp_address_ktp',
             '$inp_address_ktp',
             '$inp_npwp',
+            '$inp_ptkp',
             '$inp_bpjs_ks',
             '$inp_bpjs_tk',
             '$inp_insurance',

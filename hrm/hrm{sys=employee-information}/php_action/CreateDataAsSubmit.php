@@ -15,6 +15,11 @@
     $date_time = date("Y-m-d H:i:s");
 
     // set variable
+    // set local time
+    $date = date('Y-m-d');
+    $date_time = date("Y-m-d H:i:s");
+
+    // set variable
     $inp_emp_no = $_POST['inp_emp_no'];
     $inp_emp_id = $_POST['inp_emp_id'];
     $inp_full_name = $_POST['inp_full_name'];
@@ -22,6 +27,7 @@
     $inp_birth_place = $_POST['inp_birth_place'];
     $inp_birthdate = $_POST['inp_birthdate'];
     $inp_nik = $_POST['inp_nik'];
+    $inp_kk = $_POST['inp_kk'];
     $inp_start_date = $_POST['inp_start_date'];
     $inp_gender = $_POST['inp_gender'];
     $inp_blood_type = $_POST['inp_blood_type'];
@@ -33,6 +39,7 @@
     $inp_email_personal = $_POST['inp_email_personal'];
     $inp_address_ktp = $_POST['inp_address_ktp'];
     $inp_npwp = $_POST['inp_npwp'];
+    $inp_ptkp = $_POST['inp_ptkp'];
     $inp_bpjs_ks = $_POST['inp_bpjs_ks'];
     $inp_bpjs_tk = $_POST['inp_bpjs_tk'];
     $inp_insurance = $_POST['inp_insurance'];
@@ -146,6 +153,7 @@
             `birth_place`,
             `birth_date`,
             `gender`,
+            `NIK`,
             `family_card`,
             `work_entry_date`,
             `blood_type`,
@@ -156,6 +164,7 @@
             `address_ktp`,
             `address_domisili`,
             `npwp`,
+            `ptkp`,
             `bpjs_ks`,
             `bpjs_tk`,
             `insurance_number`,
@@ -177,6 +186,7 @@
             '$inp_birthdate',
             '$inp_gender',
             '$inp_nik',
+            '$inp_kk',
             '$inp_start_date',
             '$inp_blood_type',
             '$inp_religion',
@@ -186,6 +196,7 @@
             '$inp_address_ktp',
             '$inp_address_ktp',
             '$inp_npwp',
+            '$inp_ptkp',
             '$inp_bpjs_ks',
             '$inp_bpjs_tk',
             '$inp_insurance',

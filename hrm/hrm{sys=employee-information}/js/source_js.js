@@ -1,4 +1,9 @@
 $(document).ready( function(){
+    $('#section_list_data').show()
+    $('#section_create_data').hide()
+    $('#section_detail_data').hide()
+    $('#CancelButton').hide()
+
     $(document).on('click', '#CreateButton', function(e) {
         e.preventDefault()
         let data_emp_no = $(this).data('emp_no')
@@ -14,7 +19,13 @@ $(document).ready( function(){
             async: true,
             success: function(res){
                 $('#FormDisplayCreate')[0].reset()
-                $('#inp_emp_id').val(res[0].emp_id)
+                
+                $('#section_list_data').hide()
+                $('#section_create_data').show()
+                $('#CreateButton').hide()
+                $('#CancelButton').show()
+
+                $('#detail_emp_id').val(res[0].emp_id)
                 $('#inp_full_name').val(res[0].Full_Name)
                 $('#inp_nip').val(res[0].emp_no)
                 $('#inp_birth_place').val(res[0].birthplace)
@@ -31,38 +42,38 @@ $(document).ready( function(){
                 $('#inp_email_personal').val(res[0].email_personal)
                 $('#inp_address_ktp').val(res[0].address)
 
+                let static_education = ['SD', 'SLTP/MTS/SMP', 'SMA/SMK/MA', 'D1/D2/D3 **', 'S1', 'S2', 'S3'];
+                let value_static_education = ['SD', 'SMP', 'SMA', 'D3', 'S1', 'S2', 'S3'];
                 $('#data_list_employee_education').empty()
-                $('#data_list_employee_education').append(
-                    `
-                        <tr>
-                            <td>
-                                <input class="input--style-6 border-0 input_employee_education" id="input_employee_education" placeholder="Pendidikan" name="input_employee_education[]" type="Text" value="">
-                            </td>
-                            <td>
-                                <input class="input--style-6 border-0 input_school_name" id="input_school_name" placeholder="Nama Sekolah" name="input_school_name[]" type="Text" value="">
-                            </td>
-                            <td>
-                                <input class="input--style-6 border-0 input_school_place" id="input_school_place" placeholder="Tempat / Kota" name="input_school_place[]" type="Text" value="">
-                            </td>
-                            <td>
-                                <input class="input--style-6 border-0 input_school_major" id="input_school_major" placeholder="Jurusan" name="input_school_major[]" type="Text" value="">
-                            </td>
-                            <td>
-                            <input class="input--style-6 border-0 input_school_start_date" id="input_school_start_date" placeholder="Tahun Mulai" name="input_school_start_date[]" type="Text" value="" style="width:40% !important"> s/d
-                                <input class="input--style-6 border-0 input_school_end_date" id="input_school_end_date" placeholder="Tahun Selesai" name="input_school_end_date[]" type="Text" value="" style="width:40% !important">
-                                
-                            </td>
-                            <td>
-                                <input class="input--style-6 border-0 input_school_ipk" id="input_school_ipk" placeholder="Jurusan" name="input_school_ipk[]" type="Text" value="">
-                            </td>
-                            <td style="text-align: center;">
-                                <button class="btn btn-primary btn-sm add_dynamic_form_employee_education" id="add_dynamic_form_employee_education" type="button">
-                                    <i class="fa-solid fa-plus"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    `
-                )
+                for (let index = 0; index < static_education.length; index++) {
+                    $('#data_list_employee_education').append(
+                        `
+                            <tr>
+                                <td>
+                                    <input class="input--style-6 border-0 input_employee_education" id="input_employee_education" placeholder="Pendidikan" name="input_employee_education[]" type="Text" value="${static_education[index]}" readonly>
+                                    <input class="input--style-6 border-0 input_employee_education_value" id="input_employee_education_value" placeholder="Pendidikan" name="input_employee_education_value[]" type="Text" value="${value_static_education[index]}" readonly>
+                                </td>
+                                <td>
+                                    <input class="input--style-6 border-0 input_school_name" id="input_school_name" placeholder="Nama Sekolah" name="input_school_name[]" type="Text" value="">
+                                </td>
+                                <td>
+                                    <input class="input--style-6 border-0 input_school_place" id="input_school_place" placeholder="Tempat / Kota" name="input_school_place[]" type="Text" value="">
+                                </td>
+                                <td>
+                                    <input class="input--style-6 border-0 input_school_major" id="input_school_major" placeholder="Jurusan" name="input_school_major[]" type="Text" value="">
+                                </td>
+                                <td>
+                                <input class="input--style-6 border-0 input_school_start_date" id="input_school_start_date" placeholder="Tahun Mulai" name="input_school_start_date[]" type="Text" value="" style="width:40% !important"> s/d
+                                    <input class="input--style-6 border-0 input_school_end_date" id="input_school_end_date" placeholder="Tahun Selesai" name="input_school_end_date[]" type="Text" value="" style="width:40% !important">
+                                    
+                                </td>
+                                <td>
+                                    <input class="input--style-6 border-0 input_school_ipk" id="input_school_ipk" placeholder="Jurusan" name="input_school_ipk[]" type="Text" value="">
+                                </td>
+                            </tr>
+                        `
+                    )
+                }
 
                 $('#data_list_emergency_contact').empty()
                 $('#data_list_emergency_contact').append(
@@ -80,41 +91,43 @@ $(document).ready( function(){
                         <td>
                             <input class="input--style-6 border-0 input_contact_address" id="input_contact_address" placeholder="Alamat" name="input_contact_address[]" type="Text" value="">
                         </td>
-                        <td style="text-align: center;">
-                            <button class="btn btn-primary btn-sm add_dynamic_form_contact_emergency" id="add_dynamic_form_contact_emergency" type="button">
-                                <i class="fa-solid fa-plus"></i>
-                            </button>
-                        </td>
                     </tr>
                     `
                 )
                 
                 $('#data_list_family_dependent').empty()
-                $('#data_list_family_dependent').append(
-                    `
-                    <tr>
-                        <td>
-                            <input class="input--style-6 border-0 input_family_member" id="input_family_member" placeholder="Nama Kontak" name="input_family_member[]" type="Text" value="">
-                        </td>
-                        <td>
-                            <input class="input--style-6 border-0 input_family_name" id="input_family_name" placeholder="Hubungan" name="input_family_name[]" type="Text" value="">
-                        </td>
-                        <td>
-                            <input class="input--style-6 border-0 input_family_birth_date" id="input_family_birth_date" placeholder="Nomor" name="input_family_birth_date[]" type="date" value="">
-                        </td>
-                        <td>
-                            <input class="input--style-6 border-0 input_family_status" id="input_family_status" placeholder="Alamat" name="input_family_status[]" type="Text" value="">
-                        </td>
-                        <td style="text-align: center;">
-                            <button class="btn btn-primary btn-sm add_dynamic_form_family_dependent" id="add_dynamic_form_family_dependent" type="button">
-                                <i class="fa-solid fa-plus"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    `
-                )
+                for (let i = 0; i < res[1].length; i++) {
+                    $('#data_list_family_dependent').append(
+                        `
+                        <tr>
+                            <td>
+                                <input class="input--style-6 border-0 input_family_member" id="input_family_member" placeholder="" name="input_family_member[]" type="Text" value="${res[1][i].relationship_name_id}">
+                                <input class="input--style-6 border-0 input_family_member_value" id="input_family_member_value" placeholder="" name="input_family_member_value[]" type="Text" value="${res[1][i].order}">
+                            </td>
+                            <td>
+                                <input class="input--style-6 border-0 input_family_name" id="input_family_name" placeholder="Nama" name="input_family_name[]" type="Text" value="">
+                            </td>
+                            <td>
+                                <input class="input--style-6 border-0 input_family_birth_date" id="input_family_birth_date" placeholder="Nomor" name="input_family_birth_date[]" type="date" value="">
+                            </td>
+                            <td>
+                                <input class="input--style-6 border-0 input_family_status" id="input_family_status" placeholder="Status" name="input_family_status[]" type="Text" value="">
+                            </td>
+                        </tr>
+                        `
+                    )
+                }
             }
         })
+    })
+
+    $(document).on('click', '#CancelButton', function(e) {
+        $('#FormDisplayCreate')[0].reset()
+        $('#section_list_data').show()
+        $('#section_create_data').hide()
+        $('#section_detail_data').hide()
+        $('#CreateButton').show()
+        $('#CancelButton').hide()
     })
 
     // add dynamic form education employee
@@ -243,6 +256,10 @@ $(document).ready( function(){
 				document.getElementById("msg").innerHTML = res.messages;
 
 				$('#FormDisplayCreate')[0].reset()
+                $('#section_create_data').hide()
+                $('#section_detail_data').hide()
+                $('#CreateButton').show()
+                $('#CancelButton').hide()
 				$('#CreateForm').modal('toggle');
 				// location.reload();
 				datatable.ajax.reload(null, false);
@@ -611,6 +628,11 @@ $(document).ready( function(){
 
     // detail update employee data
     $(document).on('click', '.detail_request_id', function(e) {
+        e.preventDefault()
+        $('#section_list_data').hide()
+        $('#section_detail_data').show()
+        $('#CreateButton').hide()
+        $('#CancelButton').show()
         let request_id = $(this).data('request_id')
         $.ajax({
             url: 'php_action/getDraftUpdateEmployeeById.php',
@@ -623,12 +645,13 @@ $(document).ready( function(){
             async: true,
             success: function(res) {
                 $('#FormDisplayUpdateEmployee')[0].reset()
+                $('#detail_request_update_id').val(res[0].request_update_id)
                 $('#detail_emp_id').val(res[0].emp_id)
                 $('#detail_full_name').val(res[0].full_name)
                 $('#detail_nip').val(res[0].emp_no)
                 $('#detail_birth_place').val(res[0].birth_place)
                 $('#detail_birthdate').val(res[0].birth_date)
-                $('#detail_nik').val(res[0].idnumber)
+                $('#detail_nik').val(res[0].NIK)
                 $('#detail_kk').val(res[0].family_card)
                 $('#detail_start_date').val(res[0].work_entry_date)
                 $('#detail_gender').val(res[0].gender)
@@ -639,6 +662,14 @@ $(document).ready( function(){
                 $('#detail_email').val(res[0].email)
                 $('#detail_email_personal').val(res[0].email_personal)
                 $('#detail_address_ktp').val(res[0].address_ktp)
+                $('#detail_npwp').val(res[0].npwp)
+                $('#detail_bpjs_ks').val(res[0].bpjs_ks)
+                $('#detail_bpjs_tk').val(res[0].bpjs_tk)
+                $('#detail_insurance').val(res[0].insurance_number)
+                $('#detail_bank_name').val(res[0].bank_account_name)
+                $('#detail_bank_number').val(res[0].bank_account_number)
+                $('#detail_bank_user_account').val(res[0].bank_account_user)
+                $('#detail_bank_branch_office').val(res[0].bank_account_office)
                 let total_education = res[1].length
                 let total_contact = res[2].length
                 let total_family = res[3].length
@@ -826,5 +857,394 @@ $(document).ready( function(){
             }
         })
         
+    })
+
+    // update draft
+    $(document).on('click', '#update_draft', function(e) {
+        e.preventDefault()
+        $.ajax({
+            url: 'php_action/UpdatingDraft.php',
+			type: 'POST',
+			data: new FormData($('#FormDisplayUpdateEmployee')[0]),
+			processData: false,
+			contentType: false,
+			dataType: 'json',
+			async: true,
+            success: function(res) {
+                $(".form-group").removeClass('has-error').removeClass('has-success');
+				mymodalss.style.display = "none";
+				modals.style.display = "block";
+				document.getElementById("msg").innerHTML = res.messages;
+
+				$('#FormDisplayUpdateEmployee')[0].reset()
+                $('#section_list_data').show()
+                $('#section_create_data').hide()
+                $('#section_detail_data').hide()
+                $('#CreateButton').show()
+                $('#CancelButton').hide()
+				$('#CreateForm').modal('toggle');
+				// location.reload();
+				datatable.ajax.reload(null, false);
+            },
+            error: function (xhr, status, error) {
+				var errorMessage = JSON.parse(xhr.responseText);
+				mymodalss.style.display = "none";
+				modals.style.display = "block";
+				document.getElementById("msg").innerHTML = errorMessage.messages;
+			}
+        })
+    })
+
+    // update submit
+    (document).on('click', '#update_submit', function(e) {
+        e.preventDefault()
+
+        // set variable check data
+        let detail_full_name = $('#detail_full_name').val()
+        let detail_birth_place = $('#detail_birth_place').val()
+        let detail_birthdate = $('#detail_birthdate').val()
+        let detail_nik = $('#detail_nik').val()
+        let detail_kk = $('#detail_kk').val()
+        let detail_start_date = $('#detail_start_date').val()
+        let detail_gender = $('#detail_gender').val()
+        let detail_blood_type = $('#detail_blood_type').val()
+        let detail_religion = $('#detail_religion').val()
+        let detail_marital_status = $('#detail_marital_status').val()
+        let detail_nationality = $('#detail_nationality').val()
+        let detail_phone_number = $('#detail_phone_number').val()
+        let detail_email = $('#detail_email').val()
+        let detail_email_personal = $('#detail_email_personal').val()
+        let detail_address_ktp = $('#detail_address_ktp').val()
+        let detail_npwp = $('#detail_npwp').val()
+        let detail_bpjs_ks = $('#detail_bpjs_ks').val()
+        let detail_bpjs_tk = $('#detail_bpjs_tk').val()
+        let detail_insurance = $('#detail_insurance').val()
+        let detail_bank_name = $('#detail_bank_name').val()
+        let detail_bank_number = $('#detail_bank_number').val()
+        let detail_bank_user_account = $('#detail_bank_user_account').val()
+        let detail_bank_branch_office = $('#detail_bank_branch_office').val()
+
+        let input_employee_education = $('input[name="input_employee_education[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let input_school_name = $('input[name="input_school_name[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let input_school_place = $('input[name="input_school_place[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let input_school_major = $('input[name="input_school_major[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let input_school_start_date = $('input[name="input_school_start_date[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let input_school_end_date = $('input[name="input_school_end_date[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let input_school_ipk = $('input[name="input_school_ipk[]"]').map(function(){
+            return $(this).val()
+        }).get()
+
+        let input_contact_name = $('input[name="input_contact_name[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let input_contact_relation = $('input[name="input_contact_relation[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let input_contact_number = $('input[name="input_contact_number[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let input_contact_address = $('input[name="input_contact_address[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let input_family_member = $('input[name="input_family_member[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let input_family_name = $('input[name="input_family_name[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let input_family_birth_date = $('input[name="input_family_birth_date[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let input_family_status = $('input[name="input_family_status[]"]').map(function(){
+            return $(this).val()
+        }).get()
+
+        let detail_employee_education_condition = detail_employee_education[0] == '' && detail_employee_education.length <= 1
+        let detail_school_name_condition = detail_school_name[0] == '' && detail_school_name.length <= 1
+        let detail_school_major_condition = detail_school_major[0] == '' && detail_school_major.length <= 1
+        let detail_school_place_condition = detail_school_place[0] == '' && detail_school_place.length <= 1
+        let detail_school_start_date_condition = detail_school_start_date[0] == '' && detail_school_start_date.length <= 1
+        let detail_school_end_date_condition = detail_school_end_date[0] == '' && detail_school_end_date.length <= 1
+        let detail_school_ipk_condition = detail_school_ipk[0] == '' && detail_school_ipk.length <= 1
+        
+        let detail_contact_name_condition = detail_contact_name[0] == '' && detail_contact_name.length <= 1
+        let detail_contact_relation_condition = detail_contact_relation[0] == '' && detail_contact_relation.length <= 1
+        let detail_contact_number_condition = detail_contact_number[0] == '' && detail_contact_number.length <= 1
+        let detail_contact_address_condition = detail_contact_address[0] == '' && detail_contact_address.length <= 1
+        let detail_family_member_condition = detail_family_member[0] == '' && detail_family_member.length <= 1
+        let detail_family_name_condition = detail_family_name[0] == '' && detail_family_name.length <= 1
+        let detail_family_birth_date_condition = detail_family_birth_date[0] == '' && detail_family_birth_date.length <= 1
+        let detail_family_status_condition = detail_family_status[0] == '' && detail_family_status.length <= 1
+
+        if (detail_full_name == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Full name cannot empty";
+            return false;
+        }
+        if (detail_birth_place == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Birth place cannot empty";
+            return false;
+        }
+        if (detail_birthdate == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Birth date cannot empty";
+            return false;
+        }
+        if (detail_nik == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "NIK cannot empty";
+            return false;
+        }
+        if (detail_kk == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "KK cannot empty";
+            return false;
+        }
+        if (detail_start_date == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Start date cannot empty";
+            return false;
+        }
+        if (detail_gender == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Gender cannot empty";
+            return false;
+        }
+        if (detail_blood_type == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Blood type cannot empty";
+            return false;
+        }
+        if (detail_religion == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Religion cannot empty";
+            return false;
+        }
+        if (detail_marital_status == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Marital status cannot empty";
+            return false;
+        }
+        if (detail_nationality == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Nasionality cannot empty";
+            return false;
+        }
+        if (detail_phone_number == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Phone number cannot empty";
+            return false;
+        }
+        if (detail_email == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Email cannot empty";
+            return false;
+        }
+        if (detail_email_personal == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Email personal cannot empty";
+            return false;
+        }
+        if (detail_address_ktp == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Address cannot empty";
+            return false;
+        }
+        if (detail_npwp == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "NPWP cannot empty";
+            return false;
+        }
+        if (detail_bpjs_ks == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "BPJS Kesehatan cannot empty";
+            return false;
+        }
+        if (detail_bpjs_tk == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "BPJS Ketenagakerjaan cannot empty";
+            return false;
+        }
+        if (detail_insurance == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Insurance cannot empty";
+            return false;
+        }
+        if (detail_bank_name == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Bank name cannot empty";
+            return false;
+        }
+        if (detail_bank_number == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Bank number cannot empty";
+            return false;
+        }
+        if (detail_bank_user_account == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Bank user account cannot empty";
+            return false;
+        }
+        if (detail_bank_branch_office == '') {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Bank branch office cannot empty";
+            return false;
+        }
+        
+        if (detail_employee_education_condition) {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Education cannot empty";
+            return false;
+        }
+        if (detail_school_name_condition) {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "School name cannot empty";
+            return false;
+        }
+        if (detail_school_place_condition) {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "School place cannot empty";
+            return false;
+        }
+        if (detail_school_major_condition) {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "School major cannot empty";
+            return false;
+        }
+        if (detail_school_start_date_condition) {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "School start date cannot empty";
+            return false;
+        }
+        if (detail_school_end_date_condition) {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "School end date cannot empty";
+            return false;
+        }
+        if (detail_school_ipk_condition) {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "IPK cannot empty";
+            return false;
+        }
+
+        if (detail_contact_name_condition) {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Contact name cannot empty";
+            return false;
+        }
+        if (detail_contact_relation_condition) {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Relation cannot empty";
+            return false;
+        }
+        if (detail_contact_number_condition) {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Contact number cannot empty";
+            return false;
+        }
+        if (detail_contact_address_condition) {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Contact address cannot empty";
+            return false;
+        }
+        
+        if (detail_family_member_condition) {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Family member cannot empty";
+            return false;
+        }
+        if (detail_family_name_condition) {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Family name cannot empty";
+            return false;
+        }
+        if (detail_family_birth_date_condition) {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Family birth date cannot empty";
+            return false;
+        }
+        if (detail_family_status_condition) {
+            mymodalss.style.display = "none";
+            modals.style.display = "block";
+            document.getElementById("msg").innerHTML = "Family status cannot empty";
+            return false;
+        }
+
+        $.ajax({
+            url: 'php_action/UpdatingSubmit.php',
+			type: 'POST',
+			data: new FormData($('#FormDisplayUpdateEmployee')[0]),
+			processData: false,
+			contentType: false,
+			dataType: 'json',
+			async: true,
+            success: function(res) {
+                $(".form-group").removeClass('has-error').removeClass('has-success');
+				mymodalss.style.display = "none";
+				modals.style.display = "block";
+				document.getElementById("msg").innerHTML = res.messages;
+
+				$('#FormDisplayCreate')[0].reset()
+				$('#CreateForm').modal('toggle');
+				// location.reload();
+				datatable.ajax.reload(null, false);
+            },
+            error: function (xhr, status, error) {
+				var errorMessage = JSON.parse(xhr.responseText);
+				mymodalss.style.display = "none";
+				modals.style.display = "block";
+				document.getElementById("msg").innerHTML = errorMessage.messages;
+			}
+        })
     })
 })

@@ -25,10 +25,13 @@
     FROM view_employee WHERE emp_no ='$emp_no'";
     $result_get_user = mysqli_fetch_assoc(mysqli_query($connect, $query_get_user));
 
-    // var_dump($emp_no);
+    // user family 
+    $query_fetch_family = "SELECT a.order, a.relationship_name_id FROM hrmfamilyrelation a ORDER BY a.order asc LIMIT 11;";
+    $result_get_family = mysqli_fetch_all(mysqli_query($connect, $query_fetch_family), MYSQLI_ASSOC);
 
     $response_json = [
-        $result_get_user
+        $result_get_user,
+        $result_get_family
     ];
 
     $connect->close();

@@ -261,7 +261,7 @@ $(document).ready( function(){
                 $('#CreateButton').show()
                 $('#CancelButton').hide()
 				$('#CreateForm').modal('toggle');
-				// location.reload();
+				location.reload();
 				datatable.ajax.reload(null, false);
             },
             error: function (xhr, status, error) {

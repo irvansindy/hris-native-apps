@@ -91,6 +91,24 @@
     
     $numbering_length = strlen($result_format_number['seq_number']);
 
+
+    $file_ktp = $_FILES['inp_file_ktp']['name'];
+    $file_ktp_upload = $_FILES['inp_file_ktp']['tmp_name'];
+
+    // get uploaded file's extension
+    // $ext_ktp = pathinfo($file_ktp, PATHINFO_EXTENSION);
+    // $ext_ktp = array_pop(explode('.', $file_ktp[0]));
+    // $result_file_ktp = $directoryFile.$inp_file_ktp_value.'-KTP-'.$inp_emp_no.'-'.$date.'.'.$ext_ktp;
+    // $upload_file_ktp = move_uploaded_file($file_ktp_upload, $result_file_ktp);
+    // var_dump([
+    //     'filename' =>  $file_ktp[0],
+    //     'value' =>  $inp_file_ktp_value,
+    //     'ext' => $ext_ktp,
+    //     'result' => $result_file_ktp,
+    //     'directory' => $upload_file_ktp,
+    // ]);
+
+    // die();
     // generate first number
     $first_number = '';
     $current_first_number_auto = $result_format_number['seq_number'] + 1;
@@ -298,7 +316,8 @@
             $file_ktp_upload = $_FILES['inp_file_ktp']['tmp_name'];
 
             // get uploaded file's extension
-            $ext_ktp = strtolower(pathinfo($file_ktp, PATHINFO_EXTENSION));
+            // $ext_ktp = strtolower(pathinfo($file_ktp, PATHINFO_EXTENSION));
+            $ext_ktp = array_pop(explode('.', $file_ktp[0]));
 
             if (in_array($ext_ktp, $allowTypes)) {
                 $result_file_ktp = $directoryFile.$inp_file_ktp_value.'-KTP-'.$inp_emp_no.'-'.$date.'-'.$ext_ktp;
@@ -329,7 +348,8 @@
             $file_kk_upload = $_FILES['inp_file_kk']['tmp_name'];
 
             // get uploaded file's extension
-            $ext_kk = strtolower(pathinfo($file_kk, PATHINFO_EXTENSION));
+            // $ext_kk = strtolower(pathinfo($file_kk, PATHINFO_EXTENSION));
+            $ext_kk = array_pop(explode('.', $file_kk[0]));
 
             if (in_array($ext_kk, $allowTypes)) {
                 $result_file_kk = $directoryFile.$inp_file_kk_value.'-KK-'.$inp_emp_no.'-'.$date.'-'.$ext_kk;
@@ -360,7 +380,8 @@
             $file_npwp_upload = $_FILES['inp_file_npwp']['tmp_name'];
 
             // get uploaded file's extension
-            $ext_npwp = strtolower(pathinfo($file_npwp, PATHINFO_EXTENSION));
+            // $ext_npwp = strtolower(pathinfo($file_npwp, PATHINFO_EXTENSION));
+            $ext_npwp = array_pop(explode('.', $file_npwp[0]));
 
             if (in_array($ext_npwp, $allowTypes)) {
                 $result_file_npwp = $directoryFile.$inp_file_npwp_value.'-NPWP-'.$inp_emp_no.'-'.$date.'-'.$ext_npwp;
@@ -391,7 +412,8 @@
             $file_ijazah_upload = $_FILES['inp_file_ijazah']['tmp_name'];
 
             // get uploaded file's extension
-            $ext_ijazah = strtolower(pathinfo($file_ijazah, PATHINFO_EXTENSION));
+            // $ext_ijazah = strtolower(pathinfo($file_ijazah, PATHINFO_EXTENSION));
+            $ext_ijazah = array_pop(explode('.', $file_ijazah[0]));
 
             if (in_array($ext_ijazah, $allowTypes)) {
                 $result_file_ijazah = $directoryFile.$inp_file_ijazah_value.'-IJAZAH-'.$inp_emp_no.'-'.$date.'-'.$ext_ijazah;

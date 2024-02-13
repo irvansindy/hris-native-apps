@@ -776,7 +776,7 @@ $arr_0 = $row["code_pattern"];
 			</div>
 		</fieldset>
 		<div class="modal-footer-sdk">
-			<button type="button" class="btn-sdk btn-primary-left" name="update_draft" id="update_draft">
+			<button type="button" class="btn-sdk btn-primary-left" name="save_draft" id="save_draft">
 				&nbsp;Draft&nbsp;
 			</button>
 			<button class="btn-sdk btn-primary-right" type="button" name="save_submit" id="save_submit">

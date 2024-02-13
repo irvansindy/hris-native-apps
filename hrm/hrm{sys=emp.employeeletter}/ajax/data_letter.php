@@ -28,7 +28,9 @@ $output = array('data' => array());
     FROM tclmletterdocument b
     LEFT JOIN view_employee c ON c.emp_id = b.letter_signee
     LEFT JOIN view_employee d ON d.emp_id = b.letter_receiver
-    WHERE b.letter_receiver = (SELECT emp_id FROM view_employee WHERE emp_no = '$username')";
+    WHERE b.letter_receiver = (SELECT emp_id FROM view_employee WHERE emp_no = '$username')
+    ORDER BY created_date DESC
+    ";
 
 
 

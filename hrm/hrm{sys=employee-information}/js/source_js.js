@@ -51,7 +51,7 @@ $(document).ready( function(){
                             <tr>
                                 <td>
                                     <input class="input--style-6 border-0 input_employee_education" id="input_employee_education" placeholder="Pendidikan" name="input_employee_education[]" type="Text" value="${static_education[index]}" readonly>
-                                    <input class="input--style-6 border-0 input_employee_education_value" id="input_employee_education_value" placeholder="Pendidikan" name="input_employee_education_value[]" type="Text" value="${value_static_education[index]}" readonly>
+                                    <input class="input--style-6 border-0 input_employee_education_value" id="input_employee_education_value" placeholder="Pendidikan" name="input_employee_education_value[]" type="hidden" value="${value_static_education[index]}" readonly>
                                 </td>
                                 <td>
                                     <input class="input--style-6 border-0 input_school_name" id="input_school_name" placeholder="Nama Sekolah" name="input_school_name[]" type="Text" value="">
@@ -102,7 +102,7 @@ $(document).ready( function(){
                         <tr>
                             <td>
                                 <input class="input--style-6 border-0 input_family_member" id="input_family_member" placeholder="" name="input_family_member[]" type="Text" value="${res[1][i].relationship_name_id}">
-                                <input class="input--style-6 border-0 input_family_member_value" id="input_family_member_value" placeholder="" name="input_family_member_value[]" type="Text" value="${res[1][i].order}">
+                                <input class="input--style-6 border-0 input_family_member_value" id="input_family_member_value" placeholder="" name="input_family_member_value[]" type="hidden" value="${res[1][i].order}">
                             </td>
                             <td>
                                 <input class="input--style-6 border-0 input_family_name" id="input_family_name" placeholder="Nama" name="input_family_name[]" type="Text" value="">
@@ -302,6 +302,12 @@ $(document).ready( function(){
         let inp_bank_user_account = $('#inp_bank_user_account').val()
         let inp_bank_branch_office = $('#inp_bank_branch_office').val()
 
+        let inp_file = $('input[name="inp_file[]"]').map(function(){
+            return $(this).val()
+        }).get()
+        let inp_file_value = $('input[name="inp_file_value[]"]').map(function(){
+            return $(this).val()
+        }).get()
         let input_employee_education = $('input[name="input_employee_education[]"]').map(function(){
             return $(this).val()
         }).get()
@@ -349,7 +355,8 @@ $(document).ready( function(){
             return $(this).val()
         }).get()
 
-        let input_employee_education_condition = input_employee_education[0] == '' && input_employee_education.length <= 1
+        let inp_file_ktp_condition = inp_file_ktp[0] == '' && inp_file_ktp.length <= 1
+
         let input_school_name_condition = input_school_name[0] == '' && input_school_name.length <= 1
         let input_school_major_condition = input_school_major[0] == '' && input_school_major.length <= 1
         let input_school_place_condition = input_school_place[0] == '' && input_school_place.length <= 1

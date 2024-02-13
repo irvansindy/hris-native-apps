@@ -42,6 +42,23 @@
     $inp_bank_number = $_POST['inp_bank_number'];
     $inp_bank_user_account = $_POST['inp_bank_user_account'];
     $inp_bank_branch_office = $_POST['inp_bank_branch_office'];
+    
+    $inp_file = $_POST['inp_file'];
+    $inp_file_value = $_POST['inp_file_value'];
+    
+    $inp_file_ktp = $_FILES['inp_file_ktp'];
+    $inp_file_ktp_value = $_POST['inp_file_ktp_value'];
+    $inp_file_kk = $_FILES['inp_file_kk'];
+    $inp_file_kk_value = $_POST['inp_file_kk_value'];
+    $inp_file_npwp = $_FILES['inp_file_npwp'];
+    $inp_file_npwp_value = $_POST['inp_file_npwp_value'];
+    $inp_file_ijazah = $_FILES['inp_file_ijazah'];
+    $inp_file_ijazah_value = $_POST['inp_file_ijazah_value'];
+    // directory file
+    $directoryFile = '../../../asset/request.file.attachment/';
+
+    // allowed file types
+    $allowTypes = array('pdf', 'jpg', 'png', 'jpeg');
 
     $input_employee_education = $_POST['input_employee_education'];
     $input_employee_education_value = $_POST['input_employee_education_value'];
@@ -273,6 +290,130 @@
                     '$input_family_birth_date[$i]',
                     '$input_family_status[$i]'
                 )";
+            }
+        }
+
+        if ($_FILES['inp_file_ktp']['size'] != 0) {
+            $file_ktp = $_FILES['inp_file_ktp']['name'];
+            $file_ktp_upload = $_FILES['inp_file_ktp']['tmp_name'];
+
+            // get uploaded file's extension
+            $ext_ktp = strtolower(pathinfo($file_ktp, PATHINFO_EXTENSION));
+
+            if (in_array($ext_ktp, $allowTypes)) {
+                $result_file_ktp = $directoryFile.$inp_file_ktp_value.'-KTP-'.$inp_emp_no.'-'.$date.'-'.$ext_ktp;
+
+                $upload_file_ktp = move_uploaded_file($file_ktp_upload, $result_file_ktp);
+            
+                $query_insert_ktp = "INSERT INTO `employee_file_update` (
+                    `request_update_id`,
+                    `document_file`,
+                    `attachment`,
+                    `ext`,
+                    `uploaded_date`,
+                    `company_id`
+                ) VALUES (
+                    '$result_auto_number',
+                    '$inp_file_ktp_value',
+                    '$result_file_ktp',
+                    '$ext_ktp',
+                    '$date_time',
+                    '1'
+                )";
+                $exe_query_insert_ktp = $connect->query($query_insert_ktp);
+            }
+        }
+
+        if ($_FILES['inp_file_kk']['size'] != 0) {
+            $file_kk = $_FILES['inp_file_kk']['name'];
+            $file_kk_upload = $_FILES['inp_file_kk']['tmp_name'];
+
+            // get uploaded file's extension
+            $ext_kk = strtolower(pathinfo($file_kk, PATHINFO_EXTENSION));
+
+            if (in_array($ext_kk, $allowTypes)) {
+                $result_file_kk = $directoryFile.$inp_file_kk_value.'-KK-'.$inp_emp_no.'-'.$date.'-'.$ext_kk;
+
+                $upload_file_kk = move_uploaded_file($file_kk_upload, $result_file_kk);
+            
+                $query_insert_kk = "INSERT INTO `employee_file_update` (
+                    `request_update_id`,
+                    `document_file`,
+                    `attachment`,
+                    `ext`,
+                    `uploaded_date`,
+                    `company_id`
+                ) VALUES (
+                    '$result_auto_number',
+                    '$inp_file_kk_value',
+                    '$result_file_kk',
+                    '$ext_ktp',
+                    '$date_time',
+                    '1'
+                )";
+                $exe_query_insert_kk = $connect->query($query_insert_kk);
+            }
+        }
+
+        if ($_FILES['inp_file_npwp']['size'] != 0) {
+            $file_npwp = $_FILES['inp_file_npwp']['name'];
+            $file_npwp_upload = $_FILES['inp_file_npwp']['tmp_name'];
+
+            // get uploaded file's extension
+            $ext_npwp = strtolower(pathinfo($file_npwp, PATHINFO_EXTENSION));
+
+            if (in_array($ext_npwp, $allowTypes)) {
+                $result_file_npwp = $directoryFile.$inp_file_npwp_value.'-NPWP-'.$inp_emp_no.'-'.$date.'-'.$ext_npwp;
+
+                $upload_file_npwp = move_uploaded_file($file_npwp_upload, $result_file_npwp);
+            
+                $query_insert_npwp = "INSERT INTO `employee_file_update` (
+                    `request_update_id`,
+                    `document_file`,
+                    `attachment`,
+                    `ext`,
+                    `uploaded_date`,
+                    `company_id`
+                ) VALUES (
+                    '$result_auto_number',
+                    '$inp_file_npwp_value',
+                    '$result_file_npwp',
+                    '$ext_ktp',
+                    '$date_time',
+                    '1'
+                )";
+                $exe_query_insert_npwp = $connect->query($query_insert_npwp);
+            }
+        }
+
+        if ($_FILES['inp_file_ijazah']['size'] != 0) {
+            $file_ijazah = $_FILES['inp_file_ijazah']['name'];
+            $file_ijazah_upload = $_FILES['inp_file_ijazah']['tmp_name'];
+
+            // get uploaded file's extension
+            $ext_ijazah = strtolower(pathinfo($file_ijazah, PATHINFO_EXTENSION));
+
+            if (in_array($ext_ijazah, $allowTypes)) {
+                $result_file_ijazah = $directoryFile.$inp_file_ijazah_value.'-IJAZAH-'.$inp_emp_no.'-'.$date.'-'.$ext_ijazah;
+
+                $upload_file_ijazah = move_uploaded_file($file_ijazah_upload, $result_file_ijazah);
+            
+                $query_insert_ijazah = "INSERT INTO `employee_file_update` (
+                    `request_update_id`,
+                    `document_file`,
+                    `attachment`,
+                    `ext`,
+                    `uploaded_date`,
+                    `company_id`
+                ) VALUES (
+                    '$result_auto_number',
+                    '$inp_file_ijazah_value',
+                    '$result_file_ijazah',
+                    '$ext_ktp',
+                    '$date_time',
+                    '1'
+                )";
+                $exe_query_insert_ijazah = $connect->query($query_insert_ijazah);
             }
         }
 

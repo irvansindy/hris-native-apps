@@ -125,10 +125,7 @@ if (!empty($_POST['cari'])) {
 					<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
 				</a>
 			</div>
-
-			<!-- <form class="form-horizontal" action="php_action/FuncDataUpdate.php" method="POST" id="updateMemberForm"> -->
 			<form class="form-horizontal" action="" method="POST" id="form_create_data">
-
 				<div class="card-body table-responsive p-0"
 					style="width: 100vw;height: auto%; width: 98%; margin: 5px;overflow: scroll;overflow-x: hidden;">
 

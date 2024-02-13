@@ -3,6 +3,12 @@
     date_default_timezone_set('Asia/Jakarta');
     require_once '../../../application/config.php';
 
+    // directory file
+    $directoryFile = '../../../asset/request.file.attachment/';
+
+    // allowed file types
+    $allowTypes = array('pdf', 'jpg', 'png', 'jpeg');
+
     // response json
     $response = [
         'success' => false,
@@ -54,11 +60,6 @@
     $inp_file_npwp_value = $_POST['inp_file_npwp_value'];
     $inp_file_ijazah = $_FILES['inp_file_ijazah'];
     $inp_file_ijazah_value = $_POST['inp_file_ijazah_value'];
-    // directory file
-    $directoryFile = '../../../asset/request.file.attachment/';
-
-    // allowed file types
-    $allowTypes = array('pdf', 'jpg', 'png', 'jpeg');
 
     $input_employee_education = $_POST['input_employee_education'];
     $input_employee_education_value = $_POST['input_employee_education_value'];
@@ -92,8 +93,8 @@
     $numbering_length = strlen($result_format_number['seq_number']);
 
 
-    $file_ktp = $_FILES['inp_file_ktp']['name'];
-    $file_ktp_upload = $_FILES['inp_file_ktp']['tmp_name'];
+    // $file_ktp = $_FILES['inp_file_ktp']['name'];
+    // $file_ktp_upload = $_FILES['inp_file_ktp']['tmp_name'];
 
     // get uploaded file's extension
     // $ext_ktp = pathinfo($file_ktp, PATHINFO_EXTENSION);
@@ -311,68 +312,148 @@
             }
         }
 
-        if ($_FILES['inp_file_ktp']['size'] != 0) {
+        if (!empty($_FILES["inp_file_ktp"]) ) {
             $file_ktp = $_FILES['inp_file_ktp']['name'];
             $file_ktp_upload = $_FILES['inp_file_ktp']['tmp_name'];
 
             // get uploaded file's extension
-            // $ext_ktp = pathinfo($_FILES['inp_file_ktp']['name'], PATHINFO_EXTENSION);
-            $ext_ktp = array_pop(explode('.', $file_ktp[0]));
+            $ext_ktp = strtolower(pathinfo($file_ktp, PATHINFO_EXTENSION));
 
-            $result_file_ktp = $directoryFile.$inp_file_ktp_value.'-KTP-'.$inp_emp_no.'-'.$date.'.'.$ext_ktp;
+            // can upload same image using rand function
+            $final_image = rand(1000,1000000).$file_ktp;
+
             if (in_array($ext_ktp, $allowTypes)) {
-                $upload_file_ktp = move_uploaded_file($_FILES['inp_file_ktp']['tmp_name'], $result_file_ktp);
-            
-                $query_insert_ktp = "INSERT INTO `employee_file_update` (
-                    `request_update_id`,
-                    `document_file`,
-                    `attachment`,
-                    `ext`,
-                    `uploaded_date`,
-                    `company_id`
-                ) VALUES (
-                    '$result_auto_number',
-                    '$inp_file_ktp_value',
-                    '$result_file_ktp',
-                    '$ext_ktp',
-                    '$date_time',
-                    '1'
-                )";
-                $exe_query_insert_ktp = $connect->query($query_insert_ktp);
-
+                $result_file_ktp = $directoryFile.$inp_file_ktp_value.'-KTP-'.$inp_emp_no.'-'.$date.'.'.$ext_ktp;
+        
+                $info_file = getimagesize($file_ktp_upload);
             }
+            // destination upload file
+            $uploadDataFile = move_uploaded_file($file_ktp_upload, $result_file_ktp);
+            
+            $query_insert_ktp = "INSERT INTO `employee_file_update` (
+                `request_update_id`,
+                `document_file`,
+                `attachment`,
+                `ext`,
+                `uploaded_date`,
+                `company_id`
+            ) VALUES (
+                '$result_auto_number',
+                '$inp_file_ktp_value',
+                '$result_file_ktp',
+                '$ext_ktp',
+                '$date_time',
+                '1'
+            )";
+            $exe_query_insert_ktp = $connect->query($query_insert_ktp);
         }
 
-        if ($_FILES['inp_file_kk']['size'] != 0) {
+        if (!empty($_FILES["inp_file_kk"]) ) {
             $file_kk = $_FILES['inp_file_kk']['name'];
             $file_kk_upload = $_FILES['inp_file_kk']['tmp_name'];
 
             // get uploaded file's extension
-            // $ext_kk = strtolower(pathinfo($file_kk, PATHINFO_EXTENSION));
-            $ext_kk = array_pop(explode('.', $file_kk[0]));
+            $ext_kk = strtolower(pathinfo($file_kk, PATHINFO_EXTENSION));
+
+            // can upload same image using rand function
+            $final_image = rand(1000,1000000).$file_kk;
 
             if (in_array($ext_kk, $allowTypes)) {
                 $result_file_kk = $directoryFile.$inp_file_kk_value.'-KK-'.$inp_emp_no.'-'.$date.'.'.$ext_kk;
-
-                $upload_file_kk = move_uploaded_file($file_kk_upload, $result_file_kk);
-            
-                $query_insert_kk = "INSERT INTO `employee_file_update` (
-                    `request_update_id`,
-                    `document_file`,
-                    `attachment`,
-                    `ext`,
-                    `uploaded_date`,
-                    `company_id`
-                ) VALUES (
-                    '$result_auto_number',
-                    '$inp_file_kk_value',
-                    '$result_file_kk',
-                    '$ext_ktp',
-                    '$date_time',
-                    '1'
-                )";
-                $exe_query_insert_kk = $connect->query($query_insert_kk);
+        
+                $info_file = getimagesize($file_kk_upload);
             }
+            // destination upload file
+            $uploadDataFile = move_uploaded_file($file_kk_upload, $result_file_kk);
+            
+            $query_insert_kk = "INSERT INTO `employee_file_update` (
+                `request_update_id`,
+                `document_file`,
+                `attachment`,
+                `ext`,
+                `uploaded_date`,
+                `company_id`
+            ) VALUES (
+                '$result_auto_number',
+                '$inp_file_kk_value',
+                '$result_file_kk',
+                '$ext_kk',
+                '$date_time',
+                '1'
+            )";
+            $exe_query_insert_kk = $connect->query($query_insert_kk);
+        }
+
+        if (!empty($_FILES["inp_file_npwp"]) ) {
+            $file_npwp = $_FILES['inp_file_npwp']['name'];
+            $file_npwp_upload = $_FILES['inp_file_npwp']['tmp_name'];
+
+            // get uploaded file's extension
+            $ext_npwp = strtolower(pathinfo($file_npwp, PATHINFO_EXTENSION));
+
+            // can upload same image using rand function
+            $final_image = rand(1000,1000000).$file_npwp;
+
+            if (in_array($ext_npwp, $allowTypes)) {
+                $result_file_npwp = $directoryFile.$inp_file_npwp_value.'-NPWP-'.$inp_emp_no.'-'.$date.'.'.$ext_npwp;
+        
+                $info_file = getimagesize($file_npwp_upload);
+            }
+            // destination upload file
+            $uploadDataFile = move_uploaded_file($file_npwp_upload, $result_file_npwp);
+            
+            $query_insert_npwp = "INSERT INTO `employee_file_update` (
+                `request_update_id`,
+                `document_file`,
+                `attachment`,
+                `ext`,
+                `uploaded_date`,
+                `company_id`
+            ) VALUES (
+                '$result_auto_number',
+                '$inp_file_npwp_value',
+                '$result_file_npwp',
+                '$ext_npwp',
+                '$date_time',
+                '1'
+            )";
+            $exe_query_insert_npwp = $connect->query($query_insert_npwp);
+        }
+
+        if (!empty($_FILES["inp_file_ijazah"]) ) {
+            $file_ijazah = $_FILES['inp_file_ijazah']['name'];
+            $file_ijazah_upload = $_FILES['inp_file_ijazah']['tmp_name'];
+
+            // get uploaded file's extension
+            $ext_ijazah = strtolower(pathinfo($file_ijazah, PATHINFO_EXTENSION));
+
+            // can upload same image using rand function
+            $final_image = rand(1000,1000000).$file_ijazah;
+
+            if (in_array($ext_ijazah, $allowTypes)) {
+                $result_file_ijazah = $directoryFile.$inp_file_ijazah_value.'-IJAZAH-'.$inp_emp_no.'-'.$date.'.'.$ext_ijazah;
+        
+                $info_file = getimagesize($file_ijazah_upload);
+            }
+            // destination upload file
+            $uploadDataFile = move_uploaded_file($file_ijazah_upload, $result_file_ijazah);
+            
+            $query_insert_ijazah = "INSERT INTO `employee_file_update` (
+                `request_update_id`,
+                `document_file`,
+                `attachment`,
+                `ext`,
+                `uploaded_date`,
+                `company_id`
+            ) VALUES (
+                '$result_auto_number',
+                '$inp_file_ijazah_value',
+                '$result_file_ijazah',
+                '$ext_ijazah',
+                '$date_time',
+                '1'
+            )";
+            $exe_query_insert_ijazah = $connect->query($query_insert_ijazah);
         }
 
         if ($_FILES['inp_file_npwp']['size'] != 0) {

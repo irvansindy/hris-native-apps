@@ -696,23 +696,24 @@ $arr_0 = $row["code_pattern"];
 			<div class="form-row">
 				<div class="col md-3">
 					<label for="inp_file_ktp">KTP</label>
-					<input class="input--style-6 inp_file_ktp" type="file" name="inp_file_ktp[]" id="inp_file_ktp">
-					<input class="input--style-6 inp_file_ktp_value" type="hidden" name="inp_file_ktp_value" id="inp_file_ktp_value" value="2">
+					<input class="form-control inp_file_ktp" type="file" name="inp_file_ktp" id="inp_file_ktp">
+					<!-- <input type="file" name="fileupload" id="fileupload" class="form-control"> -->
+					<input class="form-control inp_file_ktp_value" type="hidden" name="inp_file_ktp_value" id="inp_file_ktp_value" value="2">
 				</div>
 				<div class="col md-3">
 					<label for="inp_file_kk">KK</label>
-					<input class="input--style-6 inp_file_kk" type="file" name="inp_file_kk[]" id="inp_file_kk">
-					<input class="input--style-6 inp_file_kk_value" type="hidden" name="inp_file_kk_value" id="inp_file_kk_value" value="1">
+					<input class="form-control inp_file_kk" type="file" name="inp_file_kk" id="inp_file_kk">
+					<input class="form-control inp_file_kk_value" type="hidden" name="inp_file_kk_value" id="inp_file_kk_value" value="1">
 				</div>
 				<div class="col md-3">
 					<label for="inp_file_npwp">NPWP</label>
-					<input class="input--style-6 inp_file_npwp" type="file" name="inp_file_npwp[]" id="inp_file_npwp">
-					<input class="input--style-6 inp_file_npwp_value" type="hidden" name="inp_file_npwp_value" id="inp_file_npwp_value" value="3">
+					<input class="form-control inp_file_npwp" type="file" name="inp_file_npwp" id="inp_file_npwp">
+					<input class="form-control inp_file_npwp_value" type="hidden" name="inp_file_npwp_value" id="inp_file_npwp_value" value="3">
 				</div>
 				<div class="col md-3">
 					<label for="inp_file_ijazah">Ijazah Terakhir</label>
-					<input class="input--style-6 inp_file_ijazah" type="file" name="inp_file_ijazah[]" id="inp_file_ijazah">
-					<input class="input--style-6 inp_file_ijazah_value" type="hidden" name="inp_file_ijazah_value" id="inp_file_ijazah_value" value="4">
+					<input class="form-control inp_file_ijazah" type="file" name="inp_file_ijazah" id="inp_file_ijazah">
+					<input class="form-control inp_file_ijazah_value" type="hidden" name="inp_file_ijazah_value" id="inp_file_ijazah_value" value="4">
 				</div>
 			</div>
 		</fieldset>

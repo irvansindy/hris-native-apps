@@ -316,13 +316,12 @@
             $file_ktp_upload = $_FILES['inp_file_ktp']['tmp_name'];
 
             // get uploaded file's extension
-            // $ext_ktp = strtolower(pathinfo($file_ktp, PATHINFO_EXTENSION));
+            // $ext_ktp = pathinfo($_FILES['inp_file_ktp']['name'], PATHINFO_EXTENSION);
             $ext_ktp = array_pop(explode('.', $file_ktp[0]));
 
+            $result_file_ktp = $directoryFile.$inp_file_ktp_value.'-KTP-'.$inp_emp_no.'-'.$date.'.'.$ext_ktp;
             if (in_array($ext_ktp, $allowTypes)) {
-                $result_file_ktp = $directoryFile.$inp_file_ktp_value.'-KTP-'.$inp_emp_no.'-'.$date.'-'.$ext_ktp;
-
-                $upload_file_ktp = move_uploaded_file($file_ktp_upload, $result_file_ktp);
+                $upload_file_ktp = move_uploaded_file($_FILES['inp_file_ktp']['tmp_name'], $result_file_ktp);
             
                 $query_insert_ktp = "INSERT INTO `employee_file_update` (
                     `request_update_id`,
@@ -340,6 +339,7 @@
                     '1'
                 )";
                 $exe_query_insert_ktp = $connect->query($query_insert_ktp);
+
             }
         }
 
@@ -352,7 +352,7 @@
             $ext_kk = array_pop(explode('.', $file_kk[0]));
 
             if (in_array($ext_kk, $allowTypes)) {
-                $result_file_kk = $directoryFile.$inp_file_kk_value.'-KK-'.$inp_emp_no.'-'.$date.'-'.$ext_kk;
+                $result_file_kk = $directoryFile.$inp_file_kk_value.'-KK-'.$inp_emp_no.'-'.$date.'.'.$ext_kk;
 
                 $upload_file_kk = move_uploaded_file($file_kk_upload, $result_file_kk);
             
@@ -384,7 +384,7 @@
             $ext_npwp = array_pop(explode('.', $file_npwp[0]));
 
             if (in_array($ext_npwp, $allowTypes)) {
-                $result_file_npwp = $directoryFile.$inp_file_npwp_value.'-NPWP-'.$inp_emp_no.'-'.$date.'-'.$ext_npwp;
+                $result_file_npwp = $directoryFile.$inp_file_npwp_value.'-NPWP-'.$inp_emp_no.'-'.$date.'.'.$ext_npwp;
 
                 $upload_file_npwp = move_uploaded_file($file_npwp_upload, $result_file_npwp);
             
@@ -416,7 +416,7 @@
             $ext_ijazah = array_pop(explode('.', $file_ijazah[0]));
 
             if (in_array($ext_ijazah, $allowTypes)) {
-                $result_file_ijazah = $directoryFile.$inp_file_ijazah_value.'-IJAZAH-'.$inp_emp_no.'-'.$date.'-'.$ext_ijazah;
+                $result_file_ijazah = $directoryFile.$inp_file_ijazah_value.'-IJAZAH-'.$inp_emp_no.'-'.$date.'.'.$ext_ijazah;
 
                 $upload_file_ijazah = move_uploaded_file($file_ijazah_upload, $result_file_ijazah);
             

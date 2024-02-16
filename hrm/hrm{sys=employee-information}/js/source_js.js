@@ -101,7 +101,7 @@ $(document).ready( function(){
                         `
                         <tr>
                             <td>
-                                <input class="input--style-6 border-0 input_family_member" id="input_family_member" placeholder="" name="input_family_member[]" type="Text" value="${res[1][i].relationship_name_id}">
+                                <input class="input--style-6 border-0 input_family_member" id="input_family_member" placeholder="" name="input_family_member[]" type="Text" value="${res[1][i].relationship_name_id}" readonly>
                                 <input class="input--style-6 border-0 input_family_member_value" id="input_family_member_value" placeholder="" name="input_family_member_value[]" type="hidden" value="${res[1][i].order}">
                             </td>
                             <td>
@@ -128,114 +128,6 @@ $(document).ready( function(){
         $('#section_detail_data').hide()
         $('#CreateButton').show()
         $('#CancelButton').hide()
-    })
-
-    // add dynamic form education employee
-    $(document).on('click', '#add_dynamic_form_employee_education', function(e) {
-        e.preventDefault()
-        $('#data_list_employee_education').append(
-            `
-                <tr class="array_form_employee_education">
-                    <td>
-                        <input class="input--style-6 border-0 input_employee_education" id="input_employee_education" placeholder="Pendidikan" name="input_employee_education[]" type="Text" value="">
-                    </td>
-                    <td>
-                        <input class="input--style-6 border-0 input_school_name" id="input_school_name" placeholder="Nama Sekolah" name="input_school_name[]" type="Text" value="">
-                    </td>
-                    <td>
-                        <input class="input--style-6 border-0 input_school_place" id="input_school_place" placeholder="Tempat / Kota" name="input_school_place[]" type="Text" value="">
-                    </td>
-                    <td>
-                        <input class="input--style-6 border-0 input_school_major" id="input_school_major" placeholder="Jurusan" name="input_school_major[]" type="Text" value="">
-                    </td>
-                    <td>
-                    <input class="input--style-6 border-0 input_school_start_date" id="input_school_start_date" placeholder="Tahun Mulai" name="input_school_start_date[]" type="Text" value="" style="width:40% !important"> s/d
-                        <input class="input--style-6 border-0 input_school_end_date" id="input_school_end_date" placeholder="Tahun Selesai" name="input_school_end_date[]" type="Text" value="" style="width:40% !important">
-                        
-                    </td>
-                    <td>
-                        <input class="input--style-6 border-0 input_school_ipk" id="input_school_ipk" placeholder="Jurusan" name="input_school_ipk[]" type="Text" value="">
-                    </td>
-                    <td style="text-align: center;">
-                        <button class="btn btn-danger btn-sm pop_dynamic_form_employee_education" id="pop_dynamic_form_employee_education" type="button">
-                            <i class="fa-solid fa-minus"></i>
-                        </button>
-                    </td>
-                </tr>
-            `
-        )
-    })
-
-    // pop dynamic form education employee
-    $(document).on('click', '#pop_dynamic_form_employee_education', function(e) {
-        e.preventDefault()
-        $(this).closest('.array_form_employee_education').remove()
-    })
-
-    // add dynamic form emergency contact
-    $(document).on('click', '#add_dynamic_form_contact_emergency', function(e) {
-        e.preventDefault()
-        $('#data_list_emergency_contact').append(`
-            <tr class="array_form_emergency_contact">
-                <td>
-                    <input class="input--style-6 border-0 input_contact_name" id="input_contact_name" placeholder="Nama Kontak" name="input_contact_name[]" type="Text" value="">
-                </td>
-                <td>
-                    <input class="input--style-6 border-0 input_contact_relation" id="input_contact_relation" placeholder="Hubungan" name="input_contact_relation[]" type="Text" value="">
-                </td>
-                <td>
-                    <input class="input--style-6 border-0 input_contact_number" id="input_contact_number" placeholder="Nomor" name="input_contact_number[]" type="Text" value="">
-                </td>
-                <td>
-                    <input class="input--style-6 border-0 input_contact_address" id="input_contact_address" placeholder="Alamat" name="input_contact_address[]" type="Text" value="">
-                </td>
-                <td style="text-align: center;">
-                    <button class="btn btn-danger btn-sm pop_dynamic_form_emergency_contact" id="pop_dynamic_form_emergency_contact" type="button">
-                        <i class="fa-solid fa-minus"></i>
-                    </button>
-                </td>
-            </tr>
-        `)
-    })
-
-    // pop dynamic form emergency contact
-    $(document).on('click', '#pop_dynamic_form_emergency_contact', function(e) {
-        e.preventDefault()
-        $(this).closest('.array_form_emergency_contact').remove()
-    })
-
-    // add dynamic form family
-    $(document).on('click', '#add_dynamic_form_family_dependent', function(e) {
-        e.preventDefault()
-        $('#data_list_family_dependent').append(
-            `
-            <tr class="array_form_family_dependent">
-                <td>
-                    <input class="input--style-6 border-0 input_family_member" id="input_family_member" placeholder="Nama Kontak" name="input_family_member[]" type="Text" value="">
-                </td>
-                <td>
-                    <input class="input--style-6 border-0 input_family_name" id="input_family_name" placeholder="Hubungan" name="input_family_name[]" type="Text" value="">
-                </td>
-                <td>
-                    <input class="input--style-6 border-0 input_family_birth_date" id="input_family_birth_date" placeholder="Nomor" name="input_family_birth_date[]" type="date" value="">
-                </td>
-                <td>
-                    <input class="input--style-6 border-0 input_family_status" id="input_family_status" placeholder="Alamat" name="input_family_status[]" type="Text" value="">
-                </td>
-                <td style="text-align: center;">
-                    <button class="btn btn-danger btn-sm pop_dynamic_form_family_dependent" id="pop_dynamic_form_family_dependent" type="button">
-                        <i class="fa-solid fa-minus"></i>
-                    </button>
-                </td>
-            </tr>
-            `
-        )
-    })
-
-    // pop dynamic form family
-    $(document).on('click', '#pop_dynamic_form_family_dependent', function(e) {
-        e.preventDefault()
-        $(this).closest('.array_form_family_dependent').remove()
     })
 
     // save as draft
@@ -677,42 +569,44 @@ $(document).ready( function(){
                 $('#detail_bank_number').val(res[0].bank_account_number)
                 $('#detail_bank_user_account').val(res[0].bank_account_user)
                 $('#detail_bank_branch_office').val(res[0].bank_account_office)
+                
                 let total_education = res[1].length
                 let total_contact = res[2].length
                 let total_family = res[3].length
+
+                let detail_static_education = ['SD', 'SLTP/MTS/SMP', 'SMA/SMK/MA', 'D1/D2/D3 **', 'S1', 'S2', 'S3'];
+                let detail_employee_education_value = ['SD', 'SMP', 'SMA', 'D3', 'S1', 'S2', 'S3'];
                 if (total_education == 0) {
                     $('#data_list_employee_education_detail').empty()
-                    $('#data_list_employee_education_detail').append(
-                        `
-                            <tr>
-                                <td>
-                                    <input class="input--style-6 border-0 detail_employee_education" id="detail_employee_education" placeholder="Pendidikan" name="detail_employee_education[]" type="Text" value="">
-                                </td>
-                                <td>
-                                    <input class="input--style-6 border-0 detail_school_name" id="detail_school_name" placeholder="Nama Sekolah" name="detail_school_name[]" type="Text" value="">
-                                </td>
-                                <td>
-                                    <input class="input--style-6 border-0 detail_school_place" id="detail_school_place" placeholder="Tempat / Kota" name="detail_school_place[]" type="Text" value="">
-                                </td>
-                                <td>
-                                    <input class="input--style-6 border-0 detail_school_major" id="detail_school_major" placeholder="Jurusan" name="detail_school_major[]" type="Text" value="">
-                                </td>
-                                <td>
-                                <input class="input--style-6 border-0 detail_school_start_date" id="detail_school_start_date" placeholder="Tahun Mulai" name="detail_school_start_date[]" type="Text" value="" style="width:40% !important"> s/d
-                                    <input class="input--style-6 border-0 detail_school_end_date" id="detail_school_end_date" placeholder="Tahun Selesai" name="detail_school_end_date[]" type="Text" value="" style="width:40% !important">
-                                    
-                                </td>
-                                <td>
-                                    <input class="input--style-6 border-0 detail_school_ipk" id="detail_school_ipk" placeholder="Jurusan" name="detail_school_ipk[]" type="Text" value="">
-                                </td>
-                                <td style="text-align: center;">
-                                    <button class="btn btn-primary btn-sm add_dynamic_form_employee_education" id="add_dynamic_form_employee_education" type="button">
-                                        <i class="fa-solid fa-plus"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        `
-                    )
+                    for (let index = 0; index < detail_static_education.length; index++) {
+                        $('#data_list_employee_education_detail').append(
+                            `
+                                <tr>
+                                    <td>
+                                    <input class="input--style-6 border-0 detail_employee_education" placeholder="Pendidikan" name="detail_employee_education[]" type="Text" value="${detail_static_education[index]}">
+                                    <input class="input--style-6 border-0 detail_employee_education_value" placeholder="Pendidikan" name="detail_employee_education_value[]" type="hidden" value="${detail_employee_education_value[index]}">
+                                    </td>
+                                    <td>
+                                        <input class="input--style-6 border-0 detail_school_name" placeholder="Nama Sekolah" name="detail_school_name[]" type="Text" value="">
+                                    </td>
+                                    <td>
+                                        <input class="input--style-6 border-0 detail_school_place" placeholder="Tempat / Kota" name="detail_school_place[]" type="Text" value="">
+                                    </td>
+                                    <td>
+                                        <input class="input--style-6 border-0 detail_school_major" placeholder="Jurusan" name="detail_school_major[]" type="Text" value="">
+                                    </td>
+                                    <td>
+                                    <input class="input--style-6 border-0 detail_school_start_date" placeholder="Tahun Mulai" name="detail_school_start_date[]" type="Text" value="" style="width:40% !important"> s/d
+                                        <input class="input--style-6 border-0 detail_school_end_date" placeholder="Tahun Selesai" name="detail_school_end_date[]" type="Text" value="" style="width:40% !important">
+                                        
+                                    </td>
+                                    <td>
+                                        <input class="input--style-6 border-0 detail_school_ipk" placeholder="Jurusan" name="detail_school_ipk[]" type="Text" value="">
+                                    </td>
+                                </tr>
+                            `
+                        )
+                    }
                 } else {
                     $('#data_list_employee_education_detail').empty()
                     for (let i = 0; i < res[1].length; i++) {
@@ -720,29 +614,25 @@ $(document).ready( function(){
                             `
                                 <tr>
                                     <td>
-                                    <input class="input--style-6 border-0 detail_employee_education" id="detail_employee_education" placeholder="Pendidikan" name="detail_employee_education[]" type="Text" value="${res[1][i].name}">
+                                    <input class="input--style-6 border-0 detail_employee_education" placeholder="Pendidikan" name="detail_employee_education[]" type="Text" value="${detail_static_education[i]}">
+                                    <input class="input--style-6 border-0 detail_employee_education_value" placeholder="Pendidikan" name="detail_employee_education_value[]" type="hidden" value="${res[1][i].name}">
                                     </td>
                                     <td>
-                                        <input class="input--style-6 border-0 detail_school_name" id="detail_school_name" placeholder="Nama Sekolah" name="detail_school_name[]" type="Text" value="${res[1][i].school}">
+                                        <input class="input--style-6 border-0 detail_school_name" placeholder="Nama Sekolah" name="detail_school_name[]" type="Text" value="${res[1][i].school}">
                                     </td>
                                     <td>
-                                        <input class="input--style-6 border-0 detail_school_place" id="detail_school_place" placeholder="Tempat / Kota" name="detail_school_place[]" type="Text" value="${res[1][i].location}">
+                                        <input class="input--style-6 border-0 detail_school_place" placeholder="Tempat / Kota" name="detail_school_place[]" type="Text" value="${res[1][i].location}">
                                     </td>
                                     <td>
-                                        <input class="input--style-6 border-0 detail_school_major" id="detail_school_major" placeholder="Jurusan" name="detail_school_major[]" type="Text" value="${res[1][i].major}">
+                                        <input class="input--style-6 border-0 detail_school_major" placeholder="Jurusan" name="detail_school_major[]" type="Text" value="${res[1][i].major}">
                                     </td>
                                     <td>
-                                    <input class="input--style-6 border-0 detail_school_start_date" id="detail_school_start_date" placeholder="Tahun Mulai" name="detail_school_start_date[]" type="Text" value="${res[1][i].year_start}" style="width:40% !important"> s/d
-                                        <input class="input--style-6 border-0 detail_school_end_date" id="detail_school_end_date" placeholder="Tahun Selesai" name="detail_school_end_date[]" type="Text" value="${res[1][i].year_end}" style="width:40% !important">
+                                    <input class="input--style-6 border-0 detail_school_start_date" placeholder="Tahun Mulai" name="detail_school_start_date[]" type="Text" value="${res[1][i].year_start}" style="width:40% !important"> s/d
+                                        <input class="input--style-6 border-0 detail_school_end_date" placeholder="Tahun Selesai" name="detail_school_end_date[]" type="Text" value="${res[1][i].year_end}" style="width:40% !important">
                                         
                                     </td>
                                     <td>
-                                        <input class="input--style-6 border-0 detail_school_ipk" id="detail_school_ipk" placeholder="Jurusan" name="detail_school_ipk[]" type="Text" value="${res[1][i].grade_point}">
-                                    </td>
-                                    <td style="text-align: center;">
-                                        <button class="btn btn-primary btn-sm add_dynamic_form_employee_education" id="add_dynamic_form_employee_education" type="button">
-                                            <i class="fa-solid fa-plus"></i>
-                                        </button>
+                                        <input class="input--style-6 border-0 detail_school_ipk" placeholder="Jurusan" name="detail_school_ipk[]" type="Text" value="${res[1][i].grade_point}">
                                     </td>
                                 </tr>
                             `
@@ -757,21 +647,16 @@ $(document).ready( function(){
                         `
                         <tr>
                             <td>
-                                <input class="input--style-6 border-0 detail_contact_name" id="detail_contact_name" placeholder="Nama Kontak" name="detail_contact_name[]" type="Text" value="">
+                                <input class="input--style-6 border-0 detail_contact_name" placeholder="Nama Kontak" name="detail_contact_name[]" type="Text" value="">
                             </td>
                             <td>
-                                <input class="input--style-6 border-0 detail_contact_relation" id="detail_contact_relation" placeholder="Hubungan" name="detail_contact_relation[]" type="Text" value="">
+                                <input class="input--style-6 border-0 detail_contact_relation" placeholder="Hubungan" name="detail_contact_relation[]" type="Text" value="">
                             </td>
                             <td>
-                                <input class="input--style-6 border-0 detail_contact_number" id="detail_contact_number" placeholder="Nomor" name="detail_contact_number[]" type="Text" value="">
+                                <input class="input--style-6 border-0 detail_contact_number" placeholder="Nomor" name="detail_contact_number[]" type="Text" value="">
                             </td>
                             <td>
-                                <input class="input--style-6 border-0 detail_contact_address" id="detail_contact_address" placeholder="Alamat" name="detail_contact_address[]" type="Text" value="">
-                            </td>
-                            <td style="text-align: center;">
-                                <button class="btn btn-primary btn-sm add_dynamic_form_contact_emergency" id="add_dynamic_form_contact_emergency" type="button">
-                                    <i class="fa-solid fa-plus"></i>
-                                </button>
+                                <input class="input--style-6 border-0 detail_contact_address" placeholder="Alamat" name="detail_contact_address[]" type="Text" value="">
                             </td>
                         </tr>
                         `
@@ -783,21 +668,16 @@ $(document).ready( function(){
                             `
                             <tr>
                                 <td>
-                                    <input class="input--style-6 border-0 detail_contact_name" id="detail_contact_name" placeholder="Nama Kontak" name="detail_contact_name[]" type="Text" value="${res[2][j].name}">
+                                    <input class="input--style-6 border-0 detail_contact_name" placeholder="Nama Kontak" name="detail_contact_name[]" type="Text" value="${res[2][j].name}">
                                 </td>
                                 <td>
-                                    <input class="input--style-6 border-0 detail_contact_relation" id="detail_contact_relation" placeholder="Hubungan" name="detail_contact_relation[]" type="Text" value="${res[2][j].relation}">
+                                    <input class="input--style-6 border-0 detail_contact_relation" placeholder="Hubungan" name="detail_contact_relation[]" type="Text" value="${res[2][j].relation}">
                                 </td>
                                 <td>
-                                    <input class="input--style-6 border-0 detail_contact_number" id="detail_contact_number" placeholder="Nomor" name="detail_contact_number[]" type="Text" value="${res[2][j].number}">
+                                    <input class="input--style-6 border-0 detail_contact_number" placeholder="Nomor" name="detail_contact_number[]" type="Text" value="${res[2][j].number}">
                                 </td>
                                 <td>
-                                    <input class="input--style-6 border-0 detail_contact_address" id="detail_contact_address" placeholder="Alamat" name="detail_contact_address[]" type="Text" value="${res[2][j].address}">
-                                </td>
-                                <td style="text-align: center;">
-                                    <button class="btn btn-primary btn-sm add_dynamic_form_contact_emergency" id="add_dynamic_form_contact_emergency" type="button">
-                                        <i class="fa-solid fa-plus"></i>
-                                    </button>
+                                    <input class="input--style-6 border-0 detail_contact_address" placeholder="Alamat" name="detail_contact_address[]" type="Text" value="${res[2][j].address}">
                                 </td>
                             </tr>
                             `
@@ -812,16 +692,16 @@ $(document).ready( function(){
                         `
                         <tr>
                             <td>
-                                <input class="input--style-6 border-0 detail_family_member" id="detail_family_member" placeholder="Nama Kontak" name="detail_family_member[]" type="Text" value="">
+                                <input class="input--style-6 border-0 detail_family_member" placeholder="Nama Kontak" name="detail_family_member[]" type="Text" value="">
                             </td>
                             <td>
-                                <input class="input--style-6 border-0 detail_family_name" id="detail_family_name" placeholder="Hubungan" name="detail_family_name[]" type="Text" value="">
+                                <input class="input--style-6 border-0 detail_family_name" placeholder="Hubungan" name="detail_family_name[]" type="Text" value="">
                             </td>
                             <td>
-                                <input class="input--style-6 border-0 detail_family_birth_date" id="detail_family_birth_date" placeholder="Nomor" name="detail_family_birth_date[]" type="date" value="">
+                                <input class="input--style-6 border-0 detail_family_birth_date" placeholder="Nomor" name="detail_family_birth_date[]" type="date" value="">
                             </td>
                             <td>
-                                <input class="input--style-6 border-0 detail_family_status" id="detail_family_status" placeholder="Alamat" name="detail_family_status[]" type="Text" value="">
+                                <input class="input--style-6 border-0 detail_family_status" placeholder="Alamat" name="detail_family_status[]" type="Text" value="">
                             </td>
                             <td style="text-align: center;">
                                 <button class="btn btn-primary btn-sm add_dynamic_form_family_dependent" id="add_dynamic_form_family_dependent" type="button">
@@ -838,21 +718,16 @@ $(document).ready( function(){
                             `
                             <tr>
                                 <td>
-                                    <input class="input--style-6 border-0 detail_family_member" id="detail_family_member" placeholder="Nama Kontak" name="detail_family_member[]" type="Text" value="${res[3][k].member_type}">
+                                    <input class="input--style-6 border-0 detail_family_member" placeholder="Nama Kontak" name="detail_family_member[]" type="Text" value="${res[3][k].member_type}">
                                 </td>
                                 <td>
-                                    <input class="input--style-6 border-0 detail_family_name" id="detail_family_name" placeholder="Hubungan" name="detail_family_name[]" type="Text" value="${res[3][k].name}">
+                                    <input class="input--style-6 border-0 detail_family_name" placeholder="Hubungan" name="detail_family_name[]" type="Text" value="${res[3][k].name}">
                                 </td>
                                 <td>
-                                    <input class="input--style-6 border-0 detail_family_birth_date" id="detail_family_birth_date" placeholder="Nomor" name="detail_family_birth_date[]" type="date" value="${res[3][k].birth_date}">
+                                    <input class="input--style-6 border-0 detail_family_birth_date" placeholder="Nomor" name="detail_family_birth_date[]" type="date" value="${res[3][k].birth_date}">
                                 </td>
                                 <td>
-                                    <input class="input--style-6 border-0 detail_family_status" id="detail_family_status" placeholder="Alamat" name="detail_family_status[]" type="Text" value="${res[3][k].status}">status
-                                </td>
-                                <td style="text-align: center;">
-                                    <button class="btn btn-primary btn-sm add_dynamic_form_family_dependent" id="add_dynamic_form_family_dependent" type="button">
-                                        <i class="fa-solid fa-plus"></i>
-                                    </button>
+                                    <input class="input--style-6 border-0 detail_family_status" placeholder="Alamat" name="detail_family_status[]" type="Text" value="${res[3][k].status}">
                                 </td>
                             </tr>
                             `
@@ -903,9 +778,10 @@ $(document).ready( function(){
     })
 
     // update submit
-    (document).on('click', '#update_submit', function(e) {
+    // submit update draft
+    $(document).on('click', '#update_submit', function(e) {
         e.preventDefault()
-
+        
         // set variable check data
         let detail_full_name = $('#detail_full_name').val()
         let detail_birth_place = $('#detail_birth_place').val()
@@ -931,50 +807,50 @@ $(document).ready( function(){
         let detail_bank_user_account = $('#detail_bank_user_account').val()
         let detail_bank_branch_office = $('#detail_bank_branch_office').val()
 
-        let input_employee_education = $('input[name="input_employee_education[]"]').map(function(){
+        let detail_employee_education = $('input[name="detail_employee_education[]"]').map(function(){
             return $(this).val()
         }).get()
-        let input_school_name = $('input[name="input_school_name[]"]').map(function(){
+        let detail_school_name = $('input[name="detail_school_name[]"]').map(function(){
             return $(this).val()
         }).get()
-        let input_school_place = $('input[name="input_school_place[]"]').map(function(){
+        let detail_school_place = $('input[name="detail_school_place[]"]').map(function(){
             return $(this).val()
         }).get()
-        let input_school_major = $('input[name="input_school_major[]"]').map(function(){
+        let detail_school_major = $('input[name="detail_school_major[]"]').map(function(){
             return $(this).val()
         }).get()
-        let input_school_start_date = $('input[name="input_school_start_date[]"]').map(function(){
+        let detail_school_start_date = $('input[name="detail_school_start_date[]"]').map(function(){
             return $(this).val()
         }).get()
-        let input_school_end_date = $('input[name="input_school_end_date[]"]').map(function(){
+        let detail_school_end_date = $('input[name="detail_school_end_date[]"]').map(function(){
             return $(this).val()
         }).get()
-        let input_school_ipk = $('input[name="input_school_ipk[]"]').map(function(){
+        let detail_school_ipk = $('input[name="detail_school_ipk[]"]').map(function(){
             return $(this).val()
         }).get()
 
-        let input_contact_name = $('input[name="input_contact_name[]"]').map(function(){
+        let detail_contact_name = $('input[name="detail_contact_name[]"]').map(function(){
             return $(this).val()
         }).get()
-        let input_contact_relation = $('input[name="input_contact_relation[]"]').map(function(){
+        let detail_contact_relation = $('input[name="detail_contact_relation[]"]').map(function(){
             return $(this).val()
         }).get()
-        let input_contact_number = $('input[name="input_contact_number[]"]').map(function(){
+        let detail_contact_number = $('input[name="detail_contact_number[]"]').map(function(){
             return $(this).val()
         }).get()
-        let input_contact_address = $('input[name="input_contact_address[]"]').map(function(){
+        let detail_contact_address = $('input[name="detail_contact_address[]"]').map(function(){
             return $(this).val()
         }).get()
-        let input_family_member = $('input[name="input_family_member[]"]').map(function(){
+        let detail_family_member = $('input[name="detail_family_member[]"]').map(function(){
             return $(this).val()
         }).get()
-        let input_family_name = $('input[name="input_family_name[]"]').map(function(){
+        let detail_family_name = $('input[name="detail_family_name[]"]').map(function(){
             return $(this).val()
         }).get()
-        let input_family_birth_date = $('input[name="input_family_birth_date[]"]').map(function(){
+        let detail_family_birth_date = $('input[name="detail_family_birth_date[]"]').map(function(){
             return $(this).val()
         }).get()
-        let input_family_status = $('input[name="input_family_status[]"]').map(function(){
+        let detail_family_status = $('input[name="detail_family_status[]"]').map(function(){
             return $(this).val()
         }).get()
 

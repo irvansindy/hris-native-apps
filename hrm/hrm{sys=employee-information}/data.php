@@ -671,49 +671,26 @@ $arr_0 = $row["code_pattern"];
 					</div>
 				</div>
 			</div>
-			<!-- <div class="form-row">
-				<div class="col md-3">
-					<label for="inp_file">KTP</label>
-					<input class="input--style-6 inp_file" type="file" name="inp_file[]" id="inp_file">
-					<input class="input--style-6 inp_file_value" type="hidden" name="inp_file_value[]" id="inp_file_value">
-				</div>
-				<div class="col md-3">
-					<label for="inp_file">KK</label>
-					<input class="input--style-6 inp_file" type="file" name="inp_file[]" id="inp_file">
-					<input class="input--style-6 inp_file_value" type="hidden" name="inp_file_value[]" id="inp_file_value">
-				</div>
-				<div class="col md-3">
-					<label for="inp_file">NPWP</label>
-					<input class="input--style-6 inp_file" type="file" name="inp_file[]" id="inp_file">
-					<input class="input--style-6 inp_file_value" type="hidden" name="inp_file_value[]" id="inp_file_value">
-				</div>
-				<div class="col md-3">
-					<label for="inp_file">Ijazah Terakhir</label>
-					<input class="input--style-6 inp_file" type="file" name="inp_file[]" id="inp_file">
-					<input class="input--style-6 inp_file_value" type="hidden" name="inp_file_value[]" id="inp_file_value">
-				</div>
-			</div> -->
 			<div class="form-row">
-				<div class="col md-3">
+				<div class="col-lg-6">
 					<label for="inp_file_ktp">KTP</label>
-					<input class="form-control inp_file_ktp" type="file" name="inp_file_ktp" id="inp_file_ktp">
-					<!-- <input type="file" name="fileupload" id="fileupload" class="form-control"> -->
-					<input class="form-control inp_file_ktp_value" type="hidden" name="inp_file_ktp_value" id="inp_file_ktp_value" value="2">
+					<input class="form-control inp_file_ktp change_color" type="file" name="inp_file_ktp" id="inp_file_ktp" style="height: 40px !important;">
+					<input class="form-control inp_file_ktp_value" type="hidden" name="inp_file_ktp_value" style="height: 40px !important;" id="inp_file_ktp_value" value="2">
 				</div>
-				<div class="col md-3">
+				<div class="col-lg-6">
 					<label for="inp_file_kk">KK</label>
-					<input class="form-control inp_file_kk" type="file" name="inp_file_kk" id="inp_file_kk">
-					<input class="form-control inp_file_kk_value" type="hidden" name="inp_file_kk_value" id="inp_file_kk_value" value="1">
+					<input class="form-control inp_file_kk change_color" type="file" name="inp_file_kk" id="inp_file_kk" style="height: 40px !important;">
+					<input class="form-control inp_file_kk_value" type="hidden" name="inp_file_kk_value" id="inp_file_kk_value" style="height: 40px !important;" value="1">
 				</div>
-				<div class="col md-3">
+				<div class="col-lg-6">
 					<label for="inp_file_npwp">NPWP</label>
-					<input class="form-control inp_file_npwp" type="file" name="inp_file_npwp" id="inp_file_npwp">
-					<input class="form-control inp_file_npwp_value" type="hidden" name="inp_file_npwp_value" id="inp_file_npwp_value" value="3">
+					<input class="form-control inp_file_npwp change_color" type="file" name="inp_file_npwp" id="inp_file_npwp" style="height: 40px !important;">
+					<input class="form-control inp_file_npwp_value" type="hidden" name="inp_file_npwp_value" style="height: 40px !important;" id="inp_file_npwp_value" value="3">
 				</div>
-				<div class="col md-3">
+				<div class="col-lg-6">
 					<label for="inp_file_ijazah">Ijazah Terakhir</label>
-					<input class="form-control inp_file_ijazah" type="file" name="inp_file_ijazah" id="inp_file_ijazah">
-					<input class="form-control inp_file_ijazah_value" type="hidden" name="inp_file_ijazah_value" id="inp_file_ijazah_value" value="4">
+					<input class="form-control inp_file_ijazah change_color" type="file" name="inp_file_ijazah" id="inp_file_ijazah" style="height: 40px !important;">
+					<input class="form-control inp_file_ijazah_value" type="hidden" name="inp_file_ijazah_value" style="height: 40px !important;" id="inp_file_ijazah_value" value="4">
 				</div>
 			</div>
 		</fieldset>
@@ -1101,6 +1078,28 @@ $arr_0 = $row["code_pattern"];
 					</div>
 				</div>
 			</div>
+			<div class="form-row">
+				<div class="col-lg-6">
+					<label for="detail_file_ktp">KTP</label>
+					<input class="form-control detail_file_ktp change_color" type="file" name="detail_file_ktp" id="detail_file_ktp" style="height: 40px !important;">
+					<input class="form-control detail_file_ktp_value" type="hidden" name="detail_file_ktp_value" style="height: 40px !important;" id="detail_file_ktp_value" value="2">
+				</div>
+				<div class="col-lg-6">
+					<label for="detail_file_kk">KK</label>
+					<input class="form-control detail_file_kk change_color" type="file" name="detail_file_kk" id="detail_file_kk" style="height: 40px !important;">
+					<input class="form-control detail_file_kk_value" type="hidden" name="detail_file_kk_value" id="detail_file_kk_value" style="height: 40px !important;" value="1">
+				</div>
+				<div class="col-lg-6">
+					<label for="detail_file_npwp">NPWP</label>
+					<input class="form-control detail_file_npwp change_color" type="file" name="detail_file_npwp" id="detail_file_npwp" style="height: 40px !important;">
+					<input class="form-control detail_file_npwp_value" type="hidden" name="detail_file_npwp_value" style="height: 40px !important;" id="detail_file_npwp_value" value="3">
+				</div>
+				<div class="col-lg-6">
+					<label for="detail_file_ijazah">Ijazah Terakhir</label>
+					<input class="form-control detail_file_ijazah change_color" type="file" name="detail_file_ijazah" id="detail_file_ijazah" style="height: 40px !important;">
+					<input class="form-control detail_file_ijazah_value" type="hidden" name="detail_file_ijazah_value" style="height: 40px !important;" id="detail_file_ijazah_value" value="4">
+				</div>
+			</div>
 		</fieldset>
 
 		<!-- education -->
@@ -1116,7 +1115,6 @@ $arr_0 = $row["code_pattern"];
 							<th style="text-align:center">Jurusan</th>
 							<th style="text-align:center">Tahun</th>
 							<th style="text-align:center">IPK</th>
-							<th style="text-align:center">#</th>
 						</tr>
 					</thead>
 					<tbody id="data_list_employee_education_detail">
@@ -1136,7 +1134,6 @@ $arr_0 = $row["code_pattern"];
 							<th style="text-align:center">Hubungan Dengan Karyawan</th>
 							<th style="text-align:center">Nomor Kontak</th>
 							<th style="text-align:center">Alamat Lengkap</th>
-							<th style="text-align:center">#</th>
 						</tr>
 					</thead>
 					<tbody id="data_list_emergency_contact_detail">
@@ -1144,7 +1141,6 @@ $arr_0 = $row["code_pattern"];
 				</table>
 			</div>
 		</fieldset>
-		
 		
 		<!-- family & dependent -->
 		<fieldset>
@@ -1157,7 +1153,6 @@ $arr_0 = $row["code_pattern"];
 							<th style="text-align:center">Nama Lengkap</th>
 							<th style="text-align:center">Tanggal Lahir</th>
 							<th style="text-align:center">Status</th>
-							<th style="text-align:center">#</th>
 						</tr>
 					</thead>
 					<tbody id="data_list_family_dependent_detail">
@@ -1176,778 +1171,6 @@ $arr_0 = $row["code_pattern"];
 	</form>
 </div>
 
-<!-- add modal -->
-<div class="modal  fade fade-custom" tabindex="-1" role="dialog" id="">
-	<div class="modal-dialog modal-belakang modal-bgkpi" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">Create Updating Employee</h4>
-				<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close"
-					style="margin-top: -15px;">
-					<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
-				</a>
-			</div>
-
-			<div class="card-body table-responsive p-0"
-				style="width: 100vw;height: 50vh; width: 98%; margin: 5px;overflow: scroll;overflow-x: hidden;">
-
-				<form class="form-horizontal" action="php_action/FuncDataCreate.php<?php echo $getPackage; ?>"
-					method="POST" id="FormDisplayCreate">
-
-					<fieldset id="fset_1">
-						<legend>Detail Information</legend>
-
-						<input id="inp_emp_no" name="inp_emp_no" type="hidden" value="<?php echo $username; ?>">
-						<input id="inp_emp_id" name="inp_emp_id" type="hidden" value="">
-						<!--FROM SESSION -->
-
-						<div class="form-row">
-							<div class="col-sm-2 name">Full Name <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="inp_full_name"
-										name="inp_full_name" type="text">
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">NIP <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="inp_nip"
-										name="inp_nip" type="text" value>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Birth Place <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="inp_birth_place"
-										name="inp_birth_place" type="text" value>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Birthdate <span class="required">*</span></div>
-							<div class="col-sm-4">
-								<div class="input-group">
-									<input class="input--style-6" type="Text" id="inp_birthdate" name="inp_birthdate"
-										value="" autocomplete="off" autofocus="on" size="30" maxlength="5" style="background-image:url(../../asset/dist/img/icons/calendar_icon.gif);  
-										background-size: 17px;
-										background-position:right;   
-										background-repeat:no-repeat; 
-										padding-right:10px;  
-										">
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">NIK <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="inp_nik"
-										name="inp_nik" type="text" value>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">KK <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="inp_kk"
-										name="inp_kk" type="text" value>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Start Date <span class="required">*</span></div>
-							<div class="col-sm-4">
-								<div class="input-group">
-									<input class="input--style-6" type="Text" id="inp_start_date" name="inp_start_date"
-										value="" autocomplete="off" autofocus="on" size="30" maxlength="5" style="background-image:url(../../asset/dist/img/icons/calendar_icon.gif);  
-										background-size: 17px;
-										background-position:right;   
-										background-repeat:no-repeat; 
-										padding-right:10px;  
-										">
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Gender <span class="required">*</span></div>
-							<div class="col-sm-6">
-								<div class="input-group">
-
-									<select class="input--style-6" autocomplete="off" autofocus="on" id="inp_gender"
-										name="inp_gender" style="height: 33px;">
-										<option value="" selected> --Select one --</option>
-										<?php
-											$sql = mysqli_query($connect, "SELECT * FROM ttamgender GROUP BY gender_name");
-											while ($data = mysqli_fetch_array($sql)) {
-											?>
-										<option value="<?= $data['id'] ?>"><?= $data['gender_name'] ?></option>
-										<?php
-										}
-										?>
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Blood Type <span class="required">*</span></div>
-							<div class="col-sm-6">
-								<div class="input-group">
-
-									<select class="input--style-6" autocomplete="off" autofocus="on" id="inp_blood_type"
-										name="inp_blood_type" style="height: 33px;">
-										<option value=""> --Select one --</option>
-										<option value="A">A</option>
-										<option value="B">B</option>
-										<option value="AB">AB</option>
-										<option value="O">O</option>
-										
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Religion <span class="required">*</span></div>
-							<div class="col-sm-4">
-								<div class="input-group">
-
-									<select class="form-control input--style-6" autocomplete="off" autofocus="on"
-										id="inp_religion" name="inp_religion" style="height: 33px;">
-										<option value="" selected> --Select one --</option>
-										<?php
-											$sql = mysqli_query($connect, "SELECT * FROM hrmreligion");
-											while ($data = mysqli_fetch_array($sql)) {
-											?>
-										<option value="<?= $data['religion_code'] ?>"><?= $data['religion_name_id'] ?>
-										</option>
-										<?php
-										}
-										?>
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Marital status <span class="required">*</span></div>
-							<div class="col-sm-4">
-								<div class="input-group">
-									<select class="form-control input--style-6" autocomplete="off" autofocus="on"
-										id="inp_marital_status" name="inp_marital_status" style="height: 33px;">
-										<option value="" selected> --Select one --</option>
-										<?php
-											$sql = mysqli_query($connect, "SELECT * FROM teommarital");
-											while ($data = mysqli_fetch_array($sql)) {
-											?>
-										<option value="<?= $data['code'] ?>"><?= $data['name_en'] ?></option>
-										<?php
-										}
-										?>
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Nationality <span class="required">*</span></div>
-							<div class="col-sm-6">
-								<div class="input-group">
-
-									<select class="input--style-6" autocomplete="off" autofocus="on" id="inp_nationality"
-										name="inp_nationality" style="height: 33px;">
-										<option value=""> --Select one --</option>
-										<option value="WNI">WNI</option>
-										<option value="WNA">WNA</option>
-										
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Phone Number <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="inp_phone_number"
-										name="inp_phone_number" type="text" value>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Email <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="inp_email"
-										name="inp_email" type="email" value>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Email Personal <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="inp_email_personal"
-										name="inp_email_personal" type="email" value>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Address <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<textarea class="input--style-6" name="inp_address_ktp" id="inp_address_ktp" cols="50" rows="5"></textarea>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">NPWP <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="inp_npwp"
-										name="inp_npwp" type="text" value>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">BPJS (KS) <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="inp_bpjs_ks"
-										name="inp_bpjs_ks" type="text" value>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">BPJS (TK) <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="inp_bpjs_tk"
-										name="inp_bpjs_tk" type="text" value>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Insurance <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="inp_insurance"
-										name="inp_insurance" type="text" value>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-row">
-							<div class="col-sm-2 name">Bank <span class="required">*</span></div>
-							<div class="col-sm-6">
-								<div class="input-group">
-
-									<select class="input--style-6" autocomplete="off" autofocus="on" id="inp_bank_name"
-										name="inp_bank_name" style="height: 33px;">
-										<option value=""> --Select one --</option>
-										<option value="A">A</option>
-										<option value="B">B</option>
-										<option value="AB">AB</option>
-										<option value="O">O</option>
-										
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Bank Number <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="inp_bank_number"
-										name="inp_bank_number" type="text" value>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Bank User Account <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="inp_bank_user_account"
-										name="inp_bank_user_account" type="text" value>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Bank branch office <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="inp_bank_branch_office"
-										name="inp_bank_branch_office" type="text" value>
-								</div>
-							</div>
-						</div>
-					</fieldset>
-
-					<!-- education -->
-					<fieldset>
-						<legend>Educations</legend>
-						<div>
-							<table class="table table-striped table-bordered table-hover" id="table_employee_education">
-								<thead class="thead-light">
-									<tr>
-										<th style="text-align:center">Pendidikan</th>
-										<th style="text-align:center">Nama Sekolah</th>
-										<th style="text-align:center">Tempat/Lokasi</th>
-										<th style="text-align:center">Jurusan</th>
-										<th style="text-align:center">Tahun</th>
-										<th style="text-align:center">IPK</th>
-										<th style="text-align:center">#</th>
-									</tr>
-								</thead>
-								<tbody id="data_list_employee_education">
-								</tbody>
-							</table>
-						</div>
-					</fieldset>
-					
-					<!-- emergency contact -->
-					<fieldset>
-						<legend>Emergency Contact</legend>
-						<div>
-							<table class="table table-striped table-bordered table-hover" id="table_emergency_contact">
-								<thead class="thead-light">
-									<tr>
-										<th style="text-align:center">Nama Kontak</th>
-										<th style="text-align:center">Hubungan Dengan Karyawan</th>
-										<th style="text-align:center">Nomor Kontak</th>
-										<th style="text-align:center">Alamat Lengkap</th>
-										<th style="text-align:center">#</th>
-									</tr>
-								</thead>
-								<tbody id="data_list_emergency_contact">
-								</tbody>
-							</table>
-						</div>
-					</fieldset>
-					
-					
-					<!-- family & dependent -->
-					<fieldset>
-						<legend>Family & Dependent</legend>
-						<div>
-							<table class="table table-striped table-bordered table-hover" id="table_family_dependent">
-								<thead class="thead-light">
-									<tr>
-										<th style="text-align:center">Anggota Keluarga</th>
-										<th style="text-align:center">Nama Lengkap</th>
-										<th style="text-align:center">Tanggal Lahir</th>
-										<th style="text-align:center">Status</th>
-										<th style="text-align:center">#</th>
-									</tr>
-								</thead>
-								<tbody id="data_list_family_dependent">
-								</tbody>
-							</table>
-						</div>
-					</fieldset>
-					
-			</div>
-			<div class="modal-footer-sdk">
-				<button type="button" class="btn-sdk btn-primary-left" name="save_draft" id="save_draft">
-					&nbsp;Draft&nbsp;
-				</button>
-				<button class="btn-sdk btn-primary-right" type="button" name="save_submit" id="save_submit">
-					Submit
-				</button>
-			</div>
-			</form>
-		</div>
-	</div>
-</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<!-- /edit modal -->
-
-<!-- update modal -->
-<div class="modal  fade fade-custom" tabindex="-1" role="dialog" id="">
-	<div class="modal-dialog modal-belakang modal-bgkpi" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">Create Updating Employee</h4>
-				<a type="button" class="close" onclick='return stopload()' data-dismiss="modal" aria-label="Close"
-					style="margin-top: -15px;">
-					<span aria-hidden="true"><img src="../../asset/dist/img/icons/icon_del.png"></span>
-				</a>
-			</div>
-
-			<div class="card-body table-responsive p-0"
-				style="width: 100vw;height: 50vh; width: 98%; margin: 5px;overflow: scroll;overflow-x: hidden;">
-
-				<form class="form-horizontal" action="" method="POST" id="FormDisplayUpdateEmployee">
-
-					<fieldset id="fset_1">
-						<legend>Detail Information</legend>
-
-						<input id="detail_emp_no" name="detail_emp_no" type="hidden" value="<?php echo $username; ?>">
-						<input id="detail_emp_id" name="detail_emp_id" type="hidden" value="">
-						<!--FROM SESSION -->
-
-						<div class="form-row">
-							<div class="col-sm-2 name">Full Name <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="detail_full_name"
-										name="detail_full_name" type="text">
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">NIP <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="detail_nip"
-										name="detail_nip" type="text" value>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Birth Place <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="detail_birth_place"
-										name="detail_birth_place" type="text" value>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Birthdate <span class="required">*</span></div>
-							<div class="col-sm-4">
-								<div class="input-group">
-									<input class="input--style-6" type="Text" id="detail_birthdate" name="detail_birthdate"
-										value="" autocomplete="off" autofocus="on" size="30" maxlength="5" style="background-image:url(../../asset/dist/img/icons/calendar_icon.gif);  
-										background-size: 17px;
-										background-position:right;   
-										background-repeat:no-repeat; 
-										padding-right:10px;  
-										">
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">NIK <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="detail_nik"
-										name="detail_nik" type="text" value>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">KK <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="detail_kk"
-										name="detail_kk" type="text" value>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Start Date <span class="required">*</span></div>
-							<div class="col-sm-4">
-								<div class="input-group">
-									<input class="input--style-6" type="Text" id="detail_start_date" name="detail_start_date"
-										value="" autocomplete="off" autofocus="on" size="30" maxlength="5" style="background-image:url(../../asset/dist/img/icons/calendar_icon.gif);  
-										background-size: 17px;
-										background-position:right;   
-										background-repeat:no-repeat; 
-										padding-right:10px;  
-										">
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Gender <span class="required">*</span></div>
-							<div class="col-sm-6">
-								<div class="input-group">
-
-									<select class="input--style-6" autocomplete="off" autofocus="on" id="detail_gender"
-										name="detail_gender" style="height: 33px;">
-										<option value="" selected> --Select one --</option>
-										<?php
-											$sql = mysqli_query($connect, "SELECT * FROM ttamgender GROUP BY gender_name");
-											while ($data = mysqli_fetch_array($sql)) {
-											?>
-										<option value="<?= $data['id'] ?>"><?= $data['gender_name'] ?></option>
-										<?php
-										}
-										?>
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Blood Type <span class="required">*</span></div>
-							<div class="col-sm-6">
-								<div class="input-group">
-
-									<select class="input--style-6" autocomplete="off" autofocus="on" id="detail_blood_type"
-										name="detail_blood_type" style="height: 33px;">
-										<option value=""> --Select one --</option>
-										<option value="A">A</option>
-										<option value="B">B</option>
-										<option value="AB">AB</option>
-										<option value="O">O</option>
-										
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Religion <span class="required">*</span></div>
-							<div class="col-sm-4">
-								<div class="input-group">
-
-									<select class="form-control input--style-6" autocomplete="off" autofocus="on"
-										id="detail_religion" name="detail_religion" style="height: 33px;">
-										<option value="" selected> --Select one --</option>
-										<?php
-											$sql = mysqli_query($connect, "SELECT * FROM hrmreligion");
-											while ($data = mysqli_fetch_array($sql)) {
-											?>
-										<option value="<?= $data['religion_code'] ?>"><?= $data['religion_name_id'] ?>
-										</option>
-										<?php
-										}
-										?>
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Marital status <span class="required">*</span></div>
-							<div class="col-sm-4">
-								<div class="input-group">
-									<select class="form-control input--style-6" autocomplete="off" autofocus="on"
-										id="detail_marital_status" name="detail_marital_status" style="height: 33px;">
-										<option value="" selected> --Select one --</option>
-										<?php
-											$sql = mysqli_query($connect, "SELECT * FROM teommarital");
-											while ($data = mysqli_fetch_array($sql)) {
-											?>
-										<option value="<?= $data['code'] ?>"><?= $data['name_en'] ?></option>
-										<?php
-										}
-										?>
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Nationality <span class="required">*</span></div>
-							<div class="col-sm-6">
-								<div class="input-group">
-
-									<select class="input--style-6" autocomplete="off" autofocus="on" id="detail_nationality"
-										name="detail_nationality" style="height: 33px;">
-										<option value=""> --Select one --</option>
-										<option value="WNI">WNI</option>
-										<option value="WNA">WNA</option>
-										
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Phone Number <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="detail_phone_number"
-										name="detail_phone_number" type="text" value>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Email <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="detail_email"
-										name="detail_email" type="email" value>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Email Personal <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="detail_email_personal"
-										name="detail_email_personal" type="email" value>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Address <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<textarea class="input--style-6" name="detail_address_ktp" id="detail_address_ktp" cols="50" rows="5"></textarea>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">NPWP <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="detail_npwp"
-										name="detail_npwp" type="text" value>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">BPJS (KS) <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="detail_bpjs_ks"
-										name="detail_bpjs_ks" type="text" value>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">BPJS (TK) <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="detail_bpjs_tk"
-										name="detail_bpjs_tk" type="text" value>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Insurance <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="detail_insurance"
-										name="detail_insurance" type="text" value>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-row">
-							<div class="col-sm-2 name">Bank <span class="required">*</span></div>
-							<div class="col-sm-6">
-								<div class="input-group">
-
-									<select class="input--style-6" autocomplete="off" autofocus="on" id="detail_bank_name"
-										name="detail_bank_name" style="height: 33px;">
-										<option value=""> --Select one --</option>
-										<option value="A">A</option>
-										<option value="B">B</option>
-										<option value="AB">AB</option>
-										<option value="O">O</option>
-										
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Bank Number <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="detail_bank_number"
-										name="detail_bank_number" type="text" value>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Bank User Account <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="detail_bank_user_account"
-										name="detail_bank_user_account" type="text" value>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="col-sm-2 name">Bank branch office <span class="required">*</span></div>
-							<div class="col-sm-4 name">
-								<div class="input-group">
-									<input class="input--style-6" autocomplete="off" autofocus="on" id="detail_bank_branch_office"
-										name="detail_bank_branch_office" type="text" value>
-								</div>
-							</div>
-						</div>
-					</fieldset>
-
-					<!-- education -->
-					<fieldset>
-						<legend>Educations</legend>
-						<div>
-							<table class="table table-striped table-bordered table-hover" id="table_employee_education_detail">
-								<thead class="thead-light">
-									<tr>
-										<th style="text-align:center">Pendidikan</th>
-										<th style="text-align:center">Nama Sekolah</th>
-										<th style="text-align:center">Tempat/Lokasi</th>
-										<th style="text-align:center">Jurusan</th>
-										<th style="text-align:center">Tahun</th>
-										<th style="text-align:center">IPK</th>
-										<th style="text-align:center">#</th>
-									</tr>
-								</thead>
-								<tbody id="data_list_employee_education_detail">
-								</tbody>
-							</table>
-						</div>
-					</fieldset>
-					
-					<!-- emergency contact -->
-					<fieldset>
-						<legend>Emergency Contact</legend>
-						<div>
-							<table class="table table-striped table-bordered table-hover" id="table_emergency_contact_detail">
-								<thead class="thead-light">
-									<tr>
-										<th style="text-align:center">Nama Kontak</th>
-										<th style="text-align:center">Hubungan Dengan Karyawan</th>
-										<th style="text-align:center">Nomor Kontak</th>
-										<th style="text-align:center">Alamat Lengkap</th>
-										<th style="text-align:center">#</th>
-									</tr>
-								</thead>
-								<tbody id="data_list_emergency_contact_detail">
-								</tbody>
-							</table>
-						</div>
-					</fieldset>
-					
-					
-					<!-- family & dependent -->
-					<fieldset>
-						<legend>Family & Dependent</legend>
-						<div>
-							<table class="table table-striped table-bordered table-hover" id="table_family_dependent_detail">
-								<thead class="thead-light">
-									<tr>
-										<th style="text-align:center">Anggota Keluarga</th>
-										<th style="text-align:center">Nama Lengkap</th>
-										<th style="text-align:center">Tanggal Lahir</th>
-										<th style="text-align:center">Status</th>
-										<th style="text-align:center">#</th>
-									</tr>
-								</thead>
-								<tbody id="data_list_family_dependent_detail">
-								</tbody>
-							</table>
-						</div>
-					</fieldset>
-					
-			</div>
-			<div class="modal-footer-sdk">
-				<button type="button" class="btn-sdk btn-primary-left" name="update_draft" id="update_draft">
-					&nbsp;Draft&nbsp;
-				</button>
-				<button class="btn-sdk btn-primary-right" type="button" name="save_submit" id="save_submit">
-					Submit
-				</button>
-			</div>
-			</form>
-		</div>
-	</div>
-</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<!-- /edit modal -->
 
 
 <script>

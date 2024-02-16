@@ -92,24 +92,6 @@
     
     $numbering_length = strlen($result_format_number['seq_number']);
 
-
-    // $file_ktp = $_FILES['inp_file_ktp']['name'];
-    // $file_ktp_upload = $_FILES['inp_file_ktp']['tmp_name'];
-
-    // get uploaded file's extension
-    // $ext_ktp = pathinfo($file_ktp, PATHINFO_EXTENSION);
-    // $ext_ktp = array_pop(explode('.', $file_ktp[0]));
-    // $result_file_ktp = $directoryFile.$inp_file_ktp_value.'-KTP-'.$inp_emp_no.'-'.$date.'.'.$ext_ktp;
-    // $upload_file_ktp = move_uploaded_file($file_ktp_upload, $result_file_ktp);
-    // var_dump([
-    //     'filename' =>  $file_ktp[0],
-    //     'value' =>  $inp_file_ktp_value,
-    //     'ext' => $ext_ktp,
-    //     'result' => $result_file_ktp,
-    //     'directory' => $upload_file_ktp,
-    // ]);
-
-    // die();
     // generate first number
     $first_number = '';
     $current_first_number_auto = $result_format_number['seq_number'] + 1;
@@ -261,7 +243,7 @@
                     `grade_point`
                 ) VALUES (
                     '$result_auto_number',
-                    '$input_employee_education[$i]',
+                    '$input_employee_education_value[$i]',
                     '$input_school_name[$i]',
                     '$input_school_place[$i]',
                     '$input_school_major[$i]',
@@ -294,8 +276,8 @@
             $exe_query_create_update_contact = $connect->query($query_create_update_contact);
         }
 
-        if (count($input_family_member) != 0) {
-            for ($i= 0; $i < count($input_family_member); $i++) {
+        if (count($input_family_member_value) != 0) {
+            for ($i= 0; $i < count($input_family_member_value); $i++) {
                 $query_create_update_family = "INSERT INTO `employee_family_dependent_update` (
                     `request_update_id`,
                     `member_type`,
@@ -309,6 +291,8 @@
                     '$input_family_birth_date[$i]',
                     '$input_family_status[$i]'
                 )";
+
+                $exe_query_create_family = $connect->query($query_create_update_family);
             }
         }
 
@@ -326,26 +310,26 @@
                 $result_file_ktp = $directoryFile.$inp_file_ktp_value.'-KTP-'.$inp_emp_no.'-'.$date.'.'.$ext_ktp;
         
                 $info_file = getimagesize($file_ktp_upload);
+                // destination upload file
+                $uploadDataFile = move_uploaded_file($file_ktp_upload, $result_file_ktp);
+                
+                $query_insert_ktp = "INSERT INTO `employee_file_update` (
+                    `request_update_id`,
+                    `document_file`,
+                    `attachment`,
+                    `ext`,
+                    `uploaded_date`,
+                    `company_id`
+                ) VALUES (
+                    '$result_auto_number',
+                    '$inp_file_ktp_value',
+                    '$result_file_ktp',
+                    '$ext_ktp',
+                    '$date_time',
+                    '1'
+                )";
+                $exe_query_insert_ktp = $connect->query($query_insert_ktp);
             }
-            // destination upload file
-            $uploadDataFile = move_uploaded_file($file_ktp_upload, $result_file_ktp);
-            
-            $query_insert_ktp = "INSERT INTO `employee_file_update` (
-                `request_update_id`,
-                `document_file`,
-                `attachment`,
-                `ext`,
-                `uploaded_date`,
-                `company_id`
-            ) VALUES (
-                '$result_auto_number',
-                '$inp_file_ktp_value',
-                '$result_file_ktp',
-                '$ext_ktp',
-                '$date_time',
-                '1'
-            )";
-            $exe_query_insert_ktp = $connect->query($query_insert_ktp);
         }
 
         if (!empty($_FILES["inp_file_kk"]) ) {
@@ -362,26 +346,26 @@
                 $result_file_kk = $directoryFile.$inp_file_kk_value.'-KK-'.$inp_emp_no.'-'.$date.'.'.$ext_kk;
         
                 $info_file = getimagesize($file_kk_upload);
+                // destination upload file
+                $uploadDataFile = move_uploaded_file($file_kk_upload, $result_file_kk);
+                
+                $query_insert_kk = "INSERT INTO `employee_file_update` (
+                    `request_update_id`,
+                    `document_file`,
+                    `attachment`,
+                    `ext`,
+                    `uploaded_date`,
+                    `company_id`
+                ) VALUES (
+                    '$result_auto_number',
+                    '$inp_file_kk_value',
+                    '$result_file_kk',
+                    '$ext_kk',
+                    '$date_time',
+                    '1'
+                )";
+                $exe_query_insert_kk = $connect->query($query_insert_kk);
             }
-            // destination upload file
-            $uploadDataFile = move_uploaded_file($file_kk_upload, $result_file_kk);
-            
-            $query_insert_kk = "INSERT INTO `employee_file_update` (
-                `request_update_id`,
-                `document_file`,
-                `attachment`,
-                `ext`,
-                `uploaded_date`,
-                `company_id`
-            ) VALUES (
-                '$result_auto_number',
-                '$inp_file_kk_value',
-                '$result_file_kk',
-                '$ext_kk',
-                '$date_time',
-                '1'
-            )";
-            $exe_query_insert_kk = $connect->query($query_insert_kk);
         }
 
         if (!empty($_FILES["inp_file_npwp"]) ) {
@@ -398,26 +382,26 @@
                 $result_file_npwp = $directoryFile.$inp_file_npwp_value.'-NPWP-'.$inp_emp_no.'-'.$date.'.'.$ext_npwp;
         
                 $info_file = getimagesize($file_npwp_upload);
+                // destination upload file
+                $uploadDataFile = move_uploaded_file($file_npwp_upload, $result_file_npwp);
+                
+                $query_insert_npwp = "INSERT INTO `employee_file_update` (
+                    `request_update_id`,
+                    `document_file`,
+                    `attachment`,
+                    `ext`,
+                    `uploaded_date`,
+                    `company_id`
+                ) VALUES (
+                    '$result_auto_number',
+                    '$inp_file_npwp_value',
+                    '$result_file_npwp',
+                    '$ext_npwp',
+                    '$date_time',
+                    '1'
+                )";
+                $exe_query_insert_npwp = $connect->query($query_insert_npwp);
             }
-            // destination upload file
-            $uploadDataFile = move_uploaded_file($file_npwp_upload, $result_file_npwp);
-            
-            $query_insert_npwp = "INSERT INTO `employee_file_update` (
-                `request_update_id`,
-                `document_file`,
-                `attachment`,
-                `ext`,
-                `uploaded_date`,
-                `company_id`
-            ) VALUES (
-                '$result_auto_number',
-                '$inp_file_npwp_value',
-                '$result_file_npwp',
-                '$ext_npwp',
-                '$date_time',
-                '1'
-            )";
-            $exe_query_insert_npwp = $connect->query($query_insert_npwp);
         }
 
         if (!empty($_FILES["inp_file_ijazah"]) ) {
@@ -434,73 +418,8 @@
                 $result_file_ijazah = $directoryFile.$inp_file_ijazah_value.'-IJAZAH-'.$inp_emp_no.'-'.$date.'.'.$ext_ijazah;
         
                 $info_file = getimagesize($file_ijazah_upload);
-            }
-            // destination upload file
-            $uploadDataFile = move_uploaded_file($file_ijazah_upload, $result_file_ijazah);
-            
-            $query_insert_ijazah = "INSERT INTO `employee_file_update` (
-                `request_update_id`,
-                `document_file`,
-                `attachment`,
-                `ext`,
-                `uploaded_date`,
-                `company_id`
-            ) VALUES (
-                '$result_auto_number',
-                '$inp_file_ijazah_value',
-                '$result_file_ijazah',
-                '$ext_ijazah',
-                '$date_time',
-                '1'
-            )";
-            $exe_query_insert_ijazah = $connect->query($query_insert_ijazah);
-        }
-
-        if ($_FILES['inp_file_npwp']['size'] != 0) {
-            $file_npwp = $_FILES['inp_file_npwp']['name'];
-            $file_npwp_upload = $_FILES['inp_file_npwp']['tmp_name'];
-
-            // get uploaded file's extension
-            // $ext_npwp = strtolower(pathinfo($file_npwp, PATHINFO_EXTENSION));
-            $ext_npwp = array_pop(explode('.', $file_npwp[0]));
-
-            if (in_array($ext_npwp, $allowTypes)) {
-                $result_file_npwp = $directoryFile.$inp_file_npwp_value.'-NPWP-'.$inp_emp_no.'-'.$date.'.'.$ext_npwp;
-
-                $upload_file_npwp = move_uploaded_file($file_npwp_upload, $result_file_npwp);
-            
-                $query_insert_npwp = "INSERT INTO `employee_file_update` (
-                    `request_update_id`,
-                    `document_file`,
-                    `attachment`,
-                    `ext`,
-                    `uploaded_date`,
-                    `company_id`
-                ) VALUES (
-                    '$result_auto_number',
-                    '$inp_file_npwp_value',
-                    '$result_file_npwp',
-                    '$ext_ktp',
-                    '$date_time',
-                    '1'
-                )";
-                $exe_query_insert_npwp = $connect->query($query_insert_npwp);
-            }
-        }
-
-        if ($_FILES['inp_file_ijazah']['size'] != 0) {
-            $file_ijazah = $_FILES['inp_file_ijazah']['name'];
-            $file_ijazah_upload = $_FILES['inp_file_ijazah']['tmp_name'];
-
-            // get uploaded file's extension
-            // $ext_ijazah = strtolower(pathinfo($file_ijazah, PATHINFO_EXTENSION));
-            $ext_ijazah = array_pop(explode('.', $file_ijazah[0]));
-
-            if (in_array($ext_ijazah, $allowTypes)) {
-                $result_file_ijazah = $directoryFile.$inp_file_ijazah_value.'-IJAZAH-'.$inp_emp_no.'-'.$date.'.'.$ext_ijazah;
-
-                $upload_file_ijazah = move_uploaded_file($file_ijazah_upload, $result_file_ijazah);
-            
+                $uploadDataFile = move_uploaded_file($file_ijazah_upload, $result_file_ijazah);
+                
                 $query_insert_ijazah = "INSERT INTO `employee_file_update` (
                     `request_update_id`,
                     `document_file`,
@@ -512,12 +431,13 @@
                     '$result_auto_number',
                     '$inp_file_ijazah_value',
                     '$result_file_ijazah',
-                    '$ext_ktp',
+                    '$ext_ijazah',
                     '$date_time',
                     '1'
                 )";
                 $exe_query_insert_ijazah = $connect->query($query_insert_ijazah);
             }
+            // destination upload file
         }
 
         $query_update_counter = "UPDATE tclmdocnumber SET 

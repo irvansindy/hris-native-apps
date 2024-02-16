@@ -18,7 +18,11 @@ $footer = 'no'; //set as `yes` if you want to use default footer & set as `no` i
 ?>
 
 <?php include "../template/sys.sidebar.php"; ?>
-
+<style>
+    input[type="file"] {
+        color: black !important;
+    }
+</style>
 <!-- ============================================================== -->
 <!-- ============================================================== -->
 <!-- Page wrapper  -->
